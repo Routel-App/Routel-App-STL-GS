@@ -105,6 +105,18 @@ export const site = {
   },
 
   /** ملفات قابلة للتحميل — ضعها في مجلد public/files */
+  /**
+   * صور الواجهة — Imagery.
+   * الصورة الحالية: "Seaport during Golden Hour" — Tom Fisk (Pexels، رخصة مجانية للاستخدام التجاري)
+   * https://www.pexels.com/photo/seaport-during-golden-hour-3057960/
+   * يُفضّل لاحقًا تنزيلها ووضعها في public/images/ ثم تغيير الرابط إلى '/images/اسم-الملف.jpg'.
+   * إذا تعذر تحميل الصورة يظهر الرسم البديل تلقائيًا.
+   */
+  images: {
+    hero: 'https://images.pexels.com/photos/3057960/pexels-photo-3057960.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    heroCredit: 'Tom Fisk / Pexels',
+  },
+
   downloads: {
     companyProfile: '/files/STL-Company-Profile.pdf',
     qhsePolicy: '/files/STL-QHSE-Policy.pdf',

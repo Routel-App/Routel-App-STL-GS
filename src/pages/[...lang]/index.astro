@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import SectionHead from '../../components/SectionHead.astro';
+import HeroScene from '../../components/HeroScene.astro';
 import { site, clientLogos, testimonials, accreditationStrip } from '../../config/site';
 import { getLang, href, langPaths, t, u } from '../../i18n/ui';
 import { eServices } from '../../i18n/nav';
@@ -52,7 +53,7 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.pat
       </div>
 
       <div class="hero-visual" aria-hidden="true">
-        <div class="frame"><div class="frame-img"></div></div>
+        <div class="frame"><HeroScene /><img class="frame-photo" src={site.images.hero} alt="" loading="eager" fetchpriority="high" decoding="async" onerror="this.remove()" /></div>
         <span class="bar bar-a"></span>
         <span class="bar bar-b"></span>
         <div class="track-card">
@@ -354,12 +355,9 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.pat
   .hero-visual { position: relative; height: clamp(420px, 60vh, 620px); }
   .frame { position: absolute; inset: 0 0 0 8%; clip-path: polygon(22% 0, 100% 0, 78% 100%, 0 100%); }
   :global(html[dir='rtl']) .frame { inset: 0 8% 0 0; }
-  .frame-img {
-    position: absolute; inset: 0;
-    background: linear-gradient(160deg, rgba(7, 59, 58, .2), rgba(7, 59, 58, .65)), url('/images/hero-port.jpg') center / cover;
-    filter: saturate(.8) contrast(1.05); animation: drift 22s ease-in-out infinite alternate;
-  }
-  @keyframes drift { from { transform: scale(1.08) translateX(-2%); } to { transform: scale(1.14) translateX(2%); } }
+  .frame-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 60%; filter: saturate(.92) contrast(1.04); animation: drift 24s ease-in-out infinite alternate; }
+  .frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7, 59, 58, 0) 45%, rgba(7, 59, 58, .45) 100%); pointer-events: none; }
+  @keyframes drift { from { transform: scale(1.06); } to { transform: scale(1.14) translateX(1.5%); } }
   .bar { position: absolute; transform: skewX(-22deg); }
   .bar-a { width: 46px; height: 42%; background: var(--coral); bottom: -4%; inset-inline-end: 4%; }
   .bar-b { width: 14px; height: 30%; background: var(--petrol); bottom: -4%; inset-inline-end: calc(4% + 64px); }
