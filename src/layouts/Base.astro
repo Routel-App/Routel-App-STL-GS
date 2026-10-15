@@ -40,7 +40,7 @@ const orgSchema = {
   '@type': 'Organization',
   name: 'STL Global Solutions',
   url: site_.href,
-  logo: new URL('/favicon.svg', site_).href,
+  logo: new URL('/brand/stl-logo.png', site_).href,
   email: site.contact.emailInfo,
   telephone: site.contact.unifiedPhone,
   address: { '@type': 'PostalAddress', streetAddress: site.contact.hqAddress[lang], addressCountry: 'SA' },
@@ -58,15 +58,17 @@ const orgSchema = {
     <link rel="alternate" hreflang="ar" href={altAr} />
     <link rel="alternate" hreflang="en" href={altEn} />
     <link rel="alternate" hreflang="x-default" href={altAr} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#0a2647" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#073B3A" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="STL Global Solutions" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={desc} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={lang === 'ar' ? 'ar_SA' : 'en_US'} />
-    <meta property="og:image" content={new URL('/og-image.svg', site_).href} />
+    <meta property="og:image" content={new URL('/og-image.png', site_).href} />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

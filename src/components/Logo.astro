@@ -1,29 +1,19 @@
 ---
 /**
- * Temporary text logo. To use the official logo, put it in public/logo.svg
- * and set USE_IMAGE_LOGO = true.
+ * STL Global Solutions official logo (public/brand/stl-logo.png), used exactly as supplied.
+ * To use a higher-resolution or vector version, replace public/brand/stl-logo.png
+ * (or point LOGO_SRC to /brand/stl-logo.svg) — keep the same artwork.
  */
-interface Props { light?: boolean }
-const { light = false } = Astro.props;
-const USE_IMAGE_LOGO = false;
+interface Props { onDark?: boolean; height?: number }
+const { onDark = false, height = 46 } = Astro.props;
+const LOGO_SRC = '/brand/stl-logo.png';
+const RATIO = 366 / 158;
 ---
-{USE_IMAGE_LOGO ? (
-  <img src="/logo.svg" alt="STL Global Solutions" height="44" class="logo-img" />
-) : (
-  <span class:list={['logo', { light }]}>
-    <svg viewBox="0 0 48 48" width="42" height="42" aria-hidden="true">
-      <rect width="48" height="48" rx="12" fill="#0a2647" />
-      <path d="M10 30c4 0 4-3 8-3s4 3 8 3 4-3 8-3 4 3 4 3" stroke="#2dc3c0" stroke-width="3" fill="none" stroke-linecap="round" />
-      <path d="M10 37c4 0 4-3 8-3s4 3 8 3 4-3 8-3 4 3 4 3" stroke="#f08a24" stroke-width="3" fill="none" stroke-linecap="round" />
-      <path d="M17 22h14l-3-11h-8z" fill="#fff" />
-    </svg>
-    <span class="logo-text"><b>STL</b><small>Global Solutions</small></span>
-  </span>
-)}
+<span class:list={['logo', { plate: onDark }]}>
+  <img src={LOGO_SRC} alt="STL Global Solutions" width={Math.round(height * RATIO)} height={height} decoding="async" style={`height:${height}px`} />
+</span>
 <style>
-  .logo { display: inline-flex; align-items: center; gap: .6rem; color: var(--navy-800); direction: ltr; }
-  .logo.light { color: #fff; }
-  .logo-text { display: flex; flex-direction: column; line-height: 1; }
-  .logo-text b { font-size: 1.45rem; letter-spacing: .06em; }
-  .logo-text small { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; opacity: .75; margin-top: 3px; }
+  .logo { display: inline-flex; align-items: center; line-height: 0; }
+  .logo img { width: auto; max-width: 100%; }
+  .plate { background: #fff; border-radius: 12px; padding: .5rem .9rem; }
 </style>

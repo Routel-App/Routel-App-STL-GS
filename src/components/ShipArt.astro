@@ -1,22 +1,22 @@
 ---
 /** Decorative container-ship illustration (replace with a photo/video later if desired) */
-const colors = ['#f08a24', '#2dc3c0', '#1d4b80', '#e9eef5', '#0ea5a4', '#f3b25f'];
+const colors = ['#ff7058', '#a7c5c2', '#125b58', '#f4efe6', '#ff7058', '#a7c5c2'];
 const stacks = Array.from({ length: 9 }, (_, i) => ({ x: 120 + i * 46, h: 2 + ((i * 7) % 3) }));
 ---
 <svg class="ship-art" viewBox="0 0 640 420" aria-hidden="true">
   <defs>
     <linearGradient id="sea" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0" stop-color="#2dc3c0" stop-opacity=".35" />
-      <stop offset="1" stop-color="#0a2647" stop-opacity="0" />
+      <stop offset="0" stop-color="#a7c5c2" stop-opacity=".35" />
+      <stop offset="1" stop-color="#073b3a" stop-opacity="0" />
     </linearGradient>
   </defs>
-  <circle cx="500" cy="110" r="70" fill="#f08a24" opacity=".18" />
-  <circle cx="500" cy="110" r="42" fill="#f08a24" opacity=".35" />
+  <circle cx="500" cy="110" r="70" fill="#ff7058" opacity=".18" />
+  <circle cx="500" cy="110" r="42" fill="#ff7058" opacity=".35" />
   <!-- crane -->
-  <g stroke="#cfe0f2" stroke-width="5" fill="none" opacity=".55">
+  <g stroke="#d7e6e4" stroke-width="5" fill="none" opacity=".55">
     <path d="M70 330V90h170M110 90v-30l40 30M210 90v80M70 140h40" />
   </g>
-  <rect x="198" y="170" width="24" height="10" fill="#cfe0f2" opacity=".55" />
+  <rect x="198" y="170" width="24" height="10" fill="#d7e6e4" opacity=".55" />
   <!-- containers -->
   {stacks.map((s, i) =>
     Array.from({ length: s.h }, (_, j) => (
@@ -24,17 +24,16 @@ const stacks = Array.from({ length: 9 }, (_, i) => ({ x: 120 + i * 46, h: 2 + ((
     )),
   )}
   <!-- bridge -->
-  <rect x="540" y="200" width="44" height="86" rx="3" fill="#e9eef5" />
-  <rect x="546" y="210" width="32" height="8" fill="#1d4b80" />
-  <rect x="556" y="176" width="12" height="24" fill="#f08a24" />
+  <rect x="540" y="200" width="44" height="86" rx="3" fill="#f4efe6" />
+  <rect x="546" y="210" width="32" height="8" fill="#125b58" />
+  <rect x="556" y="176" width="12" height="24" fill="#ff7058" />
   <!-- hull -->
-  <path d="M80 288h540l-40 62H120z" fill="#0b2a52" />
-  <path d="M80 288h540l-6 10H86z" fill="#f08a24" />
-  <text x="150" y="330" fill="#fff" font-size="22" font-weight="700" letter-spacing="6" font-family="IBM Plex Sans, sans-serif">STL</text>
+  <path d="M80 288h540l-40 62H120z" fill="#073b3a" />
+  <path d="M80 288h540l-6 10H86z" fill="#ff7058" />
   <!-- sea -->
   <rect x="0" y="340" width="640" height="80" fill="url(#sea)" />
-  <path class="wave w1" d="M0 352c40 0 40-10 80-10s40 10 80 10 40-10 80-10 40 10 80 10 40-10 80-10 40 10 80 10 40-10 80-10 40 10 80 10" stroke="#2dc3c0" stroke-width="3" fill="none" opacity=".6" />
-  <path class="wave w2" d="M0 372c40 0 40-10 80-10s40 10 80 10 40-10 80-10 40 10 80 10 40-10 80-10 40 10 80 10 40-10 80-10 40 10 80 10" stroke="#cfe0f2" stroke-width="2" fill="none" opacity=".35" />
+  <path class="wave w1" d="M0 352c40 0 40-10 80-10s40 10 80 10 40-10 80-10 40 10 80 10 40-10 80-10 40 10 80 10 40-10 80-10 40 10 80 10" stroke="#a7c5c2" stroke-width="3" fill="none" opacity=".6" />
+  <path class="wave w2" d="M0 372c40 0 40-10 80-10s40 10 80 10 40-10 80-10 40 10 80 10 40-10 80-10 40 10 80 10 40-10 80-10 40 10 80 10" stroke="#d7e6e4" stroke-width="2" fill="none" opacity=".35" />
 </svg>
 <style>
   .ship-art { width: 100%; height: auto; }

@@ -31,9 +31,15 @@ npm run check:placeholders   # يعرض كل [المتغيرات] اللي لس�
 - **قبل الإطلاق:** اجعل `highlightPlaceholders: false` في `site.ts` (حاليًا المتغيرات تظهر بإطار برتقالي منقط لتسهيل مراجعتها).
 - احذفوا أي شهادة أو ميناء أو فرع ما ينطبق على STL — عرض معلومة غير صحيحة يضر بالمصداقية.
 
+## الهوية البصرية
+
+- **الشعار** مأخوذ كما هو من لوحة الهوية بدون أي تعديل: `public/brand/stl-logo.png`، والأيقونة الرمزية `stl-icon-dark.png` و `stl-icon-light.png` (منها الـ favicon).
+  الدقة الحالية محدودة بدقة الصورة المصدر؛ عند توفر الملف الأصلي (SVG/AI) استبدل `stl-logo.png` بنفس الاسم أو غيّر `LOGO_SRC` في `src/components/Logo.astro`.
+- **الألوان** (من لوحة الهوية) معرّفة في أعلى `src/styles/global.css`:
+  Petrol Green `#073B3A` (أساسي) · Signal Coral `#FF7058` (مميز) · Sand `#F4EFE6` (خلفية) · Mint `#A7C5C2` (ثانوي).
+
 ## الملفات والصور
 
-- الشعار الرسمي: ضعه في `public/logo.svg` وفعّل `USE_IMAGE_LOGO = true` في `src/components/Logo.astro`.
 - الملف التعريفي وسياسة QHSE: `public/files/STL-Company-Profile.pdf` و `public/files/STL-QHSE-Policy.pdf`.
 - صور فريق القيادة وشعارات العملاء: ضعها في `public/` واكتب مسارها في `site.ts`.
 

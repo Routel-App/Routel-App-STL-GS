@@ -30,7 +30,7 @@ const socials = [
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <Logo light />
+        <Logo onDark height={52} />
         <p>{u('footerAbout', lang)}</p>
         <div class="socials">
           {socials.map((s) => (
@@ -96,8 +96,8 @@ const socials = [
 </footer>
 
 <style>
-  .site-footer { background: var(--navy-900); color: #a9bbd0; padding-top: 4rem; font-size: .95rem; }
-  .site-footer a { color: #cfdbea; }
+  .site-footer { background: var(--navy-900); color: #a7c5c2; padding-top: 4rem; font-size: .95rem; }
+  .site-footer a { color: #cfe1de; }
   .site-footer a:hover { color: var(--teal-400); }
   .footer-top { display: grid; gap: 2.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,.08); }
   .footer-brand p { margin: 1rem 0; max-width: 420px; }
@@ -107,7 +107,7 @@ const socials = [
   .newsletter h3 { color: #fff; font-size: 1.1rem; }
   .news-form { display: flex; gap: .5rem; }
   .news-form input { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.15); color: #fff; }
-  .news-form input::placeholder { color: #8ea3bb; }
+  .news-form input::placeholder { color: #8aaba7; }
   .form-msg { margin-top: .5rem; color: var(--teal-400); min-height: 1.5em; }
   .footer-cols { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); padding-block: 2.5rem; }
   .footer-cols h4 { color: #fff; font-size: 1rem; margin-bottom: 1rem; }
@@ -115,9 +115,9 @@ const socials = [
   .contact-list li { display: flex; gap: .6rem; align-items: flex-start; }
   .contact-list :global(.icon) { flex-shrink: 0; margin-top: .3rem; color: var(--teal-400); }
   .footer-legal { border-top: 1px solid rgba(255,255,255,.08); padding-block: 1.5rem; font-size: .85rem; }
-  .reg { color: #8ea3bb; }
+  .reg { color: #8aaba7; }
   .bottom { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
   .legal-links { display: flex; flex-wrap: wrap; gap: 1rem; }
-  .linklike { background: none; border: 0; color: #cfdbea; font: inherit; cursor: pointer; padding: 0; }
+  .linklike { background: none; border: 0; color: #cfe1de; font: inherit; cursor: pointer; padding: 0; }
   .linklike:hover { color: var(--teal-400); }
 </style>
