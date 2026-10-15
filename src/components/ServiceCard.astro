@@ -1,0 +1,19 @@
+---
+import type { Service } from '../data/services';
+import { type Lang, href, t, u } from '../i18n/ui';
+import Icon from './Icon.astro';
+interface Props { lang: Lang; s: Service }
+const { lang, s } = Astro.props;
+---
+<a class="card service-card reveal" href={href(lang, `/services/${s.slug}`)}>
+  <div class="row">
+    <span class="icon-badge"><Icon name={s.icon} /></span>
+    {s.code && <span class="tag">{s.code}</span>}
+  </div>
+  <h3>{t(s.title, lang)}</h3>
+  <p>{t(s.short, lang)}</p>
+  <span class="link-arrow">{u('learnMore', lang)} <Icon name="arrow" class="flip" /></span>
+</a>
+<style>
+  .row { display: flex; justify-content: space-between; align-items: flex-start; }
+</style>

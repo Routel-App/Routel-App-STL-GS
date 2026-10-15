@@ -1,0 +1,91 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNav from '../../../components/SubNav.astro';
+import CTABand from '../../../components/CTABand.astro';
+import SectionHead from '../../../components/SectionHead.astro';
+import PortsMap from '../../../components/PortsMap.astro';
+import Icon from '../../../components/Icon.astro';
+import { branches } from '../../../config/site';
+import { getLang, href, langPaths, t, u } from '../../../i18n/ui';
+import { networkTabs } from '../../../i18n/nav';
+import { networkIntro, visiblePorts, seaName, regions, visibleCountries, type Region } from '../../../data/network';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ports = visiblePorts();
+const countries = visibleCountries();
+---
+<Base lang={lang} title={u('network', lang)} description={t(networkIntro, lang)}>
+  <PageHero lang={lang} title={lang === 'ar' ? 'الشبكة والموانئ' : 'Network & Ports'} lead={t(networkIntro, lang)} crumbs={[{ label: u('network', lang) }]} />
+  <SubNav lang={lang} items={networkTabs} />
+
+  <section class="section">
+    <div class="container two-col">
+      <PortsMap lang={lang} />
+      <div>
+        <SectionHead eyebrow={u('ports', lang)} title={lang === 'ar' ? 'موانئ المملكة التي نخدمها' : 'Saudi Ports We Serve'} />
+        <ul class="port-list">
+          {ports.map((p) => (
+            <li><a href={href(lang, `/network/ports/${p.slug}`)}>
+              <span class:list={['sea-dot', p.sea]} />
+              <span><strong>{t(p.name, lang)}</strong><small>{t(seaName(p.sea), lang)} · {t(p.use, lang)}</small></span>
+              <Icon name="chevron" class="flip" size={18} />
+            </a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <SectionHead eyebrow={u('routes', lang)} title={lang === 'ar' ? 'نربطك بموانئ القارات' : 'Connecting You to Ports Across Continents'} />
+      <div class="grid grid-4">
+        {(Object.keys(regions) as Region[]).map((r) => (
+          <div class="card reveal">
+            <span class="icon-badge"><Icon name="globe" /></span>
+            <h3>{t(regions[r], lang)}</h3>
+            <ul class="mini">{countries.filter((c) => c.region === r).map((c) => <li><a href={href(lang, `/network/shipping-from/${c.slug}`)}>{t(c.name, lang)}</a></li>)}</ul>
+          </div>
+        ))}
+      </div>
+      <p class="mt-2"><a class="btn btn-outline" href={href(lang, '/network/routes')}>{u('routes', lang)}</a></p>
+    </div>
+  </section>
+
+  <section class="section" id="branches">
+    <div class="container">
+      <SectionHead eyebrow={u('branches', lang)} title={lang === 'ar' ? 'تجدنا قريبًا منك' : 'Find Us Near You'} />
+      <div class="grid grid-3">
+        {branches.map((b) => (
+          <div class="card branch reveal">
+            {b.isHQ && <span class="tag">{lang === 'ar' ? 'المقر الرئيسي' : 'Head office'}</span>}
+            <h3>{t(b.city, lang)}</h3>
+            <ul class="info">
+              <li><Icon name="pin" size={18} />{t(b.address, lang)}</li>
+              <li><Icon name="phone" size={18} /><a href={`tel:${b.phone}`} class="ltr">{b.phone}</a></li>
+              <li><Icon name="clock" size={18} />{t(b.hours, lang)}</li>
+            </ul>
+            <a class="link-arrow" href={b.mapUrl} target="_blank" rel="noopener">{lang === 'ar' ? 'افتح في خرائط Google' : 'Open in Google Maps'} <Icon name="arrow" class="flip" /></a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <CTABand lang={lang} />
+</Base>
+<style>
+  .port-list { list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; }
+  .port-list a { display: flex; align-items: center; gap: 1rem; padding: .9rem 1rem; border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--ink); transition: all .2s; }
+  .port-list a:hover { border-color: var(--teal-500); background: var(--teal-50); }
+  .port-list span:nth-child(2) { flex: 1; display: grid; }
+  .port-list small { color: var(--muted); }
+  .sea-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .sea-dot.red { background: #e05a47; } .sea-dot.gulf { background: var(--teal-500); }
+  .mini { list-style: none; padding: 0; margin: 0; display: grid; gap: .3rem; }
+  .branch .tag { align-self: flex-start; margin-bottom: .6rem; }
+  .info { list-style: none; padding: 0; margin: 0 0 1rem; display: grid; gap: .5rem; color: var(--muted); }
+  .info li { display: flex; gap: .6rem; }
+  .info :global(.icon) { color: var(--teal-500); flex-shrink: 0; margin-top: .3rem; }
+</style>

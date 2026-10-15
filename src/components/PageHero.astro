@@ -1,0 +1,27 @@
+---
+import { type Lang, href, u } from '../i18n/ui';
+import Waves from './Waves.astro';
+interface Props {
+  lang: Lang;
+  title: string;
+  lead?: string;
+  eyebrow?: string;
+  crumbs?: { label: string; path?: string }[];
+}
+const { lang, title, lead, eyebrow, crumbs = [] } = Astro.props;
+---
+<section class="page-hero">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="crumbs">
+        <li><a href={href(lang, '/')}>{u('breadcrumbHome', lang)}</a></li>
+        {crumbs.map((c) => <li>{c.path ? <a href={href(lang, c.path)}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</li>)}
+      </ol>
+    </nav>
+    {eyebrow && <span class="eyebrow" style="color:var(--teal-400)">{eyebrow}</span>}
+    <h1>{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+    <div class="actions"><slot /></div>
+  </div>
+  <Waves />
+</section>

@@ -1,0 +1,35 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Icon from '../../../components/Icon.astro';
+import { getLang, href, langPaths, t, u } from '../../../i18n/ui';
+import { eServices } from '../../../i18n/nav';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ar = lang === 'ar';
+const desc = [
+  ar ? 'برقم الحاوية أو البوليصة أو الحجز.' : 'By container, B/L or booking number.',
+  ar ? 'نموذج ذكي من 3 خطوات، ونرد خلال {hours} ساعة.' : 'A smart 3-step form; we reply within {hours} hours.',
+  ar ? 'مواعيد الإبحار حسب ميناء التحميل والوصول.' : 'Sailings by port of loading and discharge.',
+  ar ? 'احسب حجم شحنتك واعرف الحاوية المناسبة.' : 'Calculate your volume and the right container.',
+];
+---
+<Base lang={lang} title={u('eservices', lang)}>
+  <PageHero lang={lang} title={u('eservices', lang)} lead={ar ? 'أدوات تختصر عليك الوقت في كل شحنة.' : 'Tools that save you time on every shipment.'} crumbs={[{ label: u('eservices', lang) }]} />
+  <section class="section">
+    <div class="container grid grid-4">
+      {eServices.map((e, i) => (
+        <a class="card reveal" href={href(lang, e.path)}>
+          <span class="icon-badge"><Icon name={e.icon} /></span>
+          <h3>{t(e.label, lang)}</h3>
+          <p>{t(desc[i], lang)}</p>
+          <span class="link-arrow">{ar ? 'ابدأ' : 'Start'} <Icon name="arrow" class="flip" /></span>
+        </a>
+      ))}
+    </div>
+    <div class="container mt-2">
+      <div class="alert alert-info">{ar ? 'بوابة العملاء (قريبًا): تسجيل دخول لعرض كل الشحنات، وتحميل المستندات والفواتير، وطلب خدمات جديدة.' : 'Customer portal (coming soon): log in to view all shipments, download documents and invoices, and request new services.'}</div>
+    </div>
+  </section>
+</Base>

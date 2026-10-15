@@ -1,0 +1,74 @@
+---
+import { type Lang, href, u } from '../i18n/ui';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+---
+<div class="cookie" id="cookie" hidden role="dialog" aria-live="polite" aria-label={u('cookies', lang)}>
+  <div class="cookie-inner">
+    <p>{u('cookieText', lang)} <a href={href(lang, '/legal/cookies')}>{u('cookies', lang)}</a></p>
+    <div class="cookie-prefs" id="cookie-prefs" hidden>
+      <label><input type="checkbox" checked disabled /> {u('essential', lang)}</label>
+      <label><input type="checkbox" id="ck-analytics" /> {u('analytics', lang)}</label>
+      <label><input type="checkbox" id="ck-marketing" /> {u('marketing', lang)}</label>
+    </div>
+    <div class="cookie-actions">
+      <button class="btn btn-teal btn-sm" data-ck="accept">{u('accept', lang)}</button>
+      <button class="btn btn-outline btn-sm" data-ck="reject">{u('reject', lang)}</button>
+      <button class="btn btn-sm linkbtn" data-ck="manage">{u('manage', lang)}</button>
+      <button class="btn btn-teal btn-sm" data-ck="save" hidden>{u('save', lang)}</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const KEY = 'stl-consent';
+  const box = document.getElementById('cookie')!;
+  const prefs = document.getElementById('cookie-prefs')!;
+  const a = document.getElementById('ck-analytics') as HTMLInputElement;
+  const m = document.getElementById('ck-marketing') as HTMLInputElement;
+  const saveBtn = box.querySelector<HTMLButtonElement>('[data-ck=save]')!;
+
+  const read = () => { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch { return null; } };
+  const write = (v: { analytics: boolean; marketing: boolean }) => {
+    try { localStorage.setItem(KEY, JSON.stringify({ ...v, at: Date.now() })); } catch {}
+    box.hidden = true;
+    if (v.analytics) loadAnalytics();
+  };
+  function loadAnalytics() {
+    const id = (window as any).__STL_GA;
+    if (!id || (window as any).gtag) return;
+    const s = document.createElement('script');
+    s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+    document.head.append(s);
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).gtag = function () { (window as any).dataLayer.push(arguments); };
+    (window as any).gtag('js', new Date()); (window as any).gtag('config', id);
+  }
+  const current = read();
+  if (!current) box.hidden = false; else if (current.analytics) loadAnalytics();
+
+  box.addEventListener('click', (e) => {
+    const k = (e.target as HTMLElement).closest<HTMLElement>('[data-ck]')?.dataset.ck;
+    if (k === 'accept') write({ analytics: true, marketing: true });
+    if (k === 'reject') write({ analytics: false, marketing: false });
+    if (k === 'manage') { prefs.hidden = false; saveBtn.hidden = false; }
+    if (k === 'save') write({ analytics: a.checked, marketing: m.checked });
+  });
+  document.querySelectorAll('[data-cookie-settings]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const c = read();
+      a.checked = !!c?.analytics; m.checked = !!c?.marketing;
+      box.hidden = false; prefs.hidden = false; saveBtn.hidden = false;
+    }),
+  );
+</script>
+
+<style>
+  .cookie { position: fixed; inset-inline: 16px; bottom: 16px; z-index: 70; display: flex; justify-content: center; }
+  .cookie-inner { background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-lg); border-radius: 16px; padding: 1.2rem 1.4rem; max-width: 760px; width: 100%; }
+  .cookie p { margin: 0 0 .8rem; font-size: .93rem; color: var(--muted); }
+  .cookie-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .cookie-prefs { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: .9rem; font-size: .92rem; }
+  .cookie-prefs label { display: inline-flex; gap: .4rem; align-items: center; }
+  .linkbtn { background: none; color: var(--navy-600); text-decoration: underline; }
+</style>

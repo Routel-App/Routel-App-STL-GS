@@ -1,0 +1,145 @@
+---
+import { site } from '../config/site';
+import { type Lang, href, switchPath, t, u } from '../i18n/ui';
+import { mainNav } from '../i18n/nav';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const other: Lang = lang === 'ar' ? 'en' : 'ar';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const bare = path.replace(/^\/en(?=\/|$)/, '') || '/';
+const isActive = (p: string) => (p === '/' ? bare === '/' : bare === p || bare.startsWith(p + '/'));
+---
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="topbar-contacts">
+      <a href={`tel:${site.contact.unifiedPhone}`}><Icon name="phone" size={15} /> <span class="ltr">{site.contact.unifiedPhone}</span></a>
+      <a href={`mailto:${site.contact.emailInfo}`}><Icon name="mail" size={15} /> <span class="ltr">{site.contact.emailInfo}</span></a>
+    </div>
+    <a class="lang-switch" href={switchPath(path, other)} hreflang={other} lang={other}>
+      <Icon name="globe" size={15} /> {u('langName', lang)}
+    </a>
+  </div>
+</div>
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href={href(lang, '/')} class="brand" aria-label="STL Global Solutions"><Logo /></a>
+
+    <nav class="main-nav" id="main-nav" aria-label={u('menu', lang)}>
+      <ul>
+        {mainNav.map((item) => (
+          <li class:list={[{ 'has-sub': item.children, mega: item.children && item.children.length > 9 }]}>
+            <a href={href(lang, item.path)} aria-current={isActive(item.path) ? 'page' : undefined}>
+              {t(item.label, lang)}
+              {item.children && <Icon name="down" size={14} class="caret" />}
+            </a>
+            {item.children && (
+              <button class="sub-toggle" type="button" aria-expanded="false" aria-label={t(item.label, lang)}>
+                <Icon name="down" size={18} />
+              </button>
+            )}
+            {item.children && (
+              <ul class="sub">
+                {item.children.map((c) => (
+                  <li><a href={href(lang, c.path)}>{t(c.label, lang)}</a></li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+      <div class="nav-mobile-actions">
+        <a class="btn btn-outline btn-block" href={href(lang, '/e-services/tracking')}>{u('track', lang)}</a>
+        <a class="btn btn-primary btn-block" href={href(lang, '/e-services/quote')}>{u('quote', lang)}</a>
+      </div>
+    </nav>
+
+    <div class="header-actions">
+      <a class="btn btn-outline btn-sm hide-sm" href={href(lang, '/e-services/tracking')}><Icon name="search" size={16} /> {u('track', lang)}</a>
+      <a class="btn btn-primary btn-sm hide-xs" href={href(lang, '/e-services/quote')}>{u('quote', lang)}</a>
+      <button class="burger" id="burger" type="button" aria-controls="main-nav" aria-expanded="false" aria-label={u('menu', lang)}>
+        <Icon name="menu" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header');
+  const burger = document.getElementById('burger');
+  const nav = document.getElementById('main-nav');
+  burger?.addEventListener('click', () => {
+    document.documentElement.style.setProperty('--nav-top', `${header!.getBoundingClientRect().bottom}px`);
+    const open = nav?.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(!!open));
+    document.body.classList.toggle('nav-open', !!open);
+  });
+  document.querySelectorAll<HTMLButtonElement>('.sub-toggle').forEach((b) =>
+    b.addEventListener('click', () => {
+      const li = b.closest('li');
+      const open = li?.classList.toggle('sub-open');
+      b.setAttribute('aria-expanded', String(!!open));
+    }),
+  );
+  const onScroll = () => header?.classList.toggle('scrolled', window.scrollY > 10);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+<style>
+  .topbar { background: var(--navy-900); color: #b9c8da; font-size: .85rem; }
+  .topbar-inner { display: flex; justify-content: space-between; align-items: center; min-height: 38px; gap: 1rem; }
+  .topbar a { color: #d5e1ee; display: inline-flex; align-items: center; gap: .4rem; }
+  .topbar a:hover { color: #fff; }
+  .topbar-contacts { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+  .lang-switch { font-weight: 600; padding: .2rem .7rem; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; }
+
+  .site-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.97); backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: box-shadow .25s, border-color .25s; }
+  .site-header.scrolled { box-shadow: 0 6px 24px -14px rgba(6,26,51,.35); border-color: var(--line); }
+  .header-inner { display: flex; align-items: center; gap: 1.5rem; min-height: var(--header-h); }
+  .brand { flex-shrink: 0; }
+  .main-nav { flex: 1; }
+  .main-nav > ul { list-style: none; margin: 0; padding: 0; display: flex; gap: .1rem; justify-content: center; }
+  .main-nav > ul > li { position: relative; display: flex; align-items: center; }
+  .main-nav > ul > li > a { display: inline-flex; align-items: center; gap: .25rem; padding: .6rem .7rem; color: var(--ink); font-weight: 600; font-size: .95rem; border-radius: 8px; white-space: nowrap; }
+  .main-nav > ul > li > a:hover, .main-nav > ul > li > a[aria-current='page'] { color: var(--teal-500); }
+  .main-nav :global(.caret) { opacity: .6; }
+  .sub-toggle { display: none; }
+  .sub {
+    position: absolute; top: 100%; inset-inline-start: 0; min-width: 250px; list-style: none; margin: 0; padding: .6rem;
+    background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-lg);
+    opacity: 0; visibility: hidden; transform: translateY(8px); transition: all .2s;
+  }
+  .mega .sub { display: grid; grid-template-columns: 1fr 1fr; min-width: 560px; }
+  .has-sub:hover .sub, .has-sub:focus-within .sub { opacity: 1; visibility: visible; transform: none; }
+  .sub a { display: block; padding: .55rem .8rem; border-radius: 8px; color: var(--ink); font-size: .92rem; font-weight: 500; }
+  .sub a:hover { background: var(--bg-soft); color: var(--teal-500); }
+  .header-actions { display: flex; align-items: center; gap: .6rem; }
+  .burger { display: none; background: none; border: 0; padding: .4rem; cursor: pointer; color: var(--navy-800); }
+  .nav-mobile-actions { display: none; }
+
+  @media (max-width: 1180px) {
+    .burger { display: inline-flex; }
+    .site-header { backdrop-filter: none; background: #fff; }
+    .main-nav {
+      position: fixed; inset: 0; top: var(--nav-top, var(--header-h)); background: #fff; overflow-y: auto; padding: 1rem 1rem 2rem;
+      opacity: 0; visibility: hidden; transform: translateY(-10px); transition: opacity .25s, transform .25s, visibility .25s; z-index: 40;
+    }
+    .main-nav.open { opacity: 1; visibility: visible; transform: none; }
+    .main-nav > ul { flex-direction: column; gap: 0; }
+    .main-nav > ul > li { flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+    .main-nav > ul > li > a { flex: 1; padding: .95rem .3rem; font-size: 1.05rem; }
+    .main-nav :global(.caret) { display: none; }
+    .sub-toggle { display: inline-flex; background: none; border: 0; padding: .6rem; cursor: pointer; color: var(--muted); transition: transform .2s; }
+    .sub-open .sub-toggle { transform: rotate(180deg); }
+    .sub, .mega .sub { position: static; display: none; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: 0; min-width: 0; width: 100%; padding: 0 0 .8rem; grid-template-columns: 1fr; }
+    .sub-open .sub { display: block; }
+    .has-sub:hover .sub { transform: none; }
+    .nav-mobile-actions { display: grid; gap: .7rem; margin-top: 1.5rem; }
+    :global(body.nav-open) { overflow: hidden; }
+  }
+  @media (max-width: 720px) { .hide-sm { display: none; } .topbar-contacts a:nth-child(2) { display: none; } }
+  @media (max-width: 420px) { .hide-xs { display: none; } }
+</style>

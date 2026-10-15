@@ -1,0 +1,149 @@
+---
+import '../styles/global.css';
+import { site } from '../config/site';
+import { type Lang, dir, switchPath, u, fill } from '../i18n/ui';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description?: string;
+  /** JSON-LD objects to embed */
+  schema?: Record<string, unknown>[];
+}
+const { lang, title, description, schema = [] } = Astro.props;
+const fullTitle = title ? `${fill(title, lang)} | STL Global Solutions` : `STL Global Solutions | ${site.tagline[lang]}`;
+const desc = fill(
+  description ??
+    (lang === 'ar'
+      ? 'STL Global Solutions شركة سعودية متخصصة في الشحن البحري والحلول اللوجستية المتكاملة: حاويات كاملة ومجمّعة، تخليص جمركي وسابر، نقل داخلي وتخزين.'
+      : 'STL Global Solutions is a Saudi ocean freight and integrated logistics company: FCL & LCL, customs clearance & SABER, inland transport and warehousing.'),
+  lang,
+);
+const path = Astro.url.pathname;
+const site_ = Astro.site ?? new URL('https://stl-global.sa');
+const canonical = new URL(path, site_).href;
+const altAr = new URL(switchPath(path, 'ar'), site_).href;
+const altEn = new URL(switchPath(path, 'en'), site_).href;
+
+const waText =
+  lang === 'ar'
+    ? 'مرحبًا STL، أرغب في عرض سعر:\nنوع الخدمة: \nالمنشأ: \nالوجهة: \nنوع البضاعة: \nالحجم/عدد الحاويات: \nتاريخ الجاهزية: '
+    : 'Hello STL, I would like a quote:\nService: \nOrigin: \nDestination: \nCargo type: \nVolume/containers: \nReady date: ';
+const waLink = `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(waText)}`;
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'STL Global Solutions',
+  url: site_.href,
+  logo: new URL('/favicon.svg', site_).href,
+  email: site.contact.emailInfo,
+  telephone: site.contact.unifiedPhone,
+  address: { '@type': 'PostalAddress', streetAddress: site.contact.hqAddress[lang], addressCountry: 'SA' },
+  sameAs: Object.values(site.social),
+};
+---
+<!doctype html>
+<html lang={lang} dir={dir(lang)}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="ar" href={altAr} />
+    <link rel="alternate" hreflang="en" href={altEn} />
+    <link rel="alternate" hreflang="x-default" href={altAr} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#0a2647" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="STL Global Solutions" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'ar' ? 'ar_SA' : 'en_US'} />
+    <meta property="og:image" content={new URL('/og-image.svg', site_).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    {schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+    {site.integrations.googleAnalyticsId && (
+      <script is:inline define:vars={{ gaId: site.integrations.googleAnalyticsId }}>
+        window.__STL_GA = gaId;
+      </script>
+    )}
+  </head>
+  <body
+    data-endpoint={site.integrations.formEndpoint}
+    data-tracking-api={site.integrations.trackingApi}
+    data-quote-prefix={site.integrations.quotePrefix}
+    data-highlight={site.highlightPlaceholders ? '1' : ''}
+    data-sending={u('sending', lang)}
+    data-form-error={u('formError', lang)}
+  >
+    <a class="skip" href="#main">{u('skip', lang)}</a>
+    <Header lang={lang} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+
+    <a class="wa-fab" href={waLink} target="_blank" rel="noopener" aria-label={u('whatsapp', lang)}>
+      <Icon name="whatsapp" size={28} />
+    </a>
+    <CookieBanner lang={lang} />
+
+    <script>
+      import { bindSimpleForms } from '../scripts/forms';
+      bindSimpleForms();
+
+      // Highlight [placeholders] so they are easy to spot before launch
+      if (document.body.dataset.highlight) {
+        const walker = document.createTreeWalker(document.querySelector('main')!.parentElement!, NodeFilter.SHOW_TEXT);
+        const hits: Text[] = [];
+        while (walker.nextNode()) {
+          const n = walker.currentNode as Text;
+          if (/\[[^\]]+\]/.test(n.data) && !n.parentElement?.closest('script,style,textarea,option')) hits.push(n);
+        }
+        hits.forEach((n) => {
+          const frag = document.createDocumentFragment();
+          n.data.split(/(\[[^\]]+\])/).forEach((part) => {
+            if (/^\[[^\]]+\]$/.test(part)) {
+              const s = document.createElement('span');
+              s.className = 'ph';
+              s.title = 'Placeholder — edit in src/config/site.ts';
+              s.textContent = part;
+              frag.append(s);
+            } else if (part) frag.append(part);
+          });
+          n.replaceWith(frag);
+        });
+      }
+
+      // Reveal on scroll
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))),
+        { threshold: 0.12 },
+      );
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    </script>
+
+    <style>
+      .wa-fab {
+        position: fixed; bottom: 22px; inset-inline-end: 22px; z-index: 60; width: 58px; height: 58px; border-radius: 50%;
+        background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: 0 10px 25px -8px rgba(0,0,0,.4);
+        transition: transform .2s;
+      }
+      .wa-fab:hover { color: #fff; transform: scale(1.07); }
+    </style>
+  </body>
+</html>

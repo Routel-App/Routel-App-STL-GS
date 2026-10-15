@@ -1,0 +1,36 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNav from '../../../components/SubNav.astro';
+import CTABand from '../../../components/CTABand.astro';
+import Icon from '../../../components/Icon.astro';
+import { getLang, href, langPaths, t, u } from '../../../i18n/ui';
+import { networkTabs } from '../../../i18n/nav';
+import { regions, visibleCountries, type Region } from '../../../data/network';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const countries = visibleCountries();
+const sep = lang === 'ar' ? '، ' : ', ';
+---
+<Base lang={lang} title={u('routes', lang)}>
+  <PageHero lang={lang} title={u('routes', lang)} lead={lang === 'ar' ? 'مسارات منتظمة تربط موانئ آسيا وأوروبا والأمريكتين وأفريقيا بموانئ المملكة.' : 'Regular lanes linking ports in Asia, Europe, the Americas and Africa with Saudi ports.'} crumbs={[{ label: u('network', lang), path: '/network' }, { label: u('routes', lang) }]} />
+  <SubNav lang={lang} items={networkTabs} />
+  {(Object.keys(regions) as Region[]).map((r, i) => (
+    <section class:list={['section', { 'section-soft': i % 2 === 1 }]}>
+      <div class="container">
+        <h2>{t(regions[r], lang)}</h2>
+        <div class="grid grid-3 mt-2">
+          {countries.filter((c) => c.region === r).map((c) => (
+            <a class="card reveal" href={href(lang, `/network/shipping-from/${c.slug}`)}>
+              <h3>{lang === 'ar' ? `الشحن من ${c.name.ar} إلى السعودية` : `Shipping from ${c.name.en} to Saudi Arabia`}</h3>
+              <p>{c.ports.map((p) => t(p, lang)).join(sep)}</p>
+              <span class="link-arrow">{u('learnMore', lang)} <Icon name="arrow" class="flip" /></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+  <CTABand lang={lang} />
+</Base>

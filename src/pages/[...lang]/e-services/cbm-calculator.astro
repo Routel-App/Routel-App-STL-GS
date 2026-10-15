@@ -1,0 +1,107 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNav from '../../../components/SubNav.astro';
+import Icon from '../../../components/Icon.astro';
+import { getLang, href, langPaths, u } from '../../../i18n/ui';
+import { eServiceTabs } from '../../../i18n/nav';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ar = lang === 'ar';
+const msgs = {
+  lcl: ar ? 'التوصية: شحن مجمّع (LCL) — حجم شحنتك أقل من حاوية كاملة.' : 'Recommendation: LCL — your volume is below a full container.',
+  c20: ar ? "التوصية: حاوية 20 قدمًا (FCL)." : "Recommendation: one 20' container (FCL).",
+  c40: ar ? 'التوصية: حاوية 40 قدمًا (FCL).' : "Recommendation: one 40' container (FCL).",
+  hc: ar ? 'التوصية: حاوية 40 قدمًا عالية (40HC).' : "Recommendation: one 40' High Cube container.",
+  multi: ar ? 'التوصية: عدة حاويات — تقديريًا {n} حاوية 40 قدمًا عالية.' : "Recommendation: multiple containers — approx. {n} × 40' HC.",
+  heavy: ar ? 'تنبيه: الوزن قد يتجاوز الحمولة القصوى لحاوية واحدة؛ سنقترح التوزيع المناسب في عرض السعر.' : 'Note: weight may exceed a single container’s max payload; we will propose the right split in the quote.',
+};
+---
+<Base lang={lang} title={u('cbm', lang)} description={ar ? 'احسب حجم شحنتك بالمتر المكعب واعرف الحاوية المناسبة.' : 'Calculate your shipment volume in CBM and find the right container.'}>
+  <PageHero lang={lang} title={u('cbm', lang)} lead={ar ? 'أدخل مقاسات الكراتين وعددها ووزنها، ونحسب الحجم الإجمالي ونوصي بنوع الشحن.' : 'Enter carton dimensions, quantity and weight — we calculate the total volume and recommend a shipping mode.'} crumbs={[{ label: u('eservices', lang), path: '/e-services' }, { label: u('cbm', lang) }]} />
+  <SubNav lang={lang} items={eServiceTabs} />
+  <section class="section">
+    <div class="container calc">
+      <form class="card" id="cbm-form">
+        <div id="rows">
+          <div class="crow">
+            <div class="field"><label>{ar ? 'الطول (سم)' : 'Length (cm)'}</label><input name="l" type="number" min="0" step="0.1" required dir="ltr" /></div>
+            <div class="field"><label>{ar ? 'العرض (سم)' : 'Width (cm)'}</label><input name="w" type="number" min="0" step="0.1" required dir="ltr" /></div>
+            <div class="field"><label>{ar ? 'الارتفاع (سم)' : 'Height (cm)'}</label><input name="h" type="number" min="0" step="0.1" required dir="ltr" /></div>
+            <div class="field"><label>{ar ? 'عدد الكراتين' : 'Cartons'}</label><input name="n" type="number" min="1" value="1" required dir="ltr" /></div>
+            <div class="field"><label>{ar ? 'وزن الكرتون (كجم)' : 'Weight/carton (kg)'}</label><input name="kg" type="number" min="0" step="0.1" dir="ltr" /></div>
+            <button type="button" class="rm" aria-label={ar ? 'حذف' : 'Remove'}><Icon name="close" size={18} /></button>
+          </div>
+        </div>
+        <button type="button" class="btn btn-outline btn-sm" id="add">+ {ar ? 'أضف صنفًا آخر' : 'Add another item'}</button>
+      </form>
+      <aside class="result card">
+        <span class="muted">{ar ? 'الحجم الإجمالي' : 'Total volume'}</span>
+        <strong class="big ltr"><span id="r-cbm">0.00</span> m³</strong>
+        <div class="kv"><span>{ar ? 'الوزن الإجمالي' : 'Total weight'}</span><b class="ltr"><span id="r-kg">0</span> kg</b></div>
+        <div class="kv"><span>{ar ? 'عدد الكراتين' : 'Total cartons'}</span><b id="r-n">0</b></div>
+        <div class="bar"><span id="r-bar"></span></div>
+        <p id="r-rec" class="rec"></p>
+        <p id="r-warn" class="warn" hidden>{msgs.heavy}</p>
+        <a class="btn btn-primary btn-block" id="r-quote" href={href(lang, '/e-services/quote')}>{ar ? 'اطلب عرض سعر بهذه البيانات' : 'Request a quote with these details'}</a>
+        <p class="tiny">{ar ? 'الأرقام تقديرية: السعة الفعلية للتحميل ≈ 28 م³ للحاوية 20 قدمًا، 58 م³ للـ 40 قدمًا، 68 م³ للـ 40 العالية.' : "Estimates only: usable load ≈ 28 m³ (20'), 58 m³ (40'), 68 m³ (40' HC)."}</p>
+      </aside>
+    </div>
+  </section>
+</Base>
+<script define:vars={{ msgs, quoteBase: href(lang, '/e-services/quote') }}>
+  const rows = document.getElementById('rows');
+  const tpl = rows.firstElementChild.cloneNode(true);
+  const $ = (id) => document.getElementById(id);
+  const calc = () => {
+    let cbm = 0, kg = 0, n = 0;
+    rows.querySelectorAll('.crow').forEach((r) => {
+      const v = (k) => parseFloat(r.querySelector(`[name=${k}]`).value) || 0;
+      const c = v('n');
+      cbm += (v('l') * v('w') * v('h') / 1e6) * c; kg += v('kg') * c; n += c;
+    });
+    $('r-cbm').textContent = cbm.toFixed(2);
+    $('r-kg').textContent = Math.round(kg).toLocaleString();
+    $('r-n').textContent = n;
+    let rec = '', mode = 'LCL', pct = 0;
+    if (cbm <= 0) rec = '';
+    else if (cbm < 15) { rec = msgs.lcl; pct = cbm / 28; }
+    else if (cbm <= 28) { rec = msgs.c20; mode = 'FCL'; pct = cbm / 28; }
+    else if (cbm <= 58) { rec = msgs.c40; mode = 'FCL'; pct = cbm / 58; }
+    else if (cbm <= 68) { rec = msgs.hc; mode = 'FCL'; pct = cbm / 68; }
+    else { rec = msgs.multi.replace('{n}', Math.ceil(cbm / 68)); mode = 'FCL'; pct = 1; }
+    $('r-rec').textContent = rec;
+    $('r-bar').style.width = Math.min(100, pct * 100) + '%';
+    $('r-warn').hidden = !(kg > 26000 && cbm <= 68);
+    $('r-quote').href = `${quoteBase}?mode=${mode}&cbm=${cbm.toFixed(2)}&weight=${Math.round(kg)}`;
+  };
+  $('cbm-form').addEventListener('input', calc);
+  $('add').addEventListener('click', () => {
+    const r = tpl.cloneNode(true);
+    r.querySelectorAll('input').forEach((i) => (i.value = i.name === 'n' ? '1' : ''));
+    rows.append(r); calc();
+  });
+  rows.addEventListener('click', (e) => {
+    const b = e.target.closest('.rm');
+    if (b && rows.children.length > 1) { b.closest('.crow').remove(); calc(); }
+  });
+</script>
+<style>
+  .calc { display: grid; grid-template-columns: 1fr 360px; gap: 1.5rem; align-items: start; }
+  @media (max-width: 960px) { .calc { grid-template-columns: 1fr; } }
+  .crow { display: grid; grid-template-columns: repeat(5, 1fr) auto; gap: .7rem; align-items: end; padding-bottom: 1rem; margin-bottom: 1rem; border-bottom: 1px dashed var(--line); }
+  @media (max-width: 700px) { .crow { grid-template-columns: 1fr 1fr; } }
+  .rm { background: var(--bg-soft); border: 0; border-radius: 8px; height: 46px; width: 46px; display: grid; place-items: center; cursor: pointer; color: var(--muted); }
+  .rm:hover { color: #c0392b; }
+  .result { position: sticky; top: calc(var(--header-h) + 1rem); gap: .6rem; background: var(--navy-800); color: #c7d6e7; border: 0; }
+  .result .muted { color: #9fb4cc; }
+  .big { font-size: 2.6rem; color: #fff; line-height: 1.1; }
+  .kv { display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,.1); padding-top: .6rem; }
+  .kv b { color: #fff; }
+  .bar { height: 8px; background: rgba(255,255,255,.1); border-radius: 8px; overflow: hidden; margin-top: .6rem; }
+  .bar span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--teal-500), var(--accent)); transition: width .3s; }
+  .rec { color: #fff; font-weight: 600; min-height: 1.5em; margin: .4rem 0; }
+  .warn { color: #ffd39b; font-size: .9rem; }
+  .tiny { font-size: .8rem; color: #8ea3bb; margin: .6rem 0 0; }
+</style>

@@ -1,0 +1,93 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNav from '../../../components/SubNav.astro';
+import Icon from '../../../components/Icon.astro';
+import { site } from '../../../config/site';
+import { getLang, langPaths, t, u } from '../../../i18n/ui';
+import { eServiceTabs } from '../../../i18n/nav';
+import { trackingStages } from '../../../data/company';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ar = lang === 'ar';
+---
+<Base lang={lang} title={u('track', lang)}>
+  <PageHero lang={lang} title={u('track', lang)} crumbs={[{ label: u('eservices', lang), path: '/e-services' }, { label: u('track', lang) }]} />
+  <SubNav lang={lang} items={eServiceTabs} />
+  <section class="section">
+    <div class="container narrow">
+      <form class="track-form card" id="track-form">
+        <label for="ref" class="label">{ar ? 'أدخل رقم الحاوية أو رقم بوليصة الشحن (B/L) أو رقم الحجز' : 'Enter your container, Bill of Lading (B/L) or booking number'}</label>
+        <div class="track-row">
+          <input id="ref" name="ref" required dir="ltr" placeholder="MSCU1234567" autocomplete="off" />
+          <button class="btn btn-primary" type="submit"><Icon name="search" /> {ar ? 'تتبع' : 'Track'}</button>
+        </div>
+      </form>
+
+      <div id="track-msg" class="alert alert-info mt-2" hidden role="status"></div>
+
+      <ol class="stages mt-2" id="stages" aria-label={ar ? 'مراحل الشحنة' : 'Shipment stages'}>
+        {trackingStages.map((s, i) => (
+          <li data-i={i}><span class="bullet">{i + 1}</span><span>{t(s, lang)}</span></li>
+        ))}
+      </ol>
+
+      <p class="help mt-2">
+        {ar ? 'ما لقيت شحنتك؟ تواصل مع مدير حسابك أو عبر ' : "Can't find your shipment? Contact your account manager or reach us on "}
+        <a href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener">{ar ? 'واتساب' : 'WhatsApp'}</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+<script define:vars={{ ar }}>
+  const form = document.getElementById('track-form');
+  const msg = document.getElementById('track-msg');
+  const stages = [...document.querySelectorAll('#stages li')];
+  const api = document.body.dataset.trackingApi;
+  const setStage = (n) => stages.forEach((li, i) => { li.classList.toggle('done', i < n); li.classList.toggle('current', i === n); });
+  const params = new URLSearchParams(location.search);
+  if (params.get('ref')) document.getElementById('ref').value = params.get('ref');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const ref = form.ref.value.trim().toUpperCase();
+    if (!ref) return;
+    msg.hidden = false; msg.className = 'alert alert-info mt-2';
+    setStage(-1);
+    if (!api) {
+      msg.textContent = ar
+        ? `خدمة التتبع الإلكتروني قيد التفعيل. للاستعلام عن الشحنة ${ref} تواصل مع مدير حسابك أو عبر واتساب.`
+        : `Online tracking is being activated. To check shipment ${ref}, contact your account manager or WhatsApp.`;
+      return;
+    }
+    msg.textContent = ar ? 'جارٍ البحث...' : 'Searching...';
+    try {
+      const res = await fetch(`${api}${api.includes('?') ? '&' : '?'}ref=${encodeURIComponent(ref)}`);
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+      setStage(Number(data.stage));
+      msg.className = 'alert alert-success mt-2';
+      msg.textContent = (ar ? 'الشحنة ' : 'Shipment ') + ref + (data.eta ? (ar ? ` — الوصول المتوقع: ${data.eta}` : ` — ETA: ${data.eta}`) : '');
+    } catch {
+      msg.className = 'alert alert-error mt-2';
+      msg.textContent = ar ? 'لم نعثر على الشحنة. تأكد من الرقم أو تواصل معنا.' : 'Shipment not found. Check the number or contact us.';
+    }
+  });
+</script>
+<style>
+  .narrow { max-width: 860px; }
+  .track-form .label { font-weight: 600; color: var(--navy-700); margin-bottom: .8rem; display: block; }
+  .track-row { display: flex; gap: .6rem; }
+  .track-row input { font-size: 1.1rem; letter-spacing: .05em; }
+  @media (max-width: 520px) { .track-row { flex-direction: column; } }
+  .stages { list-style: none; padding: 0; margin-inline: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem .8rem; counter-reset: s; }
+  @media (max-width: 720px) { .stages { grid-template-columns: 1fr 1fr; } }
+  .stages li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .5rem; font-size: .9rem; color: var(--muted); }
+  .bullet { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--line); font-weight: 700; background: #fff; }
+  .stages li.done .bullet { background: var(--teal-500); border-color: var(--teal-500); color: #fff; }
+  .stages li.done { color: var(--navy-800); }
+  .stages li.current .bullet { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 0 6px rgba(240,138,36,.2); }
+  .stages li.current { color: var(--navy-800); font-weight: 700; }
+  .help { color: var(--muted); }
+</style>

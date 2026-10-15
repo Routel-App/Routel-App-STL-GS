@@ -1,0 +1,57 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import CTABand from '../../../components/CTABand.astro';
+import ServiceCard from '../../../components/ServiceCard.astro';
+import Icon from '../../../components/Icon.astro';
+import { type Lang, getLang, href, langs, langParam, t, u } from '../../../i18n/ui';
+import { sectors, type Sector } from '../../../data/sectors';
+import { serviceBySlug } from '../../../data/services';
+
+export function getStaticPaths() {
+  return langs.flatMap((l: Lang) => sectors.map((s) => ({ params: { lang: langParam(l), slug: s.slug }, props: { s } })));
+}
+const { s } = Astro.props as { s: Sector };
+const lang = getLang(Astro.params.lang);
+const related = s.services.map(serviceBySlug).filter((x) => !!x);
+---
+<Base lang={lang} title={t(s.title, lang)} description={t(s.challengeLong, lang)}>
+  <PageHero lang={lang} title={t(s.title, lang)} lead={t(s.challenge, lang)} crumbs={[{ label: u('sectors', lang), path: '/sectors' }, { label: t(s.title, lang) }]}>
+    <a class="btn btn-primary" href={href(lang, '/e-services/quote')}>{u('quote', lang)}</a>
+  </PageHero>
+  <section class="section">
+    <div class="container two-col">
+      <div class="reveal">
+        <span class="eyebrow">{u('challenges', lang)}</span>
+        <h2>{lang === 'ar' ? 'ما الذي يجعل الشحن في هذا القطاع مختلفًا؟' : 'What makes shipping in this sector different?'}</h2>
+        <p class="lead">{t(s.challengeLong, lang)}</p>
+      </div>
+      <div class="sol-box reveal">
+        <span class="eyebrow">{u('ourSolution', lang)}</span>
+        <ul class="check-list">{s.solution.map((x) => <li>{t(x, lang)}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+  <section class="section section-soft">
+    <div class="container">
+      <h2>{u('relatedServices', lang)}</h2>
+      <div class="grid grid-4 mt-2">{related.map((r) => <ServiceCard lang={lang} s={r!} />)}</div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="story reveal">
+        <Icon name="star" size={36} />
+        <div><span class="eyebrow">{u('successStory', lang)}</span><p class="lead">{t(s.successStory, lang)}</p></div>
+      </div>
+    </div>
+  </section>
+  <CTABand lang={lang} />
+</Base>
+<style>
+  .sol-box { background: var(--navy-800); color: #dbe6f2; border-radius: calc(var(--radius) * 1.4); padding: 2rem; }
+  .sol-box .eyebrow { color: var(--teal-400); }
+  .story { display: flex; gap: 1.5rem; align-items: flex-start; border: 1px dashed var(--teal-500); border-radius: var(--radius); padding: 2rem; background: var(--teal-50); }
+  .story :global(.icon) { color: var(--accent); flex-shrink: 0; }
+  .story .lead { margin: 0; color: var(--navy-800); }
+</style>

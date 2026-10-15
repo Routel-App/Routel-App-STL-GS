@@ -1,0 +1,34 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import PageHero from '../../../../components/PageHero.astro';
+import SubNav from '../../../../components/SubNav.astro';
+import Icon from '../../../../components/Icon.astro';
+import { getLang, href, langPaths, t, u } from '../../../../i18n/ui';
+import { mediaTabs } from '../../../../i18n/nav';
+import { articles } from '../../../../data/blog';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+---
+<Base lang={lang} title={u('blog', lang)}>
+  <PageHero lang={lang} title={u('blog', lang)} lead={lang === 'ar' ? 'أدلة عملية تساعدك تشحن بثقة وتتجنب التأخير والتكاليف المفاجئة.' : 'Practical guides to help you ship with confidence and avoid delays and surprise costs.'} crumbs={[{ label: u('media', lang), path: '/media' }, { label: u('blog', lang) }]} />
+  <SubNav lang={lang} items={mediaTabs} />
+  <section class="section">
+    <div class="container grid grid-3">
+      {articles.map((a, i) => (
+        <a class="card reveal post" href={href(lang, `/media/blog/${a.slug}`)}>
+          <div class="thumb" aria-hidden="true"><span>{String(i + 1).padStart(2, '0')}</span></div>
+          <span class="tag">{a.readMin} {u('minutesRead', lang)}</span>
+          <h3>{t(a.title, lang)}</h3>
+          <p>{t(a.excerpt, lang)}</p>
+          <span class="link-arrow">{u('readMore', lang)} <Icon name="arrow" class="flip" /></span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>
+<style>
+  .thumb { aspect-ratio: 16/8; margin: -1.6rem -1.6rem 1.2rem; border-radius: var(--radius) var(--radius) 0 0; background: radial-gradient(circle at 80% 20%, rgba(240,138,36,.45), transparent 50%), linear-gradient(135deg, var(--navy-700), var(--navy-900)); display: grid; place-items: center; }
+  .thumb span { font-size: 2.6rem; font-weight: 700; color: rgba(255,255,255,.18); }
+  .post .tag { align-self: flex-start; margin-bottom: .7rem; }
+</style>

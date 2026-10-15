@@ -1,0 +1,38 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNav from '../../../components/SubNav.astro';
+import CTABand from '../../../components/CTABand.astro';
+import Icon from '../../../components/Icon.astro';
+import { leadership } from '../../../config/site';
+import { getLang, langPaths, t, u } from '../../../i18n/ui';
+import { aboutTabs } from '../../../i18n/nav';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+---
+<Base lang={lang} title={u('leadership', lang)}>
+  <PageHero lang={lang} title={u('leadership', lang)} lead={lang === 'ar' ? 'خبرات تقود STL نحو شحن أبسط وأوضح.' : 'The experience steering STL toward simpler, clearer shipping.'} crumbs={[{ label: u('about', lang), path: '/about' }, { label: u('leadership', lang) }]} />
+  <SubNav lang={lang} items={aboutTabs} />
+  <section class="section">
+    <div class="container grid grid-4">
+      {leadership.map((m) => (
+        <article class="card member reveal">
+          <div class="photo">{m.photo ? <img src={m.photo} alt={t(m.name, lang)} loading="lazy" /> : <Icon name="user" size={64} />}</div>
+          <h3>{t(m.name, lang)}</h3>
+          <span class="role">{t(m.role, lang)}</span>
+          <p>{t(m.bio, lang)}</p>
+          <a href={m.linkedin} target="_blank" rel="noopener" class="link-arrow"><Icon name="linkedin" size={18} /> LinkedIn</a>
+        </article>
+      ))}
+    </div>
+  </section>
+  <CTABand lang={lang} />
+</Base>
+<style>
+  .member { padding: 0 0 1.4rem; overflow: hidden; }
+  .member > :not(.photo) { margin-inline: 1.4rem; }
+  .photo { aspect-ratio: 1; background: linear-gradient(160deg, var(--teal-50), #dfe8f2); display: grid; place-items: center; color: var(--navy-600); margin-bottom: 1.2rem; }
+  .photo img { width: 100%; height: 100%; object-fit: cover; }
+  .role { color: var(--teal-500); font-weight: 600; font-size: .92rem; margin-bottom: .6rem; display: block; }
+</style>

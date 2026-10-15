@@ -1,0 +1,14 @@
+---
+import type { L } from '../config/site';
+import { type Lang, t } from '../i18n/ui';
+interface Props { lang: Lang; items: { q: L; a: L }[]; openFirst?: boolean }
+const { lang, items, openFirst = false } = Astro.props;
+---
+<div class="faq">
+  {items.map((f, i) => (
+    <details open={openFirst && i === 0}>
+      <summary>{t(f.q, lang)}</summary>
+      <p>{t(f.a, lang)}</p>
+    </details>
+  ))}
+</div>

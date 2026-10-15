@@ -1,0 +1,24 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNav from '../../../components/SubNav.astro';
+import { type Lang, getLang, langs, langParam, t, u } from '../../../i18n/ui';
+import { legalTabs } from '../../../i18n/nav';
+import { legalDocs, legalNotice, type LegalDoc } from '../../../data/legal';
+
+export function getStaticPaths() {
+  return langs.flatMap((l: Lang) => legalDocs.map((d) => ({ params: { lang: langParam(l), slug: d.slug }, props: { d } })));
+}
+const { d } = Astro.props as { d: LegalDoc };
+const lang = getLang(Astro.params.lang);
+---
+<Base lang={lang} title={t(d.title, lang)}>
+  <PageHero lang={lang} title={t(d.title, lang)} lead={`${lang === 'ar' ? 'آخر تحديث' : 'Last updated'}: ${d.updated}`} crumbs={[{ label: u('legal', lang) }, { label: t(d.title, lang) }]} />
+  <SubNav lang={lang} items={legalTabs} />
+  <section class="section">
+    <div class="container prose">
+      <p class="alert alert-info">{t(legalNotice, lang)}</p>
+      {d.sections.map((s) => (<><h2>{t(s.h, lang)}</h2><p>{t(s.p, lang)}</p></>))}
+    </div>
+  </section>
+</Base>

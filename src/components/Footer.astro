@@ -1,0 +1,123 @@
+---
+import { site } from '../config/site';
+import { type Lang, href, t, u } from '../i18n/ui';
+import { eServices } from '../i18n/nav';
+import { services } from '../data/services';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const year = new Date().getFullYear();
+const companyLinks = [
+  { label: 'about', path: '/about' },
+  { label: 'whyStl', path: '/why-stl' },
+  { label: 'careers', path: '/careers' },
+  { label: 'news', path: '/media/news' },
+  { label: 'qhse', path: '/qhse' },
+  { label: 'sustainability', path: '/sustainability' },
+  { label: 'faq', path: '/faq' },
+] as const;
+const socials = [
+  { icon: 'linkedin', url: site.social.linkedin, label: 'LinkedIn' },
+  { icon: 'x', url: site.social.x, label: 'X' },
+  { icon: 'instagram', url: site.social.instagram, label: 'Instagram' },
+  { icon: 'youtube', url: site.social.youtube, label: 'YouTube' },
+  { icon: 'whatsapp', url: `https://wa.me/${site.contact.whatsapp}`, label: 'WhatsApp' },
+];
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <Logo light />
+        <p>{u('footerAbout', lang)}</p>
+        <div class="socials">
+          {socials.map((s) => (
+            <a href={s.url} target="_blank" rel="noopener" aria-label={s.label}><Icon name={s.icon} size={20} /></a>
+          ))}
+        </div>
+      </div>
+      <div class="newsletter">
+        <h3>{u('newsletterTitle', lang)}</h3>
+        <p>{u('newsletterText', lang)}</p>
+        <form class="news-form" data-form="newsletter" data-success={u('subscribed', lang)}>
+          <label class="visually-hidden" for="nl-email">{u('emailPlaceholder', lang)}</label>
+          <input id="nl-email" type="email" name="email" required placeholder={u('emailPlaceholder', lang)} />
+          <button class="btn btn-primary" type="submit">{u('subscribe', lang)}</button>
+        </form>
+        <p class="form-msg" data-msg role="status"></p>
+      </div>
+    </div>
+
+    <div class="footer-cols">
+      <div>
+        <h4>{u('services', lang)}</h4>
+        <ul>{services.slice(0, 8).map((s) => <li><a href={href(lang, `/services/${s.slug}`)}>{t(s.title, lang).replace(/\s*\(.*\)$/, '')}</a></li>)}</ul>
+      </div>
+      <div>
+        <h4>{u('company', lang)}</h4>
+        <ul>{companyLinks.map((l) => <li><a href={href(lang, l.path)}>{u(l.label, lang)}</a></li>)}</ul>
+      </div>
+      <div>
+        <h4>{u('eservices', lang)}</h4>
+        <ul>
+          {eServices.map((l) => <li><a href={href(lang, l.path)}>{t(l.label, lang)}</a></li>)}
+          <li><a href={site.downloads.companyProfile} download>{u('companyProfile', lang)}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>{u('contact', lang)}</h4>
+        <ul class="contact-list">
+          <li><Icon name="phone" size={18} /><a href={`tel:${site.contact.unifiedPhone}`} class="ltr">{site.contact.unifiedPhone}</a></li>
+          <li><Icon name="mail" size={18} /><a href={`mailto:${site.contact.emailInfo}`} class="ltr">{site.contact.emailInfo}</a></li>
+          <li><Icon name="pin" size={18} /><span>{t(site.contact.hqAddress, lang)}</span></li>
+          <li><Icon name="clock" size={18} /><span>{t(site.contact.workingHours, lang)}</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-legal">
+      <p class="reg">
+        STL Global Solutions — {u('crLine', lang)} {site.legal.crNumber} — {u('tgaLine', lang)} {site.legal.tgaLicense} — {u('vatLine', lang)} {site.legal.vatNumber}
+      </p>
+      <div class="bottom">
+        <span>© {year} STL Global Solutions. {u('rights', lang)}</span>
+        <nav class="legal-links" aria-label={u('legal', lang)}>
+          <a href={href(lang, '/legal/privacy')}>{u('privacy', lang)}</a>
+          <a href={href(lang, '/legal/terms')}>{u('terms', lang)}</a>
+          <a href={href(lang, '/legal/shipping-terms')}>{u('shippingTerms', lang)}</a>
+          <a href={href(lang, '/legal/cookies')}>{u('cookies', lang)}</a>
+          <button type="button" class="linklike" data-cookie-settings>{u('manage', lang)}</button>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--navy-900); color: #a9bbd0; padding-top: 4rem; font-size: .95rem; }
+  .site-footer a { color: #cfdbea; }
+  .site-footer a:hover { color: var(--teal-400); }
+  .footer-top { display: grid; gap: 2.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .footer-brand p { margin: 1rem 0; max-width: 420px; }
+  .socials { display: flex; gap: .6rem; }
+  .socials a { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.06); }
+  .socials a:hover { background: var(--teal-500); color: #fff; }
+  .newsletter h3 { color: #fff; font-size: 1.1rem; }
+  .news-form { display: flex; gap: .5rem; }
+  .news-form input { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.15); color: #fff; }
+  .news-form input::placeholder { color: #8ea3bb; }
+  .form-msg { margin-top: .5rem; color: var(--teal-400); min-height: 1.5em; }
+  .footer-cols { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); padding-block: 2.5rem; }
+  .footer-cols h4 { color: #fff; font-size: 1rem; margin-bottom: 1rem; }
+  .footer-cols ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .55rem; }
+  .contact-list li { display: flex; gap: .6rem; align-items: flex-start; }
+  .contact-list :global(.icon) { flex-shrink: 0; margin-top: .3rem; color: var(--teal-400); }
+  .footer-legal { border-top: 1px solid rgba(255,255,255,.08); padding-block: 1.5rem; font-size: .85rem; }
+  .reg { color: #8ea3bb; }
+  .bottom { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .legal-links { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .linklike { background: none; border: 0; color: #cfdbea; font: inherit; cursor: pointer; padding: 0; }
+  .linklike:hover { color: var(--teal-400); }
+</style>

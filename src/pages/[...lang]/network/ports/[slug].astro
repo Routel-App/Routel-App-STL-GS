@@ -1,0 +1,50 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import PageHero from '../../../../components/PageHero.astro';
+import CTABand from '../../../../components/CTABand.astro';
+import ServiceCard from '../../../../components/ServiceCard.astro';
+import Icon from '../../../../components/Icon.astro';
+import { type Lang, getLang, href, langs, langParam, t, u } from '../../../../i18n/ui';
+import { visiblePorts, seaName, type Port } from '../../../../data/network';
+import { serviceBySlug } from '../../../../data/services';
+
+export function getStaticPaths() {
+  return langs.flatMap((l: Lang) => visiblePorts().map((p) => ({ params: { lang: langParam(l), slug: p.slug }, props: { p } })));
+}
+const { p } = Astro.props as { p: Port };
+const lang = getLang(Astro.params.lang);
+const svc = ['fcl', 'lcl', 'customs-clearance-saber', 'inland-transport'].map(serviceBySlug).filter(Boolean);
+const title = lang === 'ar' ? `الشحن والتخليص في ${p.name.ar}` : `Shipping & Clearance at ${p.name.en}`;
+---
+<Base lang={lang} title={title} description={t(p.description, lang)}>
+  <PageHero lang={lang} title={title} lead={t(p.use, lang)} eyebrow={t(seaName(p.sea), lang)} crumbs={[{ label: u('network', lang), path: '/network' }, { label: u('ports', lang), path: '/network/ports' }, { label: t(p.name, lang) }]}>
+    <a class="btn btn-primary" href={href(lang, `/e-services/quote?pod=${p.slug}`)}>{u('quote', lang)}</a>
+  </PageHero>
+  <section class="section">
+    <div class="container two-col">
+      <div class="reveal">
+        <h2>{t(p.name, lang)}</h2>
+        <p class="lead">{t(p.description, lang)}</p>
+      </div>
+      <div class="facts reveal">
+        <div><Icon name="pin" /><span>{lang === 'ar' ? 'الموقع' : 'Location'}</span><strong>{t(seaName(p.sea), lang)}</strong></div>
+        <div><Icon name="ship" /><span>{lang === 'ar' ? 'أبرز الاستخدامات' : 'Main uses'}</span><strong>{t(p.use, lang)}</strong></div>
+        <div><Icon name="team" /><span>{lang === 'ar' ? 'فريق STL في الميناء' : 'STL team at the port'}</span><strong>{lang === 'ar' ? '[تفاصيل التواجد: مكتب / مخلصون / ساحة]' : '[Presence details: office / brokers / yard]'}</strong></div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-soft">
+    <div class="container">
+      <h2>{lang === 'ar' ? 'خدماتنا في هذا الميناء' : 'Our Services at This Port'}</h2>
+      <div class="grid grid-4 mt-2">{svc.map((s) => <ServiceCard lang={lang} s={s!} />)}</div>
+    </div>
+  </section>
+  <CTABand lang={lang} quotePath={`/e-services/quote?pod=${p.slug}`} />
+</Base>
+<style>
+  .facts { display: grid; gap: .8rem; }
+  .facts div { display: grid; grid-template-columns: auto 1fr; gap: .1rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem 1.2rem; }
+  .facts :global(.icon) { grid-row: span 2; color: var(--teal-500); margin-top: .2rem; }
+  .facts span { color: var(--muted); font-size: .88rem; }
+  .facts strong { color: var(--navy-800); }
+</style>

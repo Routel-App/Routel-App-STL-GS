@@ -1,0 +1,31 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNav from '../../../components/SubNav.astro';
+import { news } from '../../../config/site';
+import { getLang, langPaths, t, u } from '../../../i18n/ui';
+import { mediaTabs } from '../../../i18n/nav';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+---
+<Base lang={lang} title={u('news', lang)}>
+  <PageHero lang={lang} title={u('news', lang)} crumbs={[{ label: u('media', lang), path: '/media' }, { label: u('news', lang) }]} />
+  <SubNav lang={lang} items={mediaTabs} />
+  <section class="section">
+    <div class="container grid grid-3">
+      {news.map((n) => (
+        <article class="card reveal">
+          <div class="thumb" aria-hidden="true"></div>
+          <span class="tag">{n.date}</span>
+          <h3 style="margin-top:.7rem">{t(n.title, lang)}</h3>
+          <p>{t(n.excerpt, lang)}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>
+<style>
+  .thumb { aspect-ratio: 16/9; margin: -1.6rem -1.6rem 1.2rem; border-radius: var(--radius) var(--radius) 0 0; background: linear-gradient(135deg, var(--navy-700), var(--teal-500)); }
+  .tag { align-self: flex-start; }
+</style>

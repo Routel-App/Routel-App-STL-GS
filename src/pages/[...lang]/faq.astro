@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTABand from '../../components/CTABand.astro';
+import FAQList from '../../components/FAQList.astro';
+import { getLang, langPaths, u } from '../../i18n/ui';
+import { faqs } from '../../data/faq';
+import { faqSchema } from '../../i18n/schema';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+---
+<Base lang={lang} title={u('faq', lang)} schema={[faqSchema(faqs, lang)]}>
+  <PageHero lang={lang} title={u('faq', lang)} lead={lang === 'ar' ? 'إجابات سريعة عن أكثر ما يسألنا عنه العملاء.' : 'Quick answers to what clients ask us most.'} crumbs={[{ label: u('faq', lang) }]} />
+  <section class="section">
+    <div class="container" style="max-width:860px"><FAQList lang={lang} items={faqs} openFirst /></div>
+  </section>
+  <CTABand lang={lang} />
+</Base>

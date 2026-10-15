@@ -1,0 +1,48 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNav from '../../../components/SubNav.astro';
+import Icon from '../../../components/Icon.astro';
+import { news, site } from '../../../config/site';
+import { getLang, href, langPaths, t, u } from '../../../i18n/ui';
+import { mediaTabs } from '../../../i18n/nav';
+import { articles } from '../../../data/blog';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ar = lang === 'ar';
+const cards = [
+  { icon: 'flag', title: u('news', lang), text: ar ? 'إعلانات الشركة، الشراكات، الشهادات الجديدة، والمعارض.' : 'Company announcements, partnerships, new certifications and exhibitions.', path: '/media/news' },
+  { icon: 'doc', title: u('blog', lang), text: ar ? 'أدلة عملية للاستيراد والتصدير والتخليص.' : 'Practical guides to importing, exporting and clearance.', path: '/media/blog' },
+  { icon: 'search', title: u('glossary', lang), text: ar ? 'مصطلحات الشحن البحري بلغة بسيطة.' : 'Ocean shipping terms in plain language.', path: '/media/glossary' },
+];
+---
+<Base lang={lang} title={u('media', lang)}>
+  <PageHero lang={lang} title={u('media', lang)} lead={ar ? 'أخبار STL، وأدلة شحن عملية، ومسرد للمصطلحات البحرية.' : 'STL news, practical shipping guides, and a maritime glossary.'} crumbs={[{ label: u('media', lang) }]}>
+    <a class="btn btn-primary" href={site.downloads.companyProfile} download><Icon name="download" /> {u('companyProfile', lang)}</a>
+  </PageHero>
+  <SubNav lang={lang} items={mediaTabs} />
+  <section class="section">
+    <div class="container grid grid-3">
+      {cards.map((c) => (
+        <a class="card reveal" href={href(lang, c.path)}><span class="icon-badge"><Icon name={c.icon} /></span><h3>{c.title}</h3><p>{c.text}</p><span class="link-arrow">{u('learnMore', lang)} <Icon name="arrow" class="flip" /></span></a>
+      ))}
+    </div>
+  </section>
+  <section class="section section-soft">
+    <div class="container two-col">
+      <div>
+        <h2>{u('news', lang)}</h2>
+        <ul class="list">{news.map((n) => <li><span class="tag">{n.date}</span><strong>{t(n.title, lang)}</strong></li>)}</ul>
+      </div>
+      <div>
+        <h2>{u('blog', lang)}</h2>
+        <ul class="list">{articles.slice(0, 4).map((a) => <li><a href={href(lang, `/media/blog/${a.slug}`)}><strong>{t(a.title, lang)}</strong></a></li>)}</ul>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .list { list-style: none; padding: 0; margin: 0; display: grid; gap: .8rem; }
+  .list li { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 1rem 1.2rem; display: grid; gap: .4rem; justify-items: start; }
+</style>

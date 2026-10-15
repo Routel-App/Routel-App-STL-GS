@@ -1,0 +1,16 @@
+{
+  "name": "stl-gs",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check:placeholders": "node scripts/list-placeholders.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.4",
+    "astro": "5.18.2"
+  }
+}

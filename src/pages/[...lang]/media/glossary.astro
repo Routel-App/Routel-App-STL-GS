@@ -1,0 +1,41 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNav from '../../../components/SubNav.astro';
+import { getLang, langPaths, t, u } from '../../../i18n/ui';
+import { mediaTabs } from '../../../i18n/nav';
+import { glossary } from '../../../data/glossary';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const sorted = [...glossary].sort((x, y) => t(x.term, lang).replace(/^ال/, '').localeCompare(t(y.term, lang).replace(/^ال/, ''), lang));
+const schema = [{ '@context': 'https://schema.org', '@type': 'DefinedTermSet', name: u('glossary', lang), hasDefinedTerm: sorted.map((g) => ({ '@type': 'DefinedTerm', name: t(g.term, lang), description: t(g.def, lang) })) }];
+---
+<Base lang={lang} title={u('glossary', lang)} schema={schema}>
+  <PageHero lang={lang} title={lang === 'ar' ? 'مسرد المصطلحات البحرية' : 'Maritime Shipping Glossary'} lead={lang === 'ar' ? 'أهم مصطلحات الشحن البحري والتخليص مرتبة أبجديًا.' : 'Key ocean shipping and clearance terms, in alphabetical order.'} crumbs={[{ label: u('media', lang), path: '/media' }, { label: u('glossary', lang) }]} />
+  <SubNav lang={lang} items={mediaTabs} />
+  <section class="section">
+    <div class="container" style="max-width:900px">
+      <input type="search" id="gq" placeholder={lang === 'ar' ? 'ابحث عن مصطلح...' : 'Search a term...'} aria-label={lang === 'ar' ? 'بحث' : 'Search'} />
+      <dl class="gl mt-2">
+        {sorted.map((g) => (
+          <div class="term" data-q={`${g.term.ar} ${g.term.en} ${g.abbr ?? ''}`.toLowerCase()}>
+            <dt>{t(g.term, lang)} {g.abbr && <span class="tag ltr">{g.abbr}</span>} <small class="muted">{lang === 'ar' ? g.term.en : g.term.ar}</small></dt>
+            <dd>{t(g.def, lang)}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+</Base>
+<script>
+  const q = document.getElementById('gq') as HTMLInputElement;
+  const terms = Array.from(document.querySelectorAll<HTMLElement>('.term'));
+  q.addEventListener('input', () => { const v = q.value.trim().toLowerCase(); terms.forEach((t) => (t.hidden = !!v && !t.dataset.q!.includes(v))); });
+</script>
+<style>
+  .gl { margin: 0; display: grid; gap: .8rem; }
+  .term { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 1rem 1.2rem; }
+  dt { font-weight: 700; color: var(--navy-800); display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+  dd { margin: .4rem 0 0; color: var(--muted); }
+</style>

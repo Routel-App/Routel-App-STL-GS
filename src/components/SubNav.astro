@@ -1,0 +1,16 @@
+---
+import type { L } from '../config/site';
+import { type Lang, href, t } from '../i18n/ui';
+interface Props { lang: Lang; items: { label: L; path: string }[] }
+const { lang, items } = Astro.props;
+const bare = (Astro.url.pathname.replace(/\/$/, '') || '/').replace(/^\/en(?=\/|$)/, '') || '/';
+---
+<nav class="subnav">
+  <div class="container">
+    <ul>
+      {items.map((i) => (
+        <li><a href={href(lang, i.path)} aria-current={bare === i.path ? 'page' : undefined}>{t(i.label, lang)}</a></li>
+      ))}
+    </ul>
+  </div>
+</nav>

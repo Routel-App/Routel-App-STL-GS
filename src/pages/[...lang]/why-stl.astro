@@ -1,0 +1,47 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTABand from '../../components/CTABand.astro';
+import Icon from '../../components/Icon.astro';
+import { getLang, langPaths, t, u } from '../../i18n/ui';
+import { whyTitle, whyReasons, comparison } from '../../data/company';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+---
+<Base lang={lang} title={u('whyStl', lang)} description={t(whyTitle, lang)}>
+  <PageHero lang={lang} title={t(whyTitle, lang)} crumbs={[{ label: u('whyStl', lang) }]} />
+  <section class="section">
+    <div class="container grid grid-3">
+      {whyReasons.map((r, i) => (
+        <div class="card reveal reason">
+          <span class="n">{String(i + 1).padStart(2, '0')}</span>
+          <span class="icon-badge"><Icon name={r.icon} /></span>
+          <h3>{t(r.title, lang)}</h3>
+          <p>{t(r.text, lang)}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+  <section class="section section-soft">
+    <div class="container">
+      <h2 class="center">{lang === 'ar' ? 'مع STL مقابل الطريقة التقليدية' : 'With STL vs. the Traditional Way'}</h2>
+      <div class="table-wrap mt-2 cmp">
+        <table>
+          <thead><tr><th></th><th class="stl">{lang === 'ar' ? 'مع STL' : 'With STL'}</th><th>{lang === 'ar' ? 'الطريقة التقليدية' : 'Traditional way'}</th></tr></thead>
+          <tbody>{comparison.map((c) => <tr><th scope="row">{t(c.row, lang)}</th><td class="stl"><Icon name="check" size={18} /> {t(c.stl, lang)}</td><td>{t(c.trad, lang)}</td></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <CTABand lang={lang} />
+</Base>
+<style>
+  .reason { position: relative; }
+  .n { position: absolute; top: 1.2rem; inset-inline-end: 1.4rem; font-size: 2rem; font-weight: 700; color: var(--line); }
+  .cmp { max-width: 900px; margin-inline: auto; }
+  .cmp td.stl { color: var(--navy-800); font-weight: 600; }
+  .cmp td.stl :global(.icon) { display: inline; vertical-align: -3px; color: var(--teal-500); }
+  .cmp th.stl { background: var(--teal-500); color: #fff; }
+  .cmp tbody th { background: #fff; white-space: normal; }
+</style>

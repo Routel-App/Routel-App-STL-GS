@@ -1,0 +1,82 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Icon from '../../components/Icon.astro';
+import { site } from '../../config/site';
+import { getLang, href, langPaths, t, u } from '../../i18n/ui';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ar = lang === 'ar';
+const c = site.contact;
+const cards = [
+  { icon: 'phone', label: u('phone', lang), value: c.unifiedPhone, link: `tel:${c.unifiedPhone}` },
+  { icon: 'whatsapp', label: ar ? 'واتساب' : 'WhatsApp', value: c.whatsappDisplay, link: `https://wa.me/${c.whatsapp}` },
+  { icon: 'mail', label: ar ? 'البريد العام' : 'General', value: c.emailInfo, link: `mailto:${c.emailInfo}` },
+  { icon: 'mail', label: ar ? 'المبيعات' : 'Sales', value: c.emailSales, link: `mailto:${c.emailSales}` },
+  { icon: 'mail', label: ar ? 'الدعم' : 'Support', value: c.emailSupport, link: `mailto:${c.emailSupport}` },
+];
+const subjects = ar
+  ? ['استفسار عام', 'عرض سعر', 'متابعة شحنة', 'شكوى أو اقتراح', 'شراكة']
+  : ['General inquiry', 'Quote', 'Shipment follow-up', 'Complaint or suggestion', 'Partnership'];
+---
+<Base lang={lang} title={u('contact', lang)}>
+  <PageHero lang={lang} title={ar ? 'نسعد بخدمتك' : "We're Happy to Help"} crumbs={[{ label: u('contact', lang) }]} />
+  <section class="section">
+    <div class="container">
+      <div class="cards">
+        {cards.map((k) => (
+          <a class="card contact-card" href={k.link} target={k.link.startsWith('http') ? '_blank' : undefined} rel="noopener">
+            <span class="icon-badge"><Icon name={k.icon} /></span>
+            <span class="muted">{k.label}</span>
+            <strong class="ltr">{k.value}</strong>
+          </a>
+        ))}
+      </div>
+      <div class="two-col mt-2">
+        <div>
+          <h2>{ar ? 'أرسل لنا رسالة' : 'Send us a message'}</h2>
+          <form class="form" data-form="contact" data-success={ar ? 'شكرًا لك! وصلتنا رسالتك وسنرد عليك قريبًا.' : 'Thank you! We received your message and will reply soon.'}>
+            <div class="form-row">
+              <div class="field"><label for="f-name">{ar ? 'الاسم' : 'Name'}</label><input id="f-name" name="name" required autocomplete="name" /></div>
+              <div class="field"><label for="f-company">{ar ? 'الشركة' : 'Company'}</label><input id="f-company" name="company" autocomplete="organization" /></div>
+            </div>
+            <div class="form-row">
+              <div class="field"><label for="f-mobile">{ar ? 'الجوال' : 'Mobile'}</label><input id="f-mobile" name="mobile" type="tel" required dir="ltr" autocomplete="tel" /></div>
+              <div class="field"><label for="f-email">{ar ? 'البريد' : 'Email'}</label><input id="f-email" name="email" type="email" required dir="ltr" autocomplete="email" /></div>
+            </div>
+            <div class="field"><label for="f-subject">{ar ? 'الموضوع' : 'Subject'}</label>
+              <select id="f-subject" name="subject" required>{subjects.map((s) => <option>{s}</option>)}</select>
+            </div>
+            <div class="field"><label for="f-msg">{ar ? 'الرسالة' : 'Message'}</label><textarea id="f-msg" name="message" required></textarea></div>
+            <label class="consent"><input type="checkbox" name="consent" required /> <span>{ar ? 'أوافق على معالجة بياناتي وفق ' : 'I consent to the processing of my data under the '}<a href={href(lang, '/legal/privacy')}>{u('privacy', lang)}</a>.</span></label>
+            <div><button class="btn btn-primary" type="submit">{u('submit', lang)}</button></div>
+          </form>
+          <p class="alert alert-success mt-2" data-msg hidden role="status"></p>
+        </div>
+        <div class="stack">
+          <div class="card">
+            <h3>{ar ? 'المقر الرئيسي' : 'Head office'}</h3>
+            <p><Icon name="pin" size={18} class="inl" /> {t(c.hqAddress, lang)}</p>
+            <p><Icon name="clock" size={18} class="inl" /> {u('hours', lang)}: {t(c.workingHours, lang)}</p>
+            <a class="link-arrow" href={c.googleMapsUrl} target="_blank" rel="noopener">{ar ? 'افتح في خرائط Google' : 'Open in Google Maps'} <Icon name="arrow" class="flip" /></a>
+          </div>
+          {c.googleMapsEmbed ? (
+            <iframe class="mapframe" src={c.googleMapsEmbed} loading="lazy" title="Google Maps" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          ) : (
+            <div class="map-ph"><Icon name="pin" size={40} /><span>[{ar ? 'خريطة Google — أضف رابط التضمين في googleMapsEmbed' : 'Google map — add the embed URL in googleMapsEmbed'}]</span></div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+  .contact-card strong { color: var(--navy-800); word-break: break-all; }
+  .consent { display: flex; gap: .5rem; align-items: flex-start; font-size: .92rem; color: var(--muted); }
+  .consent input { margin-top: .4rem; }
+  .card :global(.inl) { display: inline; vertical-align: -3px; color: var(--teal-500); }
+  .mapframe { width: 100%; height: 320px; border: 0; border-radius: var(--radius); }
+  .map-ph { height: 300px; border-radius: var(--radius); background: var(--bg-soft); border: 1px dashed var(--line); display: grid; place-items: center; align-content: center; gap: .6rem; color: var(--muted); text-align: center; padding: 1rem; }
+</style>

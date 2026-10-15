@@ -1,0 +1,30 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import PageHero from '../../../../components/PageHero.astro';
+import SubNav from '../../../../components/SubNav.astro';
+import CTABand from '../../../../components/CTABand.astro';
+import PortsMap from '../../../../components/PortsMap.astro';
+import { getLang, href, langPaths, t, u } from '../../../../i18n/ui';
+import { networkTabs } from '../../../../i18n/nav';
+import { visiblePorts, seaName } from '../../../../data/network';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ports = visiblePorts();
+---
+<Base lang={lang} title={u('ports', lang)}>
+  <PageHero lang={lang} title={u('ports', lang)} lead={lang === 'ar' ? 'نخدم موانئ البحر الأحمر والخليج العربي، بخدمات حجز وتخليص ونقل من كل ميناء.' : 'We serve Red Sea and Arabian Gulf ports with booking, clearance and transport from each one.'} crumbs={[{ label: u('network', lang), path: '/network' }, { label: u('ports', lang) }]} />
+  <SubNav lang={lang} items={networkTabs} />
+  <section class="section">
+    <div class="container two-col">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>{lang === 'ar' ? 'الميناء' : 'Port'}</th><th>{lang === 'ar' ? 'الموقع' : 'Location'}</th><th>{lang === 'ar' ? 'أبرز الاستخدامات' : 'Main uses'}</th></tr></thead>
+          <tbody>{ports.map((p) => <tr><td><a href={href(lang, `/network/ports/${p.slug}`)}><strong>{t(p.name, lang)}</strong></a></td><td>{t(seaName(p.sea), lang)}</td><td>{t(p.use, lang)}</td></tr>)}</tbody>
+        </table>
+      </div>
+      <PortsMap lang={lang} />
+    </div>
+  </section>
+  <CTABand lang={lang} />
+</Base>

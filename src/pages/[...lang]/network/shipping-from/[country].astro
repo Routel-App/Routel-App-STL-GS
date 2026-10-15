@@ -1,0 +1,50 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import PageHero from '../../../../components/PageHero.astro';
+import CTABand from '../../../../components/CTABand.astro';
+import Icon from '../../../../components/Icon.astro';
+import { type Lang, getLang, href, langs, langParam, t, u } from '../../../../i18n/ui';
+import { visibleCountries, visiblePorts, importDocs, type Country } from '../../../../data/network';
+
+export function getStaticPaths() {
+  return langs.flatMap((l: Lang) => visibleCountries().map((c) => ({ params: { lang: langParam(l), country: c.slug }, props: { c } })));
+}
+const { c } = Astro.props as { c: Country };
+const lang = getLang(Astro.params.lang);
+const name = t(c.name, lang);
+const title = lang === 'ar' ? `الشحن البحري من ${name} إلى السعودية` : `Ocean Shipping from ${name} to Saudi Arabia`;
+const intro = lang === 'ar'
+  ? `نشحن بضاعتك من موانئ ${name} الرئيسية إلى موانئ المملكة بالحاويات الكاملة (FCL) أو المجمّعة (LCL)، ونتولى الحجز والتوثيق والتخليص الجمركي وشهادات سابر والنقل حتى مستودعك.`
+  : `We ship your cargo from ${name}'s main ports to Saudi ports by FCL or LCL, handling booking, documentation, customs clearance, SABER certificates and delivery to your warehouse.`;
+const quote = `/e-services/quote?origin=${c.slug}`;
+const sep = lang === 'ar' ? '، ' : ', ';
+---
+<Base lang={lang} title={title} description={intro}>
+  <PageHero lang={lang} title={title} lead={intro} crumbs={[{ label: u('network', lang), path: '/network' }, { label: u('routes', lang), path: '/network/routes' }, { label: name }]}>
+    <a class="btn btn-primary" href={href(lang, quote)}>{u('quote', lang)}</a>
+  </PageHero>
+  <section class="section">
+    <div class="container grid grid-3">
+      <div class="card"><span class="icon-badge"><Icon name="anchor" /></span><h3>{lang === 'ar' ? 'الموانئ الرئيسية' : 'Main ports'}</h3><p>{c.ports.map((p) => t(p, lang)).join(sep)}</p></div>
+      <div class="card"><span class="icon-badge"><Icon name="clock" /></span><h3>{lang === 'ar' ? 'المدة التقريبية' : 'Approximate transit'}</h3><p>{t(c.transit, lang)}</p></div>
+      <div class="card"><span class="icon-badge"><Icon name="pin" /></span><h3>{lang === 'ar' ? 'موانئ الوصول' : 'Arrival ports'}</h3><p>{visiblePorts().slice(0, 3).map((p) => t(p.name, lang)).join(sep)}</p></div>
+    </div>
+  </section>
+  <section class="section section-soft">
+    <div class="container two-col">
+      <div>
+        <h2>{lang === 'ar' ? 'المستندات المطلوبة' : 'Required documents'}</h2>
+        <ul class="check-list">{importDocs.map((d) => <li>{t(d, lang)}</li>)}</ul>
+      </div>
+      <div class="tip">
+        <h2>{lang === 'ar' ? 'نصائح سابر' : 'SABER tips'}</h2>
+        <p>{t(c.saberTips, lang)}</p>
+        <a class="link-arrow" href={href(lang, '/services/customs-clearance-saber')}>{lang === 'ar' ? 'التخليص الجمركي وسابر' : 'Customs clearance & SABER'} <Icon name="arrow" class="flip" /></a>
+      </div>
+    </div>
+  </section>
+  <CTABand lang={lang} quotePath={quote} />
+</Base>
+<style>
+  .tip { background: #fff; border: 1px solid var(--line); border-inline-start: 4px solid var(--accent); border-radius: var(--radius); padding: 1.8rem; }
+</style>

@@ -1,0 +1,68 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNav from '../../../components/SubNav.astro';
+import { sailings } from '../../../config/site';
+import { getLang, href, langPaths, u } from '../../../i18n/ui';
+import { eServiceTabs } from '../../../i18n/nav';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ar = lang === 'ar';
+const uniq = (a: string[]) => [...new Set(a)];
+const pols = uniq(sailings.map((s) => s.pol));
+const pods = uniq(sailings.map((s) => s.pod));
+const months = uniq(sailings.map((s) => s.month));
+const all = ar ? 'الكل' : 'All';
+---
+<Base lang={lang} title={u('schedule', lang)}>
+  <PageHero lang={lang} title={u('schedule', lang)} lead={ar ? 'مواعيد الإبحار القادمة حسب ميناء التحميل والوصول.' : 'Upcoming sailings by port of loading and discharge.'} crumbs={[{ label: u('eservices', lang), path: '/e-services' }, { label: u('schedule', lang) }]} />
+  <SubNav lang={lang} items={eServiceTabs} />
+  <section class="section">
+    <div class="container">
+      <form class="filters card" id="filters">
+        <div class="field"><label for="f-pol">{ar ? 'ميناء التحميل' : 'Port of loading'}</label><select id="f-pol" name="pol"><option value="">{all}</option>{pols.map((p) => <option>{p}</option>)}</select></div>
+        <div class="field"><label for="f-pod">{ar ? 'ميناء الوصول' : 'Port of discharge'}</label><select id="f-pod" name="pod"><option value="">{all}</option>{pods.map((p) => <option>{p}</option>)}</select></div>
+        <div class="field"><label for="f-month">{ar ? 'الشهر' : 'Month'}</label><select id="f-month" name="month"><option value="">{all}</option>{months.map((p) => <option>{p}</option>)}</select></div>
+      </form>
+      <div class="table-wrap mt-2">
+        <table id="sched">
+          <thead><tr>
+            <th>{ar ? 'ميناء التحميل' : 'POL'}</th><th>{ar ? 'ميناء الوصول' : 'POD'}</th>
+            <th>{ar ? 'الخط الملاحي' : 'Carrier'}</th><th>{ar ? 'اسم السفينة' : 'Vessel'}</th>
+            <th>{ar ? 'إغلاق الحجز' : 'Cut-off'}</th><th>{ar ? 'تاريخ الإبحار' : 'ETD'}</th>
+            <th>{ar ? 'الوصول المتوقع' : 'ETA'}</th><th>{ar ? 'مدة العبور (يوم)' : 'Transit (days)'}</th><th></th>
+          </tr></thead>
+          <tbody>
+            {sailings.map((s) => (
+              <tr data-pol={s.pol} data-pod={s.pod} data-month={s.month}>
+                <td>{s.pol}</td><td>{s.pod}</td><td>{s.carrier}</td><td>{s.vessel}</td><td>{s.cutoff}</td><td>{s.etd}</td><td>{s.eta}</td><td>{s.transitDays}</td>
+                <td><a class="btn btn-sm btn-teal" href={href(lang, '/e-services/quote')}>{ar ? 'احجز' : 'Book'}</a></td>
+              </tr>
+            ))}
+            <tr id="empty" hidden><td colspan="9" class="center muted">{ar ? 'لا توجد رحلات مطابقة.' : 'No matching sailings.'}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted mt-2">{ar ? 'ملاحظة: المواعيد تقديرية وقابلة للتغيير من الخطوط الملاحية.' : 'Note: dates are estimates and subject to change by the shipping lines.'}</p>
+    </div>
+  </section>
+</Base>
+<script>
+  const f = document.getElementById('filters') as HTMLFormElement;
+  const rows = Array.from(document.querySelectorAll<HTMLTableRowElement>('#sched tbody tr[data-pol]'));
+  const apply = () => {
+    const d = Object.fromEntries(new FormData(f)) as Record<string, string>;
+    let n = 0;
+    rows.forEach((r) => {
+      const ok = (!d.pol || r.dataset.pol === d.pol) && (!d.pod || r.dataset.pod === d.pod) && (!d.month || r.dataset.month === d.month);
+      r.hidden = !ok; if (ok) n++;
+    });
+    document.getElementById('empty')!.hidden = n > 0;
+  };
+  f.addEventListener('change', apply);
+</script>
+<style>
+  .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 1rem; }
+  td { white-space: nowrap; }
+</style>

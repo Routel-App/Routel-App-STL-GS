@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTABand from '../../components/CTABand.astro';
+import Icon from '../../components/Icon.astro';
+import { site } from '../../config/site';
+import { getLang, langPaths, t, u } from '../../i18n/ui';
+import { qhse } from '../../data/company';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const title = lang === 'ar' ? 'الجودة والصحة والسلامة والبيئة (QHSE)' : 'Quality, Health, Safety & Environment (QHSE)';
+---
+<Base lang={lang} title={title} description={t(qhse.intro, lang)}>
+  <PageHero lang={lang} title={title} lead={t(qhse.intro, lang)} crumbs={[{ label: u('qhse', lang) }]}>
+    <a class="btn btn-primary" href={site.downloads.qhsePolicy} download><Icon name="download" /> {lang === 'ar' ? 'تحميل سياسة QHSE (PDF)' : 'Download QHSE policy (PDF)'}</a>
+  </PageHero>
+  <section class="section">
+    <div class="container grid grid-2">
+      {qhse.policies.map((p) => (
+        <div class="card reveal policy">
+          <span class="icon-badge"><Icon name={p.icon} /></span>
+          <div><h3>{t(p.title, lang)}</h3><p>{t(p.text, lang)}</p></div>
+        </div>
+      ))}
+    </div>
+  </section>
+  <CTABand lang={lang} />
+</Base>
+<style>
+  .policy { flex-direction: row; gap: 1.2rem; }
+  .policy p { margin: 0; }
+</style>

@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Icon from '../../components/Icon.astro';
+import { jobs, site } from '../../config/site';
+import { getLang, langPaths, t, u } from '../../i18n/ui';
+import { careers } from '../../data/company';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ar = lang === 'ar';
+---
+<Base lang={lang} title={u('careers', lang)} description={t(careers.text, lang)}>
+  <PageHero lang={lang} title={t(careers.title, lang)} lead={t(careers.text, lang)} crumbs={[{ label: u('careers', lang) }]}>
+    <a class="btn btn-primary" href="#apply">{u('applyNow', lang)}</a>
+  </PageHero>
+  <section class="section">
+    <div class="container">
+      <h2>{ar ? 'لماذا تعمل معنا' : 'Why work with us'}</h2>
+      <div class="grid grid-4 mt-2">{careers.perks.map((p) => <div class="card reveal"><span class="icon-badge"><Icon name={p.icon} /></span><h3>{t(p.text, lang)}</h3></div>)}</div>
+    </div>
+  </section>
+  <section class="section section-soft">
+    <div class="container">
+      <h2>{ar ? 'الوظائف الشاغرة' : 'Open positions'}</h2>
+      <div class="table-wrap mt-2">
+        <table>
+          <thead><tr><th>{ar ? 'المسمى' : 'Title'}</th><th>{ar ? 'المدينة' : 'City'}</th><th>{ar ? 'نوع الدوام' : 'Type'}</th><th></th></tr></thead>
+          <tbody>{jobs.map((j) => <tr><td><strong>{t(j.title, lang)}</strong></td><td>{t(j.city, lang)}</td><td>{t(j.type, lang)}</td><td><a class="btn btn-sm btn-teal job-apply" href="#apply" data-job={t(j.title, lang)}>{u('applyNow', lang)}</a></td></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="apply">
+    <div class="container narrow">
+      <h2>{ar ? 'نموذج تقديم عام' : 'General application'}</h2>
+      <p class="muted">{ar ? 'أو أرسل سيرتك إلى' : 'Or email your CV to'} <a href={`mailto:${site.contact.emailCareers}`} class="ltr">{site.contact.emailCareers}</a></p>
+      <form class="form card" data-form="careers" data-success={ar ? 'شكرًا لك! وصلنا طلبك وسنتواصل معك عند توفر فرصة مناسبة.' : 'Thank you! We received your application and will contact you when a suitable role opens.'}>
+        <input type="hidden" name="position" id="position" />
+        <div class="form-row">
+          <div class="field"><label for="c-name">{ar ? 'الاسم' : 'Name'}</label><input id="c-name" name="name" required autocomplete="name" /></div>
+          <div class="field"><label for="c-mobile">{ar ? 'الجوال' : 'Mobile'}</label><input id="c-mobile" name="mobile" type="tel" required dir="ltr" autocomplete="tel" /></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="c-email">{ar ? 'البريد' : 'Email'}</label><input id="c-email" name="email" type="email" required dir="ltr" autocomplete="email" /></div>
+          <div class="field"><label for="c-major">{ar ? 'التخصص' : 'Specialization'}</label><input id="c-major" name="specialization" required /></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="c-years">{ar ? 'سنوات الخبرة' : 'Years of experience'}</label><input id="c-years" name="experience" type="number" min="0" max="60" required /></div>
+          <div class="field"><label for="c-cv">{ar ? 'السيرة الذاتية (PDF)' : 'CV (PDF)'}</label><input id="c-cv" name="cv" type="file" accept=".pdf,.doc,.docx" required /></div>
+        </div>
+        <label class="consent"><input type="checkbox" required /> {ar ? 'أوافق على معالجة بياناتي وفق سياسة الخصوصية.' : 'I consent to the processing of my data under the Privacy Policy.'}</label>
+        <button class="btn btn-primary" type="submit">{u('submit', lang)}</button>
+      </form>
+      <p class="alert alert-success mt-2" data-msg hidden role="status"></p>
+    </div>
+  </section>
+</Base>
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('.job-apply').forEach((a) =>
+    a.addEventListener('click', () => { (document.getElementById('position') as HTMLInputElement).value = a.dataset.job || ''; }),
+  );
+</script>
+<style>
+  .narrow { max-width: 820px; }
+  .consent { display: flex; gap: .5rem; align-items: flex-start; font-size: .92rem; color: var(--muted); }
+  .consent input { margin-top: .4rem; }
+</style>

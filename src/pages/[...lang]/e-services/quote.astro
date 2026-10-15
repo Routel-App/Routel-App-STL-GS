@@ -1,0 +1,250 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNav from '../../../components/SubNav.astro';
+import Icon from '../../../components/Icon.astro';
+import { site } from '../../../config/site';
+import { getLang, href, langPaths, t, u } from '../../../i18n/ui';
+import { eServiceTabs } from '../../../i18n/nav';
+import { visiblePorts, visibleCountries } from '../../../data/network';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+const ar = lang === 'ar';
+const L = (a: string, e: string) => (ar ? a : e);
+
+const serviceTypes = [
+  { v: 'import', icon: 'import', label: L('استيراد', 'Import') },
+  { v: 'export', icon: 'export', label: L('تصدير', 'Export') },
+  { v: 'clearance', icon: 'stamp', label: L('تخليص فقط', 'Clearance only') },
+  { v: 'project', icon: 'crane', label: L('مشروع', 'Project') },
+  { v: 'inland', icon: 'truck', label: L('نقل داخلي', 'Inland transport') },
+  { v: 'warehouse', icon: 'warehouse', label: L('تخزين', 'Warehousing') },
+];
+const modes = [
+  { v: 'FCL', label: L('حاوية كاملة FCL', 'FCL') },
+  { v: 'LCL', label: L('مجمّع LCL', 'LCL') },
+  { v: 'BREAKBULK', label: L('سائب / مشاريع', 'Break bulk / Project') },
+  { v: 'REEFER', label: L('مبرد', 'Reefer') },
+  { v: 'RORO', label: 'RoRo' },
+];
+const containers = ["20' Dry", "40' Dry", "40' HC", "20' Reefer", "40' Reefer", 'Open Top', 'Flat Rack', 'ISO Tank'];
+const incoterms = ['EXW', 'FCA', 'FOB', 'CFR', 'CIF', 'CPT', 'CIP', 'DAP', 'DPU', 'DDP', L('غير متأكد', 'Not sure')];
+const steps = [L('نوع الخدمة', 'Service type'), L('تفاصيل الشحنة', 'Shipment details'), L('بيانات التواصل', 'Contact details')];
+---
+<Base lang={lang} title={u('quote', lang)} description={L('اطلب عرض سعر مفصّل لشحنتك البحرية خلال {hours} ساعة.', 'Request a detailed ocean freight quote within {hours} hours.')}>
+  <PageHero lang={lang} title={u('quote', lang)} lead={L('ثلاث خطوات بسيطة، ونرد عليك خلال {hours} ساعة عمل.', 'Three simple steps — we reply within {hours} business hours.').replace('{hours}', site.quoteResponseHours)} crumbs={[{ label: u('eservices', lang), path: '/e-services' }, { label: u('quote', lang) }]} />
+  <SubNav lang={lang} items={eServiceTabs} />
+
+  <section class="section">
+    <div class="container narrow">
+      <ol class="progress" id="progress">
+        {steps.map((s, i) => <li class:list={{ active: i === 0 }}><span>{i + 1}</span>{s}</li>)}
+      </ol>
+
+      <form id="quote" class="card qform" data-form="quote" data-custom novalidate>
+        <!-- Step 1 -->
+        <fieldset class="step" data-step="0">
+          <legend>{steps[0]}</legend>
+          <div class="choice-grid">
+            {serviceTypes.map((s, i) => (
+              <label class="choice"><input type="radio" name="service" value={s.v} required checked={i === 0} /><span><Icon name={s.icon} size={20} /> {s.label}</span></label>
+            ))}
+          </div>
+        </fieldset>
+
+        <!-- Step 2 -->
+        <fieldset class="step" data-step="1" hidden>
+          <legend>{steps[1]}</legend>
+          <div class="form-row">
+            <div class="field"><label for="q-origin">{L('ميناء أو مدينة المنشأ', 'Origin port / city')}</label>
+              <input id="q-origin" name="origin" list="origins" required />
+              <datalist id="origins">{visibleCountries().flatMap((c) => c.ports.map((p) => <option value={`${t(p, lang)} — ${t(c.name, lang)}`} data-country={c.slug} />))}</datalist>
+            </div>
+            <div class="field"><label for="q-dest">{L('الوجهة', 'Destination')}</label>
+              <input id="q-dest" name="destination" list="dests" required />
+              <datalist id="dests">{visiblePorts().map((p) => <option value={t(p.name, lang)} data-slug={p.slug} />)}</datalist>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label">{L('نوع الشحن', 'Shipping mode')}</span>
+            <div class="choice-grid">
+              {modes.map((m, i) => <label class="choice"><input type="radio" name="mode" value={m.v} checked={i === 0} /><span>{m.label}</span></label>)}
+            </div>
+          </div>
+          <div class="form-row" data-show="FCL,REEFER">
+            <div class="field"><label for="q-ctype">{L('نوع الحاوية', 'Container type')}</label><select id="q-ctype" name="container_type">{containers.map((c) => <option>{c}</option>)}</select></div>
+            <div class="field"><label for="q-ccount">{L('عدد الحاويات', 'Number of containers')}</label><input id="q-ccount" name="container_count" type="number" min="1" value="1" /></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="q-cbm">{L('الحجم (م³)', 'Volume (CBM)')} <small>({u('optional', lang)})</small></label><input id="q-cbm" name="volume_cbm" type="number" min="0" step="0.01" dir="ltr" /></div>
+            <div class="field"><label for="q-weight">{L('الوزن الإجمالي (كجم)', 'Total weight (kg)')}</label><input id="q-weight" name="weight_kg" type="number" min="0" step="0.1" dir="ltr" /></div>
+          </div>
+          <div class="field"><label for="q-cargo">{L('نوع البضاعة', 'Cargo description')}</label><input id="q-cargo" name="cargo" required placeholder={L('مثال: أجهزة كهربائية منزلية', 'e.g. household electrical appliances')} /></div>
+          <div class="form-row">
+            <div class="field"><span class="label">{L('هل هي مواد خطرة؟', 'Dangerous goods?')}</span>
+              <div class="inline-checks"><label><input type="radio" name="dangerous" value="no" checked /> {L('لا', 'No')}</label><label><input type="radio" name="dangerous" value="yes" /> {L('نعم', 'Yes')}</label></div>
+            </div>
+            <div class="field"><span class="label">{L('هل تحتاج تأمين؟', 'Need insurance?')}</span>
+              <div class="inline-checks"><label><input type="radio" name="insurance" value="no" checked /> {L('لا', 'No')}</label><label><input type="radio" name="insurance" value="yes" /> {L('نعم', 'Yes')}</label></div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="q-inco">{L('شروط التسليم (Incoterms)', 'Incoterms')}</label><select id="q-inco" name="incoterms">{incoterms.map((i) => <option>{i}</option>)}</select></div>
+            <div class="field"><label for="q-ready">{L('تاريخ الجاهزية', 'Cargo ready date')}</label><input id="q-ready" name="ready_date" type="date" required /></div>
+          </div>
+        </fieldset>
+
+        <!-- Step 3 -->
+        <fieldset class="step" data-step="2" hidden>
+          <legend>{steps[2]}</legend>
+          <div class="form-row">
+            <div class="field"><label for="q-name">{L('الاسم', 'Name')}</label><input id="q-name" name="name" required autocomplete="name" /></div>
+            <div class="field"><label for="q-company">{L('الشركة', 'Company')}</label><input id="q-company" name="company" required autocomplete="organization" /></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="q-cr">{L('السجل التجاري', 'Commercial Registration')} <small>({u('optional', lang)})</small></label><input id="q-cr" name="cr" dir="ltr" /></div>
+            <div class="field"><label for="q-mobile">{L('الجوال', 'Mobile')}</label><input id="q-mobile" name="mobile" type="tel" required dir="ltr" autocomplete="tel" placeholder="05XXXXXXXX" /></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="q-email">{L('البريد', 'Email')}</label><input id="q-email" name="email" type="email" required dir="ltr" autocomplete="email" /></div>
+            <div class="field"><label for="q-pref">{L('طريقة التواصل المفضلة', 'Preferred contact method')}</label>
+              <select id="q-pref" name="preferred_contact"><option>{L('اتصال', 'Phone call')}</option><option>{L('واتساب', 'WhatsApp')}</option><option>{L('البريد', 'Email')}</option></select>
+            </div>
+          </div>
+          <div class="field"><label for="q-files">{L('إرفاق ملفات (فاتورة مبدئية، قائمة تعبئة)', 'Attachments (proforma invoice, packing list)')} <small>({u('optional', lang)})</small></label><input id="q-files" name="attachments" type="file" multiple accept=".pdf,.xls,.xlsx,.doc,.docx,.jpg,.png" /></div>
+          <div class="field"><label for="q-notes">{L('ملاحظات', 'Notes')} <small>({u('optional', lang)})</small></label><textarea id="q-notes" name="notes"></textarea></div>
+          <label class="consent"><input type="checkbox" name="consent" required /> <span>{L('أوافق على معالجة بياناتي وفق ', 'I consent to the processing of my data under the ')}<a href={href(lang, '/legal/privacy')}>{u('privacy', lang)}</a>.</span></label>
+        </fieldset>
+
+        <p class="alert alert-error" id="q-error" hidden role="alert"></p>
+        <div class="nav-btns">
+          <button type="button" class="btn btn-outline" id="prev" hidden><Icon name="arrow" class="back-arrow" /> {u('back', lang)}</button>
+          <button type="button" class="btn btn-primary" id="next">{u('next', lang)} <Icon name="arrow" class="flip" /></button>
+          <button type="submit" class="btn btn-primary" id="send" hidden>{u('submit', lang)}</button>
+        </div>
+      </form>
+
+      <div class="card success" id="q-success" hidden role="status">
+        <span class="icon-badge"><Icon name="check" /></span>
+        <h2>{L('شكرًا لك!', 'Thank you!')}</h2>
+        <p class="lead" id="q-success-text" data-tpl={L('وصلنا طلبك برقم {ref}، وسيتواصل معك أحد مختصينا خلال {hours} ساعة عمل.', 'We received your request, reference {ref}. One of our specialists will contact you within {hours} business hours.').replace('{hours}', site.quoteResponseHours)}></p>
+        <a class="btn btn-outline" href={href(lang, '/')}>{u('backHome', lang)}</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { submitForm } from '../../../scripts/forms';
+  const form = document.getElementById('quote') as HTMLFormElement;
+  const steps = Array.from(form.querySelectorAll<HTMLFieldSetElement>('.step'));
+  const prog = Array.from(document.querySelectorAll('#progress li'));
+  const prev = document.getElementById('prev')!;
+  const next = document.getElementById('next')!;
+  const send = document.getElementById('send') as HTMLButtonElement;
+  const err = document.getElementById('q-error')!;
+  const prefix = document.body.dataset.quotePrefix || 'STL-';
+  let cur = 0;
+
+  const go = (n: number) => {
+    cur = n;
+    steps.forEach((s, i) => (s.hidden = i !== n));
+    prog.forEach((p, i) => { p.classList.toggle('active', i === n); p.classList.toggle('done', i < n); });
+    prev.hidden = n === 0;
+    next.hidden = n === steps.length - 1;
+    send.hidden = n !== steps.length - 1;
+    err.hidden = true;
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  const valid = (n: number) => {
+    const fields = Array.from(steps[n].querySelectorAll<HTMLInputElement>('input,select,textarea')).filter((f) => !f.closest('[hidden]'));
+    for (const f of fields) if (!f.checkValidity()) { f.reportValidity(); return false; }
+    return true;
+  };
+  next.addEventListener('click', () => valid(cur) && go(cur + 1));
+  prev.addEventListener('click', () => go(cur - 1));
+
+  // Show container fields only for FCL / Reefer
+  const syncMode = () => {
+    const mode = (form.querySelector('input[name=mode]:checked') as HTMLInputElement)?.value;
+    form.querySelectorAll<HTMLElement>('[data-show]').forEach((el) => (el.hidden = !el.dataset.show!.split(',').includes(mode)));
+    const ctype = form.elements.namedItem('container_type') as HTMLSelectElement;
+    const isReefer = ctype.value.includes('Reefer');
+    if (mode === 'REEFER' && !isReefer) ctype.value = "20' Reefer";
+    if (mode === 'FCL' && isReefer) ctype.value = "20' Dry";
+  };
+  form.addEventListener('change', syncMode);
+
+  // Presets from the URL (?mode=, ?origin=, ?pod=, ?cbm=, ?weight=)
+  const q = new URLSearchParams(location.search);
+  const setRadio = (name: string, v: string) => { const r = form.querySelector<HTMLInputElement>(`input[name=${name}][value="${v}"]`); if (r) r.checked = true; };
+  const mode = (q.get('mode') || '').toUpperCase();
+  if (['FCL', 'LCL', 'BREAKBULK', 'REEFER', 'RORO'].includes(mode)) setRadio('mode', mode);
+  if (mode === 'BREAKBULK') setRadio('service', 'project');
+  if (mode === 'DG') setRadio('dangerous', 'yes');
+  if (mode === 'CLEARANCE') setRadio('service', 'clearance');
+  if (mode === 'INLAND') setRadio('service', 'inland');
+  if (mode === 'WAREHOUSE') setRadio('service', 'warehouse');
+  if (mode === 'INSURANCE') setRadio('insurance', 'yes');
+  const origin = q.get('origin');
+  if (origin) {
+    const opt = document.querySelector<HTMLOptionElement>(`#origins option[data-country="${CSS.escape(origin)}"]`);
+    if (opt) (form.elements.namedItem('origin') as HTMLInputElement).value = opt.value.split(' — ')[1];
+  }
+  const pod = q.get('pod');
+  if (pod) {
+    const opt = document.querySelector<HTMLOptionElement>(`#dests option[data-slug="${CSS.escape(pod)}"]`);
+    if (opt) (form.elements.namedItem('destination') as HTMLInputElement).value = opt.value;
+  }
+  if (q.get('cbm')) (form.elements.namedItem('volume_cbm') as HTMLInputElement).value = q.get('cbm')!;
+  if (q.get('weight')) (form.elements.namedItem('weight_kg') as HTMLInputElement).value = q.get('weight')!;
+  syncMode();
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!valid(cur)) return;
+    const ref = prefix + String(Date.now()).slice(-6);
+    send.disabled = true;
+    const label = send.textContent;
+    send.textContent = document.body.dataset.sending || '...';
+    try {
+      const ok = await submitForm(form, { reference: ref });
+      if (!ok) throw new Error();
+      const box = document.getElementById('q-success')!;
+      const txt = document.getElementById('q-success-text')!;
+      txt.textContent = (txt.dataset.tpl || '').replace('{ref}', ref);
+      form.hidden = true;
+      document.getElementById('progress')!.hidden = true;
+      box.hidden = false;
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch {
+      err.textContent = document.body.dataset.formError || 'Error';
+      err.hidden = false;
+    } finally {
+      send.disabled = false;
+      send.textContent = label;
+    }
+  });
+</script>
+
+<style>
+  .narrow { max-width: 900px; }
+  .progress { list-style: none; padding: 0; margin: 0 0 1.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+  .progress li { display: flex; align-items: center; gap: .6rem; padding: .8rem; border-radius: var(--radius-sm); background: var(--bg-soft); color: var(--muted); font-weight: 600; font-size: .93rem; }
+  .progress span { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: #fff; border: 2px solid var(--line); flex-shrink: 0; }
+  .progress li.active { background: var(--navy-800); color: #fff; }
+  .progress li.active span { background: var(--accent); border-color: var(--accent); }
+  .progress li.done span { background: var(--teal-500); border-color: var(--teal-500); color: #fff; }
+  @media (max-width: 560px) { .progress li { font-size: 0; justify-content: center; } .progress span { font-size: .9rem; } }
+  .qform { padding: clamp(1.4rem, 4vw, 2.4rem); }
+  fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 1.2rem; }
+  legend { font-size: 1.35rem; font-weight: 700; color: var(--navy-800); margin-bottom: 1.2rem; padding: 0; }
+  .label { font-weight: 600; font-size: .92rem; color: var(--navy-700); }
+  .nav-btns { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.8rem; }
+  .nav-btns #next, .nav-btns #send { margin-inline-start: auto; }
+  :global(html[dir='ltr']) .nav-btns :global(.back-arrow) { transform: scaleX(-1); }
+  .consent { display: flex; gap: .5rem; align-items: flex-start; font-size: .92rem; color: var(--muted); }
+  .consent input { margin-top: .4rem; }
+  .success { text-align: center; align-items: center; padding: 3rem 2rem; }
+</style>

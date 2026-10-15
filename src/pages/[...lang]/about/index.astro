@@ -1,0 +1,59 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNav from '../../../components/SubNav.astro';
+import CTABand from '../../../components/CTABand.astro';
+import SectionHead from '../../../components/SectionHead.astro';
+import Icon from '../../../components/Icon.astro';
+import { site, timeline } from '../../../config/site';
+import { getLang, langPaths, t, u } from '../../../i18n/ui';
+import { aboutTabs } from '../../../i18n/nav';
+import { aboutStory, coreMessage } from '../../../data/company';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+---
+<Base lang={lang} title={u('about', lang)} description={t(coreMessage, lang)}>
+  <PageHero lang={lang} title={t(aboutStory.title, lang)} lead={t(coreMessage, lang)} crumbs={[{ label: u('about', lang) }]}>
+    <a class="btn btn-primary" href={site.downloads.companyProfile} download><Icon name="download" /> {u('companyProfile', lang)}</a>
+  </PageHero>
+  <SubNav lang={lang} items={aboutTabs} />
+
+  <section class="section">
+    <div class="container two-col">
+      <div class="stack reveal">
+        <span class="eyebrow">{u('overview', lang)}</span>
+        {aboutStory.paragraphs.map((p) => <p class="lead">{t(p, lang)}</p>)}
+      </div>
+      <div class="stats-box reveal">
+        {site.stats.map((s) => (
+          <div><strong class="ltr">{s.value}</strong><span>{t(s.label, lang)}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <SectionHead eyebrow={lang === 'ar' ? 'مسيرتنا' : 'Our journey'} title={lang === 'ar' ? 'محطات في رحلة STL' : 'Milestones in the STL Journey'} center />
+      <ol class="timeline">
+        {timeline.map((m) => (
+          <li class="reveal"><span class="year">{m.year}</span><p>{t(m.text, lang)}</p></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  <CTABand lang={lang} />
+</Base>
+<style>
+  .stats-box { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); }
+  .stats-box div { background: #fff; padding: 1.5rem; }
+  .stats-box strong { font-size: 2rem; color: var(--navy-800); display: block; }
+  .stats-box span { color: var(--muted); }
+  .timeline { list-style: none; padding: 0; margin: 0 auto; max-width: 760px; position: relative; }
+  .timeline::before { content: ''; position: absolute; inset-block: 0; inset-inline-start: 74px; width: 2px; background: linear-gradient(var(--teal-500), var(--navy-600)); }
+  .timeline li { display: grid; grid-template-columns: 74px 1fr; gap: 2rem; padding-block: 1rem; position: relative; }
+  .timeline li::after { content: ''; position: absolute; inset-inline-start: 68px; top: 1.55rem; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px #fff; }
+  .year { font-weight: 700; color: var(--navy-700); padding-top: .2rem; }
+  .timeline p { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: .9rem 1.1rem; margin: 0; }
+</style>

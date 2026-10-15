@@ -1,0 +1,39 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import CTABand from '../../../components/CTABand.astro';
+import Icon from '../../../components/Icon.astro';
+import { getLang, href, langPaths, t, u } from '../../../i18n/ui';
+import { sectors, sectorsIntro } from '../../../data/sectors';
+
+export const getStaticPaths = langPaths;
+const lang = getLang(Astro.params.lang);
+---
+<Base lang={lang} title={u('sectors', lang)} description={t(sectorsIntro, lang)}>
+  <PageHero lang={lang} title={u('sectors', lang)} lead={t(sectorsIntro, lang)} crumbs={[{ label: u('sectors', lang) }]} />
+  <section class="section">
+    <div class="container grid grid-3">
+      {sectors.map((s) => (
+        <a class="card reveal" href={href(lang, `/sectors/${s.slug}`)}>
+          <span class="icon-badge"><Icon name={s.icon} /></span>
+          <h3>{t(s.title, lang)}</h3>
+          <p><strong>{u('challenges', lang)}:</strong> {t(s.challenge, lang)}</p>
+          <div class="sol">{s.solution.map((x) => <span class="tag">{t(x, lang)}</span>)}</div>
+          <span class="link-arrow">{u('learnMore', lang)} <Icon name="arrow" class="flip" /></span>
+        </a>
+      ))}
+    </div>
+  </section>
+  <section class="section section-soft">
+    <div class="container">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>{lang === 'ar' ? 'القطاع' : 'Sector'}</th><th>{u('challenges', lang)}</th><th>{u('ourSolution', lang)}</th></tr></thead>
+          <tbody>{sectors.map((s) => <tr><td><a href={href(lang, `/sectors/${s.slug}`)}><strong>{t(s.title, lang)}</strong></a></td><td>{t(s.challenge, lang)}</td><td>{s.solution.map((x) => t(x, lang)).join(lang === 'ar' ? '، ' : ', ')}</td></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <CTABand lang={lang} />
+</Base>
+<style>.sol { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1.2rem; }</style>
