@@ -82,6 +82,18 @@ npm run check:placeholders   # يعرض كل [المتغيرات] اللي لس�
 
 ## الاستضافة
 
+### النشر على Vercel (الخطة المجانية Hobby)
+خطة Hobby لا تسمح بربط ريبو خاص تابع لمنظمة GitHub مباشرة، لذلك يتم النشر عبر GitHub Actions
+(`.github/workflows/deploy-vercel.yml`) باستخدام Vercel CLI:
+
+1. أنشئ توكن من https://vercel.com/account/tokens (النطاق: فريق Routel).
+2. في GitHub: Settings → Secrets and variables → Actions → **New repository secret**
+   الاسم: `VERCEL_TOKEN` والقيمة: التوكن.
+3. من تبويب Actions شغّل **Deploy to Vercel** (أو ادفع أي تعديل على `main`).
+   أول تشغيل ينشئ مشروع `stl-gs` في فريق Routel تلقائيًا، وكل دفع على `main` بعدها ينشر تلقائيًا.
+
+### استضافات أخرى
+
 أي استضافة ملفات ثابتة: Vercel أو Netlify أو Cloudflare Pages (Build: `npm run build`، Output: `dist`).
 
 ---
