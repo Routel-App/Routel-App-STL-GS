@@ -10,6 +10,11 @@ interface Props {
 const { lang, title, lead, eyebrow, crumbs = [] } = Astro.props;
 ---
 <section class="page-hero">
+  <div class="ph-art" aria-hidden="true">
+    <div class="ph-img"></div>
+    <span class="ph-slash"></span>
+    <span class="ph-slash thin"></span>
+  </div>
   <div class="container">
     <nav aria-label="breadcrumb">
       <ol class="crumbs">
@@ -23,3 +28,24 @@ const { lang, title, lead, eyebrow, crumbs = [] } = Astro.props;
     <div class="actions"><slot /></div>
   </div>
 </section>
+<style>
+  .ph-art { position: absolute; top: var(--header-h); bottom: 0; inset-inline-end: 0; width: 34%; pointer-events: none; }
+  .ph-img {
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(7, 59, 58, .55), rgba(7, 59, 58, .55)), url('/images/page-hero.jpg') center / cover;
+    filter: grayscale(.5) contrast(1.05);
+    clip-path: polygon(28% 0, 100% 0, 100% 100%, 0 100%);
+  }
+  :global(html[dir='rtl']) .ph-img { clip-path: polygon(0 0, 72% 0, 100% 100%, 0 100%); }
+  .ph-slash { position: absolute; bottom: 0; height: 46%; width: 34px; background: var(--coral); inset-inline-start: 12%; transform: skewX(-22deg); }
+  .ph-slash.thin { width: 10px; inset-inline-start: calc(12% + 52px); background: var(--petrol); height: 30%; }
+  .page-hero :global(.container) { padding-inline-end: 0; }
+  .page-hero h1, .page-hero .lead { max-width: min(860px, 62%); }
+  @media (max-width: 1000px) {
+    .ph-art { width: 100%; height: 10px; inset-block: auto 0; }
+    .ph-img { display: none; }
+    .ph-slash { height: 10px; width: 100%; inset-inline-start: 0; transform: none !important; }
+    .ph-slash.thin { display: none; }
+    .page-hero h1, .page-hero .lead { max-width: none; }
+  }
+</style>
