@@ -33,10 +33,16 @@ npm run check:placeholders   # يعرض كل [المتغيرات] اللي لس�
 
 ## الهوية البصرية
 
-- **الشعار** مأخوذ كما هو من لوحة الهوية بدون أي تعديل: `public/brand/stl-logo.png`، والأيقونة الرمزية `stl-icon-dark.png` و `stl-icon-light.png` (منها الـ favicon).
+- **الشعار** مأخوذ كما هو من لوحة الهوية بدون أي تعديل: `public/brand/stl-logo-transparent.png` (الأساسي بخلفية شفافة) و `stl-logo-white.png` (نسخة "White on Dark" من اللوحة، للهيدر والفوتر)، والأيقونة الرمزية `stl-icon-dark.png` و `stl-icon-light.png` (منها الـ favicon).
   الدقة الحالية محدودة بدقة الصورة المصدر؛ عند توفر الملف الأصلي (SVG/AI) استبدل `stl-logo.png` بنفس الاسم أو غيّر `LOGO_SRC` في `src/components/Logo.astro`.
+- **الخطوط:** Cairo للعربي و Titillium Web للإنجليزي.
 - **الألوان** (من لوحة الهوية) معرّفة في أعلى `src/styles/global.css`:
   Petrol Green `#073B3A` (أساسي) · Signal Coral `#FF7058` (مميز) · Sand `#F4EFE6` (خلفية) · Mint `#A7C5C2` (ثانوي).
+
+## الصور
+
+- خلفية الهيرو والصفحات الداخلية مؤقتة (رسم مولّد لساحة حاويات من الأعلى): `public/images/hero-port.jpg` و `public/images/page-hero.jpg`.
+  استبدلها بصور حقيقية **بنفس الأسماء** (يُفضّل 2400×1400 تقريبًا، JPG مضغوط) وتتحدث في كل الموقع تلقائيًا؛ طبقة اللون البترولي فوقها تُضاف بالـ CSS.
 
 ## الملفات والصور
 

@@ -47,7 +47,7 @@ const ar = lang === 'ar';
   const api = document.body.dataset.trackingApi;
   const setStage = (n) => stages.forEach((li, i) => { li.classList.toggle('done', i < n); li.classList.toggle('current', i === n); });
   const params = new URLSearchParams(location.search);
-  if (params.get('ref')) document.getElementById('ref').value = params.get('ref');
+  if (params.get('ref')) { document.getElementById('ref').value = params.get('ref'); queueMicrotask(() => form.requestSubmit()); }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -84,7 +84,7 @@ const ar = lang === 'ar';
   .stages { list-style: none; padding: 0; margin-inline: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem .8rem; counter-reset: s; }
   @media (max-width: 720px) { .stages { grid-template-columns: 1fr 1fr; } }
   .stages li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .5rem; font-size: .9rem; color: var(--muted); }
-  .bullet { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--line); font-weight: 700; background: #fff; }
+  .bullet { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); font-weight: 700; background: #fff; }
   .stages li.done .bullet { background: var(--teal-500); border-color: var(--teal-500); color: #fff; }
   .stages li.done { color: var(--navy-800); }
   .stages li.current .bullet { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 0 6px rgba(255,112,88,.2); }

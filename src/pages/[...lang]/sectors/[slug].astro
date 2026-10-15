@@ -26,7 +26,7 @@ const related = s.services.map(serviceBySlug).filter((x) => !!x);
         <h2>{lang === 'ar' ? 'ما الذي يجعل الشحن في هذا القطاع مختلفًا؟' : 'What makes shipping in this sector different?'}</h2>
         <p class="lead">{t(s.challengeLong, lang)}</p>
       </div>
-      <div class="sol-box reveal">
+      <div class="sol-box on-dark reveal">
         <span class="eyebrow">{u('ourSolution', lang)}</span>
         <ul class="check-list">{s.solution.map((x) => <li>{t(x, lang)}</li>)}</ul>
       </div>

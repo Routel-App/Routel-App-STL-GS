@@ -1,19 +1,19 @@
 ---
 /**
- * STL Global Solutions official logo (public/brand/stl-logo.png), used exactly as supplied.
- * To use a higher-resolution or vector version, replace public/brand/stl-logo.png
- * (or point LOGO_SRC to /brand/stl-logo.svg) — keep the same artwork.
+ * STL Global Solutions official logo — artwork taken unmodified from the brand board.
+ *  - variant "color": primary full-colour logo (transparent background)
+ *  - variant "white": the board's official "White on Dark" variant, for dark backgrounds
+ * Replace the files in public/brand/ with higher-resolution/vector masters when available.
  */
-interface Props { onDark?: boolean; height?: number }
-const { onDark = false, height = 46 } = Astro.props;
-const LOGO_SRC = '/brand/stl-logo.png';
+interface Props { variant?: 'color' | 'white'; height?: number }
+const { variant = 'color', height = 46 } = Astro.props;
+const SRC = { color: '/brand/stl-logo-transparent.png', white: '/brand/stl-logo-white.png' };
 const RATIO = 366 / 158;
 ---
-<span class:list={['logo', { plate: onDark }]}>
-  <img src={LOGO_SRC} alt="STL Global Solutions" width={Math.round(height * RATIO)} height={height} decoding="async" style={`height:${height}px`} />
+<span class="logo">
+  <img src={SRC[variant]} alt="STL Global Solutions" width={Math.round(height * RATIO)} height={height} decoding="async" style={`height:${height}px`} />
 </span>
 <style>
   .logo { display: inline-flex; align-items: center; line-height: 0; }
   .logo img { width: auto; max-width: 100%; }
-  .plate { background: #fff; border-radius: 12px; padding: .5rem .9rem; }
 </style>

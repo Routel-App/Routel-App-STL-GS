@@ -36,7 +36,7 @@ const msgs = {
         </div>
         <button type="button" class="btn btn-outline btn-sm" id="add">+ {ar ? 'أضف صنفًا آخر' : 'Add another item'}</button>
       </form>
-      <aside class="result card">
+      <aside class="result card on-dark">
         <span class="muted">{ar ? 'الحجم الإجمالي' : 'Total volume'}</span>
         <strong class="big ltr"><span id="r-cbm">0.00</span> m³</strong>
         <div class="kv"><span>{ar ? 'الوزن الإجمالي' : 'Total weight'}</span><b class="ltr"><span id="r-kg">0</span> kg</b></div>
@@ -92,14 +92,17 @@ const msgs = {
   @media (max-width: 960px) { .calc { grid-template-columns: 1fr; } }
   .crow { display: grid; grid-template-columns: repeat(5, 1fr) auto; gap: .7rem; align-items: end; padding-bottom: 1rem; margin-bottom: 1rem; border-bottom: 1px dashed var(--line); }
   @media (max-width: 700px) { .crow { grid-template-columns: 1fr 1fr; } }
-  .rm { background: var(--bg-soft); border: 0; border-radius: 8px; height: 46px; width: 46px; display: grid; place-items: center; cursor: pointer; color: var(--muted); }
+  .calc > * { min-width: 0; }
+  .crow .field { min-width: 0; }
+  .crow label { overflow-wrap: anywhere; }
+  .rm { background: var(--bg-soft); border: 1px solid var(--line); height: 50px; width: 46px; display: grid; place-items: center; cursor: pointer; color: var(--muted); }
   .rm:hover { color: #c0392b; }
   .result { position: sticky; top: calc(var(--header-h) + 1rem); gap: .6rem; background: var(--navy-800); color: #c9dbd8; border: 0; }
   .result .muted { color: #9dbbb7; }
   .big { font-size: 2.6rem; color: #fff; line-height: 1.1; }
   .kv { display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,.1); padding-top: .6rem; }
   .kv b { color: #fff; }
-  .bar { height: 8px; background: rgba(255,255,255,.1); border-radius: 8px; overflow: hidden; margin-top: .6rem; }
+  .bar { height: 3px; background: rgba(255,255,255,.12); overflow: hidden; margin-top: .6rem; }
   .bar span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--teal-500), var(--accent)); transition: width .3s; }
   .rec { color: #fff; font-weight: 600; min-height: 1.5em; margin: .4rem 0; }
   .warn { color: #ffd39b; font-size: .9rem; }

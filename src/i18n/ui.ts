@@ -92,7 +92,7 @@ export const ui = {
   menu: { ar: 'القائمة', en: 'Menu' },
   close: { ar: 'إغلاق', en: 'Close' },
   langName: { ar: 'English', en: 'العربية' },
-  langShort: { ar: 'EN', en: 'ع' },
+  langShort: { ar: 'EN', en: 'عربي' },
   whatWeOffer: { ar: 'ما نقدمه', en: 'What we offer' },
   benefits: { ar: 'المزايا', en: 'Benefits' },
   faqShort: { ar: 'أسئلة شائعة', en: 'Common questions' },

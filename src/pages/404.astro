@@ -4,12 +4,13 @@ import { href, u } from '../i18n/ui';
 const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'ar';
 ---
 <Base lang={lang} title={u('notFoundTitle', lang)}>
-  <section class="section center">
+  <section class="page-hero nf">
     <div class="container">
-      <p style="font-size:6rem;font-weight:700;color:var(--teal-500);line-height:1;margin:0">404</p>
+      <span class="eyebrow">404</span>
       <h1>{u('notFoundTitle', lang)}</h1>
       <p class="lead">{u('notFoundText', lang)}</p>
-      <a class="btn btn-primary" href={href(lang, '/')}>{u('backHome', lang)}</a>
+      <div class="actions"><a class="btn btn-cream" href={href(lang, '/')}>{u('backHome', lang)}</a></div>
     </div>
   </section>
 </Base>
+<style>.nf { min-height: 80vh; display: flex; align-items: center; }</style>

@@ -48,12 +48,13 @@ const lang = getLang(Astro.params.lang);
 <style>
   .stats-box { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); }
   .stats-box div { background: #fff; padding: 1.5rem; }
+  .stats-box div:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .stats-box strong { font-size: 2rem; color: var(--navy-800); display: block; }
   .stats-box span { color: var(--muted); }
   .timeline { list-style: none; padding: 0; margin: 0 auto; max-width: 760px; position: relative; }
   .timeline::before { content: ''; position: absolute; inset-block: 0; inset-inline-start: 74px; width: 2px; background: linear-gradient(var(--teal-500), var(--navy-600)); }
   .timeline li { display: grid; grid-template-columns: 74px 1fr; gap: 2rem; padding-block: 1rem; position: relative; }
-  .timeline li::after { content: ''; position: absolute; inset-inline-start: 68px; top: 1.55rem; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px #fff; }
+  .timeline li::after { content: ''; position: absolute; inset-inline-start: 68px; top: 1.55rem; width: 13px; height: 13px; background: var(--coral); box-shadow: 0 0 0 4px var(--sand); }
   .year { font-weight: 700; color: var(--navy-700); padding-top: .2rem; }
   .timeline p { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: .9rem 1.1rem; margin: 0; }
 </style>

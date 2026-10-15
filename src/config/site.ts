@@ -63,7 +63,7 @@ export const site = {
 
   // ---------------------------------------------------------------- الشركة
   company: {
-    foundedYear: '[سنة التأسيس]',
+    foundedYear: '[YYYY]', // سنة التأسيس
     foundedCity: { ar: '[المدينة]', en: '[City]' } as L,
     beginning: { ar: '[وصف البداية]', en: '[how STL started]' } as L,
     branches: { ar: '[الفروع]', en: '[branches]' } as L,
