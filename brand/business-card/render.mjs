@@ -13,7 +13,10 @@ const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PAT
 const page = await browser.newPage();
 await page.goto(url, { waitUntil: 'networkidle' });
 await page.evaluate(() => document.fonts.ready);
-await page.pdf({ path: join(out, 'STL-BusinessCard-Abdulrahman-Ameen-print.pdf'), preferCSSPageSize: true, printBackground: true });
+const pdf = { preferCSSPageSize: true, printBackground: true };
+await page.pdf({ ...pdf, path: join(out, 'STL-BusinessCard-Abdulrahman-Ameen-print.pdf') });
+await page.pdf({ ...pdf, path: join(out, 'STL-BusinessCard-Abdulrahman-Ameen-front.pdf'), pageRanges: '1' });
+await page.pdf({ ...pdf, path: join(out, 'STL-BusinessCard-Abdulrahman-Ameen-back.pdf'), pageRanges: '2' });
 
 // 2) PNG previews at ~600 dpi, cropped to the trim (no bleed)
 const hi = await browser.newPage({ deviceScaleFactor: 6.25 });

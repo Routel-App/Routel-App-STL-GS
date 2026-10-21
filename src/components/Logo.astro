@@ -1,13 +1,13 @@
 ---
 /**
- * STL Global Forwarding official logo — artwork taken unmodified from the brand board.
+ * STL Global Forwarding official logo — vector (SVG) traced from the brand board.
  *  - variant "color": primary full-colour logo (transparent background)
  *  - variant "white": the board's official "White on Dark" variant, for dark backgrounds
- * Replace the files in public/brand/ with higher-resolution/vector masters when available.
+ * PNG fallbacks stay in public/brand/ (stl-logo*.png) for email/social use.
  */
 interface Props { variant?: 'color' | 'white'; height?: number }
 const { variant = 'color', height = 46 } = Astro.props;
-const SRC = { color: '/brand/stl-logo-transparent.png', white: '/brand/stl-logo-white.png' };
+const SRC = { color: '/brand/stl-logo.svg', white: '/brand/stl-logo-white.svg' };
 const RATIO = 366 / 158;
 ---
 <span class="logo">

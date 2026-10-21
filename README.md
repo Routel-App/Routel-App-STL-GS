@@ -33,8 +33,8 @@ npm run check:placeholders   # يعرض كل [المتغيرات] اللي لس�
 
 ## الهوية البصرية
 
-- **الشعار**: علامة STL مأخوذة كما هي من لوحة الهوية، والسطر السفلي محدّث إلى "GLOBAL FORWARDING" بخط Orbitron بنفس موضع ومقاس النص الأصلي: `public/brand/stl-logo-transparent.png` (الأساسي بخلفية شفافة) و `stl-logo-white.png` (نسخة "White on Dark" من اللوحة، للهيدر والفوتر)، والأيقونة الرمزية `stl-icon-dark.png` و `stl-icon-light.png` (منها الـ favicon).
-  الدقة الحالية محدودة بدقة الصورة المصدر؛ عند توفر الملف الأصلي (SVG/AI) استبدل `stl-logo.png` بنفس الاسم أو غيّر `LOGO_SRC` في `src/components/Logo.astro`.
+- **الشعار**: علامة STL مأخوذة كما هي من لوحة الهوية، والسطر السفلي محدّث إلى "GLOBAL FORWARDING" بخط Orbitron بنفس موضع ومقاس النص الأصلي. نسخ فيكتور (SVG): `public/brand/stl-logo.svg` (الأساسي) و `stl-logo-white.svg` (نسخة "White on Dark" للخلفيات الداكنة) — وهي المستخدمة في الموقع والكرت. ونسخ PNG احتياطية: `stl-logo-transparent.png` و `stl-logo-white.png` و `stl-logo.png`، والأيقونة الرمزية `stl-icon-dark.png` و `stl-icon-light.png` (منها الـ favicon).
+  ملفات الـ SVG مرسومة (traced) من صورة لوحة الهوية؛ عند توفر الملف الأصلي من المصمم (SVG/AI) استبدل `stl-logo.svg` و `stl-logo-white.svg` بنفس الاسم.
 - **الخط:** Readex Pro للعربي والإنجليزي.
 - **لغة التصميم "Forward Cut":** القصّة المائلة من زوايا الشعار (زوايا مشطوفة للأزرار والبطاقات، وعلامة مرجانية مائلة قبل العناوين، وإطارات صور مائلة). القيم في `src/styles/global.css`.
 - **الألوان** (من لوحة الهوية) معرّفة في أعلى `src/styles/global.css`:
