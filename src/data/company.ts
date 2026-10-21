@@ -64,8 +64,8 @@ export const aboutShort = {
   eyebrow: { ar: 'من نحن', en: 'About us' } as L,
   title: { ar: 'شريك بحري سعودي بمعايير عالمية', en: 'A Saudi Maritime Partner with Global Standards' } as L,
   text: {
-    ar: 'STL Global Solutions شركة سعودية متخصصة في الشحن البحري والحلول اللوجستية المتكاملة. نربط عملاءنا بأكثر من {ports} ميناءً حول العالم عبر شبكة شركاء من الخطوط الملاحية والوكلاء الدوليين، ونتولى كل تفاصيل الشحنة: الحجز، والتوثيق، والتخليص الجمركي، والنقل حتى الوجهة النهائية.',
-    en: 'STL Global Solutions is a Saudi company specializing in ocean freight and integrated logistics. We connect our clients to more than {ports} ports worldwide through a partner network of shipping lines and international agents, and we handle every detail: booking, documentation, customs clearance and transport to the final destination.',
+    ar: 'STL Global Forwarding شركة سعودية مقرها جدة، تأسست عام {year} ومتخصصة في الشحن البحري والحلول اللوجستية المتكاملة للشركات. يقودها فريق تتجاوز خبرته في الشحن واللوجستيات {exp} سنوات، ونتولى كل تفاصيل الشحنة: الحجز، والتوثيق، والتخليص الجمركي، والنقل حتى الوجهة النهائية.',
+    en: 'STL Global Forwarding is a Saudi company based in Jeddah, founded in {year} and specialising in ocean freight and integrated logistics for businesses. Led by a team with more than {exp} years of shipping and logistics experience, we handle every detail: booking, documentation, customs clearance and transport to the final destination.',
   } as L,
 };
 
@@ -101,15 +101,15 @@ export const whyShort: { icon: string; text: L }[] = [
 //  من نحن (القسم 5)
 // ============================================================================
 export const aboutStory = {
-  title: { ar: 'قصة STL Global Solutions', en: 'The STL Global Solutions Story' } as L,
+  title: { ar: 'قصة STL Global Forwarding', en: 'The STL Global Forwarding Story' } as L,
   paragraphs: [
     {
-      ar: 'تأسست STL Global Solutions في {city} عام {year} برؤية واضحة: أن تجعل الشحن البحري أبسط وأوضح للشركات السعودية. بدأنا بـ {beginning}، واليوم نخدم أكثر من {clients} عميل في قطاعات التجزئة والصناعة والمشاريع والأغذية.',
-      en: 'STL Global Solutions was founded in {city} in {year} with a clear vision: to make ocean shipping simpler and clearer for Saudi businesses. We started with {beginning}, and today we serve more than {clients} clients across retail, industry, projects and food.',
+      ar: 'تأسست STL Global Forwarding في {city} عام {year} على يد فريق عمل لأكثر من {exp} سنوات في الشحن البحري والتخليص الجمركي والخدمات اللوجستية. لاحظنا أن كثيرًا من الشركات تتعامل مع أكثر من جهة لشحنة واحدة: خط ملاحي، ومخلص، وناقل، ومستودع، وتدفع ثمن ذلك وقتًا وتكاليف غير متوقعة.',
+      en: 'STL Global Forwarding was founded in {city} in {year} by a team that has worked for more than {exp} years in ocean freight, customs clearance and logistics. We saw businesses dealing with several parties for a single shipment — a shipping line, a broker, a trucker and a warehouse — and paying for it in time and unexpected costs.',
     },
     {
-      ar: 'نعمل من مقرنا في {hqCity} وفروعنا في {branches}، ونرتبط بشبكة واسعة من الخطوط الملاحية والوكلاء الدوليين تغطي موانئ آسيا وأوروبا وأفريقيا والأمريكتين. نتعامل مع الشحنة كمسؤولية كاملة: من الحجز والتوثيق إلى التخليص الجمركي والتسليم النهائي.',
-      en: 'We operate from our head office in {hqCity} and our branches in {branches}, connected to a wide network of shipping lines and international agents covering ports in Asia, Europe, Africa and the Americas. We treat every shipment as a full responsibility — from booking and documentation to customs clearance and final delivery.',
+      ar: 'لذلك بنينا STL لتكون جهة واحدة مسؤولة عن الرحلة كاملة: من الحجز في ميناء المنشأ، إلى التخليص في موانئ المملكة، والتسليم إلى باب العميل. نخدم الشركات في التجزئة والصناعة والمشاريع والأغذية، ونعمل مع شبكة من الخطوط الملاحية والوكلاء الدوليين في آسيا وأوروبا وأفريقيا والأمريكتين.',
+      en: "That is why we built STL as a single party accountable for the whole journey: from booking at the port of origin to clearance at Saudi ports and delivery to the client's door. We serve businesses in retail, industry, projects and food, working with a network of shipping lines and international agents across Asia, Europe, Africa and the Americas.",
     },
   ] as L[],
 };
@@ -190,7 +190,7 @@ export const sustainability: { icon: string; title: L; text: L }[] = [
   { icon: 'ship', title: { ar: 'شحن أنظف', en: 'Cleaner shipping' }, text: { ar: 'نفضل الخطوط الملاحية التي تستثمر في سفن منخفضة الانبعاثات والوقود البديل.', en: 'We favor shipping lines investing in low-emission vessels and alternative fuels.' } },
   { icon: 'boxes', title: { ar: 'تحسين الحمولة', en: 'Load optimization' }, text: { ar: 'تخطيط ذكي لتعبئة الحاويات يقلل عدد الرحلات.', en: 'Smart container load planning that reduces the number of trips.' } },
   { icon: 'doc', title: { ar: 'مكتب بلا ورق', en: 'Paperless office' }, text: { ar: 'مستندات وفواتير إلكترونية.', en: 'Electronic documents and invoices.' } },
-  { icon: 'leaf', title: { ar: 'قياس الأثر', en: 'Measuring impact' }, text: { ar: '[حاسبة انبعاثات الكربون للشحنة — ميزة مستقبلية اختيارية]', en: '[Shipment carbon emissions calculator — optional future feature]' } },
+  { icon: 'leaf', title: { ar: 'قياس الأثر', en: 'Measuring impact' }, text: { ar: 'نراجع خيارات المسار والخط الملاحي لكل شحنة لنختار الأقل أثرًا عند تقارب التكلفة والوقت.', en: 'We review route and carrier options for each shipment and favour the lower-impact one when cost and time are comparable.' } },
 ];
 
 // ============================================================================

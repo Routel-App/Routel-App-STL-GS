@@ -2,7 +2,7 @@
 import Base from '../../../layouts/Base.astro';
 import PageHero from '../../../components/PageHero.astro';
 import SubNav from '../../../components/SubNav.astro';
-import { sailings } from '../../../config/site';
+import { sailings, site } from '../../../config/site';
 import { getLang, href, langPaths, u } from '../../../i18n/ui';
 import { eServiceTabs } from '../../../i18n/nav';
 
@@ -20,6 +20,7 @@ const all = ar ? 'الكل' : 'All';
   <SubNav lang={lang} items={eServiceTabs} />
   <section class="section">
     <div class="container">
+      {sailings.length > 0 ? (<>
       <form class="filters card" id="filters">
         <div class="field"><label for="f-pol">{ar ? 'ميناء التحميل' : 'Port of loading'}</label><select id="f-pol" name="pol"><option value="">{all}</option>{pols.map((p) => <option>{p}</option>)}</select></div>
         <div class="field"><label for="f-pod">{ar ? 'ميناء الوصول' : 'Port of discharge'}</label><select id="f-pod" name="pod"><option value="">{all}</option>{pods.map((p) => <option>{p}</option>)}</select></div>
@@ -44,6 +45,16 @@ const all = ar ? 'الكل' : 'All';
           </tbody>
         </table>
       </div>
+      </>) : (
+        <div class="card empty">
+          <h3>{ar ? 'نحدّث جدول الإبحار حاليًا' : 'We are updating the sailing schedule'}</h3>
+          <p>{ar ? 'تواصل معنا وأرسل ميناء التحميل والوصول، ونرسل لك أقرب الرحلات المتاحة ومواعيد إغلاق الحجز.' : 'Send us your port of loading and discharge and we will share the nearest available sailings and cut-off dates.'}</p>
+          <div class="actions-row">
+            <a class="btn btn-primary" href={href(lang, '/e-services/quote')}>{ar ? 'اطلب عرض سعر' : 'Request a quote'}</a>
+            <a class="btn btn-outline" href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener">{ar ? 'واتساب' : 'WhatsApp'}</a>
+          </div>
+        </div>
+      )}
       <p class="muted mt-2">{ar ? 'ملاحظة: المواعيد تقديرية وقابلة للتغيير من الخطوط الملاحية.' : 'Note: dates are estimates and subject to change by the shipping lines.'}</p>
     </div>
   </section>
@@ -52,6 +63,7 @@ const all = ar ? 'الكل' : 'All';
   const f = document.getElementById('filters') as HTMLFormElement;
   const rows = Array.from(document.querySelectorAll<HTMLTableRowElement>('#sched tbody tr[data-pol]'));
   const apply = () => {
+    if (!f) return;
     const d = Object.fromEntries(new FormData(f)) as Record<string, string>;
     let n = 0;
     rows.forEach((r) => {
@@ -60,9 +72,10 @@ const all = ar ? 'الكل' : 'All';
     });
     document.getElementById('empty')!.hidden = n > 0;
   };
-  f.addEventListener('change', apply);
+  f?.addEventListener('change', apply);
 </script>
 <style>
+  .empty { max-width: 760px; }
   .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 1rem; }
   td { white-space: nowrap; }
 </style>

@@ -238,14 +238,15 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.pat
     </div>
   </section>
 
-  <!-- 4.11 Trust -->
+  <!-- 4.11 Trust (shown once client logos / testimonials / accreditations exist) -->
+  {(clientLogos.length > 0 || testimonials.length > 0 || accreditationStrip.length > 0) && (
   <section class="section">
     <div class="container">
       <SectionHead eyebrow={ar ? 'الثقة' : 'Trust'} title={ar ? 'شركاء يثقون بنا' : 'Partners Who Trust Us'} />
-      <div class="logos">
+      {clientLogos.length > 0 && <div class="logos">
         {clientLogos.map((c) => <div class="logo-box">{c.logo ? <img src={c.logo} alt={c.name} loading="lazy" /> : <span>{c.name}</span>}</div>)}
-      </div>
-      <div class="grid grid-3 mt-2">
+      </div>}
+      {testimonials.length > 0 && <div class="grid grid-3 mt-2">
         {testimonials.map((q) => (
           <figure class="card testimonial reveal">
             <Icon name="quote" size={30} class="qicon" />
@@ -253,12 +254,13 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.pat
             <figcaption><strong>{t(q.name, lang)}</strong><span>{t(q.role, lang)} — {t(q.company, lang)}</span></figcaption>
           </figure>
         ))}
-      </div>
-      <ul class="accred">
+      </div>}
+      {accreditationStrip.length > 0 && <ul class="accred">
         {accreditationStrip.map((a) => <li><Icon name="shield" size={18} />{t(a, lang)}</li>)}
-      </ul>
+      </ul>}
     </div>
   </section>
+  )}
 
   <!-- 4.12 CTA + latest -->
   <section class="section section-white">
@@ -430,7 +432,7 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.pat
   .about h2 { font-size: clamp(2rem, 4vw, 3.4rem); margin: 0; }
   .about-body .lead { margin-bottom: 1.4rem; }
   @media (max-width: 860px) { .about { grid-template-columns: 1fr; } .about h2 { margin-bottom: 1.5rem; } }
-  .stats { display: grid; grid-template-columns: repeat(5, 1fr); margin: clamp(3rem, 6vw, 5rem) 0 0; border-top: 2px solid var(--petrol); }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin: clamp(3rem, 6vw, 5rem) 0 0; border-top: 2px solid var(--petrol); }
   .stat { padding: 1.6rem 1.2rem 0 0; position: relative; }
   :global(html[dir='rtl']) .stat { padding: 1.6rem 0 0 1.2rem; }
   .stat::before { content: ''; position: absolute; top: -2px; inset-inline-start: 0; width: 34px; height: 6px; background: var(--coral); }

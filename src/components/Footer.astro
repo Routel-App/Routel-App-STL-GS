@@ -1,5 +1,5 @@
 ---
-import { site } from '../config/site';
+import { site, phoneHref, whatsappHref } from '../config/site';
 import { type Lang, href, t, u } from '../i18n/ui';
 import { eServices } from '../i18n/nav';
 import { services } from '../data/services';
@@ -23,8 +23,13 @@ const socials = [
   { icon: 'x', url: site.social.x, label: 'X' },
   { icon: 'instagram', url: site.social.instagram, label: 'Instagram' },
   { icon: 'youtube', url: site.social.youtube, label: 'YouTube' },
-  { icon: 'whatsapp', url: `https://wa.me/${site.contact.whatsapp}`, label: 'WhatsApp' },
-];
+  { icon: 'whatsapp', url: whatsappHref(), label: 'WhatsApp' },
+].filter((s) => s.url);
+const legalLine = [
+  site.legal.crNumber && `${u('crLine', lang)} ${site.legal.crNumber}`,
+  site.legal.tgaLicense && `${u('tgaLine', lang)} ${site.legal.tgaLicense}`,
+  site.legal.vatNumber && `${u('vatLine', lang)} ${site.legal.vatNumber}`,
+].filter(Boolean);
 ---
 <footer class="site-footer">
   <div class="container">
@@ -67,26 +72,24 @@ const socials = [
         <h4>{u('eservices', lang)}</h4>
         <ul>
           {eServices.map((l) => <li><a href={href(lang, l.path)}>{t(l.label, lang)}</a></li>)}
-          <li><a href={site.downloads.companyProfile} download>{u('companyProfile', lang)}</a></li>
+          {site.downloads.companyProfile && <li><a href={site.downloads.companyProfile} download>{u('companyProfile', lang)}</a></li>}
         </ul>
       </div>
       <div>
         <h4>{u('contact', lang)}</h4>
         <ul class="contact-list">
-          <li><Icon name="phone" size={18} /><a href={`tel:${site.contact.unifiedPhone}`} class="ltr">{site.contact.unifiedPhone}</a></li>
-          <li><Icon name="mail" size={18} /><a href={`mailto:${site.contact.emailInfo}`} class="ltr">{site.contact.emailInfo}</a></li>
+          <li><Icon name="phone" size={18} /><a href={phoneHref} dir="ltr" class="ltr">{site.contact.phoneDisplay}</a></li>
+          <li><Icon name="whatsapp" size={18} /><a href={whatsappHref()} target="_blank" rel="noopener">{lang === 'ar' ? 'واتساب' : 'WhatsApp'}</a></li>
+          <li><Icon name="mail" size={18} /><a href={`mailto:${site.contact.email}`} dir="ltr" class="ltr">{site.contact.email}</a></li>
           <li><Icon name="pin" size={18} /><span>{t(site.contact.hqAddress, lang)}</span></li>
-          <li><Icon name="clock" size={18} /><span>{t(site.contact.workingHours, lang)}</span></li>
         </ul>
       </div>
     </div>
 
     <div class="footer-legal">
-      <p class="reg">
-        STL Global Solutions — {u('crLine', lang)} {site.legal.crNumber} — {u('tgaLine', lang)} {site.legal.tgaLicense} — {u('vatLine', lang)} {site.legal.vatNumber}
-      </p>
+      {legalLine.length > 0 && <p class="reg">STL Global Forwarding — {legalLine.join(' — ')}</p>}
       <div class="bottom">
-        <span>© {year} STL Global Solutions. {u('rights', lang)}</span>
+        <span>© {year} STL Global Forwarding. {u('rights', lang)}</span>
         <nav class="legal-links" aria-label={u('legal', lang)}>
           <a href={href(lang, '/legal/privacy')}>{u('privacy', lang)}</a>
           <a href={href(lang, '/legal/terms')}>{u('terms', lang)}</a>

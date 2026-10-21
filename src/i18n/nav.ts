@@ -1,6 +1,8 @@
 import type { L } from '../config/site';
 import { ui } from './ui';
 import { services } from '../data/services';
+import { certifications } from '../config/site';
+const hasCerts = certifications.length > 0;
 
 export type NavItem = { label: L; path: string; children?: { label: L; path: string }[] };
 
@@ -14,7 +16,7 @@ export const mainNav: NavItem[] = [
       { label: ui.vision, path: '/about/vision' },
       { label: ui.ceo, path: '/about/ceo-message' },
       { label: ui.leadership, path: '/about/leadership' },
-      { label: ui.certs, path: '/about/certifications' },
+      ...(hasCerts ? [{ label: ui.certs, path: '/about/certifications' }] : []),
       { label: ui.whyStl, path: '/why-stl' },
       { label: ui.qhse, path: '/qhse' },
       { label: ui.sustainability, path: '/sustainability' },
@@ -61,7 +63,7 @@ export const aboutTabs = [
   { label: ui.vision, path: '/about/vision' },
   { label: ui.ceo, path: '/about/ceo-message' },
   { label: ui.leadership, path: '/about/leadership' },
-  { label: ui.certs, path: '/about/certifications' },
+  ...(hasCerts ? [{ label: ui.certs, path: '/about/certifications' }] : []),
 ];
 
 export const mediaTabs = [

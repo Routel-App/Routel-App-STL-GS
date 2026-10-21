@@ -13,16 +13,15 @@ export function getStaticPaths() {
 const { a } = Astro.props as { a: Article };
 const lang = getLang(Astro.params.lang);
 const related = a.related.map(serviceBySlug).filter(Boolean);
-const schema = [{ '@context': 'https://schema.org', '@type': 'Article', headline: t(a.title, lang), description: t(a.excerpt, lang), inLanguage: lang, publisher: { '@type': 'Organization', name: 'STL Global Solutions' } }];
+const schema = [{ '@context': 'https://schema.org', '@type': 'Article', headline: t(a.title, lang), description: t(a.excerpt, lang), inLanguage: lang, publisher: { '@type': 'Organization', name: 'STL Global Forwarding' } }];
 ---
 <Base lang={lang} title={t(a.title, lang)} description={t(a.excerpt, lang)} schema={schema}>
   <PageHero lang={lang} title={t(a.title, lang)} lead={t(a.excerpt, lang)} crumbs={[{ label: u('media', lang), path: '/media' }, { label: u('blog', lang), path: '/media/blog' }, { label: t(a.title, lang) }]}>
-    <span class="tag">{a.date} · {a.readMin} {u('minutesRead', lang)}</span>
+    <span class="tag">{a.date ? `${a.date} · ` : ''}{a.readMin} {u('minutesRead', lang)}</span>
   </PageHero>
   <section class="section">
     <article class="container prose">
       {a.sections.map((s) => (<><h2>{t(s.h, lang)}</h2><p>{t(s.p, lang)}</p></>))}
-      <p class="alert alert-info">[{u('comingSoon', lang)}]</p>
       <p><a class="link-arrow" href={href(lang, '/media/blog')}>← {u('blog', lang)}</a></p>
     </article>
   </section>

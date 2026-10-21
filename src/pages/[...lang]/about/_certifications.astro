@@ -8,6 +8,7 @@ import { getLang, langPaths, t, u } from '../../../i18n/ui';
 import { aboutTabs } from '../../../i18n/nav';
 import { certsNote } from '../../../data/company';
 
+// Disabled (file starts with "_"): rename to certifications.astro after adding entries in src/config/site.ts
 export const getStaticPaths = langPaths;
 const lang = getLang(Astro.params.lang);
 ---

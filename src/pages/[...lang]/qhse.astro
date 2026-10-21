@@ -13,7 +13,7 @@ const title = lang === 'ar' ? 'الجودة والصحة والسلامة وال
 ---
 <Base lang={lang} title={title} description={t(qhse.intro, lang)}>
   <PageHero lang={lang} title={title} lead={t(qhse.intro, lang)} crumbs={[{ label: u('qhse', lang) }]}>
-    <a class="btn btn-primary" href={site.downloads.qhsePolicy} download><Icon name="download" /> {lang === 'ar' ? 'تحميل سياسة QHSE (PDF)' : 'Download QHSE policy (PDF)'}</a>
+    {site.downloads.qhsePolicy && <a class="btn btn-primary" href={site.downloads.qhsePolicy} download><Icon name="download" /> {lang === 'ar' ? 'تحميل سياسة QHSE (PDF)' : 'Download QHSE policy (PDF)'}</a>}
   </PageHero>
   <section class="section">
     <div class="container grid grid-2">

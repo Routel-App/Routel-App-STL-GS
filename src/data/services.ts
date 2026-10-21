@@ -76,7 +76,7 @@ export const services: Service[] = [
       en: "You don't need to fill a whole container. We consolidate your cargo with other shipments in one container, and you pay only for the space you occupy.",
     },
     offer: [
-      { ar: 'خدمة تجميع منتظمة من موانئ [الصين، الهند، تركيا، أوروبا]', en: 'Regular consolidation services from [China, India, Turkey, Europe]' },
+      { ar: 'خدمة تجميع منتظمة من موانئ الصين والهند وتركيا وأوروبا', en: 'Regular consolidation services from China, India, Turkey and Europe' },
       { ar: 'استلام من المورد', en: 'Pickup from your supplier' },
       { ar: 'تفريغ وفرز في مستودعات الوجهة', en: 'Devanning and sorting at destination warehouses' },
       { ar: 'تسليم للباب', en: 'Door delivery' },

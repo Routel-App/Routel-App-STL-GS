@@ -15,7 +15,7 @@ const lang = getLang(Astro.params.lang);
 ---
 <Base lang={lang} title={u('about', lang)} description={t(coreMessage, lang)}>
   <PageHero lang={lang} title={t(aboutStory.title, lang)} lead={t(coreMessage, lang)} crumbs={[{ label: u('about', lang) }]}>
-    <a class="btn btn-primary" href={site.downloads.companyProfile} download><Icon name="download" /> {u('companyProfile', lang)}</a>
+    {site.downloads.companyProfile && <a class="btn btn-primary" href={site.downloads.companyProfile} download><Icon name="download" /> {u('companyProfile', lang)}</a>}
   </PageHero>
   <SubNav lang={lang} items={aboutTabs} />
 

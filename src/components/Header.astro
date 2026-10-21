@@ -19,7 +19,7 @@ const shortTitle = (s: string) => s.replace(/\s*\([^)]*\)\s*$/, '');
 ---
 <header class="site-header" id="site-header">
   <div class="container header-inner">
-    <a href={href(lang, '/')} class="brand" aria-label="STL Global Solutions"><Logo variant="color" height={44} /></a>
+    <a href={href(lang, '/')} class="brand" aria-label="STL Global Forwarding"><Logo variant="color" height={44} /></a>
 
     <nav class="nav" aria-label={u('menu', lang)}>
       <ul>
@@ -79,7 +79,7 @@ const shortTitle = (s: string) => s.replace(/\s*\([^)]*\)\s*$/, '');
         <a class="btn btn-outline btn-block" href={href(lang, '/e-services/tracking')}>{u('track', lang)}</a>
         <a class="btn btn-outline btn-block" href={switchPath(path, other)} hreflang={other}>{u('langName', lang)}</a>
       </div>
-      <p class="m-contact"><a href={`tel:${site.contact.unifiedPhone}`} class="ltr">{site.contact.unifiedPhone}</a> · <a href={`mailto:${site.contact.emailInfo}`} class="ltr">{site.contact.emailInfo}</a></p>
+      <p class="m-contact"><a href={`tel:${site.contact.phone}`} dir="ltr" class="ltr">{site.contact.phoneDisplay}</a> · <a href={`mailto:${site.contact.email}`} dir="ltr" class="ltr">{site.contact.email}</a></p>
     </div>
   </nav>
 </header>

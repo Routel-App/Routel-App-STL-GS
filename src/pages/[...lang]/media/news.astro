@@ -13,6 +13,7 @@ const lang = getLang(Astro.params.lang);
   <PageHero lang={lang} title={u('news', lang)} crumbs={[{ label: u('media', lang), path: '/media' }, { label: u('news', lang) }]} />
   <SubNav lang={lang} items={mediaTabs} />
   <section class="section">
+    {news.length > 0 ? (
     <div class="container grid grid-3">
       {news.map((n) => (
         <article class="card reveal">
@@ -23,6 +24,9 @@ const lang = getLang(Astro.params.lang);
         </article>
       ))}
     </div>
+    ) : (
+      <div class="container"><div class="alert alert-info">{lang === 'ar' ? 'أخبار STL Global Forwarding قريبًا. تابع المدونة وأدلة الشحن في الوقت الحالي.' : 'STL Global Forwarding news is coming soon. Meanwhile, explore our blog and shipping guides.'}</div></div>
+    )}
   </section>
 </Base>
 <style>

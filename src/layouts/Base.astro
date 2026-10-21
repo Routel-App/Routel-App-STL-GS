@@ -15,16 +15,16 @@ interface Props {
   schema?: Record<string, unknown>[];
 }
 const { lang, title, description, schema = [] } = Astro.props;
-const fullTitle = title ? `${fill(title, lang)} | STL Global Solutions` : `STL Global Solutions | ${site.tagline[lang]}`;
+const fullTitle = title ? `${fill(title, lang)} | STL Global Forwarding` : `STL Global Forwarding | ${site.tagline[lang]}`;
 const desc = fill(
   description ??
     (lang === 'ar'
-      ? 'STL Global Solutions شركة سعودية متخصصة في الشحن البحري والحلول اللوجستية المتكاملة: حاويات كاملة ومجمّعة، تخليص جمركي وسابر، نقل داخلي وتخزين.'
-      : 'STL Global Solutions is a Saudi ocean freight and integrated logistics company: FCL & LCL, customs clearance & SABER, inland transport and warehousing.'),
+      ? 'STL Global Forwarding شركة سعودية متخصصة في الشحن البحري والحلول اللوجستية المتكاملة: حاويات كاملة ومجمّعة، تخليص جمركي وسابر، نقل داخلي وتخزين.'
+      : 'STL Global Forwarding is a Saudi ocean freight and integrated logistics company: FCL & LCL, customs clearance & SABER, inland transport and warehousing.'),
   lang,
 );
 const path = Astro.url.pathname;
-const site_ = Astro.site ?? new URL('https://stl-global.sa');
+const site_ = Astro.site ?? new URL('https://stl-gf.com');
 const canonical = new URL(path, site_).href;
 const altAr = new URL(switchPath(path, 'ar'), site_).href;
 const altEn = new URL(switchPath(path, 'en'), site_).href;
@@ -38,13 +38,15 @@ const waLink = `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent
 const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'STL Global Solutions',
+  name: 'STL Global Forwarding',
   url: site_.href,
   logo: new URL('/brand/stl-logo.png', site_).href,
-  email: site.contact.emailInfo,
-  telephone: site.contact.unifiedPhone,
-  address: { '@type': 'PostalAddress', streetAddress: site.contact.hqAddress[lang], addressCountry: 'SA' },
-  sameAs: Object.values(site.social),
+  email: site.contact.email,
+  telephone: site.contact.phone,
+  foundingDate: site.company.foundedYear,
+  areaServed: 'SA',
+  sameAs: Object.values(site.social).filter(Boolean),
+  address: { '@type': 'PostalAddress', addressLocality: site.contact.hqCity[lang], addressCountry: 'SA' },
 };
 ---
 <!doctype html>
@@ -63,7 +65,7 @@ const orgSchema = {
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#073B3A" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="STL Global Solutions" />
+    <meta property="og:site_name" content="STL Global Forwarding" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={desc} />
     <meta property="og:url" content={canonical} />
@@ -86,6 +88,7 @@ const orgSchema = {
   </head>
   <body
     data-endpoint={site.integrations.formEndpoint}
+    data-email={site.contact.email}
     data-tracking-api={site.integrations.trackingApi}
     data-quote-prefix={site.integrations.quotePrefix}
     data-highlight={site.highlightPlaceholders ? '1' : ''}

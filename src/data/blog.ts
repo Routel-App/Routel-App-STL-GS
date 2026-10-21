@@ -12,12 +12,12 @@ export type Article = {
 
 /**
  * أول 8 مقالات مقترحة (القسم 12.1). النصوص هنا مسودة أولية مختصرة؛
- * وسّعوها أو استبدلوها بالمحتوى النهائي. التاريخ متغير: [تاريخ النشر].
+ * وسّعوها أو استبدلوها بالمحتوى النهائي.
  */
 export const articles: Article[] = [
   {
     slug: 'shipping-from-china-to-saudi-arabia',
-    date: '[تاريخ النشر]',
+    date: '',
     readMin: 8,
     title: { ar: 'الدليل الشامل للشحن البحري من الصين إلى السعودية', en: 'The Complete Guide to Ocean Shipping from China to Saudi Arabia' },
     excerpt: {
@@ -34,7 +34,7 @@ export const articles: Article[] = [
   },
   {
     slug: 'fcl-vs-lcl',
-    date: '[تاريخ النشر]',
+    date: '',
     readMin: 5,
     title: { ar: 'الفرق بين FCL وLCL: أيهما يناسب شحنتك؟', en: 'FCL vs LCL: Which One Fits Your Shipment?' },
     excerpt: { ar: 'مقارنة مبسطة في التكلفة والوقت والأمان تساعدك تختار الطريقة الأنسب.', en: 'A simple comparison of cost, time and security to help you choose.' },
@@ -47,7 +47,7 @@ export const articles: Article[] = [
   },
   {
     slug: 'saber-certificate-guide',
-    date: '[تاريخ النشر]',
+    date: '',
     readMin: 6,
     title: { ar: 'شهادة سابر: كل ما يحتاجه المستورد', en: 'SABER Certificates: What Every Importer Needs to Know' },
     excerpt: { ar: 'ما هي شهادة المطابقة وشهادة الإرسالية، ومتى تحتاجها، وكيف تتجنب رفض الشحنة.', en: 'What product and shipment certificates are, when you need them, and how to avoid rejection.' },
@@ -60,7 +60,7 @@ export const articles: Article[] = [
   },
   {
     slug: 'incoterms-2020-explained',
-    date: '[تاريخ النشر]',
+    date: '',
     readMin: 7,
     title: { ar: 'شروط التسليم الدولية (Incoterms 2020) بلغة بسيطة', en: 'Incoterms 2020 in Plain Language' },
     excerpt: { ar: 'EXW وFOB وCIF وDDP وغيرها: من يدفع ماذا، ومتى تنتقل المخاطر.', en: 'EXW, FOB, CIF, DDP and more: who pays for what, and when risk transfers.' },
@@ -72,7 +72,7 @@ export const articles: Article[] = [
   },
   {
     slug: 'import-clearance-documents-saudi',
-    date: '[تاريخ النشر]',
+    date: '',
     readMin: 5,
     title: { ar: 'المستندات المطلوبة لتخليص الواردات في السعودية', en: 'Documents Required for Import Clearance in Saudi Arabia' },
     excerpt: { ar: 'قائمة مرجعية بالمستندات الأساسية والإضافية حسب نوع البضاعة.', en: 'A checklist of core and additional documents by cargo type.' },
@@ -84,7 +84,7 @@ export const articles: Article[] = [
   },
   {
     slug: 'avoid-demurrage-and-port-delays',
-    date: '[تاريخ النشر]',
+    date: '',
     readMin: 5,
     title: { ar: 'كيف تتجنب رسوم الأرضيات والتأخير في الموانئ', en: 'How to Avoid Demurrage and Port Delays' },
     excerpt: { ar: 'خطوات عملية تقلل الرسوم الإضافية بعد وصول الحاوية.', en: 'Practical steps to reduce extra charges after your container arrives.' },
@@ -97,20 +97,20 @@ export const articles: Article[] = [
   },
   {
     slug: 'container-types-and-sizes',
-    date: '[تاريخ النشر]',
+    date: '',
     readMin: 6,
     title: { ar: 'أنواع الحاويات ومقاساتها: دليل مصوّر', en: 'Container Types and Sizes: An Illustrated Guide' },
     excerpt: { ar: 'الجافة والعالية والمبردة والمفتوحة والمسطحة: أيها يناسب بضاعتك؟', en: 'Dry, high cube, reefer, open top and flat rack: which one suits your cargo?' },
     sections: [
       { h: { ar: 'الحاويات الجافة', en: 'Dry containers' }, p: { ar: 'الأكثر استخدامًا بمقاسي 20 و40 قدمًا، والحاوية العالية (HC) أعلى بنحو قدم للبضائع الخفيفة كبيرة الحجم.', en: "The most common, in 20' and 40' sizes; the High Cube is about a foot taller for light, bulky cargo." } },
       { h: { ar: 'الحاويات الخاصة', en: 'Special containers' }, p: { ar: 'المبردة للبضائع الحساسة للحرارة، والمفتوحة السقف للبضائع العالية، والمسطحة للمعدات الثقيلة والعريضة.', en: 'Reefers for temperature-sensitive cargo, open tops for tall cargo, and flat racks for heavy or wide equipment.' } },
-      { h: { ar: '[صور ومقاسات داخلية]', en: '[Photos and internal dimensions]' }, p: { ar: '[أضف جدول المقاسات الداخلية والأوزان القصوى المعتمدة لدى STL]', en: '[Add the internal dimensions and max payload table used by STL]' } },
+      { h: { ar: 'المقاسات الداخلية التقريبية', en: 'Approximate internal dimensions' }, p: { ar: 'الحاوية 20 قدمًا: نحو 5.9 × 2.35 × 2.39 م (قرابة 33 م³). الحاوية 40 قدمًا: نحو 12.03 × 2.35 × 2.39 م (قرابة 67 م³). الحاوية 40 قدمًا العالية: نحو 12.03 × 2.35 × 2.69 م (قرابة 76 م³). المقاسات والحمولة القصوى تختلف قليلًا حسب الخط الملاحي، ونؤكدها لك قبل الحجز.', en: "20' container: about 5.9 × 2.35 × 2.39 m (≈33 m³). 40' container: about 12.03 × 2.35 × 2.39 m (≈67 m³). 40' High Cube: about 12.03 × 2.35 × 2.69 m (≈76 m³). Dimensions and maximum payload vary slightly by carrier; we confirm them before booking." } },
     ],
     related: ['fcl', 'reefer'],
   },
   {
     slug: 'shipping-refrigerated-food',
-    date: '[تاريخ النشر]',
+    date: '',
     readMin: 6,
     title: { ar: 'شحن المواد الغذائية المبردة: الاشتراطات والنصائح', en: 'Shipping Refrigerated Food: Requirements and Tips' },
     excerpt: { ar: 'كيف تحافظ على سلسلة التبريد وتستوفي متطلبات هيئة الغذاء والدواء.', en: 'How to keep the cold chain intact and meet SFDA requirements.' },

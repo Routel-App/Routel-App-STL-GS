@@ -17,11 +17,11 @@ const lang = getLang(Astro.params.lang);
   <SubNav lang={lang} items={aboutTabs} />
   <section class="section">
     <div class="container ceo">
-      <div class="portrait reveal" aria-hidden="true"><Icon name="user" size={90} /><small>[{lang === 'ar' ? 'صورة الرئيس التنفيذي' : 'CEO photo'}]</small></div>
+      <div class="portrait reveal" aria-hidden="true"><Icon name="user" size={90} /></div>
       <figure class="reveal">
         <Icon name="quote" size={44} class="q" />
         <blockquote>{ceoMessage.map((p) => <p>{t(p, lang)}</p>)}</blockquote>
-        <figcaption><strong>{t(site.company.ceoName, lang)}</strong><span>{lang === 'ar' ? 'الرئيس التنفيذي' : 'Chief Executive Officer'}</span></figcaption>
+        <figcaption><strong>{t(site.company.ceoName, lang)}</strong><span>{t(site.company.ceoTitle, lang)}</span></figcaption>
       </figure>
     </div>
   </section>

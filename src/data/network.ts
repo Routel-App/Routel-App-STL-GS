@@ -1,8 +1,8 @@
 import type { L } from '../config/site';
 
 export const networkIntro: L = {
-  ar: 'موقع المملكة بين ثلاث قارات ميزة استراتيجية، ونحن نستثمرها. نخدم موانئ البحر الأحمر والخليج العربي، ونرتبط بشبكة شركاء تغطي {ports}+ ميناءً حول العالم.',
-  en: "Saudi Arabia's position between three continents is a strategic advantage, and we make the most of it. We serve Red Sea and Arabian Gulf ports, connected to a partner network covering {ports}+ ports worldwide.",
+  ar: 'موقع المملكة بين ثلاث قارات ميزة استراتيجية، ونحن نستثمرها. من مقرنا في جدة نخدم موانئ البحر الأحمر والخليج العربي، ونرتبط بشبكة من الخطوط الملاحية والوكلاء الدوليين في آسيا وأوروبا وأفريقيا والأمريكتين.',
+  en: "Saudi Arabia's position between three continents is a strategic advantage, and we make the most of it. From our base in Jeddah we serve Red Sea and Arabian Gulf ports, connected to a network of shipping lines and international agents across Asia, Europe, Africa and the Americas.",
 };
 
 export type Port = {
@@ -123,64 +123,64 @@ export type Country = {
   show: boolean;
 };
 
-const transit: L = { ar: '[حسب بيانات STL] يومًا تقريبًا', en: '[per STL data] days approx.' };
+const transit: L = { ar: 'تختلف حسب ميناء التحميل والخط الملاحي، ونحددها لك بدقة في عرض السعر.', en: 'Varies by port of loading and shipping line; we confirm it precisely in your quote.' };
 const tips = (ar: string, en: string): L => ({ ar, en });
 
 export const countries: Country[] = [
   { slug: 'china', region: 'asia', show: true, name: { ar: 'الصين', en: 'China' },
     ports: [{ ar: 'شنغهاي', en: 'Shanghai' }, { ar: 'نينغبو', en: 'Ningbo' }, { ar: 'شنتشن', en: 'Shenzhen' }, { ar: 'تشينغداو', en: 'Qingdao' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من الصين: الإلكترونيات، الأجهزة الكهربائية، ألعاب الأطفال...]', '[SABER tips for common products from China: electronics, electrical appliances, toys...]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. وتشمل المنتجات الشائعة من هذه الدولة: الإلكترونيات، الأجهزة الكهربائية، ألعاب الأطفال. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Common products from this market include electronics, electrical appliances, toys. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'india', region: 'asia', show: true, name: { ar: 'الهند', en: 'India' },
     ports: [{ ar: 'نافا شيفا', en: 'Nhava Sheva' }, { ar: 'موندرا', en: 'Mundra' }, { ar: 'تشيناي', en: 'Chennai' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من الهند]', '[SABER tips for common products from India]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'vietnam', region: 'asia', show: true, name: { ar: 'فيتنام', en: 'Vietnam' },
     ports: [{ ar: 'هو تشي منه', en: 'Ho Chi Minh City' }, { ar: 'هاي فونغ', en: 'Hai Phong' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من فيتنام]', '[SABER tips for common products from Vietnam]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'malaysia', region: 'asia', show: true, name: { ar: 'ماليزيا', en: 'Malaysia' },
     ports: [{ ar: 'بورت كلانغ', en: 'Port Klang' }, { ar: 'تانجونغ بيليباس', en: 'Tanjung Pelepas' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من ماليزيا]', '[SABER tips for common products from Malaysia]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'south-korea', region: 'asia', show: true, name: { ar: 'كوريا الجنوبية', en: 'South Korea' },
     ports: [{ ar: 'بوسان', en: 'Busan' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من كوريا]', '[SABER tips for common products from Korea]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'germany', region: 'europe', show: true, name: { ar: 'ألمانيا', en: 'Germany' },
     ports: [{ ar: 'هامبورغ', en: 'Hamburg' }, { ar: 'بريمرهافن', en: 'Bremerhaven' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من ألمانيا: الآلات، قطع غيار السيارات...]', '[SABER tips for common products from Germany: machinery, auto parts...]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. وتشمل المنتجات الشائعة من هذه الدولة: الآلات، قطع غيار السيارات. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Common products from this market include machinery, auto parts. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'netherlands', region: 'europe', show: true, name: { ar: 'هولندا', en: 'Netherlands' },
     ports: [{ ar: 'روتردام', en: 'Rotterdam' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من هولندا]', '[SABER tips for common products from the Netherlands]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'belgium', region: 'europe', show: true, name: { ar: 'بلجيكا', en: 'Belgium' },
     ports: [{ ar: 'أنتويرب', en: 'Antwerp' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من بلجيكا]', '[SABER tips for common products from Belgium]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'italy', region: 'europe', show: true, name: { ar: 'إيطاليا', en: 'Italy' },
     ports: [{ ar: 'جنوة', en: 'Genoa' }, { ar: 'لا سبيتسيا', en: 'La Spezia' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من إيطاليا]', '[SABER tips for common products from Italy]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'spain', region: 'europe', show: true, name: { ar: 'إسبانيا', en: 'Spain' },
     ports: [{ ar: 'فالنسيا', en: 'Valencia' }, { ar: 'برشلونة', en: 'Barcelona' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من إسبانيا]', '[SABER tips for common products from Spain]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'turkey', region: 'europe', show: true, name: { ar: 'تركيا', en: 'Türkiye' },
     ports: [{ ar: 'مرسين', en: 'Mersin' }, { ar: 'إسطنبول (أمبارلي)', en: 'Istanbul (Ambarli)' }, { ar: 'إزمير', en: 'Izmir' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من تركيا: الأثاث، المنسوجات، مواد البناء...]', '[SABER tips for common products from Türkiye: furniture, textiles, building materials...]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. وتشمل المنتجات الشائعة من هذه الدولة: الأثاث، المنسوجات، مواد البناء. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Common products from this market include furniture, textiles, building materials. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'usa', region: 'americas', show: true, name: { ar: 'الولايات المتحدة', en: 'United States' },
     ports: [{ ar: 'نيويورك/نيوجيرسي', en: 'New York/New Jersey' }, { ar: 'سافانا', en: 'Savannah' }, { ar: 'هيوستن', en: 'Houston' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من الولايات المتحدة]', '[SABER tips for common products from the US]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'canada', region: 'americas', show: true, name: { ar: 'كندا', en: 'Canada' },
     ports: [{ ar: 'فانكوفر', en: 'Vancouver' }, { ar: 'مونتريال', en: 'Montreal' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من كندا]', '[SABER tips for common products from Canada]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'brazil', region: 'americas', show: true, name: { ar: 'البرازيل', en: 'Brazil' },
     ports: [{ ar: 'سانتوس', en: 'Santos' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من البرازيل]', '[SABER tips for common products from Brazil]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'egypt', region: 'africa-me', show: true, name: { ar: 'مصر', en: 'Egypt' },
     ports: [{ ar: 'الإسكندرية', en: 'Alexandria' }, { ar: 'بورسعيد', en: 'Port Said' }, { ar: 'العين السخنة', en: 'Sokhna' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من مصر]', '[SABER tips for common products from Egypt]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'djibouti', region: 'africa-me', show: true, name: { ar: 'جيبوتي', en: 'Djibouti' },
     ports: [{ ar: 'جيبوتي', en: 'Djibouti' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من جيبوتي]', '[SABER tips for common products from Djibouti]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'kenya', region: 'africa-me', show: true, name: { ar: 'كينيا', en: 'Kenya' },
     ports: [{ ar: 'مومباسا', en: 'Mombasa' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من كينيا]', '[SABER tips for common products from Kenya]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
   { slug: 'gcc', region: 'africa-me', show: true, name: { ar: 'دول الخليج', en: 'GCC Countries' },
     ports: [{ ar: 'جبل علي (الإمارات)', en: 'Jebel Ali (UAE)' }, { ar: 'صحار (عُمان)', en: 'Sohar (Oman)' }, { ar: 'حمد (قطر)', en: 'Hamad (Qatar)' }],
-    transit, saberTips: tips('[نصائح سابر للمنتجات الشائعة من دول الخليج]', '[SABER tips for common products from the GCC]') },
+    transit, saberTips: tips('كثير من المنتجات المستوردة تحتاج شهادة مطابقة عبر منصة سابر قبل الشحن. أرسل لنا قائمة البنود ونحدد الشهادات المطلوبة مسبقًا لتجنب تأخير الإفراج.', 'Many imported products need a SABER conformity certificate before shipping. Send us your item list and we will confirm the required certificates upfront to avoid release delays.') },
 ];
 
 export const visibleCountries = () => countries.filter((c) => c.show);

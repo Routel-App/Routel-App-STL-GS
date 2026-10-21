@@ -23,12 +23,16 @@ const ar = lang === 'ar';
   <section class="section section-soft">
     <div class="container">
       <h2>{ar ? 'الوظائف الشاغرة' : 'Open positions'}</h2>
+      {jobs.length > 0 ? (
       <div class="table-wrap mt-2">
         <table>
           <thead><tr><th>{ar ? 'المسمى' : 'Title'}</th><th>{ar ? 'المدينة' : 'City'}</th><th>{ar ? 'نوع الدوام' : 'Type'}</th><th></th></tr></thead>
           <tbody>{jobs.map((j) => <tr><td><strong>{t(j.title, lang)}</strong></td><td>{t(j.city, lang)}</td><td>{t(j.type, lang)}</td><td><a class="btn btn-sm btn-teal job-apply" href="#apply" data-job={t(j.title, lang)}>{u('applyNow', lang)}</a></td></tr>)}</tbody>
         </table>
       </div>
+      ) : (
+        <div class="alert alert-info mt-2">{ar ? 'لا توجد وظائف شاغرة معلنة حاليًا، لكننا نرحب دائمًا بالكفاءات المتميزة. أرسل سيرتك الذاتية عبر النموذج أدناه.' : 'There are no open positions right now, but we always welcome outstanding talent. Send your CV using the form below.'}</div>
+      )}
     </div>
   </section>
   <section class="section" id="apply">

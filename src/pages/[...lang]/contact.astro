@@ -10,11 +10,9 @@ const lang = getLang(Astro.params.lang);
 const ar = lang === 'ar';
 const c = site.contact;
 const cards = [
-  { icon: 'phone', label: u('phone', lang), value: c.unifiedPhone, link: `tel:${c.unifiedPhone}` },
+  { icon: 'phone', label: ar ? 'الهاتف' : 'Phone', value: c.phoneDisplay, link: `tel:${c.phone}` },
   { icon: 'whatsapp', label: ar ? 'واتساب' : 'WhatsApp', value: c.whatsappDisplay, link: `https://wa.me/${c.whatsapp}` },
-  { icon: 'mail', label: ar ? 'البريد العام' : 'General', value: c.emailInfo, link: `mailto:${c.emailInfo}` },
-  { icon: 'mail', label: ar ? 'المبيعات' : 'Sales', value: c.emailSales, link: `mailto:${c.emailSales}` },
-  { icon: 'mail', label: ar ? 'الدعم' : 'Support', value: c.emailSupport, link: `mailto:${c.emailSupport}` },
+  { icon: 'mail', label: ar ? 'البريد الإلكتروني' : 'Email', value: c.email, link: `mailto:${c.email}` },
 ];
 const subjects = ar
   ? ['استفسار عام', 'عرض سعر', 'متابعة شحنة', 'شكوى أو اقتراح', 'شراكة']
@@ -29,7 +27,7 @@ const subjects = ar
           <a class="card contact-card" href={k.link} target={k.link.startsWith('http') ? '_blank' : undefined} rel="noopener">
             <span class="icon-badge"><Icon name={k.icon} /></span>
             <span class="muted">{k.label}</span>
-            <strong class="ltr">{k.value}</strong>
+            <strong dir="ltr" class="ltr">{k.value}</strong>
           </a>
         ))}
       </div>
@@ -58,14 +56,17 @@ const subjects = ar
           <div class="card">
             <h3>{ar ? 'المقر الرئيسي' : 'Head office'}</h3>
             <p><Icon name="pin" size={18} class="inl" /> {t(c.hqAddress, lang)}</p>
-            <p><Icon name="clock" size={18} class="inl" /> {u('hours', lang)}: {t(c.workingHours, lang)}</p>
-            <a class="link-arrow" href={c.googleMapsUrl} target="_blank" rel="noopener">{ar ? 'افتح في خرائط Google' : 'Open in Google Maps'} <Icon name="arrow" class="flip" /></a>
+            {t(c.workingHours, lang) && <p><Icon name="clock" size={18} class="inl" /> {u('hours', lang)}: {t(c.workingHours, lang)}</p>}
+            {c.googleMapsUrl && <a class="link-arrow" href={c.googleMapsUrl} target="_blank" rel="noopener">{ar ? 'افتح في خرائط Google' : 'Open in Google Maps'} <Icon name="arrow" class="flip" /></a>}
           </div>
-          {c.googleMapsEmbed ? (
+          {c.googleMapsEmbed && (
             <iframe class="mapframe" src={c.googleMapsEmbed} loading="lazy" title="Google Maps" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          ) : (
-            <div class="map-ph"><Icon name="pin" size={40} /><span>[{ar ? 'خريطة Google — أضف رابط التضمين في googleMapsEmbed' : 'Google map — add the embed URL in googleMapsEmbed'}]</span></div>
           )}
+          <div class="card on-dark reach">
+            <h3>{ar ? 'أسرع طريقة للتواصل' : 'Fastest way to reach us'}</h3>
+            <p>{ar ? 'أرسل تفاصيل شحنتك عبر واتساب، ويرد عليك أحد مختصينا مباشرة.' : 'Send your shipment details on WhatsApp and one of our specialists will reply directly.'}</p>
+            <a class="btn btn-primary" href={`https://wa.me/${c.whatsapp}`} target="_blank" rel="noopener"><Icon name="whatsapp" /> {ar ? 'تواصل عبر واتساب' : 'Chat on WhatsApp'}</a>
+          </div>
         </div>
       </div>
     </div>
@@ -78,5 +79,8 @@ const subjects = ar
   .consent input { margin-top: .4rem; }
   .card :global(.inl) { display: inline; vertical-align: -3px; color: var(--teal-500); }
   .mapframe { width: 100%; height: 320px; border: 0; border-radius: var(--radius); }
+  .reach { background: var(--petrol); color: rgba(244, 239, 230, .78); }
+  .reach h3 { color: var(--cream); }
+  .reach .btn { align-self: flex-start; }
   .map-ph { height: 300px; border-radius: var(--radius); background: var(--bg-soft); border: 1px dashed var(--line); display: grid; place-items: center; align-content: center; gap: .6rem; color: var(--muted); text-align: center; padding: 1rem; }
 </style>

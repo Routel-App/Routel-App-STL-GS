@@ -16,13 +16,10 @@ export const langPaths = () => langs.map((l) => ({ params: { lang: langParam(l) 
 export const fill = (s: string, lang: Lang): string =>
   s
     .replaceAll('{hours}', site.quoteResponseHours)
-    .replaceAll('{ports}', site.portsCount)
-    .replaceAll('{clients}', site.clientsCount)
     .replaceAll('{year}', site.company.foundedYear)
     .replaceAll('{city}', site.company.foundedCity[lang])
     .replaceAll('{hqCity}', site.contact.hqCity[lang])
-    .replaceAll('{branches}', site.company.branches[lang])
-    .replaceAll('{beginning}', site.company.beginning[lang])
+    .replaceAll('{exp}', site.company.teamExperienceYears)
     .replaceAll('{ceo}', site.company.ceoName[lang]);
 
 /** Pick the language variant of a bilingual value (tokens filled) */
@@ -77,7 +74,7 @@ export const ui = {
   companyProfile: { ar: 'الملف التعريفي (PDF)', en: 'Company Profile (PDF)' },
   overview: { ar: 'نبذة عن الشركة', en: 'Company Overview' },
   vision: { ar: 'الرؤية والرسالة والقيم', en: 'Vision, Mission & Values' },
-  ceo: { ar: 'كلمة الرئيس التنفيذي', en: "CEO's Message" },
+  ceo: { ar: 'كلمة المدير العام', en: "General Manager's Message" },
   leadership: { ar: 'فريق القيادة', en: 'Leadership Team' },
   certs: { ar: 'الشهادات والتراخيص', en: 'Certifications & Licenses' },
   ports: { ar: 'موانئ المملكة', en: 'Saudi Ports' },
@@ -117,8 +114,8 @@ export const ui = {
   subscribe: { ar: 'اشترك', en: 'Subscribe' },
   subscribed: { ar: 'تم الاشتراك، شكرًا لك!', en: 'Subscribed — thank you!' },
   footerAbout: {
-    ar: 'STL Global Solutions، شريكك البحري من موانئ العالم إلى باب عملك.',
-    en: 'STL Global Solutions — your maritime partner from global ports to your doorstep.',
+    ar: 'STL Global Forwarding، شريكك البحري من موانئ العالم إلى باب عملك.',
+    en: 'STL Global Forwarding — your maritime partner from global ports to your doorstep.',
   },
   phone: { ar: 'الهاتف الموحد', en: 'Unified number' },
   email: { ar: 'البريد', en: 'Email' },

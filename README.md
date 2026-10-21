@@ -1,6 +1,6 @@
-# STL Global Solutions — الموقع الإلكتروني
+# STL Global Forwarding — الموقع الإلكتروني
 
-موقع شركة STL Global Solutions للشحن البحري. **عربي افتراضي** (RTL) مع نسخة **إنجليزية** (LTR) كاملة على `/en`.
+موقع شركة STL Global Forwarding للشحن البحري. **عربي افتراضي** (RTL) مع نسخة **إنجليزية** (LTR) كاملة على `/en`.
 مبني بـ [Astro](https://astro.build) كموقع ثابت (Static) سريع وسهل الاستضافة، بدون قاعدة بيانات.
 
 ## التشغيل
@@ -33,7 +33,7 @@ npm run check:placeholders   # يعرض كل [المتغيرات] اللي لس�
 
 ## الهوية البصرية
 
-- **الشعار** مأخوذ كما هو من لوحة الهوية بدون أي تعديل: `public/brand/stl-logo-transparent.png` (الأساسي بخلفية شفافة) و `stl-logo-white.png` (نسخة "White on Dark" من اللوحة، للهيدر والفوتر)، والأيقونة الرمزية `stl-icon-dark.png` و `stl-icon-light.png` (منها الـ favicon).
+- **الشعار**: علامة STL مأخوذة كما هي من لوحة الهوية، والسطر السفلي محدّث إلى "GLOBAL FORWARDING" بخط Orbitron بنفس موضع ومقاس النص الأصلي: `public/brand/stl-logo-transparent.png` (الأساسي بخلفية شفافة) و `stl-logo-white.png` (نسخة "White on Dark" من اللوحة، للهيدر والفوتر)، والأيقونة الرمزية `stl-icon-dark.png` و `stl-icon-light.png` (منها الـ favicon).
   الدقة الحالية محدودة بدقة الصورة المصدر؛ عند توفر الملف الأصلي (SVG/AI) استبدل `stl-logo.png` بنفس الاسم أو غيّر `LOGO_SRC` في `src/components/Logo.astro`.
 - **الخط:** Readex Pro للعربي والإنجليزي.
 - **لغة التصميم "Forward Cut":** القصّة المائلة من زوايا الشعار (زوايا مشطوفة للأزرار والبطاقات، وعلامة مرجانية مائلة قبل العناوين، وإطارات صور مائلة). القيم في `src/styles/global.css`.
@@ -82,15 +82,10 @@ npm run check:placeholders   # يعرض كل [المتغيرات] اللي لس�
 
 ## الاستضافة
 
-### النشر على Vercel (الخطة المجانية Hobby)
-خطة Hobby لا تسمح بربط ريبو خاص تابع لمنظمة GitHub مباشرة، لذلك يتم النشر عبر GitHub Actions
-(`.github/workflows/deploy-vercel.yml`) باستخدام Vercel CLI:
-
-1. أنشئ توكن من https://vercel.com/account/tokens (النطاق: فريق Routel).
-2. في GitHub: Settings → Secrets and variables → Actions → **New repository secret**
-   الاسم: `VERCEL_TOKEN` والقيمة: التوكن.
-3. من تبويب Actions شغّل **Deploy to Vercel** (أو ادفع أي تعديل على `main`).
-   أول تشغيل ينشئ مشروع `stl-gs` في فريق Routel تلقائيًا، وكل دفع على `main` بعدها ينشر تلقائيًا.
+### النشر على Vercel
+خطة Vercel المجانية (Hobby) لا تقبل ربط ريبو **خاص تابع لمنظمة** GitHub. الخيارات:
+1. جعل الريبو Public ثم استيراده من https://vercel.com/new (يُكتشف Astro تلقائيًا).
+2. أو النشر من جهازك: `npx vercel --prod --scope routel` داخل مجلد المشروع.
 
 ### استضافات أخرى
 

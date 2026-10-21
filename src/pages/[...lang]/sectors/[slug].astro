@@ -38,6 +38,7 @@ const related = s.services.map(serviceBySlug).filter((x) => !!x);
       <div class="grid grid-4 mt-2">{related.map((r) => <ServiceCard lang={lang} s={r!} />)}</div>
     </div>
   </section>
+  {t(s.successStory, lang) && (
   <section class="section">
     <div class="container">
       <div class="story reveal">
@@ -46,6 +47,7 @@ const related = s.services.map(serviceBySlug).filter((x) => !!x);
       </div>
     </div>
   </section>
+  )}
   <CTABand lang={lang} />
 </Base>
 <style>

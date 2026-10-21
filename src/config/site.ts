@@ -1,28 +1,25 @@
 /**
  * ============================================================================
- *  STL Global Solutions — ملف المتغيرات المركزي (Site Variables)
+ *  STL Global Forwarding — ملف المتغيرات المركزي (Site Variables)
  * ============================================================================
- *  كل قيمة بين [أقواس مربعة] معلومة تخص STL ولازم تُستبدل بالقيمة الحقيقية.
- *  Every value wrapped in [square brackets] is a placeholder to be replaced.
- *
- *  - غيّر القيمة هنا مرة وحدة، وتتحدث في كل صفحات الموقع (عربي + إنجليزي).
+ *  غيّر القيمة هنا مرة وحدة، وتتحدث في كل صفحات الموقع (عربي + إنجليزي).
  *  - القيم ذات اللغتين مكتوبة بالشكل { ar: '...', en: '...' }.
- *  - لإخفاء عنصر غير منطبق (شهادة، ميناء، فرع...) احذف سطره أو اجعل show: false.
- *  - شغّل `npm run check:placeholders` لعرض كل المتغيرات الباقية بدون تعبئة.
+ *  - القيم الفارغة '' تُخفي العنصر المرتبط بها تلقائيًا (رابط، زر، قسم...).
+ *  - أي قيمة بين [أقواس مربعة] تعني معلومة ناقصة؛ شغّل `npm run check:placeholders`.
  * ============================================================================
  */
 
 export type L = { ar: string; en: string };
 
 export const site = {
-  /** إبراز المتغيرات غير المعبأة بخط منقط في الموقع (اجعلها false قبل الإطلاق) */
-  highlightPlaceholders: true,
+  /** إبراز أي متغيرات غير معبأة بخط منقط (للمراجعة فقط) */
+  highlightPlaceholders: false,
 
-  name: 'STL Global Solutions',
+  name: 'STL Global Forwarding',
   shortName: 'STL',
-  domain: '[stl-global.sa]',
+  domain: 'stl-gf.com',
 
-  /** الشعار اللفظي المختار — Selected tagline (القسم 3) */
+  /** الشعار اللفظي */
   tagline: {
     ar: 'من موانئ العالم.. إلى باب عملك',
     en: 'From Global Ports to Your Doorstep',
@@ -30,86 +27,84 @@ export const site = {
 
   // ---------------------------------------------------------------- التواصل
   contact: {
-    unifiedPhone: '[9200XXXXX]',
-    whatsapp: '[9665XXXXXXXX]', // بصيغة دولية بدون + أو أصفار، تُستخدم في رابط wa.me
-    whatsappDisplay: '[05XXXXXXXX]',
-    emailInfo: '[info@stl-global.sa]',
-    emailSales: '[sales@stl-global.sa]',
-    emailSupport: '[support@stl-global.sa]',
-    emailCareers: '[careers@stl-global.sa]',
-    emailDPO: '[privacy@stl-global.sa]', // مسؤول حماية البيانات (PDPL)
-    hqAddress: { ar: '[عنوان المقر الرئيسي]', en: '[Head office address]' } as L,
-    hqCity: { ar: '[المدينة]', en: '[City]' } as L,
-    workingHours: { ar: '[الأحد – الخميس، 8 ص – 5 م]', en: '[Sunday – Thursday, 8 AM – 5 PM]' } as L,
-    googleMapsUrl: '[https://maps.google.com/?q=STL+Global+Solutions]',
-    /** رابط تضمين الخريطة (Google Maps → Share → Embed). اتركه فارغًا لإخفاء الخريطة */
+    /** الرقم بالصيغة الدولية للروابط (tel:) */
+    phone: '+966532133699',
+    /** الرقم كما يُعرض — يُكتب دائمًا من اليسار لليمين حتى داخل النص العربي */
+    phoneDisplay: '+966 53 213 3699',
+    /** رقم واتساب بدون + للرابط wa.me */
+    whatsapp: '966532133699',
+    whatsappDisplay: '+966 53 213 3699',
+    email: 'info@stl-gf.com',
+    /** مسؤول حماية البيانات (PDPL) */
+    emailDPO: 'info@stl-gf.com',
+    emailCareers: 'info@stl-gf.com',
+    hqCity: { ar: 'جدة', en: 'Jeddah' } as L,
+    hqAddress: { ar: 'جدة، المملكة العربية السعودية', en: 'Jeddah, Saudi Arabia' } as L,
+    /** اتركها فارغة لإخفائها */
+    workingHours: { ar: '', en: '' } as L,
+    googleMapsUrl: '',
+    /** رابط تضمين الخريطة (Google Maps → Share → Embed). فارغ = بدون خريطة */
     googleMapsEmbed: '',
   },
 
+  /** روابط التواصل الاجتماعي — الرابط الفارغ لا يظهر */
   social: {
-    linkedin: '[https://www.linkedin.com/company/stl-global]',
-    x: '[https://x.com/stl_global]',
-    instagram: '[https://instagram.com/stl_global]',
-    youtube: '[https://youtube.com/@stl_global]',
+    linkedin: '',
+    x: '',
+    instagram: '',
+    youtube: '',
   },
 
-  // ---------------------------------------------------------------- البيانات القانونية
+  /** البيانات النظامية — الفارغ لا يظهر في الفوتر */
   legal: {
-    crNumber: '[رقم السجل التجاري]',
-    tgaLicense: '[رقم ترخيص الهيئة العامة للنقل]',
-    vatNumber: '[الرقم الضريبي]',
-    customsLicense: '[رقم رخصة التخليص الجمركي]',
+    crNumber: '',
+    tgaLicense: '',
+    vatNumber: '',
+    customsLicense: '',
   },
 
   // ---------------------------------------------------------------- الشركة
   company: {
-    foundedYear: '[YYYY]', // سنة التأسيس
-    foundedCity: { ar: '[المدينة]', en: '[City]' } as L,
-    beginning: { ar: '[وصف البداية]', en: '[how STL started]' } as L,
-    branches: { ar: '[الفروع]', en: '[branches]' } as L,
-    ceoName: { ar: '[اسم الرئيس التنفيذي]', en: '[CEO name]' } as L,
+    foundedYear: '2024',
+    foundedCity: { ar: 'جدة', en: 'Jeddah' } as L,
+    teamExperienceYears: '9',
+    ceoName: { ar: 'عبدالرحمن أمين', en: 'Abdulrahman Ameen' } as L,
+    ceoTitle: { ar: 'المدير العام', en: 'General Manager' } as L,
     individualsServed: {
-      ar: '[حدد: نخدم الشركات فقط / نخدم الشركات والأفراد]',
-      en: '[Specify: businesses only / businesses and individuals]',
+      ar: 'نخدم الشركات والمؤسسات فقط، ولا نقدم خدمات الشحن للأفراد.',
+      en: 'We serve businesses and organisations only; we do not handle shipments for individuals.',
     } as L,
   },
 
   /** مدة الرد على عروض الأسعار بالساعات */
-  quoteResponseHours: '[24]',
+  quoteResponseHours: '24',
 
-  // ---------------------------------------------------------------- الأرقام (القسم 4.5)
-  // تُعرض فقط أرقام STL الحقيقية. احذف أي عنصر ما عندكم رقمه.
+  // ---------------------------------------------------------------- الأرقام
+  // تُعرض حقائق STL الفعلية فقط.
   stats: [
-    { value: '[00+]', label: { ar: 'سنة خبرة', en: 'Years of experience' } },
-    { value: '[00+]', label: { ar: 'حاوية مكافئة (TEU) سنويًا', en: 'TEU shipped annually' } },
-    { value: '[00+]', label: { ar: 'ميناء حول العالم', en: 'Ports worldwide' } },
-    { value: '[00+]', label: { ar: 'عميل', en: 'Clients' } },
-    { value: '[00]', label: { ar: 'فروع في المملكة', en: 'Branches in KSA' } },
+    { value: '9+', label: { ar: 'سنوات خبرة فريقنا في الشحن واللوجستيات', en: 'Years of team experience in shipping & logistics' } },
+    { value: '2024', label: { ar: 'سنة التأسيس في جدة', en: 'Founded in Jeddah' } },
+    { value: '11', label: { ar: 'خدمة شحن ولوجستيات', en: 'Shipping & logistics services' } },
+    { value: '7', label: { ar: 'قطاعات نخدمها', en: 'Industries served' } },
   ],
-  /** عدد الموانئ المستخدم داخل النصوص */
-  portsCount: '[00]',
-  clientsCount: '[00]',
 
   // ---------------------------------------------------------------- الخدمات الإلكترونية والنماذج
   integrations: {
     /**
-     * رابط استقبال النماذج (POST JSON) — مثل Formspree أو API داخلي.
-     * إذا تُرك فارغًا: تظهر رسالة النجاح ويُطبع الطلب في Console فقط.
+     * رابط استقبال النماذج (POST) — مثل Formspree أو API داخلي.
+     * إذا تُرك فارغًا: تُفتح رسالة بريد جاهزة إلى البريد الرسمي.
      */
     formEndpoint: '',
-    /** رابط API التتبع: يُستدعى بـ ?ref=XXXX ويعيد { stage: 0..7, events?: [...] } */
+    /** رابط API التتبع: يُستدعى بـ ?ref=XXXX ويعيد { stage: 0..7 } */
     trackingApi: '',
-    /** بادئة رقم الطلب في رسالة النجاح */
     quotePrefix: 'STL-',
     googleAnalyticsId: '',
   },
 
-  /** ملفات قابلة للتحميل — ضعها في مجلد public/files */
   /**
-   * صور الواجهة — Imagery.
+   * صور الواجهة.
    * الصورة الحالية: "Seaport during Golden Hour" — Tom Fisk (Pexels، رخصة مجانية للاستخدام التجاري)
    * https://www.pexels.com/photo/seaport-during-golden-hour-3057960/
-   * يُفضّل لاحقًا تنزيلها ووضعها في public/images/ ثم تغيير الرابط إلى '/images/اسم-الملف.jpg'.
    * إذا تعذر تحميل الصورة يظهر الرسم البديل تلقائيًا.
    */
   images: {
@@ -117,183 +112,123 @@ export const site = {
     heroCredit: 'Tom Fisk / Pexels',
   },
 
+  /** ملفات قابلة للتحميل — ضعها في public/files واكتب المسار. الفارغ يُخفي الزر */
   downloads: {
-    companyProfile: '/files/STL-Company-Profile.pdf',
-    qhsePolicy: '/files/STL-QHSE-Policy.pdf',
+    companyProfile: '',
+    qhsePolicy: '',
   },
 };
 
+/** تنسيق رقم الهاتف للعرض داخل نص عربي أو إنجليزي (يحافظ على الاتجاه) */
+export const phoneHref = `tel:${site.contact.phone}`;
+export const whatsappHref = (text = '') =>
+  `https://wa.me/${site.contact.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ''}`;
+
 // ============================================================================
-//  الفروع (القسم 8) — أضف بطاقة لكل فرع
+//  الفروع
 // ============================================================================
 export const branches: {
   city: L;
   isHQ?: boolean;
   address: L;
   phone: string;
-  hours: L;
-  mapUrl: string;
+  phoneDisplay: string;
+  hours?: L;
+  mapUrl?: string;
 }[] = [
   {
-    city: { ar: '[المقر الرئيسي — المدينة]', en: '[Head office — City]' },
+    city: { ar: 'جدة — المقر الرئيسي', en: 'Jeddah — Head office' },
     isHQ: true,
-    address: { ar: '[العنوان]', en: '[Address]' },
-    phone: '[01XXXXXXXX]',
-    hours: { ar: '[الأحد – الخميس، 8 ص – 5 م]', en: '[Sun – Thu, 8 AM – 5 PM]' },
-    mapUrl: '[رابط خرائط Google]',
-  },
-  {
-    city: { ar: '[فرع — المدينة]', en: '[Branch — City]' },
-    address: { ar: '[العنوان]', en: '[Address]' },
-    phone: '[01XXXXXXXX]',
-    hours: { ar: '[الأحد – الخميس، 8 ص – 5 م]', en: '[Sun – Thu, 8 AM – 5 PM]' },
-    mapUrl: '[رابط خرائط Google]',
-  },
-  {
-    city: { ar: '[فرع — المدينة]', en: '[Branch — City]' },
-    address: { ar: '[العنوان]', en: '[Address]' },
-    phone: '[01XXXXXXXX]',
-    hours: { ar: '[الأحد – الخميس، 8 ص – 5 م]', en: '[Sun – Thu, 8 AM – 5 PM]' },
-    mapUrl: '[رابط خرائط Google]',
+    address: { ar: 'جدة، المملكة العربية السعودية', en: 'Jeddah, Saudi Arabia' },
+    phone: site.contact.phone,
+    phoneDisplay: site.contact.phoneDisplay,
   },
 ];
 
 // ============================================================================
-//  الشهادات والتراخيص (القسم 5.6) — احذف أي صف ما ينطبق على STL
+//  الشهادات والتراخيص — أضف ما ينطبق فقط. القائمة الفارغة تُخفي الصفحة والشريط
 // ============================================================================
-export const certifications: { name: L; number: string; validity: string; badge: string }[] = [
-  { badge: 'CR', name: { ar: 'السجل التجاري', en: 'Commercial Registration' }, number: '[رقم]', validity: '[تاريخ]' },
-  { badge: 'TGA', name: { ar: 'ترخيص الهيئة العامة للنقل (وسيط شحن)', en: 'Transport General Authority license (freight forwarder)' }, number: '[رقم]', validity: '[تاريخ]' },
-  { badge: 'ZATCA', name: { ar: 'رخصة التخليص الجمركي — هيئة الزكاة والضريبة والجمارك', en: 'Customs brokerage license — ZATCA' }, number: '[رقم]', validity: '[تاريخ]' },
-  { badge: 'ISO 9001', name: { ar: 'آيزو 9001 (الجودة)', en: 'ISO 9001 (Quality)' }, number: '[رقم]', validity: '[تاريخ]' },
-  { badge: 'ISO 14001', name: { ar: 'آيزو 14001 (البيئة)', en: 'ISO 14001 (Environment)' }, number: '[رقم]', validity: '[تاريخ]' },
-  { badge: 'ISO 45001', name: { ar: 'آيزو 45001 (السلامة المهنية)', en: 'ISO 45001 (Occupational safety)' }, number: '[رقم]', validity: '[تاريخ]' },
-  { badge: 'FIATA', name: { ar: 'عضوية FIATA / WCA', en: 'FIATA / WCA membership' }, number: '[رقم]', validity: '[تاريخ]' },
-];
+export const certifications: { name: L; number: string; validity: string; badge: string }[] = [];
 
 // ============================================================================
-//  المسيرة — الخط الزمني (القسم 5.2)
+//  المسيرة — الخط الزمني
 // ============================================================================
 export const timeline: { year: string; text: L }[] = [
-  { year: '[سنة]', text: { ar: 'التأسيس وبدء العمليات في [المدينة]', en: 'Founded and began operations in [City]' } },
-  { year: '[سنة]', text: { ar: 'الحصول على ترخيص [الهيئة العامة للنقل / التخليص الجمركي]', en: 'Obtained the [TGA / customs brokerage] license' } },
-  { year: '[سنة]', text: { ar: 'افتتاح فرع [المدينة]', en: 'Opened the [City] branch' } },
-  { year: '[سنة]', text: { ar: 'إطلاق خدمة [الشحن المبرد / المشاريع]', en: 'Launched [reefer / project cargo] services' } },
-  { year: '[سنة]', text: { ar: 'الحصول على شهادة آيزو [رقم]', en: 'Achieved ISO [number] certification' } },
-  { year: '[سنة]', text: { ar: 'إطلاق منصة التتبع الإلكترونية', en: 'Launched the online tracking platform' } },
+  {
+    year: '2024',
+    text: {
+      ar: 'تأسيس STL Global Forwarding في جدة على يد فريق تجاوزت خبرته في الشحن واللوجستيات 9 سنوات.',
+      en: 'STL Global Forwarding founded in Jeddah by a team with more than 9 years of shipping and logistics experience.',
+    },
+  },
+  {
+    year: '2024',
+    text: {
+      ar: 'إطلاق خدمات الشحن البحري بالحاويات الكاملة والمجمّعة، والتخليص الجمركي والنقل الداخلي.',
+      en: 'Launched FCL and LCL ocean freight, customs clearance and inland transport services.',
+    },
+  },
+  {
+    year: '2025',
+    text: {
+      ar: 'توسيع الحلول لتشمل البضائع السائبة والمشاريع، والشحن المبرد، والمواد الخطرة.',
+      en: 'Expanded into break bulk and project cargo, reefer and dangerous goods shipping.',
+    },
+  },
+  {
+    year: '2026',
+    text: {
+      ar: 'إطلاق الموقع الإلكتروني وأدوات الخدمات الرقمية: طلب عرض السعر، حاسبة الحجم، والتتبع.',
+      en: 'Launched the website and digital tools: online quotes, CBM calculator and tracking.',
+    },
+  },
 ];
 
 // ============================================================================
-//  فريق القيادة (القسم 5.5) — ضع الصور في public/team/
+//  فريق القيادة — ضع الصور في public/team/
 // ============================================================================
 export const leadership: { name: L; role: L; bio: L; photo: string; linkedin: string }[] = [
   {
-    name: { ar: '[الاسم]', en: '[Name]' },
-    role: { ar: 'الرئيس التنفيذي', en: 'Chief Executive Officer' },
-    bio: { ar: '[سطران عن الخبرة]', en: '[Two lines about experience]' },
+    name: { ar: 'عبدالرحمن أمين', en: 'Abdulrahman Ameen' },
+    role: { ar: 'المدير العام', en: 'General Manager' },
+    bio: {
+      ar: 'يقود STL Global Forwarding ويشرف على العمليات والعلاقات مع العملاء والشركاء الدوليين.',
+      en: 'Leads STL Global Forwarding and oversees operations and relationships with clients and international partners.',
+    },
     photo: '',
-    linkedin: '[رابط لينكدإن]',
-  },
-  {
-    name: { ar: '[الاسم]', en: '[Name]' },
-    role: { ar: '[المنصب]', en: '[Position]' },
-    bio: { ar: '[سطران عن الخبرة]', en: '[Two lines about experience]' },
-    photo: '',
-    linkedin: '[رابط لينكدإن]',
-  },
-  {
-    name: { ar: '[الاسم]', en: '[Name]' },
-    role: { ar: '[المنصب]', en: '[Position]' },
-    bio: { ar: '[سطران عن الخبرة]', en: '[Two lines about experience]' },
-    photo: '',
-    linkedin: '[رابط لينكدإن]',
-  },
-  {
-    name: { ar: '[الاسم]', en: '[Name]' },
-    role: { ar: '[المنصب]', en: '[Position]' },
-    bio: { ar: '[سطران عن الخبرة]', en: '[Two lines about experience]' },
-    photo: '',
-    linkedin: '[رابط لينكدإن]',
+    linkedin: '',
   },
 ];
 
 // ============================================================================
-//  الثقة: شعارات العملاء وآراؤهم (القسم 4.11) — بعد أخذ موافقة العملاء
+//  الثقة: شعارات العملاء وآراؤهم — بعد أخذ موافقة العملاء. الفارغ يُخفي القسم
 // ============================================================================
-export const clientLogos: { name: string; logo: string }[] = [
-  { name: '[عميل 1]', logo: '' },
-  { name: '[عميل 2]', logo: '' },
-  { name: '[عميل 3]', logo: '' },
-  { name: '[عميل 4]', logo: '' },
-  { name: '[عميل 5]', logo: '' },
-  { name: '[عميل 6]', logo: '' },
-];
+export const clientLogos: { name: string; logo: string }[] = [];
+export const testimonials: { quote: L; name: L; role: L; company: L }[] = [];
 
-export const testimonials: { quote: L; name: L; role: L; company: L }[] = [
-  {
-    quote: { ar: '[نص رأي العميل]', en: '[Client testimonial]' },
-    name: { ar: '[الاسم]', en: '[Name]' },
-    role: { ar: '[المنصب]', en: '[Position]' },
-    company: { ar: '[الشركة]', en: '[Company]' },
-  },
-  {
-    quote: { ar: '[نص رأي العميل]', en: '[Client testimonial]' },
-    name: { ar: '[الاسم]', en: '[Name]' },
-    role: { ar: '[المنصب]', en: '[Position]' },
-    company: { ar: '[الشركة]', en: '[Company]' },
-  },
-  {
-    quote: { ar: '[نص رأي العميل]', en: '[Client testimonial]' },
-    name: { ar: '[الاسم]', en: '[Name]' },
-    role: { ar: '[المنصب]', en: '[Position]' },
-    company: { ar: '[الشركة]', en: '[Company]' },
-  },
-];
-
-/** شريط الاعتمادات في الرئيسية (القسم 4.11) */
-export const accreditationStrip: L[] = [
-  { ar: 'السجل التجاري [رقم]', en: 'CR No. [number]' },
-  { ar: 'ترخيص الهيئة العامة للنقل [رقم]', en: 'TGA license [number]' },
-  { ar: 'رخصة التخليص الجمركي [رقم]', en: 'Customs license [number]' },
-  { ar: 'آيزو [9001/14001/45001 إن وجدت]', en: 'ISO [9001/14001/45001 if applicable]' },
-  { ar: 'عضوية [FIATA/WCA إن وجدت]', en: '[FIATA/WCA membership if applicable]' },
-];
+/** شريط الاعتمادات في الرئيسية — الفارغ يُخفيه */
+export const accreditationStrip: L[] = [];
 
 // ============================================================================
-//  الوظائف الشاغرة (القسم 12.2)
+//  الوظائف الشاغرة — الفارغ يعرض نموذج التقديم العام فقط
 // ============================================================================
-export const jobs: { title: L; city: L; type: L }[] = [
-  { title: { ar: '[المسمى الوظيفي]', en: '[Job title]' }, city: { ar: '[المدينة]', en: '[City]' }, type: { ar: 'دوام كامل', en: 'Full-time' } },
-  { title: { ar: '[المسمى الوظيفي]', en: '[Job title]' }, city: { ar: '[المدينة]', en: '[City]' }, type: { ar: 'دوام كامل', en: 'Full-time' } },
-  { title: { ar: '[المسمى الوظيفي]', en: '[Job title]' }, city: { ar: '[المدينة]', en: '[City]' }, type: { ar: 'تدريب تعاوني', en: 'Co-op training' } },
-];
+export const jobs: { title: L; city: L; type: L }[] = [];
 
 // ============================================================================
-//  الأخبار (القسم 12.1)
+//  الأخبار — الفارغ يعرض رسالة "قريبًا"
 // ============================================================================
-export const news: { date: string; title: L; excerpt: L }[] = [
-  { date: '[تاريخ]', title: { ar: '[عنوان الخبر]', en: '[News headline]' }, excerpt: { ar: '[ملخص الخبر: إعلان، شراكة، شهادة جديدة، معرض...]', en: '[Summary: announcement, partnership, new certification, exhibition...]' } },
-  { date: '[تاريخ]', title: { ar: '[عنوان الخبر]', en: '[News headline]' }, excerpt: { ar: '[ملخص الخبر]', en: '[News summary]' } },
-  { date: '[تاريخ]', title: { ar: '[عنوان الخبر]', en: '[News headline]' }, excerpt: { ar: '[ملخص الخبر]', en: '[News summary]' } },
-];
+export const news: { date: string; title: L; excerpt: L }[] = [];
 
 // ============================================================================
-//  جدول الإبحار (القسم 11.3) — حدّثه دوريًا أو اربطه بمصدر بيانات
+//  جدول الإبحار — الفارغ يعرض رسالة تطلب التواصل لأقرب رحلة
 // ============================================================================
 export const sailings: {
   pol: string; pod: string; month: string; carrier: string; vessel: string;
   cutoff: string; etd: string; eta: string; transitDays: string;
-}[] = [
-  { pol: 'Shanghai', pod: 'Jeddah', month: '[2026-11]', carrier: '[الخط الملاحي]', vessel: '[اسم السفينة]', cutoff: '[تاريخ]', etd: '[تاريخ]', eta: '[تاريخ]', transitDays: '[00]' },
-  { pol: 'Ningbo', pod: 'Dammam', month: '[2026-11]', carrier: '[الخط الملاحي]', vessel: '[اسم السفينة]', cutoff: '[تاريخ]', etd: '[تاريخ]', eta: '[تاريخ]', transitDays: '[00]' },
-  { pol: 'Nhava Sheva', pod: 'Jeddah', month: '[2026-11]', carrier: '[الخط الملاحي]', vessel: '[اسم السفينة]', cutoff: '[تاريخ]', etd: '[تاريخ]', eta: '[تاريخ]', transitDays: '[00]' },
-  { pol: 'Hamburg', pod: 'Jeddah', month: '[2026-12]', carrier: '[الخط الملاحي]', vessel: '[اسم السفينة]', cutoff: '[تاريخ]', etd: '[تاريخ]', eta: '[تاريخ]', transitDays: '[00]' },
-  { pol: 'Rotterdam', pod: 'Dammam', month: '[2026-12]', carrier: '[الخط الملاحي]', vessel: '[اسم السفينة]', cutoff: '[تاريخ]', etd: '[تاريخ]', eta: '[تاريخ]', transitDays: '[00]' },
-  { pol: 'Mersin', pod: 'Jeddah', month: '[2026-12]', carrier: '[الخط الملاحي]', vessel: '[اسم السفينة]', cutoff: '[تاريخ]', etd: '[تاريخ]', eta: '[تاريخ]', transitDays: '[00]' },
-];
+}[] = [];
 
-/** مبادرات المسؤولية الاجتماعية (القسم 10.3) */
+/** المسؤولية الاجتماعية */
 export const csrInitiatives: L[] = [
-  { ar: 'برامج تدريب تعاوني لطلاب الجامعات في تخصصات اللوجستيات.', en: 'Co-op training programs for university students in logistics.' },
-  { ar: '[مبادرات STL المجتمعية]', en: '[STL community initiatives]' },
+  { ar: 'نؤمن بتأهيل الكفاءات السعودية الشابة في قطاع الشحن واللوجستيات.', en: 'We believe in developing young Saudi talent in shipping and logistics.' },
+  { ar: 'نرحب بطلبات التدريب التعاوني لطلاب الجامعات في تخصصات سلاسل الإمداد.', en: 'We welcome co-op training applications from supply-chain students.' },
 ];

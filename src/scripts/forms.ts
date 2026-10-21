@@ -1,7 +1,7 @@
 /**
  * Shared form submission. If <body data-endpoint> is set (site.integrations.formEndpoint)
  * the form is POSTed there as multipart/form-data (works with Formspree, Getform,
- * or your own API). Otherwise the payload is logged and success is simulated.
+ * or your own API). Otherwise a pre-filled email to the company inbox is opened.
  */
 export async function submitForm(form: HTMLFormElement, extra: Record<string, string> = {}) {
   const endpoint = document.body.dataset.endpoint || '';
@@ -11,8 +11,26 @@ export async function submitForm(form: HTMLFormElement, extra: Record<string, st
   data.append('_page', location.href);
   for (const [k, v] of Object.entries(extra)) data.append(k, v);
   if (!endpoint) {
-    console.info('[STL] form endpoint not configured — payload:', Object.fromEntries(data.entries()));
-    await new Promise((r) => setTimeout(r, 400));
+    // No form service configured: open a pre-filled email to the company inbox
+    const to = document.body.dataset.email || '';
+    const ar = document.documentElement.lang === 'ar';
+    const subjects: Record<string, [string, string]> = {
+      quote: ['طلب عرض سعر', 'Quote request'],
+      contact: ['رسالة من الموقع', 'Website message'],
+      careers: ['طلب توظيف', 'Job application'],
+      newsletter: ['اشتراك في النشرة البريدية', 'Newsletter subscription'],
+    };
+    const [sa, se] = subjects[form.dataset.form || ''] || ['رسالة من الموقع', 'Website message'];
+    const lines: string[] = [];
+    for (const [k, v] of data.entries()) {
+      if (k.startsWith('_') || v instanceof File || !String(v).trim()) continue;
+      const label = form.querySelector(`[name="${k}"]`)?.closest('.field')?.querySelector('label, .label')?.textContent?.trim() || k;
+      lines.push(`${label}: ${v}`);
+    }
+    if (extra.reference) lines.unshift(`${ar ? 'رقم الطلب' : 'Reference'}: ${extra.reference}`);
+    if (form.querySelector('input[type=file]')) lines.push('', ar ? '(يرجى إرفاق الملفات في هذه الرسالة)' : '(Please attach your files to this email)');
+    const subject = `${ar ? sa : se}${extra.reference ? ` — ${extra.reference}` : ''}`;
+    window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
     return true;
   }
   const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });

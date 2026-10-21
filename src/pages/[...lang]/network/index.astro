@@ -64,10 +64,10 @@ const countries = visibleCountries();
             <h3>{t(b.city, lang)}</h3>
             <ul class="info">
               <li><Icon name="pin" size={18} />{t(b.address, lang)}</li>
-              <li><Icon name="phone" size={18} /><a href={`tel:${b.phone}`} class="ltr">{b.phone}</a></li>
-              <li><Icon name="clock" size={18} />{t(b.hours, lang)}</li>
+              <li><Icon name="phone" size={18} /><a href={`tel:${b.phone}`} dir="ltr" class="ltr">{b.phoneDisplay}</a></li>
+              {b.hours && <li><Icon name="clock" size={18} />{t(b.hours, lang)}</li>}
             </ul>
-            <a class="link-arrow" href={b.mapUrl} target="_blank" rel="noopener">{lang === 'ar' ? 'افتح في خرائط Google' : 'Open in Google Maps'} <Icon name="arrow" class="flip" /></a>
+            {b.mapUrl && <a class="link-arrow" href={b.mapUrl} target="_blank" rel="noopener">{lang === 'ar' ? 'افتح في خرائط Google' : 'Open in Google Maps'} <Icon name="arrow" class="flip" /></a>}
           </div>
         ))}
       </div>

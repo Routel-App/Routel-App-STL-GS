@@ -16,10 +16,7 @@ export const sectorsIntro: L = {
   en: 'Every sector has its own shipping challenges. We understand your industry and design the right solution for it.',
 };
 
-const story: L = {
-  ar: '[قصة نجاح قصيرة من عملاء STL في هذا القطاع: التحدي، ما قدمناه، والنتيجة بالأرقام]',
-  en: '[A short STL client success story in this sector: the challenge, what we delivered, and the measurable result]',
-};
+const story: L = { ar: '', en: '' };
 
 export const sectors: Sector[] = [
   {

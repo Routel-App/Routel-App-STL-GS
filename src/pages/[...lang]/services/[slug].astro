@@ -16,7 +16,7 @@ const lang = getLang(Astro.params.lang);
 const quotePath = `/e-services/quote?mode=${s.quoteMode ?? ''}`;
 const others = services.filter((o) => o.slug !== s.slug);
 const schema = [
-  { '@context': 'https://schema.org', '@type': 'Service', name: t(s.title, lang), description: t(s.intro, lang), provider: { '@type': 'Organization', name: 'STL Global Solutions' }, areaServed: 'SA' },
+  { '@context': 'https://schema.org', '@type': 'Service', name: t(s.title, lang), description: t(s.intro, lang), provider: { '@type': 'Organization', name: 'STL Global Forwarding' }, areaServed: 'SA' },
   ...(s.faq.length ? [faqSchema(s.faq, lang)] : []),
 ];
 ---
