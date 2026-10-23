@@ -64,9 +64,9 @@ const { lang } = Astro.props;
 </script>
 
 <style>
-  .cookie { position: fixed; inset-inline: 16px; bottom: 16px; z-index: 70; display: flex; justify-content: center; }
-  .cookie-inner { background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-lg); border-top: 2px solid var(--coral); padding: 1.4rem 1.6rem; max-width: 760px; width: 100%; }
-  .cookie p { margin: 0 0 .8rem; font-size: .93rem; color: var(--muted); }
+  .cookie { position: fixed; inset-inline-start: 16px; bottom: 16px; z-index: 70; width: min(420px, calc(100% - 32px)); }
+  .cookie-inner { background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-lg); padding: 1.1rem 1.2rem; }
+  .cookie p { margin: 0 0 .8rem; font-size: .85rem; line-height: 1.65; color: var(--muted); }
   .cookie-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
   .cookie-prefs { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: .9rem; font-size: .92rem; }
   .cookie-prefs label { display: inline-flex; gap: .4rem; align-items: center; }

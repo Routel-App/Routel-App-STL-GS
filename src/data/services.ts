@@ -186,12 +186,12 @@ export const categories: ServiceCategory[] = [
     art: 'marine',
     title: { ar: 'الخدمات البحرية', en: 'Marine Services' },
     short: {
-      ar: 'تموين السفن، والتزويد بالوقود، والتنظيف، والخدمات الفنية، ومناولة الأصول البحرية، وتأجير الوحدات البحرية، واليخوت، والدعم البحري.',
-      en: 'Ship chandling, bunkering, cleaning, technical services, marine asset handling, marine craft hire, yachts and offshore support.',
+      ar: 'تموين السفن، والتزويد بالوقود، والتنظيف، والخدمات الفنية، ومناولة الأصول البحرية، واليخوت، والدعم البحري.',
+      en: 'Ship chandling, bunkering, cleaning, technical services, marine asset handling, yachts and offshore support.',
     },
     intro: {
-      ar: 'كل ما تحتاجه السفينة وطاقمها أثناء توقفها في الموانئ السعودية: مؤن وتموين، ووقود وزيوت، وتنظيف، وخدمات فنية، وتأجير قوارب وقاطرات وصنادل. خدمة على مدار الساعة.',
-      en: 'Everything a vessel and her crew need while calling Saudi ports: provisions and stores, fuel and lubricants, cleaning, technical services and hire of boats, tugs and barges. Around the clock.',
+      ar: 'كل ما تحتاجه السفينة وطاقمها أثناء توقفها في الموانئ السعودية: مؤن وتموين، ووقود وزيوت، وتنظيف، وخدمات فنية، ومناولة الأصول البحرية. خدمة على مدار الساعة.',
+      en: 'Everything a vessel and her crew need while calling Saudi ports: provisions and stores, fuel and lubricants, cleaning, technical services and marine asset handling. Around the clock.',
     },
   },
   {
@@ -231,4 +231,5 @@ export const legacyServiceRedirects: Record<string, string> = {
   marine: '/services/marine-services',
   chartering: '/services/projects-heavy-lift',
   'air-charter': '/services/air-freight',
+  'marine-craft-hire': '/services/marine-services',
 };

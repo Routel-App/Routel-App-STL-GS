@@ -2,16 +2,15 @@
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import SectionHead from '../../components/SectionHead.astro';
-import HeroScene from '../../components/HeroScene.astro';
+import ServiceArt from '../../components/ServiceArt.astro';
 import { site, clientLogos, testimonials, accreditationStrip } from '../../config/site';
 import { getLang, href, langPaths, t, u } from '../../i18n/ui';
 import { eServices } from '../../i18n/nav';
-import { categories, categoryBySlug, servicesIn, servicesIntro, serviceBySlug, serviceHref } from '../../data/services';
-import ServiceArt from '../../components/ServiceArt.astro';
+import { categories, categoryBySlug, servicesIn, servicesIntro, serviceHref } from '../../data/services';
 import { unitPhoto } from '../../data/photos';
 import { sectors } from '../../data/sectors';
 import { articles } from '../../data/blog';
-import { heroSlides, aboutShort, guideQuestion, howWeWork, whyReasons, trackingStages } from '../../data/company';
+import { heroSlides, aboutShort, howWeWork, whyReasons } from '../../data/company';
 
 export const getStaticPaths = langPaths;
 const lang = getLang(Astro.params.lang);
@@ -24,215 +23,137 @@ const eDesc = [
   ar ? 'مواعيد الرحلات القادمة' : 'Upcoming sailings',
   ar ? 'احسب الحجم واعرف الحاوية' : 'Find the right container',
 ].map((s) => s.replace('{h}', site.quoteResponseHours));
-const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.svc)! }));
+// one full-bleed photo per hero slide (replace the files to change them)
+const slidePhotos = [site.images.hero, '/images/units/projects-heavy-lift.jpg', '/images/units/marine-services.jpg', '/images/units/land-logistics.jpg'];
+const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
 ---
 <Base lang={lang} title="">
-  <!-- 4.2 Hero -->
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <span class="eyebrow">{ar ? 'شحن بحري · مشاريع ورفع ثقيل · خدمات بحرية' : 'Ocean freight · Projects & heavy lift · Marine services'}</span>
-        <div class="slides" id="slides" aria-roledescription="carousel">
-          {heroSlides.map((s, i) => {
-            const [a, b] = t(s.title, lang).split(/\.\.\s*/);
-            return (
-              <div class:list={['slide', { active: i === 0 }]} aria-hidden={i === 0 ? 'false' : 'true'}>
-                {i === 0
-                  ? <h1>{b ? <>{a}.. <em>{b}</em></> : a}</h1>
-                  : <p class="h1">{b ? <>{a}.. <em>{b}</em></> : a}</p>}
-                <p class="lead">{t(s.text, lang)}</p>
+  <!-- Hero: full-bleed photo slider -->
+  <section class="photo-hero hero" aria-roledescription="carousel">
+    <div class="hero-bgs" aria-hidden="true">
+      {heroSlides.map((_, i) => <div class:list={['hero-bg', { active: i === 0 }]} style={`background-image: url('${slidePhotos[i % slidePhotos.length]}')`}></div>)}
+    </div>
+    <div class="container hero-inner">
+      <div class="slides">
+        {heroSlides.map((s, i) => {
+          const [a, b] = t(s.title, lang).split(/\.\.\s*/);
+          return (
+            <div class:list={['slide', { active: i === 0 }]} aria-hidden={i === 0 ? 'false' : 'true'}>
+              {i === 0 ? <h1>{b ? <>{a}<br /><em>{b}</em></> : a}</h1> : <p class="h1">{b ? <>{a}<br /><em>{b}</em></> : a}</p>}
+              <p class="lead">{t(s.text, lang)}</p>
+              <div class="actions-row">
+                {s.buttons.map((bt) => <a class:list={['btn', bt.primary ? 'btn-primary' : 'btn-ghost-light']} href={href(lang, bt.path)} tabindex={i === 0 ? undefined : -1}>{t(bt.label, lang)}{bt.primary && <Icon name="arrow" class="flip" />}</a>)}
+                {s.buttons.length < 2 && <a class="btn btn-ghost-light" href={href(lang, '/e-services/quote')} tabindex={i === 0 ? undefined : -1}>{u('quote', lang)}</a>}
               </div>
-            );
-          })}
-        </div>
-        <div class="actions-row">
-          <a class="btn btn-primary" href={href(lang, '/e-services/quote')}>{u('quote', lang)} <Icon name="arrow" class="flip" /></a>
-          <a class="btn btn-outline" href={href(lang, '/services')}>{ar ? 'اكتشف خدماتنا' : 'Explore services'}</a>
-        </div>
-        <div class="pager" role="tablist" aria-label={ar ? 'الشرائح' : 'Slides'}>
-          {heroSlides.map((_, i) => <button type="button" class:list={['pg', { active: i === 0 }]} data-i={i} aria-label={`${i + 1}`}></button>)}
-        </div>
+            </div>
+          );
+        })}
       </div>
-
-      <div class="hero-visual" aria-hidden="true">
-        <div class="frame"><HeroScene /><img class="frame-photo" src={site.images.hero} alt="" loading="eager" fetchpriority="high" decoding="async" onerror="this.remove()" /></div>
-        <span class="bar bar-a"></span>
-        <span class="bar bar-b"></span>
-        <div class="track-card">
-          <div class="tc-head">
-            <span class="live"><i></i>{ar ? 'تتبع مباشر' : 'Live tracking'}</span>
-            <span class="tc-ref ltr">MSCU 000000-0</span>
-          </div>
-          <div class="tc-route">
-            <div><small>{ar ? 'من' : 'From'}</small><strong>{ar ? 'شنغهاي' : 'Shanghai'}</strong></div>
-            <div class="tc-line"><i></i><Icon name="ship" size={20} /></div>
-            <div class="end"><small>{ar ? 'إلى' : 'To'}</small><strong>{ar ? 'جدة' : 'Jeddah'}</strong></div>
-          </div>
-          <ol class="tc-steps">
-            {trackingStages.slice(0, 6).map((_, i) => <li class:list={{ done: i < 2, now: i === 2 }}></li>)}
-          </ol>
-          <div class="tc-foot">
-            <span>{t(trackingStages[2], lang)}</span>
-            <span class="muted">{ar ? 'مثال توضيحي' : 'Illustrative'}</span>
-          </div>
-        </div>
-        <div class="chip"><Icon name="stamp" size={18} />{ar ? 'تخليص جمركي وسابر' : 'Customs & SABER'}</div>
+      <div class="pager" role="tablist" aria-label={ar ? 'الشرائح' : 'Slides'}>
+        {heroSlides.map((_, i) => <button type="button" class:list={['pg', { active: i === 0 }]} data-i={i} aria-label={`${i + 1}`}><span></span></button>)}
       </div>
     </div>
 
-    <form class="container track-strip" action={href(lang, '/e-services/tracking')} method="get" role="search">
-      <label for="hero-ref">{u('track', lang)}</label>
-      <div class="ts-field">
-        <Icon name="search" size={18} />
+    <form class="track container" action={href(lang, '/e-services/tracking')} method="get" role="search">
+      <div class="track-box">
+        <label for="hero-ref"><Icon name="search" size={18} />{u('track', lang)}</label>
         <input id="hero-ref" name="ref" dir="ltr" autocomplete="off" placeholder={ar ? 'رقم الحاوية أو البوليصة أو الحجز' : 'Container, B/L or booking no.'} />
+        <button class="btn btn-dark" type="submit">{ar ? 'تتبع' : 'Track'}</button>
       </div>
-      <button class="btn btn-dark" type="submit">{ar ? 'تتبع' : 'Track'} <Icon name="arrow" class="flip" /></button>
     </form>
   </section>
 
-  <!-- 4.3 Quick access -->
+  <!-- Quick access -->
   <section class="quick" aria-label={u('eservices', lang)}>
     <div class="container quick-grid">
       {eServices.map((e, i) => (
         <a href={href(lang, e.path)} class="q-item">
-          <Icon name={e.icon} size={26} />
+          <span class="q-ic"><Icon name={e.icon} size={22} /></span>
           <span class="q-text"><strong>{t(e.label, lang)}</strong><small>{eDesc[i]}</small></span>
-          <Icon name="arrow" class="flip q-go" size={18} />
         </a>
       ))}
     </div>
   </section>
 
-  <!-- 4.4 About + 4.5 Stats -->
+  <!-- Services -->
   <section class="section">
     <div class="container">
-      <div class="about">
-        <span class="eyebrow">{t(aboutShort.eyebrow, lang)}</span>
-        <h2 class="reveal">{t(aboutShort.title, lang)}</h2>
-        <div class="about-body reveal">
-          <p class="lead">{t(aboutShort.text, lang)}</p>
-          <a class="link-arrow" href={href(lang, '/about')}>{u('readMore', lang)} <Icon name="arrow" class="flip" /></a>
-        </div>
+      <div class="head-row">
+        <SectionHead eyebrow={u('services', lang)} title={ar ? 'خدماتنا' : 'Our Services'} lead={t(servicesIntro, lang)} />
+        <a class="btn btn-outline" href={href(lang, '/services')}>{u('allServices', lang)} <Icon name="arrow" class="flip" /></a>
       </div>
-      <dl class="stats reveal">
-        {site.stats.map((s) => (
-          <div class="stat"><dt class="ltr">{s.value}</dt><dd>{t(s.label, lang)}</dd></div>
+      <div class="svc-grid">
+        {categories.map((c) => (
+          <a class="svc reveal" href={href(lang, `/services/${c.slug}`)}>
+            <span class="svc-img"><ServiceArt art={c.art} photo={unitPhoto(c)} alt="" /></span>
+            <span class="svc-body">
+              <strong>{t(c.title, lang)}</strong>
+              <small>{t(c.short, lang)}</small>
+              <span class="svc-go">{u('learnMore', lang)} <Icon name="arrow" class="flip" size={15} /></span>
+            </span>
+          </a>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- About + stats -->
+  <section class="section">
+    <div class="container about">
+      <div>
+        <span class="eyebrow">{t(aboutShort.eyebrow, lang)}</span>
+        <h2>{t(aboutShort.title, lang)}</h2>
+        <p class="lead">{t(aboutShort.text, lang)}</p>
+        <a class="link-arrow" href={href(lang, '/about')}>{u('readMore', lang)} <Icon name="arrow" class="flip" /></a>
+      </div>
+      <dl class="stats">
+        {site.stats.map((s) => <div class="stat"><dt class="ltr">{s.value}</dt><dd>{t(s.label, lang)}</dd></div>)}
       </dl>
     </div>
   </section>
 
-  <!-- 4.6 Guiding question (interactive) -->
-  <section class="section section-white">
-    <div class="container">
-      <SectionHead eyebrow={ar ? 'ابدأ من هنا' : 'Start here'} title={t(guideQuestion.title, lang)} lead={t(guideQuestion.subtitle, lang)} />
-      <div class="guide" id="guide">
-        <div class="g-options" role="tablist" aria-orientation="vertical">
-          {guide.map((o, i) => (
-            <button type="button" role="tab" id={`g-tab-${i}`} aria-controls={`g-panel-${i}`} aria-selected={i === 0 ? 'true' : 'false'} class="g-opt" data-i={i}>
-              <span class="num-label">{pad(i + 1)}</span>
-              <span>{t(o.label, lang)}</span>
-              <Icon name="arrow" class="flip" size={18} />
-            </button>
-          ))}
-        </div>
-        <div class="g-panels on-dark">
-          {guide.map((o, i) => (
-            <div class="g-panel" role="tabpanel" id={`g-panel-${i}`} aria-labelledby={`g-tab-${i}`} hidden={i !== 0}>
-              <Icon name={o.svc.icon} size={40} class="g-icon" />
-              <span class="eyebrow">{t(o.target, lang)}</span>
-              <h3>{short(t(o.svc.title, lang))}</h3>
-              <p>{t(o.svc.intro, lang)}</p>
-              <ul class="check-list">{o.svc.offer.slice(0, 3).map((x) => <li>{t(x, lang)}</li>)}</ul>
-              <div class="actions-row">
-                <a class="btn btn-primary" href={href(lang, `/e-services/quote?mode=${o.svc.quoteMode ?? ''}`)}>{u('quote', lang)}</a>
-                <a class="link-arrow" href={href(lang, serviceHref(o.svc))}>{u('learnMore', lang)} <Icon name="arrow" class="flip" /></a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4.7 Services: six business units -->
-  <section class="section">
-    <div class="container">
-      <div class="head-row">
-        <SectionHead eyebrow={u('services', lang)} title={ar ? 'خدماتنا.. من جهة واحدة' : 'Our Services.. One Partner'} lead={t(servicesIntro, lang)} />
-        <a class="btn btn-outline" href={href(lang, '/services')}>{u('allServices', lang)} <Icon name="arrow" class="flip" /></a>
-      </div>
-      <div class="units">
-        {categories.map((c, i) => (
-          <article class="unit reveal">
-            <a class="unit-art" href={href(lang, `/services/${c.slug}`)} tabindex="-1" aria-hidden="true">
-              <ServiceArt art={c.art} photo={unitPhoto(c)} />
-              <span class="unit-code ltr">{pad(i + 1)} / {c.code}</span>
-            </a>
-            <div class="unit-body">
-              <h3><a href={href(lang, `/services/${c.slug}`)}>{t(c.title, lang)}</a></h3>
-              <p>{t(c.short, lang)}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 4.7b Marine services spotlight -->
-  <section class="section section-dark marine">
+  <!-- Marine services -->
+  <section class="marine">
+    <div class="marine-bg" aria-hidden="true" style={`background-image: url('${unitPhoto(categoryBySlug('marine-services')!) ?? site.images.hero}')`}></div>
     <div class="container marine-grid">
       <div class="marine-copy">
-        <span class="eyebrow">{ar ? 'جديد: الخدمات البحرية' : 'New: Marine Services'}</span>
-        <h2>{ar ? <>كل ما تحتاجه <em>السفينة</em> عند الرصيف</> : <>Everything the <em>vessel</em> needs at berth</>}</h2>
+        <span class="eyebrow">{ar ? 'الخدمات البحرية' : 'Marine Services'}</span>
+        <h2>{ar ? 'كل ما تحتاجه السفينة عند الرصيف' : 'Everything the vessel needs at berth'}</h2>
         <p class="lead">{t(categoryBySlug('marine-services')!.intro, lang)}</p>
         <div class="actions-row">
-          <a class="btn btn-primary" href={href(lang, '/services/marine-services')}>{ar ? 'اكتشف الخدمات البحرية' : 'Explore marine services'} <Icon name="arrow" class="flip" /></a>
+          <a class="btn btn-primary" href={href(lang, '/services/marine-services')}>{ar ? 'الخدمات البحرية' : 'Marine services'} <Icon name="arrow" class="flip" /></a>
           <a class="btn btn-ghost-light" href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener"><Icon name="whatsapp" /> {ar ? 'طلب عاجل 24/7' : 'Urgent request 24/7'}</a>
         </div>
       </div>
       <ul class="marine-list">
-        {[...servicesIn('marine-services'), ...servicesIn('ship-agency')].map((s) => (
-          <li class="reveal">
-            <a href={href(lang, serviceHref(s))}>
-              <Icon name={s.icon} size={26} />
-              <span><strong>{short(t(s.title, lang))}</strong><small>{t(s.short, lang)}</small></span>
-              <Icon name="arrow" class="flip go" size={18} />
-            </a>
-          </li>
-        ))}
+        {marine.map((s) => <li><a href={href(lang, serviceHref(s))}><Icon name={s.icon} size={20} />{short(t(s.title, lang))}</a></li>)}
       </ul>
     </div>
   </section>
 
-  <!-- 4.8 How we work: a route -->
-  <section class="section section-dark how">
+  <!-- How we work -->
+  <section class="section">
     <div class="container">
-      <SectionHead eyebrow={ar ? 'كيف نعمل' : 'How we work'} title={ar ? 'رحلة واضحة من الطلب حتى التسليم' : 'A Clear Route from Request to Delivery'} />
-      <ol class="route">
+      <SectionHead eyebrow={ar ? 'كيف نعمل' : 'How we work'} title={ar ? 'من الطلب حتى التسليم' : 'From Request to Delivery'} />
+      <ol class="steps">
         {howWeWork.map((s, i) => (
-          <li class="stop reveal">
-            <span class="pin">{pad(i + 1)}</span>
-            <h3>{t(s.title, lang)}</h3>
-            <p>{t(s.text, lang)}</p>
-          </li>
+          <li class="reveal"><span class="step-no ltr">{pad(i + 1)}</span><h3>{t(s.title, lang)}</h3><p>{t(s.text, lang)}</p></li>
         ))}
       </ol>
     </div>
   </section>
 
-  <!-- 4.9 Why STL -->
+  <!-- Why STL -->
   <section class="section">
-    <div class="container why">
-      <div class="why-head">
-        <span class="eyebrow">{u('whyStl', lang)}</span>
-        <h2>{ar ? <>شريك <em>واحد</em> يتحمل مسؤولية الرحلة كاملة</> : <>One <em>partner</em> accountable for the entire journey</>}</h2>
-        <a class="btn btn-dark" href={href(lang, '/why-stl')}>{u('learnMore', lang)} <Icon name="arrow" class="flip" /></a>
+    <div class="container">
+      <div class="head-row">
+        <SectionHead eyebrow={u('whyStl', lang)} title={ar ? 'شريك واحد يتحمل مسؤولية الرحلة كاملة' : 'One Partner Accountable for the Whole Journey'} />
+        <a class="btn btn-outline" href={href(lang, '/why-stl')}>{u('learnMore', lang)} <Icon name="arrow" class="flip" /></a>
       </div>
       <div class="why-grid">
         {whyReasons.map((r) => (
-          <div class="why-item reveal">
-            <Icon name={r.icon} size={26} />
+          <div class="why reveal">
+            <span class="icon-badge"><Icon name={r.icon} /></span>
             <h3>{t(r.title, lang)}</h3>
             <p>{t(r.text, lang)}</p>
           </div>
@@ -241,33 +162,25 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.svc
     </div>
   </section>
 
-  <!-- 4.10 Sectors: horizontal scroller -->
-  <section class="section section-white sectors">
+  <!-- Sectors -->
+  <section class="section">
     <div class="container">
       <div class="head-row">
-        <SectionHead eyebrow={u('sectors', lang)} title={ar ? 'نفهم متطلبات قطاعك' : 'Built Around Your Industry'} />
-        <div class="scroll-btns">
-          <button type="button" class="sb" data-dir="-1" aria-label={ar ? 'السابق' : 'Previous'}><Icon name="arrow" size={18} class="back" /></button>
-          <button type="button" class="sb" data-dir="1" aria-label={ar ? 'التالي' : 'Next'}><Icon name="arrow" size={18} class="flip" /></button>
-        </div>
+        <SectionHead eyebrow={u('sectors', lang)} title={ar ? 'قطاعات نخدمها' : 'Industries We Serve'} />
+        <a class="btn btn-outline" href={href(lang, '/sectors')}>{ar ? 'كل القطاعات' : 'All industries'} <Icon name="arrow" class="flip" /></a>
       </div>
-    </div>
-    <div class="sector-track" id="sector-track">
-      {sectors.map((s, i) => (
-        <a class="sector-card" href={href(lang, `/sectors/${s.slug}`)}>
-          <span class="num-label">{pad(i + 1)}</span>
-          <Icon name={s.icon} size={44} />
-          <div>
-            <h3>{t(s.title, lang)}</h3>
-            <p>{t(s.challenge, lang)}</p>
-          </div>
-          <span class="link-arrow">{u('learnMore', lang)} <Icon name="arrow" class="flip" /></span>
-        </a>
-      ))}
+      <div class="sector-grid">
+        {sectors.map((s) => (
+          <a class="sector" href={href(lang, `/sectors/${s.slug}`)}>
+            <Icon name={s.icon} size={24} />
+            <span><strong>{t(s.title, lang)}</strong><small>{t(s.challenge, lang)}</small></span>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 
-  <!-- 4.11 Trust (shown once client logos / testimonials / accreditations exist) -->
+  <!-- Trust (shown once client logos / testimonials / accreditations exist) -->
   {(clientLogos.length > 0 || testimonials.length > 0 || accreditationStrip.length > 0) && (
   <section class="section">
     <div class="container">
@@ -278,7 +191,7 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.svc
       {testimonials.length > 0 && <div class="grid grid-3 mt-2">
         {testimonials.map((q) => (
           <figure class="card testimonial reveal">
-            <Icon name="quote" size={30} class="qicon" />
+            <Icon name="quote" size={28} class="qicon" />
             <blockquote>{t(q.quote, lang)}</blockquote>
             <figcaption><strong>{t(q.name, lang)}</strong><span>{t(q.role, lang)} — {t(q.company, lang)}</span></figcaption>
           </figure>
@@ -291,21 +204,10 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.svc
   </section>
   )}
 
-  <!-- 4.12 CTA + latest -->
-  <section class="section section-white">
+  <!-- Articles -->
+  <section class="section">
     <div class="container">
-      <div class="cta-band reveal">
-        <div>
-          <span class="eyebrow">{ar ? 'عرض سعر' : 'Get a quote'}</span>
-          <h2>{u('readyTitle', lang)}</h2>
-          <p>{u('readyText', lang)}</p>
-        </div>
-        <div class="actions">
-          <a class="btn btn-primary" href={href(lang, '/e-services/quote')}>{u('quote', lang)} <Icon name="arrow" class="flip" /></a>
-          <a class="btn btn-ghost-light" href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener"><Icon name="whatsapp" /> {u('whatsapp', lang)}</a>
-        </div>
-      </div>
-      <div class="head-row mt-2 pt">
+      <div class="head-row">
         <SectionHead eyebrow={u('media', lang)} title={ar ? 'آخر المقالات والأدلة' : 'Latest Articles & Guides'} />
         <a class="btn btn-outline" href={href(lang, '/media/blog')}>{u('blog', lang)} <Icon name="arrow" class="flip" /></a>
       </div>
@@ -321,274 +223,182 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.svc
       </div>
     </div>
   </section>
+
+  <!-- CTA -->
+  <section class="section cta-wrap">
+    <div class="container">
+      <div class="cta-band reveal">
+        <div>
+          <h2>{u('readyTitle', lang)}</h2>
+          <p>{u('readyText', lang)}</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href={href(lang, '/e-services/quote')}>{u('quote', lang)} <Icon name="arrow" class="flip" /></a>
+          <a class="btn btn-ghost-light" href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener"><Icon name="whatsapp" /> {u('whatsapp', lang)}</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </Base>
 
 <script>
-  // Hero slides
   const slides = Array.from(document.querySelectorAll<HTMLElement>('.slide'));
+  const bgs = Array.from(document.querySelectorAll<HTMLElement>('.hero-bg'));
   const pgs = Array.from(document.querySelectorAll<HTMLButtonElement>('.pg'));
   let i = 0;
   let timer: number | undefined;
   const show = (n: number) => {
     i = (n + slides.length) % slides.length;
-    slides.forEach((s, k) => { s.classList.toggle('active', k === i); s.setAttribute('aria-hidden', String(k !== i)); });
+    slides.forEach((s, k) => {
+      s.classList.toggle('active', k === i);
+      s.setAttribute('aria-hidden', String(k !== i));
+      s.querySelectorAll('a').forEach((a) => (k === i ? a.removeAttribute('tabindex') : a.setAttribute('tabindex', '-1')));
+    });
+    bgs.forEach((b, k) => b.classList.toggle('active', k === i));
     pgs.forEach((d, k) => d.classList.toggle('active', k === i));
   };
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const start = () => { if (!reduced) timer = window.setInterval(() => show(i + 1), 6500); };
+  const start = () => { if (!reduced) timer = window.setInterval(() => show(i + 1), 7000); };
   pgs.forEach((d) => d.addEventListener('click', () => { clearInterval(timer); show(Number(d.dataset.i)); start(); }));
   start();
-
-  // Guide tabs
-  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.g-opt'));
-  const panels = Array.from(document.querySelectorAll<HTMLElement>('.g-panel'));
-  const select = (n: number) => {
-    tabs.forEach((tb, k) => tb.setAttribute('aria-selected', String(k === n)));
-    panels.forEach((p, k) => (p.hidden = k !== n));
-  };
-  tabs.forEach((tb, k) => {
-    tb.addEventListener('click', () => select(k));
-    tb.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        const n = (k + (e.key === 'ArrowDown' ? 1 : -1) + tabs.length) % tabs.length;
-        tabs[n].focus(); select(n);
-      }
-    });
-  });
-
-  // Sector scroller
-  const track = document.getElementById('sector-track')!;
-  const rtl = document.documentElement.dir === 'rtl';
-  document.querySelectorAll<HTMLButtonElement>('.sb').forEach((b) =>
-    b.addEventListener('click', () => {
-      const d = Number(b.dataset.dir) * (rtl ? -1 : 1);
-      track.scrollBy({ left: d * Math.min(track.clientWidth * 0.8, 420), behavior: 'smooth' });
-    }),
-  );
 </script>
 
 <style>
   /* ---------- hero ---------- */
-  .hero { position: relative; padding-top: calc(var(--header-h) + clamp(1.5rem, 4vw, 3rem)); overflow: hidden; }
-  .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; min-height: min(78vh, 760px); }
-  .slides { display: grid; }
-  .slide { grid-area: 1 / 1; opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease), transform .8s var(--ease); pointer-events: none; }
-  .slide.active { opacity: 1; transform: none; pointer-events: auto; }
-  .slide h1, .slide .h1 { font-size: clamp(2.6rem, 5.6vw, 5rem); font-weight: 600; line-height: 1.08; letter-spacing: -.03em; color: var(--petrol); margin: 0 0 1.4rem; }
-  :global(html[lang='ar']) .slide h1, :global(html[lang='ar']) .slide .h1 { line-height: 1.3; letter-spacing: 0; font-size: clamp(2.4rem, 5vw, 4.4rem); }
+  .hero { position: relative; min-height: max(640px, 100svh); display: flex; flex-direction: column; justify-content: flex-end; color: #fff; background: var(--navy-900); overflow: hidden; }
+  .hero-bgs, .hero-bg { position: absolute; inset: 0; }
+  .hero-bg { background-size: cover; background-position: center; opacity: 0; transform: scale(1.06); transition: opacity 1.2s var(--ease), transform 8s linear; }
+  .hero-bg.active { opacity: 1; transform: scale(1); }
+  .hero-bgs::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4, 39, 38, .55) 0%, rgba(4, 39, 38, .25) 40%, rgba(4, 39, 38, .85) 100%); }
+  .hero-bgs::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(4, 39, 38, .6), transparent 65%); }
+  :global(html[dir='rtl']) .hero-bgs::before { background: linear-gradient(270deg, rgba(4, 39, 38, .6), transparent 65%); }
+  .hero-inner { position: relative; z-index: 2; padding-top: calc(var(--header-h) + 3rem); }
+  .slides { display: grid; max-width: 760px; }
+  .slide { grid-area: 1 / 1; opacity: 0; visibility: hidden; transform: translateY(14px); transition: opacity .7s var(--ease), transform .7s var(--ease), visibility .7s; }
+  .slide.active { opacity: 1; visibility: visible; transform: none; }
+  .slide h1, .slide .h1 { color: #fff; font-size: clamp(2.3rem, 5vw, 4.2rem); font-weight: 600; line-height: 1.15; margin: 0 0 1.1rem; letter-spacing: -.02em; }
+  :global(html[lang='ar']) .slide h1, :global(html[lang='ar']) .slide .h1 { line-height: 1.35; letter-spacing: 0; }
   .slide em { font-style: normal; color: var(--coral); }
-  .slide .lead { max-width: 540px; margin-bottom: 2.2rem; }
-  .pager { display: flex; gap: .5rem; margin-top: 2.6rem; }
-  .pg { width: 10px; height: 22px; border: 0; padding: 0; background: rgba(7, 59, 58, .18); transform: skewX(-22deg); cursor: pointer; transition: background .3s, width .4s var(--ease); }
-  .pg.active { background: var(--coral); width: 34px; }
-
-  .hero-visual { position: relative; height: clamp(420px, 60vh, 620px); }
-  .frame { position: absolute; inset: 0 0 0 8%; clip-path: polygon(22% 0, 100% 0, 78% 100%, 0 100%); }
-  :global(html[dir='rtl']) .frame { inset: 0 8% 0 0; }
-  .frame-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 60%; filter: saturate(.92) contrast(1.04); animation: drift 24s ease-in-out infinite alternate; }
-  .frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7, 59, 58, 0) 45%, rgba(7, 59, 58, .45) 100%); pointer-events: none; }
-  @keyframes drift { from { transform: scale(1.06); } to { transform: scale(1.14) translateX(1.5%); } }
-  .bar { position: absolute; transform: skewX(-22deg); }
-  .bar-a { width: 46px; height: 42%; background: var(--coral); bottom: -4%; inset-inline-end: 4%; }
-  .bar-b { width: 14px; height: 30%; background: var(--petrol); bottom: -4%; inset-inline-end: calc(4% + 64px); }
-  .track-card {
-    position: absolute; bottom: 9%; inset-inline-start: 0; width: min(360px, 82%); background: #fff; padding: 1.3rem 1.4rem;
-    box-shadow: var(--shadow-lg); clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
-    animation: float 6s ease-in-out infinite;
-  }
-  :global(html[dir='rtl']) .track-card { clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%, 0 18px); }
-  @keyframes float { 50% { transform: translateY(-8px); } }
-  .tc-head { display: flex; justify-content: space-between; align-items: center; font-size: .82rem; margin-bottom: 1rem; }
-  .live { display: inline-flex; align-items: center; gap: .45rem; color: var(--petrol); font-weight: 500; }
-  .live i { width: 8px; height: 8px; border-radius: 50%; background: #2fb36d; box-shadow: 0 0 0 0 rgba(47, 179, 109, .5); animation: ping 1.8s infinite; }
-  @keyframes ping { 70% { box-shadow: 0 0 0 8px rgba(47, 179, 109, 0); } 100% { box-shadow: 0 0 0 0 rgba(47, 179, 109, 0); } }
-  .tc-ref { color: var(--muted); font-feature-settings: 'tnum'; }
-  .tc-route { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .9rem; margin-bottom: 1.1rem; }
-  .tc-route small { display: block; color: var(--muted); font-size: .75rem; }
-  .tc-route strong { font-weight: 500; color: var(--petrol); font-size: 1.05rem; }
-  .tc-route .end { text-align: end; }
-  .tc-line { position: relative; height: 22px; }
-  .tc-line i { position: absolute; inset-inline: 0; top: 50%; border-top: 2px dashed var(--line); }
-  .tc-line::before { content: ''; position: absolute; inset-inline-start: 0; top: calc(50% - 1px); height: 2px; width: 46%; background: var(--coral); }
-  .tc-line :global(.icon) { position: absolute; top: 0; inset-inline-start: calc(46% - 10px); color: var(--petrol); background: #fff; }
-  :global(html[dir='rtl']) .tc-line :global(.icon) { transform: scaleX(-1); }
-  .tc-steps { list-style: none; padding: 0; margin: 0 0 .9rem; display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
-  .tc-steps li { height: 5px; background: var(--sand); }
-  .tc-steps li.done { background: var(--petrol); }
-  .tc-steps li.now { background: var(--coral); }
-  .tc-foot { display: flex; justify-content: space-between; font-size: .82rem; color: var(--petrol); }
-  .chip { position: absolute; top: 12%; inset-inline-end: 0; display: inline-flex; align-items: center; gap: .5rem; background: var(--petrol); color: var(--cream); padding: .7rem 1rem; font-size: .88rem; box-shadow: var(--shadow-lg); animation: float 7s ease-in-out infinite reverse; }
-  .chip :global(.icon) { color: var(--coral); }
-
-  .track-strip { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.2rem; margin-top: clamp(2rem, 5vw, 3.5rem); background: #fff; padding: .7rem; padding-inline-start: 1.6rem; box-shadow: var(--shadow); }
-  .track-strip label { font-weight: 500; color: var(--petrol); white-space: nowrap; }
-  .ts-field { display: flex; align-items: center; gap: .6rem; border-inline-start: 1px solid var(--line); padding-inline-start: 1.2rem; }
-  .ts-field :global(.icon) { color: var(--coral); flex-shrink: 0; }
-  .ts-field input { background: transparent; border: 0; padding: .7rem 0; }
-  :global(html[dir='rtl']) .ts-field input { text-align: right; }
-
-  @media (max-width: 960px) {
-    .hero-grid { grid-template-columns: 1fr; min-height: 0; }
-    .hero-visual { height: 380px; }
-  }
-  @media (max-width: 620px) {
-    .track-strip { grid-template-columns: 1fr auto; padding-inline-start: .9rem; }
-    .track-strip label { display: none; }
-    .ts-field { border: 0; padding: 0; }
-    .hero-visual { height: 320px; }
-    .chip { display: none; }
+  .slide .lead { color: rgba(255, 255, 255, .85); font-size: clamp(1.05rem, 1.4vw, 1.2rem); max-width: 600px; margin-bottom: 2rem; }
+  .pager { display: flex; gap: .5rem; margin-top: 2.4rem; }
+  .pg { width: 44px; height: 20px; padding: 0; background: none; border: 0; cursor: pointer; display: grid; align-items: center; }
+  .pg span { display: block; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .35); transition: background .3s; }
+  .pg.active span { background: var(--coral); }
+  .track { position: relative; z-index: 2; margin-top: clamp(2rem, 5vh, 3.5rem); margin-bottom: clamp(1.5rem, 4vh, 2.5rem); }
+  .track-box { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .8rem; background: #fff; border-radius: 14px; padding: .55rem; box-shadow: var(--shadow-lg); max-width: 760px; }
+  .track-box label { display: inline-flex; align-items: center; gap: .5rem; padding-inline: .8rem; color: var(--petrol); font-weight: 500; font-size: .92rem; white-space: nowrap; }
+  .track-box label :global(.icon) { color: var(--coral-ink); }
+  .track-box input { border: 0; background: var(--paper); box-shadow: none; }
+  .track-box input:focus { box-shadow: 0 0 0 2px rgba(7, 59, 58, .12); }
+  @media (max-width: 640px) {
+    .track-box { grid-template-columns: minmax(0, 1fr) auto; gap: .5rem; }
+    .track-box label { grid-column: 1 / -1; padding: .3rem .4rem 0; }
+    .track-box input { min-width: 0; font-size: .9rem; }
+    .track-box .btn { padding-inline: 1.1rem; }
   }
 
   /* ---------- quick access ---------- */
-  .quick { padding-block: clamp(2.5rem, 5vw, 3.5rem) 0; }
-  .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); }
-  .q-item { display: flex; align-items: center; gap: 1rem; padding: 1.5rem 1.4rem; background: var(--sand); color: var(--petrol); transition: background .35s var(--ease), color .35s var(--ease); }
-  .q-item > :global(.icon) { color: var(--coral); flex-shrink: 0; }
-  .q-text { display: grid; flex: 1; line-height: 1.4; }
-  .q-text strong { font-weight: 500; }
-  .q-text small { color: var(--muted); font-size: .85rem; transition: color .35s; }
-  .q-item :global(.q-go) { opacity: 0; transition: opacity .3s, transform .35s var(--ease); }
-  .q-item:hover { background: var(--petrol); color: var(--cream); }
-  .q-item:hover small { color: rgba(244, 239, 230, .7); }
-  .q-item:hover :global(.q-go) { opacity: 1; }
-  @media (max-width: 900px) { .quick-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 480px) { .q-item { flex-direction: column; align-items: flex-start; padding: 1.2rem 1rem; gap: .7rem; } .q-text small { display: none; } .q-item :global(.q-go) { display: none; } }
+  .quick { border-bottom: 1px solid var(--line); }
+  .quick-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .q-item { display: flex; gap: .9rem; align-items: center; padding: 1.4rem 1.2rem; color: var(--ink); border-inline-end: 1px solid var(--line); transition: background .2s; }
+  .q-item:first-child { border-inline-start: 1px solid var(--line); }
+  .q-item:hover { background: var(--paper); color: var(--ink); }
+  .q-ic { width: 44px; height: 44px; border-radius: 10px; display: grid; place-items: center; background: var(--teal-50); color: var(--petrol); flex-shrink: 0; transition: background .2s, color .2s; }
+  .q-item:hover .q-ic { background: var(--coral); color: #fff; }
+  .q-text strong { display: block; font-weight: 500; color: var(--petrol); font-size: .96rem; }
+  .q-text small { display: block; color: var(--muted); font-size: .82rem; }
+  @media (max-width: 900px) {
+    .quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .q-item { border-bottom: 1px solid var(--line); }
+    .q-item:nth-child(odd) { border-inline-start: 1px solid var(--line); }
+  }
+  @media (max-width: 520px) { .q-text small { display: none; } .q-item { padding: 1rem .8rem; gap: .6rem; } }
+
+  /* ---------- heads ---------- */
+  .head-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 1.5rem; flex-wrap: wrap; margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .head-row :global(.section-head) { margin-bottom: 0; }
+  .quick + .section { border-top: 0; }
+
+  /* ---------- services ---------- */
+  .svc-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
+  @media (max-width: 1180px) { .svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .svc-grid { grid-template-columns: 1fr; } }
+  .svc { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; color: var(--ink); background: #fff; transition: box-shadow .3s var(--ease), transform .3s var(--ease), border-color .3s; }
+  .svc:hover { box-shadow: var(--shadow); transform: translateY(-3px); border-color: transparent; color: var(--ink); }
+  .svc-img { position: relative; aspect-ratio: 16 / 10; overflow: hidden; display: block; }
+  .svc-img :global(.service-art) { position: absolute; inset: 0; transition: transform .6s var(--ease); }
+  .svc:hover .svc-img :global(.service-art) { transform: scale(1.04); }
+  .svc-body { display: flex; flex-direction: column; gap: .35rem; padding: 1rem 1.1rem 1.2rem; flex: 1; }
+  .svc-body strong { font-weight: 600; color: var(--petrol); font-size: 1rem; line-height: 1.45; }
+  .svc-body small { color: var(--muted); font-size: .84rem; line-height: 1.65; }
+  .svc-go { margin-top: auto; padding-top: .7rem; display: inline-flex; align-items: center; gap: .4rem; font-size: .88rem; font-weight: 500; color: var(--petrol); }
+  .svc-go :global(.icon) { color: var(--coral); }
 
   /* ---------- about ---------- */
-  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(2rem, 6vw, 6rem); align-items: end; }
-  .about .eyebrow { grid-column: 1 / -1; }
-  .about h2 { font-size: clamp(2rem, 4vw, 3.4rem); margin: 0; }
-  .about-body .lead { margin-bottom: 1.4rem; }
-  @media (max-width: 860px) { .about { grid-template-columns: 1fr; } .about h2 { margin-bottom: 1.5rem; } }
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin: clamp(3rem, 6vw, 5rem) 0 0; border-top: 2px solid var(--petrol); }
-  .stat { padding: 1.6rem 1.2rem 0 0; position: relative; }
-  :global(html[dir='rtl']) .stat { padding: 1.6rem 0 0 1.2rem; }
-  .stat::before { content: ''; position: absolute; top: -2px; inset-inline-start: 0; width: 34px; height: 6px; background: var(--coral); }
-  .stat dt { font-size: clamp(2.2rem, 3.6vw, 3.3rem); font-weight: 600; color: var(--petrol); line-height: 1; margin-bottom: .6rem; letter-spacing: -.02em; }
-  .stat dd { margin: 0; color: var(--muted); font-size: .92rem; }
-  @media (max-width: 900px) { .stats { grid-template-columns: repeat(2, 1fr); row-gap: 1.5rem; } }
+  .about { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
+  .about .lead { margin: 1rem 0 1.6rem; }
+  .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 0; }
+  .stat { border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; }
+  .stat dt { font-size: clamp(2rem, 3.6vw, 2.8rem); font-weight: 600; color: var(--petrol); line-height: 1; }
+  .stat dd { margin: .7rem 0 0; color: var(--muted); font-size: .9rem; line-height: 1.6; }
+  @media (max-width: 900px) { .about { grid-template-columns: 1fr; } }
 
-  /* ---------- guide ---------- */
-  .guide { display: grid; grid-template-columns: 1fr 1.1fr; gap: 1.25rem; align-items: stretch; }
-  .g-options { display: grid; gap: .5rem; align-content: start; }
-  .g-opt { display: flex; align-items: center; gap: 1.1rem; width: 100%; text-align: start; font: inherit; font-size: 1.08rem; font-weight: 400; color: var(--petrol); background: var(--sand); border: 0; padding: 1.25rem 1.4rem; cursor: pointer; transition: background .3s var(--ease), color .3s var(--ease), padding .35s var(--ease); }
-  .g-opt > span:nth-child(2) { flex: 1; }
-  .g-opt :global(.icon) { color: var(--coral); opacity: 0; transition: opacity .3s; }
-  .g-opt:hover { padding-inline-start: 1.8rem; }
-  .g-opt[aria-selected='true'] { background: var(--petrol); color: var(--cream); }
-  .g-opt[aria-selected='true'] :global(.icon) { opacity: 1; }
-  .g-opt[aria-selected='true'] .num-label { color: var(--coral); }
-  .g-panels { background: var(--petrol); color: rgba(244, 239, 230, .8); position: relative; overflow: hidden; clip-path: polygon(0 0, calc(100% - 36px) 0, 100% 36px, 100% 100%, 0 100%); }
-  :global(html[dir='rtl']) .g-panels { clip-path: polygon(36px 0, 100% 0, 100% 100%, 0 100%, 0 36px); }
-  .g-panels::after { content: ''; position: absolute; bottom: -10%; inset-inline-end: 10%; width: 60px; height: 50%; background: var(--coral); transform: skewX(-22deg); opacity: .12; }
-  .g-panel { padding: clamp(1.8rem, 4vw, 3rem); animation: fadeUp .5s var(--ease); }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } }
-  .g-panel :global(.g-icon) { color: var(--coral); margin-bottom: 1.5rem; stroke-width: 1.3; }
-  .g-panel h3 { color: var(--cream); font-size: clamp(1.5rem, 2.4vw, 2rem); font-weight: 500; }
-  .g-panel .check-list { margin: 1.4rem 0 2rem; }
-  @media (max-width: 860px) { .guide { grid-template-columns: 1fr; } }
-
-  .head-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 1.5rem; flex-wrap: wrap; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
-  .head-row :global(.section-head) { margin-bottom: 0; }
-  .pt { padding-top: clamp(3rem, 7vw, 6rem); }
-
-  /* ---------- business units ---------- */
-  .units { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.1rem; }
-  .unit { background: #fff; display: flex; flex-direction: column; border-bottom: 3px solid transparent; transition: border-color .35s var(--ease), transform .35s var(--ease); }
-  .unit:hover { border-color: var(--coral); transform: translateY(-4px); }
-  .unit-art { position: relative; display: block; aspect-ratio: 4 / 3; }
-  .unit-art :global(.service-art) { position: absolute; inset: 0; clip-path: polygon(0 0, 100% 0, 100% 86%, 0 100%); }
-  .unit-code { position: absolute; inset-inline-start: 1rem; top: 1rem; background: var(--coral); color: var(--petrol); font-weight: 600; font-size: .8rem; padding: .25rem .6rem; letter-spacing: .06em; }
-  .unit-body { padding: 1rem 1.2rem 1.4rem; display: flex; flex-direction: column; gap: .6rem; flex: 1; }
-  .unit-body h3 { font-size: 1.12rem; font-weight: 600; margin: 0; }
-  .unit-body h3 a { color: var(--petrol); }
-  .unit-body p { color: var(--muted); font-size: .88rem; margin: 0; }
-  .unit-list { list-style: none; padding: 0; margin: .4rem 0 0; display: flex; flex-wrap: wrap; gap: .4rem; }
-  .unit-list a { display: inline-block; font-size: .82rem; padding: .3rem .65rem; background: var(--sand); color: var(--petrol); transition: background .25s, color .25s; }
-  .unit-list a:hover { background: var(--petrol); color: var(--cream); }
-  @media (max-width: 1200px) { .units { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  @media (max-width: 800px) { .units { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 480px) { .units { grid-template-columns: 1fr; } }
-
-  /* ---------- marine spotlight ---------- */
-  .marine-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
-  .marine-copy h2 em { font-style: normal; color: var(--coral); }
-  .marine-copy .lead { margin: 1.2rem 0 2rem; }
-  .marine-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid rgba(244, 239, 230, .18); }
-  .marine-list a { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr) 2rem; gap: 1rem; align-items: center; padding: 1.05rem .4rem; border-bottom: 1px solid rgba(244, 239, 230, .18); color: rgba(244, 239, 230, .7); transition: background .3s, padding .3s; }
-  .marine-list a :global(.icon) { color: var(--coral); }
-  .marine-list strong { display: block; color: var(--cream); font-weight: 500; font-size: 1.05rem; }
-  .marine-list small { display: block; font-size: .86rem; margin-top: .15rem; }
-  .marine-list a:hover { background: rgba(244, 239, 230, .06); padding-inline: 1rem; }
-  .marine-list .go { opacity: .5; }
+  /* ---------- marine ---------- */
+  .marine { position: relative; overflow: hidden; color: #fff; padding-block: clamp(4.5rem, 9vw, 7rem); background: var(--navy-900); }
+  .marine-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .marine-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(4, 39, 38, .92) 30%, rgba(4, 39, 38, .7)); }
+  :global(html[dir='rtl']) .marine-bg::after { background: linear-gradient(270deg, rgba(4, 39, 38, .92) 30%, rgba(4, 39, 38, .7)); }
+  .marine-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  .marine h2 { color: #fff; }
+  .marine .eyebrow { color: var(--coral); }
+  .marine .lead { color: rgba(255, 255, 255, .78); margin: 1rem 0 2rem; }
+  .marine-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+  .marine-list a { display: flex; align-items: center; gap: .7rem; padding: .85rem 1rem; border-radius: 10px; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .12); color: #fff; font-size: .92rem; backdrop-filter: blur(4px); transition: background .2s, border-color .2s; }
+  .marine-list a :global(.icon) { color: var(--coral); flex-shrink: 0; }
+  .marine-list a:hover { background: rgba(255, 255, 255, .14); border-color: rgba(255, 255, 255, .3); color: #fff; }
   @media (max-width: 900px) { .marine-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .marine-list { grid-template-columns: 1fr; } }
+  .marine + .section { border-top: 0; }
 
-  /* ---------- how (route) ---------- */
-  .route { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; position: relative; }
-  .route::before { content: ''; position: absolute; top: 27px; inset-inline: 28px 0; border-top: 2px dashed rgba(244, 239, 230, .25); }
-  .stop { position: relative; }
-  .pin { position: relative; z-index: 1; display: grid; place-items: center; width: 56px; height: 56px; background: var(--coral); color: var(--petrol); font-weight: 600; margin-bottom: 1.6rem; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%); }
-  :global(html[dir='rtl']) .pin { clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px); }
-  .stop:not(:first-child) .pin { background: var(--cream); }
-  .stop h3 { font-size: 1.25rem; }
-  .stop p { color: rgba(244, 239, 230, .66); margin: 0; }
-  @media (max-width: 860px) {
-    .route { grid-template-columns: 1fr; gap: 2.2rem; }
-    .route::before { top: 0; bottom: 0; inset-inline: 27px auto; border-top: 0; border-inline-start: 2px dashed rgba(244, 239, 230, .25); }
-    .stop { display: grid; grid-template-columns: 56px 1fr; column-gap: 1.4rem; }
-    .pin { grid-row: span 2; margin: 0; }
-  }
+  /* ---------- steps ---------- */
+  .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; }
+  .steps li { border-top: 2px solid var(--line); padding-top: 1.3rem; }
+  .steps li:first-child { border-color: var(--coral); }
+  .step-no { font-size: .82rem; font-weight: 600; color: var(--coral-ink); letter-spacing: .06em; }
+  .steps h3 { margin: .5rem 0 .4rem; color: var(--petrol); }
+  .steps p { color: var(--muted); font-size: .93rem; margin: 0; }
+  @media (max-width: 900px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
 
   /* ---------- why ---------- */
-  .why { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
-  .why-head { position: sticky; top: 110px; }
-  .why-head h2 { margin-bottom: 2rem; }
-  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); }
-  .why-item { background: var(--sand); padding: 2rem 1.8rem; }
-  .why-item :global(.icon) { color: var(--coral); margin-bottom: 1.2rem; stroke-width: 1.4; }
-  .why-item p { color: var(--muted); margin: 0; font-size: .95rem; }
-  @media (max-width: 900px) { .why { grid-template-columns: 1fr; } .why-head { position: static; } }
+  .why-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+  @media (max-width: 900px) { .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 560px) { .why-grid { grid-template-columns: 1fr; } }
+  .why { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.6rem; }
+  .why h3 { margin-bottom: .4rem; }
+  .why p { color: var(--muted); font-size: .93rem; margin: 0; }
 
-  /* ---------- sectors scroller ---------- */
-  .scroll-btns { display: flex; gap: .5rem; }
-  .sb { width: 50px; height: 50px; display: grid; place-items: center; background: var(--sand); color: var(--petrol); border: 0; cursor: pointer; transition: background .3s, color .3s; }
-  .sb:hover { background: var(--petrol); color: var(--cream); }
-  :global(html[dir='ltr']) .sb :global(.back) { transform: scaleX(-1); }
-  .sector-track {
-    display: grid; grid-auto-flow: column; grid-auto-columns: minmax(280px, 330px); gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory;
-    padding-inline: max(1.25rem, calc((100vw - var(--container)) / 2)); scroll-padding-inline: max(1.25rem, calc((100vw - var(--container)) / 2)); padding-bottom: 1.5rem; scrollbar-width: none;
-  }
-  .sector-track::-webkit-scrollbar { display: none; }
-  .sector-card {
-    scroll-snap-align: start; min-height: 380px; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;
-    background: var(--sand); padding: 2rem; color: var(--ink); position: relative; overflow: hidden;
-    clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 0 100%); transition: background .4s var(--ease), color .4s var(--ease);
-  }
-  :global(html[dir='rtl']) .sector-card { clip-path: polygon(26px 0, 100% 0, 100% 100%, 0 100%, 0 26px); }
-  .sector-card::after { content: ''; position: absolute; bottom: -30px; inset-inline-end: 24px; width: 34px; height: 140px; background: var(--coral); transform: skewX(-22deg) translateY(100%); transition: transform .5s var(--ease); }
-  .sector-card > :global(.icon) { color: var(--coral); stroke-width: 1.2; }
-  .sector-card h3 { font-size: 1.35rem; color: var(--petrol); transition: color .4s; }
-  .sector-card p { color: var(--muted); margin: 0; font-size: .93rem; transition: color .4s; }
-  .sector-card:hover { background: var(--petrol); }
-  .sector-card:hover h3, .sector-card:hover .link-arrow { color: var(--cream); }
-  .sector-card:hover p { color: rgba(244, 239, 230, .7); }
-  .sector-card:hover::after { transform: skewX(-22deg) translateY(0); }
+  /* ---------- sectors ---------- */
+  .sector-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .8rem; }
+  @media (max-width: 1100px) { .sector-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 520px) { .sector-grid { grid-template-columns: 1fr; } }
+  .sector { display: flex; flex-direction: column; gap: .7rem; align-items: flex-start; padding: 1.1rem 1.2rem; border: 1px solid var(--line); border-radius: var(--radius); color: var(--ink); transition: border-color .2s, background .2s; }
+  .sector :global(.icon) { color: var(--coral-ink); flex-shrink: 0; margin-top: .15rem; }
+  .sector strong { display: block; color: var(--petrol); font-weight: 500; }
+  .sector small { display: block; color: var(--muted); font-size: .84rem; line-height: 1.6; margin-top: .15rem; }
+  .sector:hover { border-color: var(--petrol); background: var(--paper); color: var(--ink); }
 
   /* ---------- trust ---------- */
-  .logos { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); }
-  .logo-box { height: 110px; display: grid; place-items: center; color: var(--muted); background: var(--sand); filter: grayscale(1); opacity: .8; transition: opacity .3s, filter .3s; }
-  .logo-box:hover { opacity: 1; filter: none; }
-  .logo-box img { max-height: 48px; width: auto; }
-  .testimonial { margin: 0; background: #fff; }
-  .testimonial :global(.qicon) { color: var(--coral); margin-bottom: 1.2rem; }
-  .testimonial blockquote { margin: 0 0 1.8rem; font-size: 1.08rem; color: var(--ink); font-weight: 400; }
-  .testimonial figcaption { margin-top: auto; display: grid; }
-  .testimonial figcaption span { color: var(--muted); font-size: .9rem; }
-  .accred { list-style: none; padding: 0; margin: clamp(3rem, 6vw, 4.5rem) 0 0; display: flex; flex-wrap: wrap; gap: .6rem; }
-  .accred li { display: inline-flex; align-items: center; gap: .55rem; background: #fff; padding: .7rem 1.1rem; font-size: .9rem; color: var(--petrol); }
-  .accred :global(.icon) { color: var(--coral); }
+  .logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+  .logo-box { height: 90px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem; filter: grayscale(1); opacity: .75; transition: filter .3s, opacity .3s; }
+  .logo-box:hover { filter: none; opacity: 1; }
+  .testimonial blockquote { margin: 1rem 0; font-size: 1.02rem; color: var(--ink); }
+  .testimonial figcaption span { display: block; color: var(--muted); font-size: .88rem; }
+  :global(.qicon) { color: var(--coral); }
+  .accred { list-style: none; padding: 0; margin: 2rem 0 0; display: flex; flex-wrap: wrap; gap: .6rem; }
+  .accred li { display: inline-flex; align-items: center; gap: .5rem; padding: .5rem .9rem; border: 1px solid var(--line); border-radius: 999px; font-size: .88rem; }
 
-  .post h3 { margin-top: 1rem; }
+  /* ---------- posts / cta ---------- */
+  .post .num-label { margin-bottom: .8rem; }
+  .cta-wrap { padding-top: 0; border-top: 0 !important; }
 </style>

@@ -53,8 +53,8 @@ export const heroSlides: { title: L; text: L; buttons: { label: L; path: string;
   {
     title: { ar: 'سفينتك عند الرصيف.. واحتياجاتها جاهزة', en: 'Your Vessel at Berth.. Everything Ready' },
     text: {
-      ar: 'تموين ووقود وتنظيف ووكالة ملاحية وتأجير وحدات بحرية في الموانئ السعودية، على مدار الساعة.',
-      en: 'Provisions, bunkers, cleaning, ship agency and marine craft hire across Saudi ports, around the clock.',
+      ar: 'تموين ووقود وتنظيف ووكالة ملاحية وتغيير طواقم في الموانئ السعودية، على مدار الساعة.',
+      en: 'Provisions, bunkers, cleaning, ship agency and crew changes across Saudi ports, around the clock.',
     },
     buttons: [{ label: { ar: 'الخدمات البحرية', en: 'Marine services' }, path: '/services/marine-services', primary: true }],
   },

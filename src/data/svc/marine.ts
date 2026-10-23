@@ -229,61 +229,6 @@ export const marineServices: Service[] = [
     ],
   },
   {
-    slug: 'marine-craft-hire',
-    category: 'marine-services',
-    icon: 'tug',
-    code: 'HIRE',
-    title: { ar: 'تأجير السفن والوحدات البحرية', en: 'Vessel & Marine Craft Hire' },
-    short: {
-      ar: 'قاطرات وصنادل وقوارب طواقم وسفن إمداد بعقود زمنية أو مجردة عبر شبكة من الملاك.',
-      en: 'Tugs, barges, crew boats and supply vessels on time or bareboat hire through a network of owners.',
-    },
-    intro: {
-      ar: 'نوفر الوحدة البحرية المناسبة لمشروعك من خلال شبكة ملاك ومشغلين معتمدين، سواء لعمليات الموانئ أو المشاريع البحرية أو أعمال الإنشاء أو الفعاليات في البحر. نتولى المفاضلة والتفاوض والتصاريح والمتابعة طوال مدة العقد.',
-      en: 'We source the right marine craft for your project through a network of approved owners and operators, for port operations, offshore work, marine construction or events at sea. We handle selection, negotiation, permits and follow-up for the full hire period.',
-    },
-    offer: [
-      { ar: 'قاطرات ومساعدة في الإرشاد والسحب', en: 'Tugs for towing and harbour assistance' },
-      { ar: 'صنادل مسطحة وصنادل بمحركات', en: 'Flat-top and self-propelled barges' },
-      { ar: 'قوارب نقل الطواقم وقوارب الإنزال', en: 'Crew boats and launch boats' },
-      { ar: 'سفن الإمداد البحري (PSV) وسفن مناولة المراسي (AHTS)', en: 'Platform supply vessels (PSV) and anchor handling tugs (AHTS)' },
-      { ar: 'قوارب العمل والمنصات العائمة', en: 'Workboats and pontoons' },
-      { ar: 'التأجير الزمني (Time Charter) والتأجير المجرد (Bareboat)', en: 'Time charter and bareboat hire' },
-      { ar: 'فحص الوحدة قبل التسليم وعند الإعادة (On/Off-hire Survey)', en: 'On-hire and off-hire surveys' },
-      { ar: 'قوارب نقل الأفراد والطواقم إلى المنصات والسفن', en: 'Personnel transfer boats to platforms and vessels' },
-    ],
-    scope: [
-      { ar: 'قاطرات', en: 'Tugs' },
-      { ar: 'صنادل', en: 'Barges' },
-      { ar: 'قوارب طواقم', en: 'Crew boats' },
-      { ar: 'PSV', en: 'PSV' },
-      { ar: 'AHTS', en: 'AHTS' },
-      { ar: 'قوارب عمل', en: 'Workboats' },
-      { ar: 'منصات عائمة', en: 'Pontoons' },
-    ],
-    benefits: [
-      { ar: 'خيارات متعددة من ملاك مختلفين لمقارنة السعر والمواصفات', en: 'Several options from different owners to compare price and specs' },
-      { ar: 'عقود واضحة الشروط ومدة مرنة', en: 'Clear contract terms and flexible duration' },
-      { ar: 'متابعة الأداء والتوثيق اليومي أثناء التأجير', en: 'Performance follow-up and daily records during hire' },
-    ],
-    steps: [
-      { title: { ar: 'المتطلبات', en: 'Requirements' }, text: { ar: 'نوع العمل والموقع والمدة والمواصفات الفنية.', en: 'Type of work, location, duration and technical specs.' } },
-      { title: { ar: 'الخيارات', en: 'Options' }, text: { ar: 'نعرض الوحدات المتاحة مع المواصفات والأسعار.', en: 'We present available crafts with specs and rates.' } },
-      { title: { ar: 'العقد والتسليم', en: 'Contract & delivery' }, text: { ar: 'توقيع العقد وفحص التسليم والتصاريح.', en: 'Contract signed, on-hire survey and permits.' } },
-      { title: { ar: 'المتابعة', en: 'Follow-up' }, text: { ar: 'متابعة التشغيل حتى فحص الإعادة.', en: 'Operations followed through to the off-hire survey.' } },
-    ],
-    faq: [
-      {
-        q: { ar: 'ما أقصر مدة للتأجير؟', en: 'What is the shortest hire period?' },
-        a: { ar: 'تختلف حسب نوع الوحدة والمالك، وتبدأ غالبًا من يوم واحد للقوارب الصغيرة.', en: 'It depends on the craft and owner, often from a single day for small boats.' },
-      },
-      {
-        q: { ar: 'هل يشمل التأجير الطاقم والوقود؟', en: 'Does the hire include crew and fuel?' },
-        a: { ar: 'في التأجير الزمني يشمل الطاقم عادة، ويحدد العقد من يتحمل الوقود. في التأجير المجرد يتولى المستأجر التشغيل.', en: 'Time hire usually includes crew, and the contract sets who pays for fuel. Under bareboat hire the charterer operates the craft.' },
-      },
-    ],
-  },
-  {
     slug: 'ship-agency-port-services',
     category: 'ship-agency',
     icon: 'ship',

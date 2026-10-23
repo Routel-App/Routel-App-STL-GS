@@ -150,9 +150,9 @@ export const sectors: Sector[] = [
     solution: [
       { ar: 'تموين ووقود عند الرصيف أو المخطاف', en: 'Provisions and fuel at berth or anchorage' },
       { ar: 'وكالة ملاحية وتغيير طواقم', en: 'Ship agency and crew changes' },
-      { ar: 'تأجير وحدات بحرية ومناولة أصول', en: 'Marine craft hire and asset handling' },
+      { ar: 'مناولة الأصول البحرية والدعم البحري', en: 'Marine asset handling and offshore support' },
     ],
-    services: ['ship-chandling', 'bunkering', 'ship-agency-port-services', 'vessel-cleaning', 'marine-craft-hire', 'marine-assets-handling'],
+    services: ['ship-chandling', 'bunkering', 'ship-agency-port-services', 'vessel-cleaning', 'marine-assets-handling', 'offshore-support'],
     successStory: story,
   },
   {

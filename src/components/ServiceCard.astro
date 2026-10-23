@@ -23,8 +23,8 @@ const photo = servicePhoto(s);
 </a>
 <style>
   .service-card { --card-pad: clamp(1.6rem, 3vw, 2.2rem); padding-top: 0 !important; }
-  .sc-media { position: relative; aspect-ratio: 16 / 9; margin: 0 calc(var(--card-pad, 1.8rem) * -1) 1.1rem; }
-  .sc-media :global(.service-art) { position: absolute; inset: 0; clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); }
-  .sc-media .icon-badge { position: absolute; bottom: 0; inset-inline-start: var(--card-pad, 1.8rem); z-index: 1; background: var(--coral); color: var(--petrol); }
+  .sc-media { position: relative; aspect-ratio: 16 / 9; margin: 0 calc(var(--card-pad, 1.8rem) * -1) 2rem; }
+  .sc-media :global(.service-art) { position: absolute; inset: 0; }
+  .sc-media .icon-badge { position: absolute; bottom: -22px; inset-inline-start: var(--card-pad, 1.8rem); z-index: 1; background: #fff; color: var(--petrol); box-shadow: var(--shadow); margin: 0; }
   .row { display: flex; justify-content: flex-end; min-height: 1.4rem; }
 </style>

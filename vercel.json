@@ -221,16 +221,6 @@
       "permanent": true
     },
     {
-      "source": "/services/marine-craft-hire",
-      "destination": "/services/marine-services#marine-craft-hire",
-      "permanent": true
-    },
-    {
-      "source": "/en/services/marine-craft-hire",
-      "destination": "/en/services/marine-services#marine-craft-hire",
-      "permanent": true
-    },
-    {
       "source": "/services/ship-agency-port-services",
       "destination": "/services/ship-agency#ship-agency-port-services",
       "permanent": true
@@ -368,6 +358,16 @@
     {
       "source": "/en/services/air-charter",
       "destination": "/en/services/air-freight",
+      "permanent": true
+    },
+    {
+      "source": "/services/marine-craft-hire",
+      "destination": "/services/marine-services",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/marine-craft-hire",
+      "destination": "/en/services/marine-services",
       "permanent": true
     }
   ]

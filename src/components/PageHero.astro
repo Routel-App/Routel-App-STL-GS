@@ -1,61 +1,72 @@
 ---
 import { site } from '../config/site';
 import { type Lang, href, u } from '../i18n/ui';
-import ServiceArt from './ServiceArt.astro';
 interface Props {
   lang: Lang;
   title: string;
   lead?: string;
   eyebrow?: string;
   crumbs?: { label: string; path?: string }[];
-  /** business-unit illustration shown instead of the default photo */
+  /** kept for compatibility (business-unit illustration); photos are preferred */
   art?: 'ship' | 'crane' | 'plane' | 'truck' | 'event' | 'marine';
-  /** page-specific photo (overrides the illustration) */
+  /** page-specific photo */
   photo?: string;
+  /** plain white header without photo (legal pages etc.) */
+  plain?: boolean;
 }
-const { lang, title, lead, eyebrow, crumbs = [], art, photo } = Astro.props;
+const { lang, title, lead, eyebrow, crumbs = [], photo, plain } = Astro.props;
+
+// default photo per site section (swap any file in public/images/ to change it)
+const bare = Astro.url.pathname.replace(/^\/en(?=\/|$)/, '');
+const bySection: [RegExp, string][] = [
+  [/^\/legal/, ''],
+  [/^\/about/, '/images/units/ocean-freight.jpg'],
+  [/^\/why-stl/, '/images/services/fcl.jpg'],
+  [/^\/qhse/, '/images/services/heavy-lift.jpg'],
+  [/^\/sustainability/, '/images/services/container-storage.jpg'],
+  [/^\/careers/, '/images/services/crew-change.jpg'],
+  [/^\/sectors/, '/images/units/projects-heavy-lift.jpg'],
+  [/^\/network/, '/images/services/customs-clearance-saber.jpg'],
+  [/^\/media/, '/images/services/lcl.jpg'],
+  [/^\/contact/, '/images/units/ship-agency.jpg'],
+  [/^\/e-services/, '/images/units/land-logistics.jpg'],
+  [/^\/faq/, '/images/services/reefer.jpg'],
+  [/^\/services/, '/images/services/fcl.jpg'],
+];
+const fallback = bySection.find(([re]) => re.test(bare))?.[1] ?? site.images.hero;
+const bg = plain ? '' : photo ?? fallback;
 ---
-<section class="page-hero">
-  <div class="ph-art" aria-hidden="true">
-    {art
-      ? <div class="ph-img ph-svg"><ServiceArt art={art} photo={photo} /></div>
-      : <div class="ph-img" style={`--photo: url('${photo ?? site.images.hero}')`}></div>}
-    <span class="ph-slash"></span>
-    <span class="ph-slash thin"></span>
-  </div>
-  <div class="container">
+<section class:list={['page-hero', { 'photo-hero': !!bg }]}>
+  {bg && <div class="ph-bg" style={`background-image: url('${bg}')`} aria-hidden="true"></div>}
+  <div class="container ph-inner">
     <nav aria-label="breadcrumb">
       <ol class="crumbs">
         <li><a href={href(lang, '/')}>{u('breadcrumbHome', lang)}</a></li>
         {crumbs.map((c) => <li>{c.path ? <a href={href(lang, c.path)}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</li>)}
       </ol>
     </nav>
-    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+    {eyebrow && <span class="eyebrow ltr-ok">{eyebrow}</span>}
     <h1>{title}</h1>
     {lead && <p class="lead">{lead}</p>}
     <div class="actions"><slot /></div>
   </div>
 </section>
 <style>
-  .ph-art { position: absolute; top: var(--header-h); bottom: 0; inset-inline-end: 0; width: 34%; pointer-events: none; }
-  .ph-img {
-    position: absolute; inset: 0;
-    background: linear-gradient(0deg, rgba(7, 59, 58, .3), rgba(7, 59, 58, .3)), var(--photo) center / cover, url('/images/page-hero.jpg') center / cover;
-    filter: saturate(.9) contrast(1.03);
-    clip-path: polygon(28% 0, 100% 0, 100% 100%, 0 100%);
-  }
-  .ph-svg { background: none; filter: none; }
-  .ph-svg :global(.service-art) { position: absolute; inset: 0; }
-  :global(html[dir='rtl']) .ph-img { clip-path: polygon(0 0, 72% 0, 100% 100%, 0 100%); }
-  .ph-slash { position: absolute; bottom: 0; height: 46%; width: 34px; background: var(--coral); inset-inline-start: 12%; transform: skewX(-22deg); }
-  .ph-slash.thin { width: 10px; inset-inline-start: calc(12% + 52px); background: var(--petrol); height: 30%; }
-  .page-hero :global(.container) { padding-inline-end: 0; }
-  .page-hero h1, .page-hero .lead { max-width: min(860px, 62%); }
-  @media (max-width: 1000px) {
-    .ph-art { width: 100%; height: 10px; inset-block: auto 0; }
-    .ph-img { display: none; }
-    .ph-slash { height: 10px; width: 100%; inset-inline-start: 0; transform: none !important; }
-    .ph-slash.thin { display: none; }
-    .page-hero h1, .page-hero .lead { max-width: none; }
-  }
+  .page-hero { position: relative; overflow: hidden; background: #fff; padding-block: calc(var(--header-h) + clamp(2.5rem, 6vw, 4rem)) clamp(2.5rem, 5vw, 3.5rem); border-bottom: 1px solid var(--line); }
+  .ph-inner { position: relative; z-index: 1; }
+  .page-hero h1 { max-width: 880px; font-size: clamp(2rem, 4.2vw, 3.4rem); margin-bottom: .4em; }
+  .page-hero .lead { max-width: 680px; margin: 0; }
+
+  .photo-hero { min-height: clamp(400px, 58vh, 560px); display: flex; align-items: flex-end; border-bottom: 0; background: var(--navy-900); }
+  .photo-hero .ph-inner { width: min(100% - 2.5rem, var(--container)); }
+  .ph-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transform: scale(1.02); }
+  .ph-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4, 39, 38, .55) 0%, rgba(4, 39, 38, .35) 35%, rgba(4, 39, 38, .82) 100%); }
+  :global(html[dir='rtl']) .ph-bg::before, .ph-bg::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(4, 39, 38, .55), transparent 70%); }
+  :global(html[dir='rtl']) .ph-bg::before { background: linear-gradient(270deg, rgba(4, 39, 38, .55), transparent 70%); }
+  .photo-hero h1 { color: #fff; }
+  .photo-hero .lead { color: rgba(255, 255, 255, .84); }
+  .photo-hero .crumbs { color: rgba(255, 255, 255, .7); }
+  .photo-hero .eyebrow { color: var(--coral); }
+  .photo-hero :global(.btn-outline) { background: rgba(255, 255, 255, .08); color: #fff; border-color: rgba(255, 255, 255, .5); }
+  .photo-hero :global(.btn-outline:hover) { background: #fff; color: var(--petrol); }
 </style>
