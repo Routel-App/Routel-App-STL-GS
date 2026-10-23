@@ -35,7 +35,7 @@ const sections = [
   <section class="section anchor" id="overview">
     <div class="container two-col">
       <div class="stack reveal">
-        <span class="eyebrow">{u('overview', lang)}</span>
+        <h2>{u('overview', lang)}</h2>
         {aboutStory.paragraphs.map((p) => <p class="lead">{t(p, lang)}</p>)}
       </div>
       <dl class="stats reveal">
@@ -91,7 +91,7 @@ const sections = [
         {gm?.photo ? <img src={gm.photo} alt={t(site.company.ceoName, lang)} loading="lazy" /> : <Icon name="user" size={80} />}
       </div>
       <figure class="reveal">
-        <span class="eyebrow">{u('ceo', lang)}</span>
+        <h2>{u('ceo', lang)}</h2>
         <blockquote>{ceoMessage.map((p) => <p>{t(p, lang)}</p>)}</blockquote>
         <figcaption>
           <strong>{t(site.company.ceoName, lang)}</strong>
@@ -145,7 +145,7 @@ const sections = [
   <CTABand lang={lang} />
 </Base>
 <style>
-  .jump { position: sticky; top: 64px; z-index: 5; background: rgba(255, 255, 255, .96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .jump { position: sticky; top: 72px; z-index: 5; background: rgba(255, 255, 255, .96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
   .jump ul { list-style: none; margin: 0; padding: .6rem 0; display: flex; gap: .35rem; overflow-x: auto; scrollbar-width: none; }
   .jump a { display: inline-block; padding: .45rem .95rem; color: var(--petrol); white-space: nowrap; font-size: .88rem; border: 1px solid var(--line); border-radius: 999px; transition: background .2s, color .2s, border-color .2s; }
   .jump a:hover { background: var(--petrol); border-color: var(--petrol); color: #fff; }

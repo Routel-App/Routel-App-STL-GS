@@ -27,7 +27,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
       <div class="container unit-grid">
         <div class="unit-head">
           <a class="unit-art reveal" href={href(lang, `/services/${c.slug}`)} tabindex="-1" aria-hidden="true"><ServiceArt art={c.art} photo={unitPhoto(c)} /></a>
-          <span class="eyebrow ltr">{pad(i + 1)} · {c.code}</span>
+          <span class="ccode">STLU {pad(i + 1)} · {c.code}</span>
           <h2><a href={href(lang, `/services/${c.slug}`)}>{t(c.title, lang)}</a></h2>
           <p>{t(c.intro, lang)}</p>
           <a class="link-arrow" href={href(lang, `/services/${c.slug}`)}>{u('learnMore', lang)} <Icon name="arrow" class="flip" /></a>
@@ -49,7 +49,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
   <CTABand lang={lang} />
 </Base>
 <style>
-.unit-nav { position: sticky; top: 64px; z-index: 5; background: rgba(255, 255, 255, .96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.unit-nav { position: sticky; top: 72px; z-index: 5; background: rgba(255, 255, 255, .96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
   .unit-nav ul { list-style: none; margin: 0; padding: .6rem 0; display: flex; gap: .35rem; overflow-x: auto; scrollbar-width: none; }
   .unit-nav a { display: inline-flex; align-items: center; gap: .45rem; padding: .45rem .9rem; color: var(--petrol); white-space: nowrap; font-size: .88rem; border: 1px solid var(--line); border-radius: 999px; transition: background .2s, color .2s, border-color .2s; }
   .unit-nav a :global(.icon) { color: var(--coral-ink); }

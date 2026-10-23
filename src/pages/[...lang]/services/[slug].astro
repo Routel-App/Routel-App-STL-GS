@@ -113,7 +113,6 @@ const schema = [
   {steps.length > 0 && (
     <section class="section">
       <div class="container">
-        <span class="eyebrow">{ar ? 'كيف نعمل' : 'How we work'}</span>
         <h2>{ar ? 'خطوات واضحة من الطلب حتى التسليم' : 'Clear steps from request to delivery'}</h2>
         <ol class="steps">
           {steps.map((st, i) => <li class="reveal"><span class="num ltr">{pad(i + 1)}</span><h3>{t(st.title, lang)}</h3><p>{t(st.text, lang)}</p></li>)}
@@ -155,7 +154,7 @@ const schema = [
   <CTABand lang={lang} quotePath={pageQuote} />
 </Base>
 <style>
-  .jump { position: sticky; top: 64px; z-index: 5; background: rgba(255, 255, 255, .96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .jump { position: sticky; top: 72px; z-index: 5; background: rgba(255, 255, 255, .96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
   .jump ul { list-style: none; margin: 0; padding: .6rem 0; display: flex; gap: .35rem; overflow-x: auto; scrollbar-width: none; }
   .jump a { display: inline-flex; align-items: center; gap: .45rem; padding: .45rem .9rem; color: var(--petrol); white-space: nowrap; font-size: .88rem; border: 1px solid var(--line); border-radius: 999px; transition: background .2s, color .2s, border-color .2s; }
   .jump a :global(.icon) { color: var(--coral-ink); }

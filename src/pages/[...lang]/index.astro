@@ -89,7 +89,6 @@ const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
   <section class="section stack-sec">
     <div class="container stack-grid">
       <aside class="stack-head">
-        <span class="eyebrow">{u('services', lang)}</span>
         <h2>{ar ? 'خدماتنا' : 'Our Services'}</h2>
         <p class="lead">{t(servicesIntro, lang)}</p>
         <ol class="stack-index" aria-hidden="true">
@@ -123,7 +122,6 @@ const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
   <section class="section">
     <div class="container about">
       <div>
-        <span class="eyebrow">{t(aboutShort.eyebrow, lang)}</span>
         <h2>{t(aboutShort.title, lang)}</h2>
         <p class="lead">{t(aboutShort.text, lang)}</p>
         <a class="link-arrow" href={href(lang, '/about')}>{u('readMore', lang)} <Icon name="arrow" class="flip" /></a>
@@ -139,7 +137,6 @@ const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
     <div class="container">
       <div class="net-head">
         <div>
-          <span class="eyebrow">{ar ? 'شبكتنا' : 'Our network'}</span>
           <h2>{ar ? 'من موانئ المملكة.. إلى موانئ العالم' : 'From Saudi Ports.. to the World'}</h2>
         </div>
         <p class="lead">{ar ? 'من جدة والدمام نربطك بخطوط الشحن الرئيسية إلى آسيا وأوروبا وأفريقيا والأمريكتين، عبر شبكة من الخطوط الملاحية والوكلاء.' : 'From Jeddah and Dammam we connect you to the main trade lanes to Asia, Europe, Africa and the Americas through a network of carriers and agents.'}</p>
@@ -170,7 +167,6 @@ const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
     <div class="marine-bg" aria-hidden="true" style={`background-image: url('${unitPhoto(categoryBySlug('marine-services')!) ?? site.images.hero}')`}></div>
     <div class="container marine-grid">
       <div class="marine-copy">
-        <span class="eyebrow">{ar ? 'الخدمات البحرية' : 'Marine Services'}</span>
         <h2>{ar ? 'كل ما تحتاجه السفينة عند الرصيف' : 'Everything the vessel needs at berth'}</h2>
         <p class="lead">{t(categoryBySlug('marine-services')!.intro, lang)}</p>
         <div class="actions-row">
