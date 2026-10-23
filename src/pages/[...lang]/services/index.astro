@@ -6,6 +6,7 @@ import Icon from '../../../components/Icon.astro';
 import ServiceArt from '../../../components/ServiceArt.astro';
 import { getLang, href, langPaths, t, u } from '../../../i18n/ui';
 import { categories, servicesIn, servicesIntro } from '../../../data/services';
+import { unitPhoto } from '../../../data/photos';
 
 export const getStaticPaths = langPaths;
 const lang = getLang(Astro.params.lang);
@@ -25,7 +26,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
     <section class:list={['section', 'unit', { 'section-white': i % 2 === 1 }]} id={c.slug}>
       <div class="container unit-grid">
         <div class="unit-head">
-          <a class="unit-art reveal" href={href(lang, `/services/${c.slug}`)} tabindex="-1" aria-hidden="true"><ServiceArt art={c.art} /></a>
+          <a class="unit-art reveal" href={href(lang, `/services/${c.slug}`)} tabindex="-1" aria-hidden="true"><ServiceArt art={c.art} photo={unitPhoto(c)} /></a>
           <span class="eyebrow ltr">{pad(i + 1)} · {c.code}</span>
           <h2><a href={href(lang, `/services/${c.slug}`)}>{t(c.title, lang)}</a></h2>
           <p>{t(c.intro, lang)}</p>

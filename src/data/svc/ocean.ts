@@ -25,6 +25,8 @@ export const oceanServices: Service[] = [
       { ar: 'استلام من المورد وتنسيق التحميل في بلد المنشأ', en: 'Pickup from your supplier and loading coordination at origin' },
       { ar: 'إعداد بوليصة الشحن والمستندات التجارية', en: 'Bill of lading and commercial documentation' },
       { ar: 'متابعة الشحنة وإشعارات الوصول', en: 'Shipment tracking and arrival notices' },
+      { ar: 'خيارات متعددة من الخطوط الملاحية لمقارنة السعر وزمن العبور', en: 'Multi-carrier options to compare rate and transit time' },
+      { ar: 'خدمات إقليمية قصيرة (Feeder) بين موانئ البحر الأحمر والخليج والهند', en: 'Regional feeder and short-sea links across the Red Sea, Gulf and India' },
     ],
     scope: [
       { ar: 'بضائع عامة', en: 'General cargo' },
@@ -33,6 +35,7 @@ export const oceanServices: Service[] = [
       { ar: 'أثاث ومفروشات', en: 'Furniture' },
       { ar: 'سلع استهلاكية', en: 'Consumer goods' },
       { ar: 'مواد خام', en: 'Raw materials' },
+      { ar: 'منتجات بتروكيماوية مكيّسة', en: 'Bagged petrochemicals' },
     ],
     benefits: [
       { ar: 'أمان أعلى بفضل قلة المناولة', en: 'Higher security thanks to minimal handling' },
@@ -53,6 +56,10 @@ export const oceanServices: Service[] = [
       {
         q: { ar: 'كم يستغرق الشحن من الصين إلى جدة؟', en: 'How long does shipping from China to Jeddah take?' },
         a: { ar: 'يختلف حسب ميناء التحميل والخط الملاحي، ونوضح زمن العبور المتوقع في عرض السعر.', en: 'It depends on the loading port and carrier; we state the expected transit time in your quote.' },
+      },
+      {
+        q: { ar: 'هل تقدمون عقودًا بأسعار ثابتة للشحنات المتكررة؟', en: 'Do you offer fixed-rate contracts for regular shipments?' },
+        a: { ar: 'نعم، للشحنات المنتظمة نقدم عرض تعرفة لعدة شحنات أو لفترة محددة، إلى جانب عروض الشحنة الواحدة.', en: 'Yes. For regular volumes we quote a tariff for multiple shipments or a set period, alongside single-shipment spot quotes.' },
       },
     ],
   },
@@ -78,6 +85,8 @@ export const oceanServices: Service[] = [
       { ar: 'تفريغ وفرز في مستودعات الوجهة', en: 'Devanning and sorting at destination' },
       { ar: 'تخليص جمركي وتوصيل للباب', en: 'Customs clearance and door delivery' },
       { ar: 'تغليف وتعليم الطرود عند الحاجة', en: 'Packing and marking when required' },
+      { ar: 'تفكيك الحاويات المجمعة (Deconsolidation) مع تقارير حالة البضاعة', en: 'Deconsolidation with cargo status reporting' },
+      { ar: 'إعادة التغليف ووضع الملصقات قبل التسليم', en: 'Repacking and labelling before delivery' },
     ],
     scope: [
       { ar: 'منصات (Pallets)', en: 'Pallets' },
@@ -131,6 +140,8 @@ export const oceanServices: Service[] = [
       { ar: 'مراقبة الحرارة أثناء الرحلة وتقرير عند الوصول', en: 'In-transit temperature monitoring and arrival report' },
       { ar: 'توصيل الحاوية بالكهرباء في الميناء (Plug-in) ونقل مبرد', en: 'Port plug-in and refrigerated trucking' },
       { ar: 'تخليص سريع للمواد الغذائية والدوائية', en: 'Fast clearance for food and pharma' },
+      { ar: 'تخزين حاويات التبريد مع توصيل الكهرباء ومراقبتها في الساحة', en: 'Reefer storage on power with yard monitoring' },
+      { ar: 'تفريغ وتعبئة حاويات التبريد بمناولة سريعة تحافظ على سلسلة التبريد', en: 'Fast reefer stuffing and stripping that keeps the cold chain intact' },
     ],
     scope: [
       { ar: 'لحوم ودواجن', en: 'Meat & poultry' },
@@ -161,6 +172,10 @@ export const oceanServices: Service[] = [
         q: { ar: 'هل تتولون اشتراطات هيئة الغذاء والدواء؟', en: 'Do you handle SFDA requirements?' },
         a: { ar: 'نعم، نجهز المستندات المطلوبة وننسق الفحص مع الجهات المختصة ضمن التخليص.', en: 'Yes, we prepare the required documents and coordinate inspection with the authorities as part of clearance.' },
       },
+      {
+        q: { ar: 'ماذا يحدث إذا تأخر التخليص والحاوية مبردة؟', en: 'What happens if clearance is delayed on a reefer?' },
+        a: { ar: 'نبقي الحاوية موصولة بالكهرباء في الميناء أو ننقلها إلى ساحة مجهزة بنقاط توصيل، مع متابعة الحرارة حتى الإفراج.', en: 'We keep it plugged in at the port or move it to a yard with power points, with temperature checks until release.' },
+      },
     ],
   },
   {
@@ -174,8 +189,8 @@ export const oceanServices: Service[] = [
       en: 'Shipping chemicals and liquids in ISO tanks, flexitanks and drums, under strict safety standards.',
     },
     intro: {
-      ar: 'نوفر لوجستيات متكاملة لسلاسل إمداد الكيماويات والسوائل لمصانع البتروكيماويات والدهانات والمنظفات وكيماويات حقول النفط. نختار وسيلة التعبئة الأنسب لكل منتج، ونراجع صحائف بيانات السلامة (SDS)، ونتأكد من شهادات تنظيف الخزانات قبل كل تحميل.',
-      en: 'We provide end-to-end logistics for chemical and liquid supply chains serving petrochemical, paints, detergents and oilfield chemical producers. We choose the right packaging for each product, review the Safety Data Sheets (SDS) and verify tank cleaning certificates before every load.',
+      ar: 'نوفر لوجستيات متكاملة لسلاسل إمداد الكيماويات والسوائل لمصانع البتروكيماويات والدهانات والمنظفات وكيماويات حقول النفط والزيوت الغذائية: من اختيار وسيلة التعبئة الأنسب لكل منتج، إلى فحص الخزانات وتنظيفها، والشحن والتخليص، والتسليم حتى خزان المصنع.',
+      en: 'We provide end-to-end logistics for chemical and liquid supply chains serving petrochemicals, paints, detergents, oilfield chemicals and edible oils: from choosing the right packaging for each product, to tank inspection and cleaning, shipping and clearance, and delivery into the plant tank.',
     },
     offer: [
       { ar: 'خزانات ISO للمواد الكيميائية والغذائية (Chemical & Food Grade)', en: 'ISO tank containers, chemical and food grade' },
@@ -185,6 +200,10 @@ export const oceanServices: Service[] = [
       { ar: 'شهادات تنظيف الخزانات قبل التحميل', en: 'Tank cleaning certificates before loading' },
       { ar: 'خزانات بأنظمة تسخين للمنتجات اللزجة', en: 'Heated tanks for viscous products' },
       { ar: 'نقل بري بالصهاريج إلى المصنع أو المستودع', en: 'Road tanker delivery to plant or storage' },
+      { ar: 'تنظيف خزانات ISO وفحصها وتخزينها في مستودعات معتمدة عبر الشركاء', en: 'ISO tank cleaning, inspection and depot storage through approved partners' },
+      { ar: 'تأجير خزانات ISO قصير وطويل الأجل عبر الشركاء', en: 'Short- and long-term ISO tank leasing through partners' },
+      { ar: 'تخزين الكيماويات الخطرة وغير الخطرة في مستودعات مرخصة', en: 'Hazardous and non-hazardous chemical storage in licensed warehouses' },
+      { ar: 'مقطورات منخفضة مخصصة لنقل الخزانات', en: 'Low-bed tank chassis for road delivery' },
     ],
     scope: [
       { ar: 'زيوت نباتية', en: 'Edible oils' },
@@ -194,6 +213,8 @@ export const oceanServices: Service[] = [
       { ar: 'راتنجات', en: 'Resins' },
       { ar: 'مواد خام للمنظفات', en: 'Detergent raw materials' },
       { ar: 'كيماويات حقول النفط', en: 'Oilfield chemicals' },
+      { ar: 'مواد تشحيم وزيوت أساس', en: 'Base oils & lubricants' },
+      { ar: 'كيماويات معالجة المياه', en: 'Water treatment chemicals' },
     ],
     benefits: [
       { ar: 'وسيلة تعبئة مناسبة لكل منتج وكمية', en: 'The right packaging for each product and volume' },
@@ -214,6 +235,10 @@ export const oceanServices: Service[] = [
       {
         q: { ar: 'هل تبيعون الكيماويات؟', en: 'Do you sell chemicals?' },
         a: { ar: 'لا، نحن نقدم الخدمات اللوجستية لشحنات الكيماويات فقط، من الاستلام حتى التسليم.', en: 'No. We provide the logistics for chemical shipments only, from pickup to delivery.' },
+      },
+      {
+        q: { ar: 'هل يمكن تخزين الخزانات قبل التسليم؟', en: 'Can tanks be stored before delivery?' },
+        a: { ar: 'نعم، عبر مستودعات خزانات معتمدة لدى شركائنا، مع إمكانية التنظيف والفحص الدوري بين الرحلات.', en: 'Yes, at approved tank depots in our partner network, with cleaning and periodic inspection between trips.' },
       },
     ],
   },
@@ -238,6 +263,8 @@ export const oceanServices: Service[] = [
       { ar: 'التحقق من التغليف المعتمد والملصقات واللوحات', en: 'Approved packaging, labels and placards check' },
       { ar: 'التنسيق مع الخطوط الملاحية وسلطات الموانئ', en: 'Coordination with carriers and port authorities' },
       { ar: 'نقل بري بمركبات مرخصة للمواد الخطرة', en: 'Road transport with DG-licensed vehicles' },
+      { ar: 'تخزين مؤقت في مستودعات مرخصة للمواد الخطرة', en: 'Interim storage in licensed DG warehouses' },
+      { ar: 'تنسيق شحن المواد الخطرة جوًا وفق لوائح IATA', en: 'DG by air coordinated under IATA rules' },
     ],
     scope: [
       { ar: 'مواد قابلة للاشتعال', en: 'Flammables' },
@@ -267,6 +294,10 @@ export const oceanServices: Service[] = [
         q: { ar: 'هل تقبل كل الخطوط الملاحية البضائع الخطرة؟', en: 'Do all carriers accept dangerous goods?' },
         a: { ar: 'لا، ولكل خط قيوده حسب الفئة، لذلك نختار الخط والمسار المناسبين لمادتك.', en: 'No. Each carrier has restrictions by class, so we pick the right carrier and routing for your product.' },
       },
+      {
+        q: { ar: 'هل كل المواد الخطرة قابلة للشحن بحرًا؟', en: 'Can every dangerous good go by sea?' },
+        a: { ar: 'معظم الفئات مسموحة بشروط تغليف وفصل محددة، وبعض المواد مقيدة لدى بعض الخطوط أو الموانئ، ولذلك نتحقق من القبول قبل الحجز.', en: 'Most classes are allowed under specific packing and segregation rules, but some items are restricted by certain carriers or ports, so we confirm acceptance before booking.' },
+      },
     ],
   },
   {
@@ -292,6 +323,8 @@ export const oceanServices: Service[] = [
       { ar: 'فحص وتوثيق حالة المركبة قبل الشحن', en: 'Pre-shipment condition survey' },
       { ar: 'تخليص جمركي وفحص المطابقة للمركبات', en: 'Vehicle customs clearance and conformity' },
       { ar: 'نقل بالسطحات إلى الوجهة النهائية', en: 'Car carrier and lowbed delivery' },
+      { ar: 'تخزين المركبات في ساحات مؤمنة مع جرد ومراقبة', en: 'Secure vehicle yard storage with inventory control' },
+      { ar: 'تغليف واقٍ للمركبات الجديدة عند الطلب', en: 'Protective wrapping for new vehicles on request' },
     ],
     scope: [
       { ar: 'سيارات ركاب', en: 'Passenger cars' },
@@ -321,6 +354,10 @@ export const oceanServices: Service[] = [
       {
         q: { ar: 'أيهما أفضل لسيارتي: RoRo أم حاوية؟', en: 'Which is better for my car: RoRo or container?' },
         a: { ar: 'RoRo أوفر للسيارات العادية والأساطيل، والحاوية أنسب للسيارات الفاخرة أو عند شحن أغراض معها.', en: 'RoRo is cheaper for standard cars and fleets; a container suits luxury cars or shipments with extra goods.' },
+      },
+      {
+        q: { ar: 'هل يمكن شحن المعدات غير ذاتية الحركة على سفن الدحرجة؟', en: 'Can non-self-propelled equipment go RoRo?' },
+        a: { ar: 'نعم، تُحمّل على مقطورات تحميل (Mafi) داخل السفينة، أو نستخدم الحاويات المسطحة حسب الأبعاد والوزن.', en: 'Yes, on roll trailers (Mafi) inside the ship, or on flat racks depending on dimensions and weight.' },
       },
     ],
   },

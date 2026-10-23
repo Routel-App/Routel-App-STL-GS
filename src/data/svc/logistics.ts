@@ -25,6 +25,9 @@ export const logisticsServices: Service[] = [
       { ar: 'شحنات الترانزيت عبر المملكة إلى دول الخليج والأردن', en: 'Transit shipments through KSA to the GCC and Jordan' },
       { ar: 'التخليص على المنافذ البرية: البطحاء، سلوى، الخفجي، جسر الملك فهد، الحديثة', en: 'Land-border clearance: Batha, Salwa, Khafji, King Fahd Causeway and Haditha' },
       { ar: 'قطع غيار السفن العابرة (Ship Spares in Transit) حتى المخطاف', en: 'Ship spares in transit, cleared and delivered up to the anchorage' },
+      { ar: 'استشارات التعرفة وتصنيف البنود الجمركية (HS) لتقليل الرسوم نظاميًا', en: 'Tariff consultancy and HS classification to lawfully optimise duties' },
+      { ar: 'تخليص السلع ذات الاستخدام المزدوج والسلع المقيدة بموافقات الجهات المختصة', en: 'Clearance of dual-use and restricted goods with the required approvals' },
+      { ar: 'ربط التخليص بالمستودعات الجمركية (Bonded) عند الحاجة', en: 'Linking clearance with bonded storage when needed' },
     ],
     scope: [
       { ar: 'فسح جمركي', en: 'Customs release' },
@@ -59,6 +62,10 @@ export const logisticsServices: Service[] = [
         q: { ar: 'هل تخلّصون شحنات لم تشحنوها؟', en: 'Do you clear shipments you did not forward?' },
         a: { ar: 'نعم، يمكنك طلب خدمة التخليص وحدها لأي شحنة.', en: 'Yes, you can request clearance on its own for any shipment.' },
       },
+      {
+        q: { ar: 'هل يمكن تخليص شحنتي قبل وصول السفينة؟', en: 'Can my shipment be cleared before the vessel arrives?' },
+        a: { ar: 'يمكن تقديم البيان وتجهيز المستندات مسبقًا، وهذا يختصر وقت الإفراج بعد الوصول، بحسب نوع البضاعة ومتطلبات الجهات الرقابية.', en: 'The declaration and documents can be lodged in advance, which shortens release after arrival, depending on the goods and regulator requirements.' },
+      },
     ],
   },
   {
@@ -84,6 +91,10 @@ export const logisticsServices: Service[] = [
       { ar: 'نقل عابر للحدود إلى دول الخليج والأردن', en: 'Cross-border trucking to the GCC and Jordan' },
       { ar: 'نقل جمركي مختوم (Bonded Trucking)', en: 'Bonded trucking under customs seal' },
       { ar: 'تتبع الشاحنات عبر GPS لدى شركائنا', en: 'GPS truck tracking through our partners' },
+      { ar: 'مقطورات منخفضة مخصصة لنقل خزانات ISO', en: 'Low-bed tank chassis for ISO tanks' },
+      { ar: 'نقل المواد الخطرة بمركبات وسائقين مرخصين', en: 'Hazmat haulage with licensed trucks and drivers' },
+      { ar: 'سحب الحاويات من الميناء وتسليم البضاعة مباشرة للمستودع', en: 'Port pull-out and direct delivery to the warehouse' },
+      { ar: 'خدمة طريق سريعة بين الإمارات والمملكة مع التخليص عبر المنافذ', en: 'Express road service between the UAE and KSA with border clearance' },
     ],
     scope: [
       { ar: 'سحب حاويات', en: 'Container haulage' },
@@ -93,6 +104,8 @@ export const logisticsServices: Service[] = [
       { ar: 'مبردة', en: 'Reefer trucks' },
       { ar: 'صهاريج', en: 'Tankers' },
       { ar: 'عبر الحدود', en: 'Cross-border' },
+      { ar: 'مواد خطرة', en: 'Hazmat' },
+      { ar: 'مقطورات خزانات', en: 'Tank chassis' },
     ],
     benefits: [
       { ar: 'شاحنة مناسبة لكل نوع حمولة', en: 'The right truck for every load' },
@@ -113,6 +126,10 @@ export const logisticsServices: Service[] = [
       {
         q: { ar: 'هل يمكن نقل معدات أعرض من الشاحنة العادية؟', en: 'Can you move equipment wider than a standard truck?' },
         a: { ar: 'نعم، باستخدام اللوبد واستخراج تصاريح الحمولات الاستثنائية ومرافقة الطريق عند الحاجة.', en: 'Yes, using lowbeds with oversize permits and road escorts when required.' },
+      },
+      {
+        q: { ar: 'هل تنقلون الشحنات إلى دول الخليج برًا؟', en: 'Do you truck to other GCC countries?' },
+        a: { ar: 'نعم، عبر المنافذ البرية الرئيسية مع التخليص على الجانبين، ويمكن النقل بختم جمركي للشحنات العابرة.', en: 'Yes, through the main land borders with clearance on both sides, and under customs seal for transit cargo.' },
       },
     ],
   },
@@ -137,6 +154,10 @@ export const logisticsServices: Service[] = [
       { ar: 'تقارير مخزون دورية', en: 'Regular inventory reports' },
       { ar: 'توزيع داخل المدن وبين المناطق', en: 'City and regional distribution' },
       { ar: 'حلول لوجستيات الطرف الثالث (3PL)', en: 'Third-party logistics (3PL)' },
+      { ar: 'إعادة التغليف ووضع الملصقات والتغليف بالانكماش', en: 'Repacking, labelling and shrink-wrapping' },
+      { ar: 'التجميع والتفكيك (Consolidation/Deconsolidation) والتحويل المباشر (Cross-docking)', en: 'Consolidation, deconsolidation and cross-docking' },
+      { ar: 'ساحات مفتوحة للمعدات والحديد والبضائع الكبيرة', en: 'Open yards for equipment, steel and bulky cargo' },
+      { ar: 'تخزين الكيماويات في مستودعات مرخصة', en: 'Chemical storage in licensed warehouses' },
     ],
     scope: [
       { ar: 'تخزين عام', en: 'General storage' },
@@ -145,6 +166,8 @@ export const logisticsServices: Service[] = [
       { ar: 'Pick & Pack', en: 'Pick & pack' },
       { ar: 'توزيع', en: 'Distribution' },
       { ar: '3PL', en: '3PL' },
+      { ar: 'ساحات مفتوحة', en: 'Open yards' },
+      { ar: 'كيماويات', en: 'Chemicals' },
     ],
     benefits: [
       { ar: 'دفع حسب المساحة والمدة الفعلية', en: 'Pay for the space and time you use' },
@@ -179,8 +202,8 @@ export const logisticsServices: Service[] = [
       en: 'Laden and empty container storage in off-port yards to avoid port storage, demurrage and detention charges.',
     },
     intro: {
-      ar: 'حين لا يكون موقعك جاهزًا للاستلام، أو تحتاج وقتًا لتفريغ عدة حاويات، ننقل حاوياتك من الميناء إلى ساحات شركائنا المعتمدين، ونحافظ عليها ونفحصها حتى تحتاجها.',
-      en: "When your site isn't ready to receive, or you need time to unload several boxes, we move your containers from the port to accredited partner yards, and keep and inspect them until you need them.",
+      ar: 'نقل الحاويات من الميناء إلى ساحة تخزين قريبة يوفّر رسوم التخزين والتأخير، ويمنحك وقتًا لإنهاء التخليص أو انتظار جاهزية الموقع. عبر ساحات شريكة قرب موانئ جدة والدمام والجبيل، ننسق دورة الحاوية كاملة: الحجز، والدخول والفحص والتسجيل، والتخزين أو المناولة، ثم الخروج والتسليم.',
+      en: 'Moving containers from the port to a nearby yard saves storage and detention charges and buys time to finish clearance or wait for site readiness. Through partner yards near Jeddah, Dammam and Jubail ports, we coordinate the full container cycle: booking, gate-in with inspection and registration, storage or handling, then gate-out and delivery.',
     },
     offer: [
       { ar: 'تخزين الحاويات الممتلئة والفارغة', en: 'Laden and empty container storage' },
@@ -190,6 +213,11 @@ export const logisticsServices: Service[] = [
       { ar: 'تنسيق الصيانة والإصلاح (M&R)', en: 'Maintenance and repair (M&R) coordination' },
       { ar: 'نقل الحاويات من الميناء لتفادي غرامات الأرضيات والتأخير', en: 'Moving boxes off the port to avoid storage, demurrage and detention' },
       { ar: 'بيع وتأجير الحاويات عبر شركائنا', en: 'Container sales and leasing through partners' },
+      { ar: 'بوابات رقمية وتسجيل حالة الحاوية عند الدخول والخروج', en: 'Digital gate-in/gate-out with condition records' },
+      { ar: 'تقارير مخزون الساحة ومواقع الحاويات', en: 'Yard inventory and container location reports' },
+      { ar: 'حفظ الحاويات المحمّلة لحين التخليص أو التفريغ أو النقل', en: 'Holding laden boxes pending clearance, unstuffing or onward transport' },
+      { ar: 'تخزين خزانات ISO وتنظيفها وإصلاحها عبر الشركاء', en: 'ISO tank storage, cleaning and repair through partners' },
+      { ar: 'ساحات مراقبة بالكاميرات مع تأمين للحاويات المخزنة وفق شروط الوثيقة', en: 'CCTV-monitored yards, with stored-container insurance subject to policy terms' },
     ],
     scope: [
       { ar: 'حاويات ممتلئة', en: 'Laden' },
@@ -198,6 +226,8 @@ export const logisticsServices: Service[] = [
       { ar: 'PTI', en: 'PTI' },
       { ar: 'M&R', en: 'M&R' },
       { ar: 'بيع وتأجير', en: 'Sales & leasing' },
+      { ar: 'خزانات ISO', en: 'ISO tanks' },
+      { ar: 'خطوط ملاحية ومشغلو NVOCC', en: 'Shipping lines & NVOCCs' },
     ],
     benefits: [
       { ar: 'تكلفة أقل من تخزين الميناء', en: 'Lower cost than port storage' },
@@ -218,6 +248,10 @@ export const logisticsServices: Service[] = [
       {
         q: { ar: 'هل تخزنون الحاويات المبردة؟', en: 'Do you store reefer containers?' },
         a: { ar: 'نعم، مع التوصيل بالكهرباء ومراقبة درجة الحرارة.', en: 'Yes, with power plug-in and temperature monitoring.' },
+      },
+      {
+        q: { ar: 'هل الساحة مناسبة للخطوط الملاحية؟', en: 'Do you serve shipping lines and NVOCCs?' },
+        a: { ar: 'نعم، نوفر للخطوط الملاحية ومشغلي NVOCC والوكلاء سعة إضافية لتخزين الحاويات الفارغة وإدارة إعادتها، إلى جانب المستوردين والمصدرين.', en: 'Yes. We give shipping lines, NVOCCs and agents extra capacity for empty storage and return management, as well as serving importers and exporters.' },
       },
     ],
   },
@@ -243,6 +277,8 @@ export const logisticsServices: Service[] = [
       { ar: 'التحميل على منصات وتغليفها', en: 'Palletising and wrapping' },
       { ar: 'التحويل المباشر بين الحاويات والشاحنات (Cross-docking)', en: 'Cross-docking between containers and trucks' },
       { ar: 'فحص البضاعة عند الاستلام', en: 'Cargo inspection on receipt' },
+      { ar: 'تفريغ وتعبئة حاويات التبريد مع الحفاظ على سلسلة التبريد', en: 'Reefer stuffing and stripping that protects the cold chain' },
+      { ar: 'عمليات التكييس والتعبئة للمنتجات السائبة', en: 'Bagging operations for bulk products' },
     ],
     scope: [
       { ar: 'CFS', en: 'CFS' },
@@ -294,6 +330,7 @@ export const logisticsServices: Service[] = [
       { ar: 'تنسيق تأمين المشاريع وأعمال الإنشاء (CAR)', en: 'Project and contractors-all-risks (CAR) cover coordination' },
       { ar: 'تقدير القيمة التأمينية المناسبة', en: 'Advice on the right insured value' },
       { ar: 'دعم المطالبات والمعاينة', en: 'Claims and survey support' },
+      { ar: 'ضمان بحري ومسح فني (Marine Warranty Survey) لشحنات المشاريع', en: 'Marine warranty surveys for project cargo' },
     ],
     scope: [
       { ar: 'ICC A', en: 'ICC A' },
@@ -347,6 +384,7 @@ export const logisticsServices: Service[] = [
       { ar: 'تسليم إلى الفندق أو موقع الفعالية أو الحلبة', en: 'Delivery to the hotel, event venue or circuit' },
       { ar: 'نقل معدات وقطع غيار فرق السباق', en: 'Race team equipment and spares' },
       { ar: 'خدمة متكاملة بعناية فائقة (White-glove)', en: 'End-to-end white-glove service' },
+      { ar: 'تخزين المركبات في ساحات مؤمنة مع جرد يومي', en: 'Secure vehicle storage with daily inventory' },
     ],
     scope: [
       { ar: 'سيارات رياضية', en: 'Sports cars' },
@@ -401,6 +439,8 @@ export const logisticsServices: Service[] = [
       { ar: 'إعادة التصدير أو التخزين بعد الفعالية', en: 'Re-export or storage after the show' },
       { ar: 'نقل معدات المسارح والصوت والإضاءة والبث', en: 'Stage, AV, lighting and broadcast equipment' },
       { ar: 'دعم المواسم والفعاليات الكبرى والمؤتمرات الدولية', en: 'Support for seasonal festivals, major events and international conferences' },
+      { ar: 'فتح مناطق جمركية مؤقتة في موقع الحدث بالتنسيق مع الجهات المختصة', en: 'Temporary bonded areas at the venue, coordinated with authorities' },
+      { ar: 'لوجستيات سباقات السيارات والرياضات الكبرى', en: 'Motorsport and major sporting event logistics' },
     ],
     scope: [
       { ar: 'معارض', en: 'Exhibitions' },
@@ -429,6 +469,10 @@ export const logisticsServices: Service[] = [
       {
         q: { ar: 'هل تتولون التفريغ داخل قاعة المعرض؟', en: 'Do you handle unloading inside the hall?' },
         a: { ar: 'نعم، ننسق المعدات والفرق داخل الموقع وفق مواعيد المنظمين.', en: "Yes, we coordinate equipment and crews on site to the organiser's schedule." },
+      },
+      {
+        q: { ar: 'هل تتولون التنسيق مع منظم المعرض؟', en: 'Do you coordinate with the exhibition organiser?' },
+        a: { ar: 'نعم، نتابع مواعيد الدخول والتركيب والتفكيك مع المنظم ومقاولي الأجنحة، ونعدّل جدول التسليم وفقها.', en: 'Yes. We work to the organiser’s build-up and breakdown schedule with stand contractors, and set delivery slots around it.' },
       },
     ],
   },

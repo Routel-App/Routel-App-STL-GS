@@ -1,13 +1,20 @@
 ---
 import type { Service } from '../data/services';
+import { categoryBySlug } from '../data/services';
+import { servicePhoto } from '../data/photos';
 import { type Lang, href, t, u } from '../i18n/ui';
 import Icon from './Icon.astro';
+import ServiceArt from './ServiceArt.astro';
 interface Props { lang: Lang; s: Service }
 const { lang, s } = Astro.props;
+const photo = servicePhoto(s);
 ---
 <a class="card service-card reveal" href={href(lang, `/services/${s.slug}`)}>
-  <div class="row">
+  <div class="sc-media">
+    <ServiceArt art={categoryBySlug(s.category)!.art} photo={photo} />
     <span class="icon-badge"><Icon name={s.icon} /></span>
+  </div>
+  <div class="row">
     {s.code && <span class="tag">{s.code}</span>}
   </div>
   <h3>{t(s.title, lang)}</h3>
@@ -15,5 +22,9 @@ const { lang, s } = Astro.props;
   <span class="link-arrow">{u('learnMore', lang)} <Icon name="arrow" class="flip" /></span>
 </a>
 <style>
-  .row { display: flex; justify-content: space-between; align-items: flex-start; }
+  .service-card { --card-pad: clamp(1.6rem, 3vw, 2.2rem); padding-top: 0 !important; }
+  .sc-media { position: relative; aspect-ratio: 16 / 9; margin: 0 calc(var(--card-pad, 1.8rem) * -1) 1.1rem; }
+  .sc-media :global(.service-art) { position: absolute; inset: 0; clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); }
+  .sc-media .icon-badge { position: absolute; bottom: 0; inset-inline-start: var(--card-pad, 1.8rem); z-index: 1; background: var(--coral); color: var(--petrol); }
+  .row { display: flex; justify-content: flex-end; min-height: 1.4rem; }
 </style>

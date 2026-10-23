@@ -9,6 +9,7 @@ import ServiceCard from '../../../components/ServiceCard.astro';
 import { type Lang, getLang, href, langs, langParam, t, u } from '../../../i18n/ui';
 import { services, categories, categoryBySlug, servicesIn, type Service, type ServiceCategory } from '../../../data/services';
 import { faqSchema } from '../../../i18n/schema';
+import { servicePhoto, unitPhoto } from '../../../data/photos';
 
 export function getStaticPaths() {
   return langs.flatMap((l: Lang) => [
@@ -38,7 +39,7 @@ const crumbs = s
   : [{ label: u('services', lang), path: '/services' }, { label: title }];
 ---
 <Base lang={lang} title={title} description={s ? t(s.short, lang) : t(cat.short, lang)} schema={schema}>
-  <PageHero lang={lang} title={title} lead={s ? t(s.intro, lang) : t(cat.intro, lang)} eyebrow={s ? `${cat.code} · ${s.code ?? ''}` : cat.code} crumbs={crumbs} art={cat.art} photo={s?.photo}>
+  <PageHero lang={lang} title={title} lead={s ? t(s.intro, lang) : t(cat.intro, lang)} eyebrow={s ? `${cat.code} · ${s.code ?? ''}` : cat.code} crumbs={crumbs} art={cat.art} photo={s ? servicePhoto(s) ?? unitPhoto(cat) : unitPhoto(cat)}>
     <a class="btn btn-primary" href={href(lang, quotePath)}>{s ? u('quoteForService', lang) : u('quote', lang)}</a>
     {cat.slug === 'marine' && <a class="btn btn-outline" href={href(lang, '/contact')}>{ar ? 'طلب عاجل 24/7' : 'Urgent request 24/7'}</a>}
   </PageHero>
@@ -125,7 +126,7 @@ const crumbs = s
           <div class="others">
             {categories.filter((c) => c.slug !== cat.slug).map((c) => (
               <a class="other reveal" href={href(lang, `/services/${c.slug}`)}>
-                <ServiceArt art={c.art} />
+                <ServiceArt art={c.art} photo={unitPhoto(c)} />
                 <span class="o-text"><small class="ltr">{c.code}</small><strong>{t(c.title, lang)}</strong></span>
               </a>
             ))}

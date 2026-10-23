@@ -8,6 +8,7 @@ import { getLang, href, langPaths, t, u } from '../../i18n/ui';
 import { eServices } from '../../i18n/nav';
 import { categories, categoryBySlug, servicesIn, servicesIntro, serviceBySlug } from '../../data/services';
 import ServiceArt from '../../components/ServiceArt.astro';
+import { unitPhoto } from '../../data/photos';
 import { sectors } from '../../data/sectors';
 import { articles } from '../../data/blog';
 import { heroSlides, aboutShort, guideQuestion, howWeWork, whyReasons, trackingStages } from '../../data/company';
@@ -165,7 +166,7 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.pat
         {categories.map((c, i) => (
           <article class="unit reveal">
             <a class="unit-art" href={href(lang, `/services/${c.slug}`)} tabindex="-1" aria-hidden="true">
-              <ServiceArt art={c.art} />
+              <ServiceArt art={c.art} photo={unitPhoto(c)} />
               <span class="unit-code ltr">{pad(i + 1)} / {c.code}</span>
             </a>
             <div class="unit-body">

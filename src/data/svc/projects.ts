@@ -26,6 +26,10 @@ export const projectServices: Service[] = [
       { ar: 'تخليص جمركي ودعم الإعفاءات والاستيراد المؤقت', en: 'Customs clearance, exemptions and temporary import support' },
       { ar: 'التسليم في موقع المشروع وتنسيق التفريغ', en: 'Site delivery and offloading coordination' },
       { ar: 'تقارير دورية لحالة كل شحنة', en: 'Regular status reports for every shipment' },
+      { ar: 'دراسة جدوى وزيارات ميدانية للموقع قبل التنفيذ', en: 'Feasibility studies and site visits before execution' },
+      { ar: 'مخططات تحميل هندسية (CAD) ونمذجة ثلاثية الأبعاد للشحنات الحرجة', en: 'Engineered CAD load plans and 3D modelling for critical lifts' },
+      { ar: 'تحليل المخاطر وخطط بديلة لكل مرحلة', en: 'Risk analysis and contingency plans for each stage' },
+      { ar: 'النقل بالصنادل أو الدحرجة للمواقع التي يصعب الوصول إليها برًا', en: 'Barging or roll-on/roll-off to sites that are hard to reach by road' },
     ],
     scope: [
       { ar: 'محطات الطاقة', en: 'Power plants' },
@@ -35,6 +39,8 @@ export const projectServices: Service[] = [
       { ar: 'طاقة متجددة', en: 'Renewables' },
       { ar: 'بنية تحتية', en: 'Infrastructure' },
       { ar: 'المشاريع الكبرى', en: 'Giga-projects' },
+      { ar: 'التعدين', en: 'Mining' },
+      { ar: 'البتروكيماويات', en: 'Petrochemicals' },
     ],
     benefits: [
       { ar: 'جهة واحدة مسؤولة عن كل الشحنات', en: 'One party accountable for every shipment' },
@@ -55,6 +61,10 @@ export const projectServices: Service[] = [
       {
         q: { ar: 'متى يجب أن نبدأ التخطيط اللوجستي؟', en: 'When should logistics planning start?' },
         a: { ar: 'كلما كان مبكرًا كان أفضل، ويُفضّل أثناء مرحلة الشراء قبل تصنيع المعدات.', en: 'The earlier the better, ideally during procurement before the equipment is manufactured.' },
+      },
+      {
+        q: { ar: 'متى يجب أن نشرككم في المشروع؟', en: 'When should we bring you into the project?' },
+        a: { ar: 'كلما كان مبكرًا كان أفضل، ويُفضّل في مرحلة الشراء قبل اعتماد أبعاد المعدات ومواعيد التصنيع، حتى نراعي قيود الطرق والموانئ في التخطيط.', en: 'The earlier the better, ideally at procurement stage before equipment dimensions and manufacturing dates are fixed, so road and port constraints are built into the plan.' },
       },
     ],
   },
@@ -80,6 +90,8 @@ export const projectServices: Service[] = [
       { ar: 'معاينة البضاعة عند التحميل والتفريغ', en: 'Cargo surveys at loading and discharge' },
       { ar: 'التفريغ المباشر إلى الشاحنات (Direct Delivery)', en: 'Direct delivery from ship to truck' },
       { ar: 'تخزين مؤقت في ساحات الميناء', en: 'Temporary storage at port yards' },
+      { ar: 'إشراف على الفك والتربيط (Lashing/Unlashing) عند الرصيف', en: 'Supervision of lashing and unlashing at berth' },
+      { ar: 'خطط تستيف تراعي توزيع الأوزان على العنابر', en: 'Stowage plans that respect hold weight distribution' },
     ],
     scope: [
       { ar: 'حديد وصلب', en: 'Steel' },
@@ -88,6 +100,8 @@ export const projectServices: Service[] = [
       { ar: 'بضائع معبأة في أكياس', en: 'Bagged cargo' },
       { ar: 'لفائف الحديد', en: 'Steel coils' },
       { ar: 'هياكل معدنية', en: 'Steel structures' },
+      { ar: 'ألواح ومقاطع حديدية', en: 'Steel plates & sections' },
+      { ar: 'معدات ومركبات غير ذاتية الحركة', en: 'Non-self-propelled machinery' },
     ],
     benefits: [
       { ar: 'حل اقتصادي للكميات الكبيرة', en: 'Economical for large volumes' },
@@ -108,6 +122,10 @@ export const projectServices: Service[] = [
       {
         q: { ar: 'هل تُخزن البضاعة في الميناء بعد التفريغ؟', en: 'Can the cargo be stored at port after discharge?' },
         a: { ar: 'نعم، يمكن تنسيق تخزين مؤقت في ساحات الميناء حسب أنظمته ورسومه.', en: 'Yes, temporary storage can be arranged at port yards under port rules and tariffs.' },
+      },
+      {
+        q: { ar: 'هل يمكن تفريغ البضاعة مباشرة على الشاحنات؟', en: 'Can cargo be discharged straight onto trucks?' },
+        a: { ar: 'نعم، ننسق التفريغ المباشر من السفينة إلى الشاحنة متى سمح الميناء بذلك، وهذا يقلل رسوم التخزين والمناولة المزدوجة.', en: 'Yes. Where the port allows, we arrange direct ship-to-truck delivery, which cuts storage charges and double handling.' },
       },
     ],
   },
@@ -134,6 +152,9 @@ export const projectServices: Service[] = [
       { ar: 'رافعات متحركة وزاحفة عبر شركائنا', en: 'Mobile and crawler cranes through partners' },
       { ar: 'أعمال الرفع والانزلاق (Jacking & Skidding)', en: 'Jacking and skidding' },
       { ar: 'تصاريح الحمولات الاستثنائية والمرافقة', en: 'Abnormal load permits and escorts' },
+      { ar: 'مسح المسار ودراسة الجسور والعوائق قبل النقل', en: 'Route and bridge surveys before transport' },
+      { ar: 'سفن نصف غاطسة للشحنات العائمة الكبيرة عبر الشركاء', en: 'Semi-submersible vessels for large floating cargo through partners' },
+      { ar: 'تنسيق التحميل والتفريغ بأوناش السفينة أو أوناش الميناء', en: 'Loading and discharge with ship or shore cranes' },
     ],
     scope: [
       { ar: 'محولات كهربائية', en: 'Transformers' },
@@ -143,6 +164,7 @@ export const projectServices: Service[] = [
       { ar: 'وحدات مسبقة التجميع', en: 'Pre-assembled modules' },
       { ar: 'رافعات ومعدات تعدين', en: 'Cranes & mining equipment' },
       { ar: 'قوارب ويخوت', en: 'Boats & yachts' },
+      { ar: 'شفرات وأبراج توربينات الرياح', en: 'Wind blades & towers' },
     ],
     benefits: [
       { ar: 'خطة هندسية تقلل المخاطر', en: 'An engineered plan that reduces risk' },
@@ -164,6 +186,10 @@ export const projectServices: Service[] = [
         q: { ar: 'هل تتولون التصاريح داخل المملكة؟', en: 'Do you handle permits inside Saudi Arabia?' },
         a: { ar: 'نعم، ننسق تصاريح الحمولات الاستثنائية والمرافقة مع الجهات المختصة.', en: 'Yes, we coordinate abnormal load permits and escorts with the authorities.' },
       },
+      {
+        q: { ar: 'ما المعلومات التي تحتاجونها لدراسة شحنة ثقيلة؟', en: 'What information do you need to assess a heavy lift?' },
+        a: { ar: 'الأبعاد والوزن ومركز الثقل ونقاط الرفع، ورسومات المعدة إن وجدت، إضافة إلى موقع الاستلام والتسليم والتاريخ المطلوب.', en: 'Dimensions, weight, centre of gravity and lifting points, equipment drawings if available, plus pickup and delivery locations and the target date.' },
+      },
     ],
   },
   {
@@ -178,8 +204,8 @@ export const projectServices: Service[] = [
       en: 'Chartering a whole vessel or part of one for your cargo, per voyage or per period, with contract management through discharge.',
     },
     intro: {
-      ar: 'حين تكون شحنتك كبيرة بما يكفي، أو لا تناسب جداول الخطوط المنتظمة، يكون استئجار السفينة هو الحل. نبحث عبر شبكة الوسطاء والملاك عن السفينة المناسبة، ونفاوض على شروط عقد الإيجار (Charter Party)، وندير أيام التحميل والتفريغ والتأخير لحماية تكلفتك.',
-      en: "When your cargo is large enough, or doesn't fit liner schedules, chartering is the answer. We search our broker and owner network for the right vessel, negotiate the charter party terms, and manage laytime and demurrage to protect your costs.",
+      ar: 'حين تكون شحنتك كبيرة بما يكفي، أو لا تناسب جداول الخطوط المنتظمة، يكون استئجار السفينة هو الحل. نحلل متطلبات الشحنة، ونبحث عبر شبكة الوسطاء والملاك عن السفينة المناسبة ونفحص ملاءمتها الفنية، ثم نفاوض على عقد الإيجار ونتابع الرحلة حتى تقرير ما بعد التفريغ.',
+      en: "When your cargo is large enough, or doesn't fit liner schedules, chartering is the answer. We analyse the cargo requirements, source and vet suitable tonnage through our broker and owner network, negotiate the charter party, and follow the voyage through to the post-discharge report.",
     },
     offer: [
       { ar: 'استئجار بالرحلة (Voyage Charter)', en: 'Voyage charter' },
@@ -189,6 +215,10 @@ export const projectServices: Service[] = [
       { ar: 'التنسيق بين الملاك والمستأجرين والوسطاء', en: 'Liaison between owners, charterers and brokers' },
       { ar: 'إدارة أيام التحميل والتفريغ والتأخير (Laytime & Demurrage)', en: 'Laytime and demurrage management' },
       { ar: 'تنسيق الوكالة الملاحية وعمليات الميناء', en: 'Ship agency and port operations coordination' },
+      { ar: 'فحص السفينة فنيًا والتحقق من امتثالها قبل التثبيت (Vetting)', en: 'Technical vetting and compliance checks before fixing' },
+      { ar: 'تخطيط ما قبل الرحلة: المسار والوقود والتصاريح', en: 'Pre-voyage planning: routing, bunkers and permits' },
+      { ar: 'متابعة الرحلة عبر نظام التعريف الآلي (AIS) وتقارير الطقس', en: 'Voyage monitoring via AIS and weather updates' },
+      { ar: 'تقرير ختامي بعد التفريغ واستكمال المستندات', en: 'Post-discharge report and document close-out' },
     ],
     scope: [
       { ar: 'ناقلات بضائع سائبة', en: 'Bulk carriers' },
@@ -197,6 +227,8 @@ export const projectServices: Service[] = [
       { ar: 'ناقلات عبر الوسطاء', en: 'Tankers via brokers' },
       { ar: 'سفن بضائع عامة', en: 'General cargo ships' },
       { ar: 'صنادل وقاطرات', en: 'Barges & tugs' },
+      { ar: 'سفن الإمداد البحري (OSV)', en: 'Offshore support vessels (OSV)' },
+      { ar: 'سفن الدحرجة (RoRo)', en: 'RoRo vessels' },
     ],
     benefits: [
       { ar: 'تحكم كامل في الموعد والمسار', en: 'Full control of timing and routing' },
@@ -217,6 +249,63 @@ export const projectServices: Service[] = [
       {
         q: { ar: 'ما المقصود بغرامة التأخير (Demurrage)؟', en: 'What is demurrage?' },
         a: { ar: 'مبلغ يُدفع للمالك إذا تجاوز التحميل أو التفريغ المدة المتفق عليها، ولذلك نخطط العمليات لتجنبه.', en: 'A charge paid to the owner when loading or discharge exceeds the agreed laytime, which is why we plan operations to avoid it.' },
+      },
+      {
+        q: { ar: 'ما هي "لايكان" (Laycan)؟', en: 'What is laycan?' },
+        a: { ar: 'هي الفترة الزمنية المتفق عليها لوصول السفينة إلى ميناء التحميل وجاهزيتها، وتحديدها بدقة أساس لتجنب الغرامات أو إلغاء العقد.', en: 'The agreed window in which the vessel must arrive at the load port ready to load. Setting it precisely is key to avoiding penalties or cancellation.' },
+      },
+    ],
+  },
+  {
+    slug: 'bulk-cargo',
+    category: 'projects',
+    icon: 'boxes',
+    code: 'BLK',
+    title: { ar: 'شحن البضائع الصبّة (Dry Bulk)', en: 'Dry Bulk Shipping' },
+    short: {
+      ar: 'شحن الحبوب والأسمدة والكبريت والكلنكر والإسمنت والمعادن بكميات كبيرة على سفن الصب.',
+      en: 'Grain, fertilisers, sulphur, clinker, cement and minerals in large volumes on bulk carriers.',
+    },
+    intro: {
+      ar: 'البضائع الصبّة تُشحن بلا تعبئة وبكميات تُقاس بآلاف الأطنان، والربح فيها يُصنع في التفاصيل: اختيار السفينة المناسبة، ومعدلات التحميل والتفريغ، ونظافة العنابر، والمسح الكمي. نستأجر السفينة أو نحجز المساحة، وننسق مع مقاولي التفريغ في الميناء والنقل حتى المستودع أو المصنع.',
+      en: 'Bulk cargo ships unpacked in volumes measured in thousands of tonnes, and margins are made in the details: the right ship, load and discharge rates, hold cleanliness and draft surveys. We charter the vessel or book the space, and coordinate stevedores at the port and onward haulage to the silo, store or plant.',
+    },
+    offer: [
+      { ar: 'استئجار سفن صب كاملة أو جزئية حسب الكمية', en: 'Full or part bulk carrier charters to suit the volume' },
+      { ar: 'اشتراط جاهزية العنابر وفحصها قبل التحميل', en: 'Hold readiness requirements and pre-loading inspection' },
+      { ar: 'مسح الغاطس (Draft Survey) لتحديد الكمية عند التحميل والتفريغ', en: 'Draft surveys to confirm quantity at load and discharge' },
+      { ar: 'تنسيق مقاولي التفريغ والمعدات في الميناء', en: 'Coordination of stevedores and port equipment' },
+      { ar: 'التفريغ المباشر إلى الشاحنات أو الصوامع', en: 'Direct discharge to trucks or silos' },
+      { ar: 'أخذ العينات وشهادات الفحص والمنشأ', en: 'Sampling, inspection and origin certificates' },
+      { ar: 'التخليص الجمركي ومتطلبات الجهات الرقابية مثل هيئة الغذاء والدواء', en: 'Customs clearance and regulator requirements such as SFDA' },
+    ],
+    scope: [
+      { ar: 'قمح وشعير وذرة', en: 'Wheat, barley & corn' },
+      { ar: 'أسمدة ويوريا', en: 'Fertilisers & urea' },
+      { ar: 'كبريت', en: 'Sulphur' },
+      { ar: 'كلنكر وإسمنت', en: 'Clinker & cement' },
+      { ar: 'معادن وخامات', en: 'Minerals & ores' },
+      { ar: 'فحم بترولي', en: 'Petcoke' },
+    ],
+    benefits: [
+      { ar: 'أقل تكلفة للطن في الأحجام الكبيرة', en: 'Lowest cost per tonne at scale' },
+      { ar: 'كميات موثقة بمسح مستقل', en: 'Quantities verified by independent survey' },
+      { ar: 'تنسيق واحد من السفينة حتى المستودع', en: 'One coordinator from ship to store' },
+    ],
+    steps: [
+      { title: { ar: 'الكمية والمواصفات', en: 'Volume & specs' }, text: { ar: 'نوع المادة والكمية والموانئ والفترة.', en: 'Commodity, quantity, ports and window.' } },
+      { title: { ar: 'السفينة', en: 'Vessel' }, text: { ar: 'حجز المساحة أو استئجار سفينة صب مناسبة.', en: 'Book space or charter a suitable bulker.' } },
+      { title: { ar: 'التحميل والمسح', en: 'Loading & survey' }, text: { ar: 'فحص العنابر ومسح الغاطس والمستندات.', en: 'Hold checks, draft survey and documents.' } },
+      { title: { ar: 'التفريغ والتسليم', en: 'Discharge & delivery' }, text: { ar: 'تفريغ وتخليص ونقل حتى المستودع أو المصنع.', en: 'Discharge, clearance and haulage to store or plant.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'ما الحد الأدنى لكمية الشحن الصبّ؟', en: 'What is the minimum quantity for bulk shipping?' },
+        a: { ar: 'يعتمد على المسار والمادة، لكن سفن الصب الصغيرة تبدأ عادة من بضعة آلاف من الأطنان، ولأقل من ذلك نقترح الحاويات أو الشحن المجمّع على سفن البضائع العامة.', en: 'It depends on the route and commodity, but small bulkers usually start at a few thousand tonnes. For less, we suggest containers or parcels on general cargo ships.' },
+      },
+      {
+        q: { ar: 'من يتحمل نظافة العنابر؟', en: 'Who is responsible for hold cleanliness?' },
+        a: { ar: 'يُحدَّد ذلك في عقد الإيجار، ونحرص على النص على معيار النظافة المطلوب وفحص العنابر قبل التحميل لتجنب رفض الشحنة.', en: 'It is set in the charter party. We make sure the required cleanliness standard is written in and holds are inspected before loading, to avoid cargo rejection.' },
       },
     ],
   },
@@ -242,6 +331,7 @@ export const projectServices: Service[] = [
       { ar: 'تصاريح الطيران والهبوط', en: 'Overflight and landing permits' },
       { ar: 'تنسيق المناولة الأرضية والتحميل', en: 'Ground handling and loading supervision' },
       { ar: 'تخليص جمركي ونقل بري من المطار', en: 'Customs clearance and onward trucking' },
+      { ar: 'تأجير طائرات هليكوبتر وطائرات خاصة للشحنات الخاصة عبر الشركاء', en: 'Helicopter and special-mission aircraft through partners' },
     ],
     scope: [
       { ar: 'معدات صناعية عاجلة', en: 'Urgent industrial equipment' },
@@ -270,6 +360,10 @@ export const projectServices: Service[] = [
         q: { ar: 'كم يستغرق ترتيب رحلة مستأجرة؟', en: 'How quickly can a charter be arranged?' },
         a: { ar: 'يعتمد على توفر الطائرة والتصاريح، وقد يكون خلال أيام قليلة في الحالات العاجلة.', en: 'It depends on aircraft availability and permits; urgent cases can often be arranged within a few days.' },
       },
+      {
+        q: { ar: 'كم يستغرق ترتيب طائرة شحن مستأجرة؟', en: 'How quickly can a freighter charter be arranged?' },
+        a: { ar: 'حسب نوع الطائرة والتصاريح المطلوبة، وغالبًا خلال أيام قليلة، وأحيانًا أسرع للشحنات الطارئة إذا توفرت الطائرة.', en: 'It depends on the aircraft type and permits, typically a few days, and sometimes faster for emergencies when an aircraft is available.' },
+      },
     ],
   },
   {
@@ -293,6 +387,7 @@ export const projectServices: Service[] = [
       { ar: 'البضائع الخطرة جوًا وفق أنظمة IATA DGR', en: 'Dangerous goods by air under IATA DGR' },
       { ar: 'تجهيز المنصات والتغليف المناسب للطيران', en: 'Air-worthy packing and palletising' },
       { ar: 'تخليص سريع في المطار وتوصيل للموقع', en: 'Fast airport clearance and site delivery' },
+      { ar: 'طائرات شحن كبيرة السعة للشحنات خارج المقاس عبر التأجير', en: 'Outsize freighters on charter for oversized pieces' },
     ],
     scope: [
       { ar: 'قطع غيار مصانع', en: 'Plant spares' },
@@ -321,6 +416,60 @@ export const projectServices: Service[] = [
       {
         q: { ar: 'هل يمكن شحن مواد خطرة جوًا؟', en: 'Can dangerous goods go by air?' },
         a: { ar: 'كثير منها نعم، بشرط التصنيف والتغليف والوثائق الصحيحة وفق أنظمة IATA.', en: 'Many can, provided classification, packaging and documents follow IATA DGR.' },
+      },
+    ],
+  },
+  {
+    slug: 'aerospace-logistics',
+    category: 'air',
+    icon: 'plane',
+    code: 'AERO',
+    title: { ar: 'لوجستيات الطيران والطائرات العمودية', en: 'Aerospace & Helicopter Logistics' },
+    short: {
+      ar: 'نقل محركات الطائرات وقطعها الكبيرة والطائرات العمودية، وقطع الغيار العاجلة للطائرات المتوقفة (AOG).',
+      en: 'Moving aircraft engines, large airframe parts and helicopters, plus urgent AOG spares.',
+    },
+    intro: {
+      ar: 'قطاع الطيران لا يحتمل التأخير ولا الخدش: طائرة متوقفة على الأرض تكلف الكثير كل ساعة، ومحرك الطائرة يحتاج تغليفًا ومناولة بمعايير الطيران. ننسق شحن قطع الغيار العاجلة، ونقل المحركات وأجزاء الهيكل الكبيرة، وتفكيك الطائرات العمودية وتغليفها ونقلها برًا أو بحرًا أو جوًا، مع المستندات الجمركية للسلع ذات الاستخدام المزدوج.',
+      en: 'Aviation tolerates neither delays nor scratches: an aircraft on the ground costs money every hour, and an engine needs aviation-grade packing and handling. We coordinate urgent spares, engines and large airframe sections, and the dismantling, crating and movement of helicopters by road, sea or air, with customs documents for dual-use goods.',
+    },
+    offer: [
+      { ar: 'شحنات قطع الغيار العاجلة للطائرات المتوقفة (AOG) على مدار الساعة', en: '24/7 AOG spares shipments' },
+      { ar: 'نقل محركات الطائرات في حوامل وتغليف مطابق لمتطلبات الطيران', en: 'Jet engine transport on stands with aviation-compliant packing' },
+      { ar: 'مناولة أجزاء الهيكل والأجنحة وعجلات الهبوط', en: 'Handling of fuselage sections, wings and landing gear' },
+      { ar: 'تفكيك الطائرات العمودية وتغليف الشفرات والهيكل ونقلها', en: 'Helicopter dismantling, blade and fuselage crating and transport' },
+      { ar: 'مقطورات مخصصة لنقل الطائرات العمودية برًا', en: 'Dedicated trailers for road moves of rotorcraft' },
+      { ar: 'تأجير طائرات شحن للقطع الكبيرة عند الحاجة', en: 'Freighter charters for outsize parts when needed' },
+      { ar: 'تخليص جمركي للسلع ذات الاستخدام المزدوج ومستودعات مرخصة', en: 'Customs for dual-use goods and bonded storage' },
+      { ar: 'دعم مراكز الصيانة (MRO) بتوريد في الوقت المحدد', en: 'Just-in-time supply for MRO facilities' },
+    ],
+    scope: [
+      { ar: 'قطع AOG', en: 'AOG parts' },
+      { ar: 'محركات نفاثة', en: 'Jet engines' },
+      { ar: 'طائرات عمودية', en: 'Helicopters' },
+      { ar: 'أجزاء الهيكل', en: 'Airframe sections' },
+      { ar: 'إلكترونيات الطيران', en: 'Avionics' },
+      { ar: 'معدات أرضية', en: 'Ground support equipment' },
+    ],
+    benefits: [
+      { ar: 'استجابة على مدار الساعة للطائرات المتوقفة', en: 'Round-the-clock response for AOG' },
+      { ar: 'تغليف ومناولة بمعايير الطيران', en: 'Aviation-grade packing and handling' },
+      { ar: 'امتثال جمركي للسلع الحساسة', en: 'Customs compliance for sensitive goods' },
+    ],
+    steps: [
+      { title: { ar: 'الطلب', en: 'Request' }, text: { ar: 'رقم القطعة أو مواصفات المعدة والموعد المطلوب.', en: 'Part number or equipment specs and deadline.' } },
+      { title: { ar: 'التخطيط', en: 'Planning' }, text: { ar: 'أسرع مسار ووسيلة نقل وتغليف مناسب.', en: 'Fastest routing, mode and packing.' } },
+      { title: { ar: 'التنفيذ', en: 'Execution' }, text: { ar: 'استلام وشحن وتخليص بأولوية.', en: 'Priority pickup, flight and clearance.' } },
+      { title: { ar: 'التسليم', en: 'Delivery' }, text: { ar: 'تسليم للمطار أو مركز الصيانة أو الموقع.', en: 'Delivery to airside, MRO or site.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'هل تتعاملون مع شحنات AOG خارج أوقات العمل؟', en: 'Do you handle AOG outside office hours?' },
+        a: { ar: 'نعم، طلبات AOG تُستقبل على مدار الساعة طوال الأسبوع عبر الهاتف والواتساب.', en: 'Yes. AOG requests are taken 24/7 by phone and WhatsApp.' },
+      },
+      {
+        q: { ar: 'هل يمكن نقل طائرة عمودية بحرًا؟', en: 'Can a helicopter travel by sea?' },
+        a: { ar: 'نعم، بعد فك الشفرات وتغليف الأجزاء الحساسة، وتُنقل في حاوية مفتوحة أو على منصة مسطحة، ثم يُعاد تركيبها بالتنسيق مع جهة الصيانة.', en: 'Yes. After the blades are removed and sensitive parts protected, it travels in an open-top or flat-rack container and is reassembled with the maintenance provider.' },
       },
     ],
   },

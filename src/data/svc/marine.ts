@@ -25,6 +25,7 @@ export const marineServices: Service[] = [
       { ar: 'تزويد السفن بالمياه العذبة', en: 'Fresh water supply' },
       { ar: 'تسعير حسب أكواد IMPA وتسليم مع قائمة تعبئة', en: 'Quotes by IMPA codes and delivery with a packing list' },
       { ar: 'توصيل عاجل إلى الرصيف أو بالقارب إلى المخطاف', en: 'Urgent delivery at berth or by launch to anchorage' },
+      { ar: 'خدمة في جميع الموانئ السعودية على الساحلين، بما فيها جازان وضباء ورابغ', en: 'Cover across Saudi ports on both coasts, including Jizan, Duba and Rabigh' },
     ],
     scope: [
       { ar: 'ناقلات', en: 'Tankers' },
@@ -78,6 +79,7 @@ export const marineServices: Service[] = [
       { ar: 'أخذ العينات وفق الإجراءات المعتمدة وتسليم مذكرة التسليم (BDN)', en: 'Sampling to standard procedures and bunker delivery note (BDN)' },
       { ar: 'ترتيب مسح الكميات عبر جهات مستقلة عند الطلب', en: 'Independent quantity surveys on request' },
       { ar: 'تخطيط مواعيد التزويد مع جدول السفينة والميناء', en: 'Planning bunker calls around the vessel and port schedule' },
+      { ar: 'تنسيق مكالمات التزود بالوقود فقط (Bunker-only calls) مع الوكالة والتخليص', en: 'Bunker-only calls coordinated with agency and clearance' },
     ],
     scope: [
       { ar: 'MGO', en: 'MGO' },
@@ -132,6 +134,7 @@ export const marineServices: Service[] = [
       { ar: 'تنظيف السطح وأماكن الإعاشة', en: 'Deck and accommodation cleaning' },
       { ar: 'إزالة الحمأة ومياه الآسن والنفايات والتخلص منها وفق ماربول', en: 'Sludge, bilge water and garbage removal with MARPOL-compliant disposal' },
       { ar: 'تقارير وصور قبل التنظيف وبعده', en: 'Before-and-after reports with photos' },
+      { ar: 'خدمات بيئية لإزالة المخلفات الزيتية ومياه الصابورة الملوثة عبر مقاولين مرخصين', en: 'Environmental services for oily waste and contaminated water through licensed contractors' },
     ],
     scope: [
       { ar: 'العنابر', en: 'Cargo holds' },
@@ -185,6 +188,12 @@ export const marineServices: Service[] = [
       { ar: 'رفع وإنزال القوارب بالرافعات وتنسيق النقل البري لها', en: 'Lifting and launching of boats by crane, with road transport' },
       { ar: 'رعاية السفن المتوقفة (Lay-up) ومتابعتها', en: 'Care and monitoring of laid-up vessels' },
       { ar: 'تأجير المعدات البحرية عبر شركاء معتمدين', en: 'Marine equipment rental through approved partners' },
+      { ar: 'نقل اليخوت والقوارب على مهود مصممة مع ترتيبات الرفع', en: 'Yacht and boat moves on engineered cradles with lifting arrangements' },
+      { ar: 'النقل بأسلوب التعويم (Float-on/Float-off) على سفن نصف غاطسة عبر الشركاء', en: 'Float-on/float-off transport on semi-submersibles through partners' },
+      { ar: 'قطر الصنادل والمنصات ذاتية الرفع (Jack-up) بالتنسيق مع الملاك', en: 'Towage of barges and jack-up platforms with owners' },
+      { ar: 'تنسيق الدخول إلى الأحواض الجافة والنقل بين أحواض بناء السفن', en: 'Dry-dock coordination and yard-to-yard transfers' },
+      { ar: 'مناولة المعدات تحت المائية والمركبات المسيرة عن بعد (ROV)', en: 'Handling of subsea equipment and ROVs' },
+      { ar: 'ترتيب مسح الضمان البحري والمساحين المعتمدين', en: 'Marine warranty and surveyor arrangements' },
     ],
     scope: [
       { ar: 'قوارب العمل', en: 'Workboats' },
@@ -193,6 +202,9 @@ export const marineServices: Service[] = [
       { ar: 'منصات عائمة', en: 'Pontoons' },
       { ar: 'قوارب الطواقم', en: 'Crew boats' },
       { ar: 'معدات بحرية', en: 'Marine equipment' },
+      { ar: 'يخوت', en: 'Yachts' },
+      { ar: 'منصات ذاتية الرفع', en: 'Jack-up platforms' },
+      { ar: 'معدات تحت مائية', en: 'Subsea equipment' },
     ],
     benefits: [
       { ar: 'جهة واحدة للتصاريح والنقل والتخليص والطواقم', en: 'One party for permits, transport, clearance and crews' },
@@ -238,6 +250,7 @@ export const marineServices: Service[] = [
       { ar: 'قوارب العمل والمنصات العائمة', en: 'Workboats and pontoons' },
       { ar: 'التأجير الزمني (Time Charter) والتأجير المجرد (Bareboat)', en: 'Time charter and bareboat hire' },
       { ar: 'فحص الوحدة قبل التسليم وعند الإعادة (On/Off-hire Survey)', en: 'On-hire and off-hire surveys' },
+      { ar: 'قوارب نقل الأفراد والطواقم إلى المنصات والسفن', en: 'Personnel transfer boats to platforms and vessels' },
     ],
     scope: [
       { ar: 'قاطرات', en: 'Tugs' },
@@ -292,6 +305,10 @@ export const marineServices: Service[] = [
       { ar: 'استلام قطع الغيار العابرة وتوصيلها إلى المخطاف', en: 'Spares in transit, delivered to anchorage' },
       { ar: 'الرعاية الطبية للطاقم وتسليم النقد للربان', en: 'Crew medical assistance and cash to master' },
       { ar: 'تقدير المصاريف مسبقًا (PDA) والحساب النهائي (FDA)', en: 'Proforma (PDA) and final disbursement accounts (FDA)' },
+      { ar: 'مكالمات الأحواض الجافة والإصلاح والطوارئ الطبية', en: 'Dry-dock, repair and medical emergency calls' },
+      { ar: 'ترتيب صعود فرق الحماية والأمن البحري وإنزالها', en: 'Embarkation and disembarkation of security teams' },
+      { ar: 'تمثيل الخطوط الملاحية: أوامر التسليم ومستندات الشحن', en: 'Liner representation: delivery orders and cargo documentation' },
+      { ar: 'وكالة الناقلات وسفن الصب والدحرجة', en: 'Agency for tankers, bulk carriers and RoRo vessels' },
     ],
     scope: [
       { ar: 'ناقلات', en: 'Tankers' },
@@ -321,6 +338,10 @@ export const marineServices: Service[] = [
         q: { ar: 'هل تنسقون تغيير الطواقم؟', en: 'Do you arrange crew changes?' },
         a: { ar: 'نعم، نتابع التأشيرات والتنقل والسكن عند الحاجة وفق متطلبات الجهات المختصة.', en: 'Yes, we handle visas, transport and accommodation where needed, in line with authority requirements.' },
       },
+      {
+        q: { ar: 'ما الفرق بين الوكالة الكاملة والوكالة الحمائية؟', en: 'What is the difference between full and protective agency?' },
+        a: { ar: 'في الوكالة الكاملة نتولى كل شؤون السفينة في الميناء نيابة عن المالك أو المستأجر، أما الوكالة الحمائية فنمثل فيها مصالح طرف لا يعيّن الوكيل الأساسي ونراقب العمليات والتكاليف لصالحه.', en: 'In full agency we handle all port matters on behalf of the owner or charterer. In protective agency we represent a party who did not appoint the main agent, monitoring operations and costs on their behalf.' },
+      },
     ],
   },
   {
@@ -344,6 +365,7 @@ export const marineServices: Service[] = [
       { ar: 'إصلاحات صغيرة وفرق صيانة مرافقة عبر ورش معتمدة', en: 'Minor repairs and riding squads through approved workshops' },
       { ar: 'تنسيق المسوحات والفحوصات', en: 'Survey and inspection coordination' },
       { ar: 'معايرة الأجهزة والمعدات', en: 'Instrument and equipment calibration' },
+      { ar: 'تنسيق إصلاحات السفن في الأحواض والورش المعتمدة', en: 'Ship repair coordination with approved yards and workshops' },
     ],
     scope: [
       { ar: 'قوارب النجاة', en: 'Life rafts' },
@@ -371,6 +393,215 @@ export const marineServices: Service[] = [
       {
         q: { ar: 'هل تصدرون شهادات بعد الصيانة؟', en: 'Do you provide certificates after servicing?' },
         a: { ar: 'تصدر الشهادات من محطة الخدمة المعتمدة ونسلمها للسفينة مع المعدات.', en: 'Certificates are issued by the approved service station and delivered to the ship with the equipment.' },
+      },
+    ],
+  },
+  {
+    slug: 'crew-change',
+    category: 'marine',
+    icon: 'team',
+    code: 'CREW',
+    title: { ar: 'تغيير الطواقم ورعايتهم (Crew Change)', en: 'Crew Change & Crew Care' },
+    short: {
+      ar: 'تبديل الطواقم بسلاسة بين المطارات والسفن، مع التأشيرات والإقامة والنقل والرعاية الطبية.',
+      en: 'Smooth crew changes between airports and vessels, with visas, hotels, transfers and medical care.',
+    },
+    intro: {
+      ar: 'تغيير الطاقم عملية دقيقة تتشابك فيها مواعيد الطيران مع حركة السفينة ومتطلبات الجوازات والجهات الصحية. ننسق كل خطوة: الاستقبال في المطار، وإجراءات الدخول، والفنادق، والنقل إلى الرصيف أو بالقارب إلى المخطاف، ونعيد ترتيب الخطة فورًا إذا تغير موعد السفينة.',
+      en: 'A crew change is a precise operation where flight times meet vessel movements, immigration and health requirements. We coordinate every step: airport meet-and-assist, entry formalities, hotels, transfers to the berth or by launch to anchorage, and we re-plan immediately if the ship’s schedule moves.',
+    },
+    offer: [
+      { ar: 'استقبال الطواقم في المطارات على مدار الساعة مع المساعدة في الجوازات والجمارك', en: '24/7 airport meet-and-assist with immigration and customs support' },
+      { ar: 'تنسيق التأشيرات وتصاريح الدخول والمغادرة', en: 'Visa and entry/exit permit coordination' },
+      { ar: 'حجوزات الفنادق والطيران بأسعار تفاوضية', en: 'Hotel and flight bookings at negotiated rates' },
+      { ar: 'النقل البري إلى الرصيف أو بالقارب إلى السفينة في المخطاف', en: 'Road transfers to berth or launch to anchorage' },
+      { ar: 'نقل أمتعة الطاقم وقطع الغيار المرافقة', en: 'Crew baggage and accompanying spares' },
+      { ar: 'ترتيب الفحوص والرعاية الطبية والطوارئ', en: 'Medical checks, treatment and emergency arrangements' },
+      { ar: 'إعادة جدولة فورية عند تغير موعد السفينة أو الرحلة', en: 'Immediate re-planning when vessel or flight times change' },
+    ],
+    scope: [
+      { ar: 'طواقم السفن التجارية', en: 'Merchant crews' },
+      { ar: 'طواقم سفن الإمداد', en: 'Offshore crews' },
+      { ar: 'فرق الصيانة الفنية', en: 'Riding squads' },
+      { ar: 'المساحون والمفتشون', en: 'Surveyors & inspectors' },
+      { ar: 'فرق الحماية', en: 'Security teams' },
+    ],
+    benefits: [
+      { ar: 'نقطة اتصال واحدة لكل تفاصيل التبديل', en: 'One contact for the whole change' },
+      { ar: 'أقل وقت انتظار للطاقم والسفينة', en: 'Minimal waiting time for crew and vessel' },
+      { ar: 'متابعة على مدار الساعة', en: 'Round-the-clock follow-up' },
+    ],
+    steps: [
+      { title: { ar: 'القائمة', en: 'Crew list' }, text: { ar: 'بيانات الطاقم ومواعيد الرحلات والسفينة.', en: 'Crew details, flights and vessel ETA.' } },
+      { title: { ar: 'الموافقات', en: 'Approvals' }, text: { ar: 'التأشيرات والتصاريح وإشعار الجهات.', en: 'Visas, permits and authority notices.' } },
+      { title: { ar: 'التنفيذ', en: 'Execution' }, text: { ar: 'استقبال ونقل وصعود ونزول.', en: 'Meet, transfer, sign-on and sign-off.' } },
+      { title: { ar: 'الإغلاق', en: 'Close-out' }, text: { ar: 'تأكيد المغادرة وتقرير التكاليف.', en: 'Departure confirmed and cost report.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'هل يمكن تغيير الطاقم والسفينة في المخطاف؟', en: 'Can crew change happen at anchorage?' },
+        a: { ar: 'نعم، بالتنسيق مع سلطات الميناء ونقل الطاقم بقارب مرخص، حسب الطقس وتعليمات الميناء.', en: 'Yes, with port authority approval and transfer by licensed launch, subject to weather and port instructions.' },
+      },
+      {
+        q: { ar: 'ما المدة اللازمة لترتيب تغيير الطاقم؟', en: 'How much notice do you need?' },
+        a: { ar: 'يُفضّل إشعارنا قبل عدة أيام لترتيب التأشيرات، ونتعامل مع الحالات العاجلة بحسب ما تسمح به الإجراءات.', en: 'A few days’ notice is ideal for visas. We handle urgent cases as far as procedures allow.' },
+      },
+    ],
+  },
+  {
+    slug: 'offshore-support',
+    category: 'marine',
+    icon: 'helmet',
+    code: 'OFS',
+    title: { ar: 'الدعم اللوجستي للعمليات البحرية (Offshore)', en: 'Offshore Marine Support' },
+    short: {
+      ar: 'دعم متكامل للسفن والمنصات العاملة في المشاريع البحرية: إمداد وتصاريح وطواقم ونقل أفراد وعمليات STS.',
+      en: 'Integrated support for vessels and platforms on offshore projects: supplies, permits, crews, personnel transfers and STS coordination.',
+    },
+    intro: {
+      ar: 'مشاريع التركيب والمسح والحفر في البحر تحتاج قاعدة إمداد على اليابسة تعمل بلا توقف. نجمع لمقاولي العمليات البحرية الوكالة الملاحية والتصاريح والإمداد والنقل والتخليص في عقد واحد، وننسق عمليات النقل بين السفن (STS) مع الجهات المختصة والمقاولين المعتمدين.',
+      en: 'Installation, survey and drilling work at sea needs a shore base that never stops. We bring offshore contractors agency, permits, supplies, transport and clearance under one contract, and coordinate ship-to-ship (STS) operations with the authorities and approved contractors.',
+    },
+    offer: [
+      { ar: 'خدمات وكالة ورعاية لسفن التركيب والمسح والإمداد', en: 'Agency and husbandry for installation, survey and supply vessels' },
+      { ar: 'تصاريح العمل البحري والدخول إلى مناطق المشاريع', en: 'Marine work permits and project-area access' },
+      { ar: 'إمداد المنصات والسفن بالمؤن وقطع الغيار والمعدات', en: 'Supplies, spares and equipment to platforms and vessels' },
+      { ar: 'نقل الأفراد بقوارب مرخصة بين الشاطئ والمواقع', en: 'Personnel transfers by licensed boats between shore and site' },
+      { ar: 'تنسيق عمليات النقل بين السفن (STS) عبر مقاولين معتمدين', en: 'Ship-to-ship (STS) operations through approved contractors' },
+      { ar: 'قاعدة إمداد على الشاطئ: تخزين وتجهيز وتحميل', en: 'Shore base support: storage, preparation and loadout' },
+      { ar: 'تخليص المعدات المستوردة مؤقتًا للمشروع وإعادة تصديرها', en: 'Temporary import and re-export of project equipment' },
+    ],
+    scope: [
+      { ar: 'سفن التركيب', en: 'Installation vessels' },
+      { ar: 'سفن المسح', en: 'Survey vessels' },
+      { ar: 'منصات الحفر', en: 'Drilling rigs' },
+      { ar: 'سفن الإمداد (PSV)', en: 'PSVs' },
+      { ar: 'عمليات STS', en: 'STS operations' },
+      { ar: 'مقاولو EPC البحريون', en: 'Offshore EPC contractors' },
+    ],
+    benefits: [
+      { ar: 'عقد واحد يغطي الشاطئ والبحر', en: 'One contract covering shore and sea' },
+      { ar: 'تصاريح أسرع بفضل التنسيق المسبق', en: 'Faster permits through early coordination' },
+      { ar: 'تشغيل على مدار الساعة طوال المشروع', en: '24/7 operations throughout the project' },
+    ],
+    steps: [
+      { title: { ar: 'النطاق', en: 'Scope' }, text: { ar: 'مدة المشروع والسفن والموقع.', en: 'Project duration, vessels and location.' } },
+      { title: { ar: 'التحضير', en: 'Mobilisation' }, text: { ar: 'التصاريح والقاعدة والموردون.', en: 'Permits, shore base and suppliers.' } },
+      { title: { ar: 'التشغيل', en: 'Operations' }, text: { ar: 'إمداد ونقل وطواقم يوميًا.', en: 'Daily supplies, transfers and crews.' } },
+      { title: { ar: 'الإنهاء', en: 'Demobilisation' }, text: { ar: 'إعادة التصدير والتسويات والتقارير.', en: 'Re-export, settlements and reports.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'هل تدعمون مشاريع قصيرة المدة؟', en: 'Do you support short campaigns?' },
+        a: { ar: 'نعم، من حملة مسح لأيام قليلة إلى مشاريع تمتد لأشهر، ونصمم نطاق الخدمة حسب المدة.', en: 'Yes, from a survey campaign of a few days to projects lasting months, with scope tailored to the duration.' },
+      },
+      {
+        q: { ar: 'ما المقصود بعمليات STS؟', en: 'What are STS operations?' },
+        a: { ar: 'هي نقل الشحنة أو الوقود بين سفينتين في البحر أو المخطاف، وتتطلب موافقات وإجراءات سلامة صارمة ننسقها مع الجهات والمقاولين المعتمدين.', en: 'Transferring cargo or fuel between two ships at sea or anchorage. It needs approvals and strict safety procedures, which we coordinate with authorities and approved contractors.' },
+      },
+    ],
+  },
+  {
+    slug: 'yacht-services',
+    category: 'marine',
+    icon: 'wave',
+    code: 'YCH',
+    title: { ar: 'خدمات اليخوت (Yacht Services)', en: 'Yacht Services' },
+    short: {
+      ar: 'وكالة وتموين وتصاريح إبحار ونقل لليخوت الخاصة والتجارية في البحر الأحمر والخليج.',
+      en: 'Agency, provisioning, cruising permits and transport for private and charter yachts in the Red Sea and Gulf.',
+    },
+    intro: {
+      ar: 'مع انفتاح البحر الأحمر على السياحة البحرية، تزور اليخوت الموانئ والمراسي السعودية بوتيرة متزايدة. نقدم لربابنة اليخوت وملاكها خدمة شخصية متكاملة: إجراءات الدخول وتصاريح الإبحار، والتموين الفاخر والوقود، والطواقم، ونقل اليخت نفسه برًا أو بحرًا عند الحاجة.',
+      en: 'As the Red Sea opens to marine tourism, yachts are calling at Saudi ports and marinas more often. We give captains and owners a personal, end-to-end service: entry formalities and cruising permits, premium provisioning and fuel, crew support, and moving the yacht itself by road or sea when needed.',
+    },
+    offer: [
+      { ar: 'إجراءات الدخول والخروج وتصاريح الإبحار في المياه السعودية', en: 'Entry/exit clearance and cruising permits in Saudi waters' },
+      { ar: 'حجز المراسي ومواقف الرسو', en: 'Marina and berth reservations' },
+      { ar: 'تموين فاخر ومستلزمات الطاقم والضيوف', en: 'Premium provisioning and crew and guest supplies' },
+      { ar: 'التزود بالوقود والمياه العذبة', en: 'Fuel and fresh water' },
+      { ar: 'تغيير طواقم اليخوت والتأشيرات', en: 'Yacht crew changes and visas' },
+      { ar: 'نقل اليخوت على سفن الشحن أو برًا مع المهود والتغليف', en: 'Yacht transport by ship or road with cradles and wrapping' },
+      { ar: 'تنسيق الصيانة والتنظيف والخدمات الفنية', en: 'Maintenance, cleaning and technical services' },
+    ],
+    scope: [
+      { ar: 'يخوت خاصة', en: 'Private yachts' },
+      { ar: 'يخوت تأجير', en: 'Charter yachts' },
+      { ar: 'يخوت كبيرة (Superyachts)', en: 'Superyachts' },
+      { ar: 'قوارب رياضية', en: 'Sport boats' },
+      { ar: 'مراسي البحر الأحمر', en: 'Red Sea marinas' },
+    ],
+    benefits: [
+      { ar: 'خدمة شخصية بخصوصية تامة', en: 'Personal, discreet service' },
+      { ar: 'إجراءات أسرع للدخول والإبحار', en: 'Faster entry and cruising clearance' },
+      { ar: 'مورد واحد لكل احتياجات اليخت', en: 'One provider for every yacht need' },
+    ],
+    steps: [
+      { title: { ar: 'الإشعار', en: 'Notice' }, text: { ar: 'موعد الوصول وبيانات اليخت والطاقم.', en: 'ETA, yacht and crew details.' } },
+      { title: { ar: 'الموافقات', en: 'Clearance' }, text: { ar: 'تصاريح الدخول والإبحار والمرسى.', en: 'Entry, cruising and berth approvals.' } },
+      { title: { ar: 'الخدمة', en: 'Service' }, text: { ar: 'تموين ووقود وطواقم أثناء الإقامة.', en: 'Provisions, fuel and crew during the stay.' } },
+      { title: { ar: 'المغادرة', en: 'Departure' }, text: { ar: 'إجراءات الخروج وتسوية الحساب.', en: 'Outward clearance and final account.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'هل يحتاج اليخت تصريحًا للإبحار في المياه السعودية؟', en: 'Does a yacht need a permit to cruise Saudi waters?' },
+        a: { ar: 'نعم، تُطلب موافقات للدخول والإبحار بين المواقع، ونتولى تقديمها ومتابعتها قبل وصول اليخت.', en: 'Yes. Approvals are needed for entry and for cruising between locations. We file and track them before the yacht arrives.' },
+      },
+      {
+        q: { ar: 'هل تنقلون اليخوت من وإلى المملكة؟', en: 'Do you ship yachts to and from the Kingdom?' },
+        a: { ar: 'نعم، على سفن الشحن أو برًا حسب الحجم، مع مهود مصممة وتغليف واقٍ وترتيبات الرفع في الميناء.', en: 'Yes, by cargo ship or road depending on size, with engineered cradles, protective wrapping and lifting arrangements at the port.' },
+      },
+    ],
+  },
+  {
+    slug: 'port-captaincy',
+    category: 'marine',
+    icon: 'eye',
+    code: 'PCS',
+    title: { ar: 'الإشراف على الشحنات وخدمات ربان الميناء (Port Captaincy)', en: 'Port Captaincy & Cargo Supervision' },
+    short: {
+      ar: 'عين خبيرة على الرصيف تمثلك أثناء التحميل والتفريغ: إشراف ومسوحات وتقارير لحظية.',
+      en: 'An expert eye at berth representing you during loading and discharge: supervision, surveys and live reports.',
+    },
+    intro: {
+      ar: 'حين تكون الشحنة ثمينة أو العقد حساسًا، تحتاج من يمثلك على الرصيف. يشرف فريقنا من ذوي الخبرة البحرية على عمليات التحميل والتفريغ والتستيف والتربيط، ويتابع أداء مقاولي المناولة ومعدلات العمل، ويوثق الحالة بالصور والتقارير لحماية موقفك في أي مطالبة.',
+      en: 'When cargo is valuable or the contract is sensitive, you need someone representing you at berth. Our maritime-experienced team supervises loading, discharge, stowage and lashing, tracks stevedore performance and rates, and documents condition with photos and reports to protect your position in any claim.',
+    },
+    offer: [
+      { ar: 'الإشراف على التحميل والتفريغ نيابة عن المالك أو المستأجر أو صاحب البضاعة', en: 'Loading and discharge supervision for owners, charterers or cargo interests' },
+      { ar: 'مراجعة خطط التستيف والتربيط قبل البدء', en: 'Review of stowage and lashing plans before work starts' },
+      { ar: 'متابعة معدلات العمل وتسجيل التأخيرات (Statement of Facts)', en: 'Work-rate monitoring and statement of facts' },
+      { ar: 'ترتيب المساحين المستقلين ومسح الغاطس والأضرار', en: 'Independent surveyors, draft and damage surveys' },
+      { ar: 'تقارير يومية مصورة لحالة الشحنة', en: 'Daily photo reports on cargo condition' },
+      { ar: 'الإشراف على مقاولي المناولة والربط والفك', en: 'Supervision of stevedores, lashing and unlashing' },
+      { ar: 'دعم ملفات المطالبات والتأخير بالمستندات', en: 'Documentary support for claims and demurrage files' },
+    ],
+    scope: [
+      { ar: 'شحنات المشاريع', en: 'Project cargo' },
+      { ar: 'البضائع السائبة', en: 'Break bulk' },
+      { ar: 'البضائع الصبّة', en: 'Dry bulk' },
+      { ar: 'المركبات والدحرجة', en: 'Vehicles & RoRo' },
+      { ar: 'الناقلات', en: 'Tankers' },
+    ],
+    benefits: [
+      { ar: 'حماية مصالحك في الميناء', en: 'Your interests protected at port' },
+      { ar: 'توثيق يقوّي موقفك في المطالبات', en: 'Documentation that strengthens claims' },
+      { ar: 'عمليات أسرع بمتابعة لحظية', en: 'Faster operations through live follow-up' },
+    ],
+    steps: [
+      { title: { ar: 'التكليف', en: 'Appointment' }, text: { ar: 'الشحنة والسفينة ونطاق الإشراف.', en: 'Cargo, vessel and supervision scope.' } },
+      { title: { ar: 'ما قبل العمل', en: 'Pre-operations' }, text: { ar: 'مراجعة الخطط واجتماع السلامة.', en: 'Plan review and safety meeting.' } },
+      { title: { ar: 'الإشراف', en: 'Supervision' }, text: { ar: 'حضور على الرصيف وتقارير يومية.', en: 'On-berth attendance and daily reports.' } },
+      { title: { ar: 'التقرير', en: 'Report' }, text: { ar: 'تقرير ختامي وبيان الوقائع.', en: 'Final report and statement of facts.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'من يحتاج خدمة ربان الميناء؟', en: 'Who needs port captaincy?' },
+        a: { ar: 'الملاك والمستأجرون وأصحاب البضائع الكبيرة أو الحساسة، خصوصًا في الشحنات المستأجرة وشحنات المشاريع والصب.', en: 'Owners, charterers and cargo interests with large or sensitive cargo, especially on charters, project and bulk shipments.' },
+      },
+      {
+        q: { ar: 'هل تقدمون مساحين مستقلين؟', en: 'Do you provide independent surveyors?' },
+        a: { ar: 'نرتب المساحين المعتمدين عبر شركائنا لمسح الغاطس والكميات والأضرار، ونرفق تقاريرهم بتقرير الإشراف.', en: 'We arrange accredited surveyors through partners for draft, quantity and damage surveys, and attach their reports to our supervision report.' },
       },
     ],
   },

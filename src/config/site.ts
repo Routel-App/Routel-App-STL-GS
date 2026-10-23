@@ -85,7 +85,7 @@ export const site = {
     { value: '9+', label: { ar: 'سنوات خبرة فريقنا في الشحن واللوجستيات', en: 'Years of team experience in shipping & logistics' } },
     { value: '2024', label: { ar: 'سنة التأسيس في جدة', en: 'Founded in Jeddah' } },
     { value: '6', label: { ar: 'وحدات أعمال: بحري، مشاريع، جوي، لوجستي، خاص، خدمات بحرية', en: 'Business units: sea, projects, air, logistics, special, marine' } },
-    { value: '27', label: { ar: 'خدمة متخصصة تحت سقف واحد', en: 'Specialised services under one roof' } },
+    { value: '33', label: { ar: 'خدمة متخصصة تحت سقف واحد', en: 'Specialised services under one roof' } },
   ],
 
   // ---------------------------------------------------------------- الخدمات الإلكترونية والنماذج
@@ -108,8 +108,8 @@ export const site = {
    * إذا تعذر تحميل الصورة يظهر الرسم البديل تلقائيًا.
    */
   images: {
-    hero: 'https://images.pexels.com/photos/3057960/pexels-photo-3057960.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    heroCredit: 'Tom Fisk / Pexels',
+    hero: '/images/hero-port.jpg',
+    heroCredit: 'Unsplash',
   },
 
   /** ملفات قابلة للتحميل — ضعها في public/files واكتب المسار. الفارغ يُخفي الزر */
