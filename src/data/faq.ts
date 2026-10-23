@@ -11,8 +11,8 @@ export const faqs: { q: L; a: L }[] = [
   {
     q: { ar: 'كيف أطلب عرض سعر؟', en: 'How do I request a quote?' },
     a: {
-      ar: 'عبر نموذج "اطلب عرض سعر" في الموقع، أو واتساب، أو الهاتف الموحد. نرد خلال {hours} ساعة عمل.',
-      en: 'Through the "Request a Quote" form on the website, WhatsApp, or our unified number. We reply within {hours} business hours.',
+      ar: 'عبر نموذج "اطلب عرض سعر" في الموقع، أو البريد الإلكتروني، أو الهاتف. نرد خلال {hours} ساعة عمل.',
+      en: 'Through the "Request a Quote" form on the website, by email or by phone. We reply within {hours} business hours.',
     },
   },
   {

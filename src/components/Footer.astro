@@ -1,5 +1,5 @@
 ---
-import { site, phoneHref, whatsappHref } from '../config/site';
+import { site, phoneHref } from '../config/site';
 import { type Lang, href, t, u } from '../i18n/ui';
 import { eServices } from '../i18n/nav';
 import { categories } from '../data/services';
@@ -11,11 +11,11 @@ const { lang } = Astro.props;
 const year = new Date().getFullYear();
 const companyLinks = [
   { label: 'about', path: '/about' },
-  { label: 'whyStl', path: '/why-stl' },
+  { label: 'whyStl', path: '/about#why-stl' },
   { label: 'careers', path: '/careers' },
   { label: 'news', path: '/media/news' },
-  { label: 'qhse', path: '/qhse' },
-  { label: 'sustainability', path: '/sustainability' },
+  { label: 'qhse', path: '/about#qhse' },
+  { label: 'sustainability', path: '/about#sustainability' },
   { label: 'faq', path: '/faq' },
 ] as const;
 const socials = [
@@ -23,7 +23,6 @@ const socials = [
   { icon: 'x', url: site.social.x, label: 'X' },
   { icon: 'instagram', url: site.social.instagram, label: 'Instagram' },
   { icon: 'youtube', url: site.social.youtube, label: 'YouTube' },
-  { icon: 'whatsapp', url: whatsappHref(), label: 'WhatsApp' },
 ].filter((s) => s.url);
 const legalLine = [
   site.legal.crNumber && `${u('crLine', lang)} ${site.legal.crNumber}`,
@@ -79,7 +78,6 @@ const legalLine = [
         <h4>{u('contact', lang)}</h4>
         <ul class="contact-list">
           <li><Icon name="phone" size={18} /><a href={phoneHref} dir="ltr" class="ltr">{site.contact.phoneDisplay}</a></li>
-          <li><Icon name="whatsapp" size={18} /><a href={whatsappHref()} target="_blank" rel="noopener">{lang === 'ar' ? 'واتساب' : 'WhatsApp'}</a></li>
           <li><Icon name="mail" size={18} /><a href={`mailto:${site.contact.email}`} dir="ltr" class="ltr">{site.contact.email}</a></li>
           <li><Icon name="pin" size={18} /><span>{t(site.contact.hqAddress, lang)}</span></li>
         </ul>

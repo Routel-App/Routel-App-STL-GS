@@ -1,8 +1,6 @@
 import type { L } from '../config/site';
 import { ui } from './ui';
 import { categories } from '../data/services';
-import { certifications } from '../config/site';
-const hasCerts = certifications.length > 0;
 
 export type NavItem = { label: L; path: string; children?: { label: L; path: string }[] };
 
@@ -12,15 +10,12 @@ export const mainNav: NavItem[] = [
     label: ui.about,
     path: '/about',
     children: [
-      { label: ui.overview, path: '/about' },
-      { label: ui.vision, path: '/about/vision' },
-      { label: ui.ceo, path: '/about/ceo-message' },
-      { label: ui.leadership, path: '/about/leadership' },
-      ...(hasCerts ? [{ label: ui.certs, path: '/about/certifications' }] : []),
-      { label: ui.whyStl, path: '/why-stl' },
-      { label: ui.qhse, path: '/qhse' },
-      { label: ui.sustainability, path: '/sustainability' },
-      { label: ui.careers, path: '/careers' },
+      { label: ui.overview, path: '/about#overview' },
+      { label: ui.vision, path: '/about#vision' },
+      { label: ui.whyStl, path: '/about#why-stl' },
+      { label: ui.ceo, path: '/about#message' },
+      { label: ui.qhse, path: '/about#qhse' },
+      { label: ui.sustainability, path: '/about#sustainability' },
     ],
   },
   {
@@ -58,13 +53,6 @@ export const eServices = [
   { icon: 'calc', label: ui.cbm, path: '/e-services/cbm-calculator' },
 ];
 
-export const aboutTabs = [
-  { label: ui.overview, path: '/about' },
-  { label: ui.vision, path: '/about/vision' },
-  { label: ui.ceo, path: '/about/ceo-message' },
-  { label: ui.leadership, path: '/about/leadership' },
-  ...(hasCerts ? [{ label: ui.certs, path: '/about/certifications' }] : []),
-];
 
 export const mediaTabs = [
   { label: ui.news, path: '/media/news' },

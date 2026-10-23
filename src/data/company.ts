@@ -64,7 +64,7 @@ export const heroSlides: { title: L; text: L; buttons: { label: L; path: string;
       ar: 'ندعم المشاريع الكبرى والمصانع والتجار بحلول شحن تواكب نمو المملكة كمركز لوجستي عالمي.',
       en: "We support giga-projects, manufacturers and traders with shipping solutions that keep pace with the Kingdom's rise as a global logistics hub.",
     },
-    buttons: [{ label: { ar: 'تعرّف علينا', en: 'Get to know us' }, path: '/sustainability', primary: true }],
+    buttons: [{ label: { ar: 'تعرّف علينا', en: 'Get to know us' }, path: '/about#sustainability', primary: true }],
   },
 ];
 

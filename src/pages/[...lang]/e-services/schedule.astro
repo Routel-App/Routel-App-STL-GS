@@ -51,7 +51,7 @@ const all = ar ? 'الكل' : 'All';
           <p>{ar ? 'تواصل معنا وأرسل ميناء التحميل والوصول، ونرسل لك أقرب الرحلات المتاحة ومواعيد إغلاق الحجز.' : 'Send us your port of loading and discharge and we will share the nearest available sailings and cut-off dates.'}</p>
           <div class="actions-row">
             <a class="btn btn-primary" href={href(lang, '/e-services/quote')}>{ar ? 'اطلب عرض سعر' : 'Request a quote'}</a>
-            <a class="btn btn-outline" href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener">{ar ? 'واتساب' : 'WhatsApp'}</a>
+            <a class="btn btn-outline" href={href(lang, '/contact')}>{ar ? 'تواصل معنا' : 'Contact us'}</a>
           </div>
         </div>
       )}

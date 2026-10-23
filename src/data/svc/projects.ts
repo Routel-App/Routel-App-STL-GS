@@ -344,7 +344,7 @@ export const projectServices: Service[] = [
     faq: [
       {
         q: { ar: 'هل تتعاملون مع شحنات AOG خارج أوقات العمل؟', en: 'Do you handle AOG outside office hours?' },
-        a: { ar: 'نعم، طلبات AOG تُستقبل على مدار الساعة طوال الأسبوع عبر الهاتف والواتساب.', en: 'Yes. AOG requests are taken 24/7 by phone and WhatsApp.' },
+        a: { ar: 'نعم، طلبات AOG تُستقبل على مدار الساعة طوال الأسبوع عبر الهاتف والبريد الإلكتروني.', en: 'Yes. AOG requests are taken 24/7 by phone and email.' },
       },
       {
         q: { ar: 'هل يمكن نقل طائرة عمودية بحرًا؟', en: 'Can a helicopter travel by sea?' },

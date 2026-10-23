@@ -11,7 +11,6 @@ const ar = lang === 'ar';
 const c = site.contact;
 const cards = [
   { icon: 'phone', label: ar ? 'الهاتف' : 'Phone', value: c.phoneDisplay, link: `tel:${c.phone}` },
-  { icon: 'whatsapp', label: ar ? 'واتساب' : 'WhatsApp', value: c.whatsappDisplay, link: `https://wa.me/${c.whatsapp}` },
   { icon: 'mail', label: ar ? 'البريد الإلكتروني' : 'Email', value: c.email, link: `mailto:${c.email}` },
 ];
 const subjects = ar
@@ -63,9 +62,9 @@ const subjects = ar
             <iframe class="mapframe" src={c.googleMapsEmbed} loading="lazy" title="Google Maps" referrerpolicy="no-referrer-when-downgrade"></iframe>
           )}
           <div class="card on-dark reach">
-            <h3>{ar ? 'أسرع طريقة للتواصل' : 'Fastest way to reach us'}</h3>
-            <p>{ar ? 'أرسل تفاصيل شحنتك عبر واتساب، ويرد عليك أحد مختصينا مباشرة.' : 'Send your shipment details on WhatsApp and one of our specialists will reply directly.'}</p>
-            <a class="btn btn-primary" href={`https://wa.me/${c.whatsapp}`} target="_blank" rel="noopener"><Icon name="whatsapp" /> {ar ? 'تواصل عبر واتساب' : 'Chat on WhatsApp'}</a>
+            <h3>{ar ? 'تحتاج عرض سعر؟' : 'Need a quote?'}</h3>
+            <p>{ar ? 'أرسل تفاصيل شحنتك عبر نموذج عرض السعر، ونرد عليك بعرض مفصّل خلال 24 ساعة.' : 'Send your shipment details through the quote form and get an itemised offer within 24 hours.'}</p>
+            <a class="btn btn-primary" href={href(lang, '/e-services/quote')}>{ar ? 'اطلب عرض سعر' : 'Request a quote'}</a>
           </div>
         </div>
       </div>

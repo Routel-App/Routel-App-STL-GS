@@ -6,9 +6,20 @@ const out = 'node_modules/.cache/legacy-redirects.mjs';
 await build({ entryPoints: ['src/data/services.ts'], bundle: true, format: 'esm', platform: 'node', outfile: out, logLevel: 'error' });
 const { legacyServiceRedirects } = await import('../' + out);
 rmSync(out);
-const redirects = Object.entries(legacyServiceRedirects).flatMap(([from, to]) => [
-  { source: `/services/${from}`, destination: to, permanent: true },
-  { source: `/en/services/${from}`, destination: `/en${to}`, permanent: true },
+// pages merged into the single About page
+const merged = {
+  '/about/vision': '/about#vision',
+  '/about/ceo-message': '/about#message',
+  '/about/leadership': '/about#message',
+  '/about/certifications': '/about#qhse',
+  '/why-stl': '/about#why-stl',
+  '/qhse': '/about#qhse',
+  '/sustainability': '/about#sustainability',
+};
+const all = { ...Object.fromEntries(Object.entries(legacyServiceRedirects).map(([k, v]) => [`/services/${k}`, v])), ...merged };
+const redirects = Object.entries(all).flatMap(([from, to]) => [
+  { source: from, destination: to, permanent: true },
+  { source: `/en${from}`, destination: `/en${to}`, permanent: true },
 ]);
 writeFileSync('vercel.json', JSON.stringify({ redirects }, null, 2) + '\n');
 console.log(`vercel.json: ${redirects.length} redirects`);

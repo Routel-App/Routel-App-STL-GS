@@ -369,6 +369,76 @@
       "source": "/en/services/marine-craft-hire",
       "destination": "/en/services/marine-services",
       "permanent": true
+    },
+    {
+      "source": "/about/vision",
+      "destination": "/about#vision",
+      "permanent": true
+    },
+    {
+      "source": "/en/about/vision",
+      "destination": "/en/about#vision",
+      "permanent": true
+    },
+    {
+      "source": "/about/ceo-message",
+      "destination": "/about#message",
+      "permanent": true
+    },
+    {
+      "source": "/en/about/ceo-message",
+      "destination": "/en/about#message",
+      "permanent": true
+    },
+    {
+      "source": "/about/leadership",
+      "destination": "/about#message",
+      "permanent": true
+    },
+    {
+      "source": "/en/about/leadership",
+      "destination": "/en/about#message",
+      "permanent": true
+    },
+    {
+      "source": "/about/certifications",
+      "destination": "/about#qhse",
+      "permanent": true
+    },
+    {
+      "source": "/en/about/certifications",
+      "destination": "/en/about#qhse",
+      "permanent": true
+    },
+    {
+      "source": "/why-stl",
+      "destination": "/about#why-stl",
+      "permanent": true
+    },
+    {
+      "source": "/en/why-stl",
+      "destination": "/en/about#why-stl",
+      "permanent": true
+    },
+    {
+      "source": "/qhse",
+      "destination": "/about#qhse",
+      "permanent": true
+    },
+    {
+      "source": "/en/qhse",
+      "destination": "/en/about#qhse",
+      "permanent": true
+    },
+    {
+      "source": "/sustainability",
+      "destination": "/about#sustainability",
+      "permanent": true
+    },
+    {
+      "source": "/en/sustainability",
+      "destination": "/en/about#sustainability",
+      "permanent": true
     }
   ]
 }

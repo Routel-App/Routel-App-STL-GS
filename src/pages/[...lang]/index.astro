@@ -122,7 +122,7 @@ const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
         <p class="lead">{t(categoryBySlug('marine-services')!.intro, lang)}</p>
         <div class="actions-row">
           <a class="btn btn-primary" href={href(lang, '/services/marine-services')}>{ar ? 'الخدمات البحرية' : 'Marine services'} <Icon name="arrow" class="flip" /></a>
-          <a class="btn btn-ghost-light" href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener"><Icon name="whatsapp" /> {ar ? 'طلب عاجل 24/7' : 'Urgent request 24/7'}</a>
+          <a class="btn btn-ghost-light" href={href(lang, '/contact')}>{u('contact', lang)}</a>
         </div>
       </div>
       <ul class="marine-list">
@@ -148,7 +148,7 @@ const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
     <div class="container">
       <div class="head-row">
         <SectionHead eyebrow={u('whyStl', lang)} title={ar ? 'شريك واحد يتحمل مسؤولية الرحلة كاملة' : 'One Partner Accountable for the Whole Journey'} />
-        <a class="btn btn-outline" href={href(lang, '/why-stl')}>{u('learnMore', lang)} <Icon name="arrow" class="flip" /></a>
+        <a class="btn btn-outline" href={href(lang, '/about#why-stl')}>{u('learnMore', lang)} <Icon name="arrow" class="flip" /></a>
       </div>
       <div class="why-grid">
         {whyReasons.map((r) => (
@@ -234,7 +234,7 @@ const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
         </div>
         <div class="actions">
           <a class="btn btn-primary" href={href(lang, '/e-services/quote')}>{u('quote', lang)} <Icon name="arrow" class="flip" /></a>
-          <a class="btn btn-ghost-light" href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener"><Icon name="whatsapp" /> {u('whatsapp', lang)}</a>
+          <a class="btn btn-ghost-light" href={href(lang, '/contact')}>{u('contact', lang)}</a>
         </div>
       </div>
     </div>

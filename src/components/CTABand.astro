@@ -14,7 +14,7 @@ const { lang, title, text, quotePath = '/e-services/quote' } = Astro.props;
       </div>
       <div class="actions">
         <a class="btn btn-primary" href={href(lang, quotePath)}>{u('quote', lang)}</a>
-        <a class="btn btn-ghost-light" href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener"><Icon name="whatsapp" /> {u('whatsapp', lang)}</a>
+        <a class="btn btn-ghost-light" href={href(lang, '/contact')}>{u('contact', lang)}</a>
       </div>
     </div>
   </div>
