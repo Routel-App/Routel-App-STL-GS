@@ -6,18 +6,7 @@ export type NavItem = { label: L; path: string; children?: { label: L; path: str
 
 export const mainNav: NavItem[] = [
   { label: ui.home, path: '/' },
-  {
-    label: ui.about,
-    path: '/about',
-    children: [
-      { label: ui.overview, path: '/about#overview' },
-      { label: ui.vision, path: '/about#vision' },
-      { label: ui.whyStl, path: '/about#why-stl' },
-      { label: ui.ceo, path: '/about#message' },
-      { label: ui.qhse, path: '/about#qhse' },
-      { label: ui.sustainability, path: '/about#sustainability' },
-    ],
-  },
+  { label: ui.about, path: '/about' },
   {
     label: ui.services,
     path: '/services',
