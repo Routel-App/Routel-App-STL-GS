@@ -4,77 +4,172 @@ import PageHero from '../../../components/PageHero.astro';
 import CTABand from '../../../components/CTABand.astro';
 import FAQList from '../../../components/FAQList.astro';
 import Icon from '../../../components/Icon.astro';
+import ServiceArt from '../../../components/ServiceArt.astro';
+import ServiceCard from '../../../components/ServiceCard.astro';
 import { type Lang, getLang, href, langs, langParam, t, u } from '../../../i18n/ui';
-import { services, type Service } from '../../../data/services';
+import { services, categories, categoryBySlug, servicesIn, type Service, type ServiceCategory } from '../../../data/services';
 import { faqSchema } from '../../../i18n/schema';
 
 export function getStaticPaths() {
-  return langs.flatMap((l: Lang) => services.map((s) => ({ params: { lang: langParam(l), slug: s.slug }, props: { s } })));
+  return langs.flatMap((l: Lang) => [
+    ...services.map((s) => ({ params: { lang: langParam(l), slug: s.slug }, props: { kind: 'service', s } })),
+    ...categories.map((c) => ({ params: { lang: langParam(l), slug: c.slug }, props: { kind: 'category', c } })),
+  ]);
 }
-const { s } = Astro.props as { s: Service };
+const props = Astro.props as { kind: 'service'; s: Service } | { kind: 'category'; c: ServiceCategory };
 const lang = getLang(Astro.params.lang);
-const quotePath = `/e-services/quote?mode=${s.quoteMode ?? ''}`;
-const others = services.filter((o) => o.slug !== s.slug);
-const schema = [
-  { '@context': 'https://schema.org', '@type': 'Service', name: t(s.title, lang), description: t(s.intro, lang), provider: { '@type': 'Organization', name: 'STL Global Forwarding' }, areaServed: 'SA' },
-  ...(s.faq.length ? [faqSchema(s.faq, lang)] : []),
-];
+const ar = lang === 'ar';
+const short = (x: string) => x.replace(/\s*\([^)]*\)\s*$/, '');
+const pad = (n: number) => String(n).padStart(2, '0');
+
+const s = props.kind === 'service' ? props.s : undefined;
+const cat = props.kind === 'category' ? props.c : categoryBySlug(props.s.category)!;
+const siblings = servicesIn(cat.slug);
+const quotePath = s ? `/e-services/quote?mode=${s.quoteMode ?? ''}` : '/e-services/quote';
+const title = s ? t(s.title, lang) : t(cat.title, lang);
+const schema = s
+  ? [
+      { '@context': 'https://schema.org', '@type': 'Service', name: title, description: t(s.intro, lang), category: t(cat.title, lang), provider: { '@type': 'Organization', name: 'STL Global Forwarding' }, areaServed: 'SA' },
+      ...(s.faq.length ? [faqSchema(s.faq, lang)] : []),
+    ]
+  : [{ '@context': 'https://schema.org', '@type': 'OfferCatalog', name: title, itemListElement: siblings.map((x) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: t(x.title, lang) } })) }];
+const crumbs = s
+  ? [{ label: u('services', lang), path: '/services' }, { label: t(cat.title, lang), path: `/services/${cat.slug}` }, { label: short(title) }]
+  : [{ label: u('services', lang), path: '/services' }, { label: title }];
 ---
-<Base lang={lang} title={t(s.title, lang)} description={t(s.short, lang)} schema={schema}>
-  <PageHero lang={lang} title={t(s.title, lang)} lead={t(s.intro, lang)} eyebrow={s.code} crumbs={[{ label: u('services', lang), path: '/services' }, { label: t(s.title, lang) }]}>
-    <a class="btn btn-primary" href={href(lang, quotePath)}>{u('quoteForService', lang)}</a>
+<Base lang={lang} title={title} description={s ? t(s.short, lang) : t(cat.short, lang)} schema={schema}>
+  <PageHero lang={lang} title={title} lead={s ? t(s.intro, lang) : t(cat.intro, lang)} eyebrow={s ? `${cat.code} · ${s.code ?? ''}` : cat.code} crumbs={crumbs} art={cat.art} photo={s?.photo}>
+    <a class="btn btn-primary" href={href(lang, quotePath)}>{s ? u('quoteForService', lang) : u('quote', lang)}</a>
+    {cat.slug === 'marine' && <a class="btn btn-outline" href={href(lang, '/contact')}>{ar ? 'طلب عاجل 24/7' : 'Urgent request 24/7'}</a>}
   </PageHero>
 
-  <section class="section">
-    <div class="container layout">
-      <div class="stack">
-        <div class="reveal">
-          <h2>{u('whatWeOffer', lang)}</h2>
-          <ul class="check-list offer">{s.offer.map((o) => <li>{t(o, lang)}</li>)}</ul>
-        </div>
-        {s.benefits.length > 0 && (
-          <div class="reveal mt-2">
-            <h2>{u('benefits', lang)}</h2>
-            <div class="grid grid-3">
-              {s.benefits.map((b) => <div class="benefit"><Icon name="check" /><span>{t(b, lang)}</span></div>)}
+  {s ? (
+    <section class="section">
+      <div class="container layout">
+        <div class="stack">
+          <div class="reveal">
+            <h2>{u('whatWeOffer', lang)}</h2>
+            <ul class="check-list offer">{s.offer.map((o) => <li>{t(o, lang)}</li>)}</ul>
+          </div>
+
+          {s.scope && s.scope.length > 0 && (
+            <div class="reveal mt-2">
+              <h2>{ar ? 'ما نتعامل معه' : 'What we handle'}</h2>
+              <ul class="chips">{s.scope.map((x) => <li>{t(x, lang)}</li>)}</ul>
             </div>
+          )}
+
+          {s.steps && s.steps.length > 0 && (
+            <div class="reveal mt-2">
+              <h2>{ar ? 'كيف ننفذها' : 'How it works'}</h2>
+              <ol class="steps">
+                {s.steps.map((st, i) => (
+                  <li><span class="num ltr">{pad(i + 1)}</span><h3>{t(st.title, lang)}</h3><p>{t(st.text, lang)}</p></li>
+                ))}
+              </ol>
+            </div>
+          )}
+
+          {s.benefits.length > 0 && (
+            <div class="reveal mt-2">
+              <h2>{u('benefits', lang)}</h2>
+              <div class="grid grid-3">
+                {s.benefits.map((b) => <div class="benefit"><Icon name="check" /><span>{t(b, lang)}</span></div>)}
+              </div>
+            </div>
+          )}
+
+          {s.faq.length > 0 && (
+            <div class="reveal mt-2">
+              <h2>{u('faqShort', lang)}</h2>
+              <FAQList lang={lang} items={s.faq} openFirst />
+            </div>
+          )}
+        </div>
+        <aside class="side">
+          <div class="side-card quote-card on-dark">
+            <span class="icon-badge"><Icon name={s.icon} /></span>
+            <h3>{u('quoteForService', lang)}</h3>
+            <p>{u('readyText', lang)}</p>
+            <a class="btn btn-primary btn-block" href={href(lang, quotePath)}>{u('quote', lang)}</a>
           </div>
-        )}
-        {s.faq.length > 0 && (
-          <div class="reveal mt-2">
-            <h2>{u('faqShort', lang)}</h2>
-            <FAQList lang={lang} items={s.faq} openFirst />
+          <div class="side-card">
+            <h3><a href={href(lang, `/services/${cat.slug}`)}>{t(cat.title, lang)}</a></h3>
+            <ul class="side-links">
+              {siblings.map((o) => (
+                <li><a href={href(lang, `/services/${o.slug}`)} aria-current={o.slug === s.slug ? 'page' : undefined}>{short(t(o.title, lang))}</a></li>
+              ))}
+            </ul>
           </div>
-        )}
+          <div class="side-card">
+            <h3>{u('otherServices', lang)}</h3>
+            <ul class="side-links">
+              {categories.filter((c) => c.slug !== cat.slug).map((c) => <li><a href={href(lang, `/services/${c.slug}`)}>{t(c.title, lang)}</a></li>)}
+            </ul>
+          </div>
+        </aside>
       </div>
-      <aside class="side">
-        <div class="side-card quote-card on-dark">
-          <span class="icon-badge"><Icon name={s.icon} /></span>
-          <h3>{u('quoteForService', lang)}</h3>
-          <p>{u('readyText', lang)}</p>
-          <a class="btn btn-primary btn-block" href={href(lang, quotePath)}>{u('quote', lang)}</a>
+    </section>
+  ) : (
+    <>
+      <section class="section">
+        <div class="container">
+          <div class="grid grid-3">
+            {siblings.map((x) => <ServiceCard lang={lang} s={x} />)}
+          </div>
         </div>
-        <div class="side-card">
-          <h3>{u('otherServices', lang)}</h3>
-          <ul class="side-links">{others.map((o) => <li><a href={href(lang, `/services/${o.slug}`)}>{t(o.title, lang)}</a></li>)}</ul>
+      </section>
+      <section class="section section-white">
+        <div class="container">
+          <h2 class="others-title">{ar ? 'وحدات الأعمال الأخرى' : 'Other business units'}</h2>
+          <div class="others">
+            {categories.filter((c) => c.slug !== cat.slug).map((c) => (
+              <a class="other reveal" href={href(lang, `/services/${c.slug}`)}>
+                <ServiceArt art={c.art} />
+                <span class="o-text"><small class="ltr">{c.code}</small><strong>{t(c.title, lang)}</strong></span>
+              </a>
+            ))}
+          </div>
         </div>
-      </aside>
-    </div>
-  </section>
+      </section>
+    </>
+  )}
   <CTABand lang={lang} quotePath={quotePath} />
 </Base>
 <style>
-  .layout { display: grid; grid-template-columns: 1fr 340px; gap: clamp(2rem, 4vw, 3.5rem); align-items: start; }
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: clamp(2rem, 4vw, 3.5rem); align-items: start; }
   @media (max-width: 960px) { .layout { grid-template-columns: 1fr; } }
   .offer { font-size: 1.05rem; }
+  .chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .chips li { background: #fff; border: 1px solid var(--line); padding: .45rem .9rem; font-size: .92rem; color: var(--petrol); }
+  .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; counter-reset: s; }
+  .steps li { background: #fff; padding: 1.3rem 1.4rem; border-inline-start: 3px solid var(--coral); }
+  .steps .num { font-size: .8rem; font-weight: 600; color: var(--coral-ink); letter-spacing: .08em; }
+  .steps h3 { font-size: 1.08rem; margin: .3rem 0 .35rem; color: var(--petrol); }
+  .steps p { margin: 0; color: var(--muted); font-size: .93rem; }
+  @media (max-width: 640px) { .steps { grid-template-columns: 1fr; } }
   .benefit { display: flex; gap: .8rem; align-items: flex-start; background: var(--bg-soft); border-radius: var(--radius); padding: 1.2rem; font-weight: 600; color: var(--navy-800); }
   .benefit :global(.icon) { color: var(--teal-500); flex-shrink: 0; }
   .side { position: sticky; top: calc(var(--header-h) + 1rem); display: grid; gap: 1.2rem; }
+  @media (max-width: 960px) { .side { position: static; } }
   .side-card { border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; background: #fff; }
+  .side-card h3 a { color: var(--petrol); }
   .quote-card { background: var(--navy-800); color: #c9dbd8; border: 0; }
   .quote-card h3 { color: #fff; }
   .quote-card .icon-badge { background: rgba(255,255,255,.08); color: var(--accent); }
   .side-links { list-style: none; padding: 0; margin: 0; display: grid; }
   .side-links a { display: block; padding: .55rem 0; border-bottom: 1px solid var(--line); color: var(--ink); font-size: .93rem; }
-  .side-links a:hover { color: var(--coral-ink); }
+  .side-links a:hover, .side-links a[aria-current='page'] { color: var(--coral-ink); }
+  .side-links a[aria-current='page'] { font-weight: 600; }
+  .others-title { margin-bottom: 1.6rem; }
+  .others { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
+  .other { position: relative; aspect-ratio: 4 / 5; display: block; overflow: hidden; color: var(--cream); }
+  .other :global(.service-art) { position: absolute; inset: 0; transition: transform .6s var(--ease); }
+  .other:hover :global(.service-art) { transform: scale(1.05); }
+  .other::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(4, 39, 38, .9)); }
+  .o-text { position: absolute; inset-inline: 1rem; bottom: 1rem; z-index: 1; display: grid; gap: .2rem; }
+  .o-text small { color: var(--coral); font-weight: 600; letter-spacing: .08em; font-size: .75rem; }
+  .o-text strong { font-weight: 500; font-size: 1.05rem; line-height: 1.35; }
+  @media (max-width: 1000px) { .others { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .others { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 </style>

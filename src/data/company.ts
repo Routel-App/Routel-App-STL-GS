@@ -34,8 +34,8 @@ export const heroSlides: { title: L; text: L; buttons: { label: L; path: string;
   {
     title: { ar: 'من موانئ العالم.. إلى باب عملك', en: 'From Global Ports to Your Doorstep' },
     text: {
-      ar: 'شحن بحري متكامل بالحاويات الكاملة والمجمّعة، مع تخليص جمركي ونقل داخلي حتى مستودعك.',
-      en: 'Integrated ocean freight by FCL and LCL, with customs clearance and inland transport to your warehouse.',
+      ar: 'شحن بحري بالحاويات والسائب والمشاريع، مع تخليص جمركي ونقل بري حتى موقعك، من جهة واحدة.',
+      en: 'Containers, break bulk and project cargo by sea, with customs clearance and trucking to your site, all from one provider.',
     },
     buttons: [
       { label: { ar: 'اطلب عرض سعر', en: 'Request a Quote' }, path: '/e-services/quote', primary: true },
@@ -43,12 +43,20 @@ export const heroSlides: { title: L; text: L; buttons: { label: L; path: string;
     ],
   },
   {
-    title: { ar: 'شحنتك أمام عينك في كل مرحلة', en: 'Your Shipment in Sight at Every Stage' },
+    title: { ar: 'معدات بمئات الأطنان.. نوصلها لموقعها', en: 'Hundreds of Tonnes.. Delivered to Site' },
     text: {
-      ar: 'تتبع مباشر برقم الحاوية أو بوليصة الشحن، وتحديثات فورية من الإبحار حتى التسليم.',
-      en: 'Live tracking by container or B/L number, with instant updates from sailing to delivery.',
+      ar: 'شحنات مشاريع ورفع ثقيل واستئجار سفن كاملة، بتخطيط هندسي من المصنع حتى موقع المشروع.',
+      en: 'Project cargo, heavy lift and full vessel charters, engineered from the factory to the project site.',
     },
-    buttons: [{ label: { ar: 'تتبع شحنتك', en: 'Track your shipment' }, path: '/e-services/tracking', primary: true }],
+    buttons: [{ label: { ar: 'المشاريع والرفع الثقيل', en: 'Projects & heavy lift' }, path: '/services/projects', primary: true }],
+  },
+  {
+    title: { ar: 'سفينتك عند الرصيف.. واحتياجاتها جاهزة', en: 'Your Vessel at Berth.. Everything Ready' },
+    text: {
+      ar: 'تموين ووقود وتنظيف ووكالة ملاحية وتأجير وحدات بحرية في الموانئ السعودية، على مدار الساعة.',
+      en: 'Provisions, bunkers, cleaning, ship agency and marine craft hire across Saudi ports, around the clock.',
+    },
+    buttons: [{ label: { ar: 'الخدمات البحرية', en: 'Marine services' }, path: '/services/marine', primary: true }],
   },
   {
     title: { ar: 'شريكك في رؤية 2030', en: 'Your Partner in Vision 2030' },
@@ -64,8 +72,8 @@ export const aboutShort = {
   eyebrow: { ar: 'من نحن', en: 'About us' } as L,
   title: { ar: 'شريك بحري سعودي بمعايير عالمية', en: 'A Saudi Maritime Partner with Global Standards' } as L,
   text: {
-    ar: 'STL Global Forwarding شركة سعودية مقرها جدة، تأسست عام {year} ومتخصصة في الشحن البحري والحلول اللوجستية المتكاملة للشركات. يقودها فريق تتجاوز خبرته في الشحن واللوجستيات {exp} سنوات، ونتولى كل تفاصيل الشحنة: الحجز، والتوثيق، والتخليص الجمركي، والنقل حتى الوجهة النهائية.',
-    en: 'STL Global Forwarding is a Saudi company based in Jeddah, founded in {year} and specialising in ocean freight and integrated logistics for businesses. Led by a team with more than {exp} years of shipping and logistics experience, we handle every detail: booking, documentation, customs clearance and transport to the final destination.',
+    ar: 'STL Global Forwarding شركة سعودية مقرها جدة، تأسست عام {year} وتقدم للشركات حلول الشحن البحري والجوي والمشاريع والرفع الثقيل، والتخليص والنقل والتخزين، إلى جانب الخدمات البحرية للسفن. يقودها فريق تتجاوز خبرته في الشحن واللوجستيات {exp} سنوات، ونتولى كل تفاصيل الشحنة: الحجز، والتوثيق، والتخليص الجمركي، والنقل حتى الوجهة النهائية.',
+    en: 'STL Global Forwarding is a Saudi company based in Jeddah, founded in {year} providing businesses with ocean and air freight, project and heavy-lift logistics, clearance, trucking and storage, as well as marine services for vessels. Led by a team with more than {exp} years of shipping and logistics experience, we handle every detail: booking, documentation, customs clearance and transport to the final destination.',
   } as L,
 };
 
@@ -73,11 +81,12 @@ export const guideQuestion = {
   title: { ar: 'وش تبي تشحن اليوم؟', en: 'What are you shipping today?' } as L,
   subtitle: { ar: 'اختر وضعك ونوجهك للخدمة المناسبة مباشرة.', en: "Pick your situation and we'll point you to the right service." } as L,
   options: [
-    { icon: 'import', label: { ar: 'أستورد بضاعة من الخارج', en: "I'm importing goods from abroad" } as L, target: { ar: 'الاستيراد البحري', en: 'Ocean import' } as L, path: '/services/fcl' },
-    { icon: 'export', label: { ar: 'أصدّر منتجاتي للعالم', en: "I'm exporting my products worldwide" } as L, target: { ar: 'التصدير البحري', en: 'Ocean export' } as L, path: '/services/fcl' },
-    { icon: 'crane', label: { ar: 'عندي معدات ثقيلة أو مشروع', en: 'I have heavy equipment or a project' } as L, target: { ar: 'البضائع السائبة والمشاريع', en: 'Break bulk & projects' } as L, path: '/services/break-bulk-project-cargo' },
-    { icon: 'snow', label: { ar: 'بضاعتي تحتاج تبريد', en: 'My cargo needs refrigeration' } as L, target: { ar: 'الشحن المبرد', en: 'Reefer shipping' } as L, path: '/services/reefer' },
-    { icon: 'stamp', label: { ar: 'أحتاج تخليص جمركي فقط', en: 'I only need customs clearance' } as L, target: { ar: 'التخليص الجمركي', en: 'Customs clearance' } as L, path: '/services/customs-clearance-saber' },
+    { icon: 'import', label: { ar: 'أستورد أو أصدّر بضاعة بالحاويات', en: "I'm importing or exporting containerised goods" } as L, target: { ar: 'الشحن البحري', en: 'Ocean freight' } as L, path: '/services/fcl' },
+    { icon: 'crane', label: { ar: 'عندي معدات ثقيلة أو شحنة مشروع', en: 'I have heavy equipment or project cargo' } as L, target: { ar: 'المشاريع والرفع الثقيل', en: 'Projects & heavy lift' } as L, path: '/services/project-cargo' },
+    { icon: 'ship', label: { ar: 'أحتاج سفينة كاملة لشحنتي', en: 'I need a whole vessel for my cargo' } as L, target: { ar: 'استئجار السفن', en: 'Ship chartering' } as L, path: '/services/chartering' },
+    { icon: 'snow', label: { ar: 'بضاعتي تحتاج تبريد', en: 'My cargo needs refrigeration' } as L, target: { ar: 'الشحن المبرد', en: 'Reefer services' } as L, path: '/services/reefer' },
+    { icon: 'stamp', label: { ar: 'أحتاج تخليص جمركي ونقل فقط', en: 'I only need clearance and trucking' } as L, target: { ar: 'التخليص الجمركي', en: 'Customs clearance' } as L, path: '/services/customs-clearance-saber' },
+    { icon: 'anchor', label: { ar: 'أدير سفينة وأحتاج خدمات في الميناء', en: 'I operate a vessel and need port services' } as L, target: { ar: 'الخدمات البحرية', en: 'Marine services' } as L, path: '/services/ship-chandling' },
   ],
 };
 

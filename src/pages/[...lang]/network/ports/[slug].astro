@@ -13,7 +13,7 @@ export function getStaticPaths() {
 }
 const { p } = Astro.props as { p: Port };
 const lang = getLang(Astro.params.lang);
-const svc = ['fcl', 'lcl', 'customs-clearance-saber', 'inland-transport'].map(serviceBySlug).filter(Boolean);
+const svc = ['fcl', 'customs-clearance-saber', 'inland-transport', 'ship-chandling'].map(serviceBySlug).filter(Boolean);
 const title = lang === 'ar' ? `الشحن والتخليص في ${p.name.ar}` : `Shipping & Clearance at ${p.name.en}`;
 ---
 <Base lang={lang} title={title} description={t(p.description, lang)}>

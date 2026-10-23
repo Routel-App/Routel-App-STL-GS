@@ -2,21 +2,71 @@
 import Base from '../../../layouts/Base.astro';
 import PageHero from '../../../components/PageHero.astro';
 import CTABand from '../../../components/CTABand.astro';
-import ServiceCard from '../../../components/ServiceCard.astro';
+import Icon from '../../../components/Icon.astro';
+import ServiceArt from '../../../components/ServiceArt.astro';
 import { getLang, href, langPaths, t, u } from '../../../i18n/ui';
-import { services, servicesIntro } from '../../../data/services';
+import { categories, servicesIn, servicesIntro } from '../../../data/services';
 
 export const getStaticPaths = langPaths;
 const lang = getLang(Astro.params.lang);
+const short = (x: string) => x.replace(/\s*\([^)]*\)\s*$/, '');
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 <Base lang={lang} title={u('services', lang)} description={t(servicesIntro, lang)}>
   <PageHero lang={lang} title={u('services', lang)} lead={t(servicesIntro, lang)} crumbs={[{ label: u('services', lang) }]}>
     <a class="btn btn-primary" href={href(lang, '/e-services/quote')}>{u('quote', lang)}</a>
   </PageHero>
-  <section class="section">
-    <div class="container grid grid-3">
-      {services.map((s) => <ServiceCard lang={lang} s={s} />)}
-    </div>
-  </section>
+
+  <nav class="unit-nav" aria-label={u('services', lang)}>
+    <div class="container"><ul>{categories.map((c) => <li><a href={`#${c.slug}`}><Icon name={c.icon} size={18} />{t(c.title, lang)}</a></li>)}</ul></div>
+  </nav>
+
+  {categories.map((c, i) => (
+    <section class:list={['section', 'unit', { 'section-white': i % 2 === 1 }]} id={c.slug}>
+      <div class="container unit-grid">
+        <div class="unit-head">
+          <a class="unit-art reveal" href={href(lang, `/services/${c.slug}`)} tabindex="-1" aria-hidden="true"><ServiceArt art={c.art} /></a>
+          <span class="eyebrow ltr">{pad(i + 1)} · {c.code}</span>
+          <h2><a href={href(lang, `/services/${c.slug}`)}>{t(c.title, lang)}</a></h2>
+          <p>{t(c.intro, lang)}</p>
+          <a class="link-arrow" href={href(lang, `/services/${c.slug}`)}>{u('learnMore', lang)} <Icon name="arrow" class="flip" /></a>
+        </div>
+        <ul class="svc-list">
+          {servicesIn(c.slug).map((s) => (
+            <li class="reveal">
+              <a href={href(lang, `/services/${s.slug}`)}>
+                <span class="ic"><Icon name={s.icon} size={24} /></span>
+                <span class="tx"><strong>{short(t(s.title, lang))}</strong><small>{t(s.short, lang)}</small></span>
+                {s.code && <span class="cd ltr">{s.code}</span>}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
   <CTABand lang={lang} />
 </Base>
+<style>
+  .unit-nav { position: sticky; top: var(--header-h); z-index: 5; background: var(--petrol); }
+  .unit-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: .2rem; overflow-x: auto; scrollbar-width: none; }
+  .unit-nav a { display: inline-flex; align-items: center; gap: .5rem; padding: .95rem 1rem; color: rgba(244, 239, 230, .8); white-space: nowrap; font-size: .92rem; }
+  .unit-nav a :global(.icon) { color: var(--coral); }
+  .unit-nav a:hover { color: var(--cream); background: rgba(244, 239, 230, .06); }
+  .unit { scroll-margin-top: calc(var(--header-h) + 52px); }
+  .unit-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .unit-art { display: block; position: relative; aspect-ratio: 16 / 10; margin-bottom: 1.6rem; }
+  .unit-art :global(.service-art) { position: absolute; inset: 0; clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); }
+  .unit-head h2 a { color: var(--petrol); }
+  .unit-head p { color: var(--muted); margin: .8rem 0 1.2rem; }
+  .svc-list { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--petrol); }
+  .svc-list a { display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; gap: 1rem; align-items: center; padding: 1.1rem .6rem; border-bottom: 1px solid var(--line); color: var(--ink); transition: background .3s var(--ease); }
+  .svc-list .ic { width: 3rem; height: 3rem; display: grid; place-items: center; background: var(--sand); color: var(--petrol); transition: background .3s, color .3s; }
+  .section-white .svc-list .ic { background: var(--sand); }
+  .svc-list strong { display: block; color: var(--petrol); font-weight: 500; font-size: 1.06rem; }
+  .svc-list small { display: block; color: var(--muted); font-size: .88rem; margin-top: .15rem; }
+  .svc-list .cd { font-size: .75rem; font-weight: 600; color: var(--coral-ink); letter-spacing: .06em; }
+  .svc-list a:hover { background: rgba(7, 59, 58, .04); }
+  .svc-list a:hover .ic { background: var(--coral); color: var(--petrol); }
+  @media (max-width: 900px) { .unit-grid { grid-template-columns: 1fr; } }
+</style>

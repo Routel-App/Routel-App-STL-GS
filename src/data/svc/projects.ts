@@ -1,0 +1,327 @@
+import type { Service } from '../services';
+
+export const projectServices: Service[] = [
+  {
+    slug: 'project-cargo',
+    category: 'projects',
+    icon: 'crane',
+    code: 'PRJ',
+    featured: true,
+    quoteMode: 'BREAKBULK',
+    title: { ar: 'لوجستيات المشاريع (Project Cargo)', en: 'Project Cargo Logistics' },
+    short: {
+      ar: 'إدارة لوجستية كاملة لشحنات المشاريع من عدة دول إلى موقع العمل، بخطة واحدة وجهة اتصال واحدة.',
+      en: 'End-to-end logistics for project shipments from multiple countries to the job site, under one plan and one point of contact.',
+    },
+    intro: {
+      ar: 'مشاريع الطاقة والبنية التحتية والصناعة تعتمد على مئات الشحنات من موردين مختلفين، وأي تأخير في قطعة واحدة قد يوقف الجدول كله. نبني خطة لوجستية للمشروع بالكامل: هندسة النقل، ومسح المسارات، والتصاريح، والمرافقة، والتسليم في الموقع حسب تسلسل التركيب.',
+      en: 'Energy, infrastructure and industrial projects depend on hundreds of shipments from many suppliers, and one late item can stall the whole schedule. We build a logistics plan for the entire project: transport engineering, route surveys, permits, escorts and site delivery in installation sequence.',
+    },
+    offer: [
+      { ar: 'تخطيط لوجستي للمشروع وجدول شحنات مرتبط بجدول التنفيذ', en: 'Project logistics plan tied to the construction schedule' },
+      { ar: 'هندسة النقل ودراسات التحميل والتثبيت', en: 'Transport engineering, loading and lashing studies' },
+      { ar: 'مسح المسارات البرية والجسور والعوائق', en: 'Road, bridge and obstacle route surveys' },
+      { ar: 'استخراج التصاريح وتنسيق المرافقة الأمنية والمرورية', en: 'Permits and police/traffic escorts' },
+      { ar: 'تجميع شحنات عدة موردين ودول (Multi-origin)', en: 'Multi-origin consolidation from several suppliers' },
+      { ar: 'تخليص جمركي ودعم الإعفاءات والاستيراد المؤقت', en: 'Customs clearance, exemptions and temporary import support' },
+      { ar: 'التسليم في موقع المشروع وتنسيق التفريغ', en: 'Site delivery and offloading coordination' },
+      { ar: 'تقارير دورية لحالة كل شحنة', en: 'Regular status reports for every shipment' },
+    ],
+    scope: [
+      { ar: 'محطات الطاقة', en: 'Power plants' },
+      { ar: 'النفط والغاز', en: 'Oil & gas' },
+      { ar: 'مصانع وخطوط إنتاج', en: 'Factories & production lines' },
+      { ar: 'تحلية المياه', en: 'Desalination' },
+      { ar: 'طاقة متجددة', en: 'Renewables' },
+      { ar: 'بنية تحتية', en: 'Infrastructure' },
+      { ar: 'المشاريع الكبرى', en: 'Giga-projects' },
+    ],
+    benefits: [
+      { ar: 'جهة واحدة مسؤولة عن كل الشحنات', en: 'One party accountable for every shipment' },
+      { ar: 'تقليل مخاطر التأخير على جدول المشروع', en: 'Lower risk of delays to the project schedule' },
+      { ar: 'رؤية كاملة لحالة الشحنات في أي وقت', en: 'Full visibility of shipment status at any time' },
+    ],
+    steps: [
+      { title: { ar: 'الدراسة', en: 'Study' }, text: { ar: 'نراجع قائمة المعدات والجدول ونقاط المنشأ.', en: 'We review the equipment list, schedule and origins.' } },
+      { title: { ar: 'الخطة', en: 'Plan' }, text: { ar: 'هندسة النقل والمسارات والتصاريح.', en: 'Transport engineering, routes and permits.' } },
+      { title: { ar: 'التنفيذ', en: 'Execute' }, text: { ar: 'شحن وتخليص ونقل بتنسيق واحد.', en: 'Shipping, clearance and haulage in one flow.' } },
+      { title: { ar: 'التسليم في الموقع', en: 'Site delivery' }, text: { ar: 'تسليم حسب تسلسل التركيب.', en: 'Delivery in installation sequence.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'هل تتعاملون مع مشاريع بموردين من دول مختلفة؟', en: 'Can you handle projects with suppliers in several countries?' },
+        a: { ar: 'نعم، ننسق الشحنات من كل المنشآت عبر شبكة شركائنا ونجمعها في خطة واحدة.', en: 'Yes. We coordinate shipments from every origin through our partner network under a single plan.' },
+      },
+      {
+        q: { ar: 'متى يجب أن نبدأ التخطيط اللوجستي؟', en: 'When should logistics planning start?' },
+        a: { ar: 'كلما كان مبكرًا كان أفضل، ويُفضّل أثناء مرحلة الشراء قبل تصنيع المعدات.', en: 'The earlier the better, ideally during procurement before the equipment is manufactured.' },
+      },
+    ],
+  },
+  {
+    slug: 'break-bulk',
+    category: 'projects',
+    icon: 'boxes',
+    code: 'BB',
+    quoteMode: 'BREAKBULK',
+    title: { ar: 'البضائع السائبة (Break Bulk)', en: 'Break Bulk' },
+    short: {
+      ar: 'شحن البضائع العامة غير المعبأة في حاويات على السفن التقليدية، مثل الحديد والأنابيب والأخشاب.',
+      en: 'Shipping non-containerised general cargo on conventional vessels, such as steel, pipes and timber.',
+    },
+    intro: {
+      ar: 'بعض البضائع أكبر أو أثقل من أن تدخل الحاويات، أو أن كميتها تجعل السفينة التقليدية أوفر. نحجز المساحة على سفن البضائع العامة ومتعددة الأغراض، وننسق المناولة والتستيف والتثبيت في الموانئ، ونتابع التفريغ والنقل إلى موقعك.',
+      en: 'Some cargo is too big or heavy for containers, or comes in volumes that make a conventional vessel more economical. We book space on general cargo and multipurpose vessels, coordinate stevedoring, stowage and lashing at port, and manage discharge and haulage to your site.',
+    },
+    offer: [
+      { ar: 'حجز على السفن التقليدية ومتعددة الأغراض (MPP)', en: 'Bookings on conventional and multipurpose (MPP) vessels' },
+      { ar: 'تنسيق أعمال التستيف والمناولة في الميناء (Stevedoring)', en: 'Stevedoring and port handling' },
+      { ar: 'التثبيت والتدعيم (Lashing & Securing)', en: 'Lashing and securing' },
+      { ar: 'معاينة البضاعة عند التحميل والتفريغ', en: 'Cargo surveys at loading and discharge' },
+      { ar: 'التفريغ المباشر إلى الشاحنات (Direct Delivery)', en: 'Direct delivery from ship to truck' },
+      { ar: 'تخزين مؤقت في ساحات الميناء', en: 'Temporary storage at port yards' },
+    ],
+    scope: [
+      { ar: 'حديد وصلب', en: 'Steel' },
+      { ar: 'أنابيب', en: 'Pipes' },
+      { ar: 'أخشاب', en: 'Timber' },
+      { ar: 'بضائع معبأة في أكياس', en: 'Bagged cargo' },
+      { ar: 'لفائف الحديد', en: 'Steel coils' },
+      { ar: 'هياكل معدنية', en: 'Steel structures' },
+    ],
+    benefits: [
+      { ar: 'حل اقتصادي للكميات الكبيرة', en: 'Economical for large volumes' },
+      { ar: 'لا قيود على الأبعاد كما في الحاويات', en: 'No container size limits' },
+      { ar: 'مناولة احترافية تقلل الأضرار', en: 'Professional handling that reduces damage' },
+    ],
+    steps: [
+      { title: { ar: 'المواصفات', en: 'Specs' }, text: { ar: 'نوع البضاعة والكمية والأبعاد.', en: 'Cargo type, quantity and dimensions.' } },
+      { title: { ar: 'اختيار السفينة', en: 'Vessel' }, text: { ar: 'حجز سفينة مناسبة للبضاعة والمسار.', en: 'Booking a vessel suited to the cargo and route.' } },
+      { title: { ar: 'التحميل', en: 'Loading' }, text: { ar: 'تستيف وتثبيت ومعاينة.', en: 'Stowage, lashing and survey.' } },
+      { title: { ar: 'التفريغ والتسليم', en: 'Discharge' }, text: { ar: 'تفريغ ونقل إلى موقعك.', en: 'Discharge and haulage to your site.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'ما الفرق بين Break Bulk والشحن السائب (Bulk)؟', en: 'What is the difference between break bulk and bulk?' },
+        a: { ar: 'البضائع السائبة العامة تُشحن كقطع أو حزم منفصلة، أما الشحن السائب فللمواد غير المعبأة مثل الحبوب والخامات.', en: 'Break bulk moves as individual pieces or bundles; bulk is for loose commodities such as grain or ore.' },
+      },
+      {
+        q: { ar: 'هل تُخزن البضاعة في الميناء بعد التفريغ؟', en: 'Can the cargo be stored at port after discharge?' },
+        a: { ar: 'نعم، يمكن تنسيق تخزين مؤقت في ساحات الميناء حسب أنظمته ورسومه.', en: 'Yes, temporary storage can be arranged at port yards under port rules and tariffs.' },
+      },
+    ],
+  },
+  {
+    slug: 'heavy-lift',
+    category: 'projects',
+    icon: 'helmet',
+    code: 'HL',
+    quoteMode: 'BREAKBULK',
+    title: { ar: 'الرفع الثقيل والشحنات الضخمة (Heavy Lift & OOG)', en: 'Heavy Lift & Out-of-Gauge' },
+    short: {
+      ar: 'نقل المعدات الثقيلة والضخمة مثل المحولات والمولدات والمفاعلات، بحرًا وبرًا حتى موقع التركيب.',
+      en: 'Moving heavy and oversized equipment such as transformers, generators and reactors, by sea and road to the installation point.',
+    },
+    intro: {
+      ar: 'القطع التي تزن مئات الأطنان تحتاج خطة رفع ونقل هندسية. ننسق مع شركائنا سفن الرفع الثقيل ورافعاتها، والمقطورات الهيدروليكية متعددة المحاور (SPMT)، وأعمال الرفع والانزلاق (Jacking & Skidding)، ونعد خطط الرفع ونتابع كل مرحلة حتى استقرار القطعة على قاعدتها.',
+      en: 'Pieces weighing hundreds of tonnes need an engineered lift and transport plan. With our partners we coordinate heavy-lift vessels and their gear, hydraulic modular trailers and SPMTs, jacking and skidding, prepare lift plans and supervise every stage until the piece sits on its foundation.',
+    },
+    offer: [
+      { ar: 'حجز سفن الرفع الثقيل والسفن ذات الرافعات الذاتية', en: 'Heavy-lift and geared vessel bookings' },
+      { ar: 'خطط الرفع ودراسات التحميل والتثبيت', en: 'Lift plans, loading and lashing calculations' },
+      { ar: 'مقطورات هيدروليكية متعددة المحاور وSPMT', en: 'Hydraulic modular trailers and SPMTs' },
+      { ar: 'سطحات منخفضة (Lowbed) للحمولات الضخمة', en: 'Lowbed trailers for oversized loads' },
+      { ar: 'رافعات متحركة وزاحفة عبر شركائنا', en: 'Mobile and crawler cranes through partners' },
+      { ar: 'أعمال الرفع والانزلاق (Jacking & Skidding)', en: 'Jacking and skidding' },
+      { ar: 'تصاريح الحمولات الاستثنائية والمرافقة', en: 'Abnormal load permits and escorts' },
+    ],
+    scope: [
+      { ar: 'محولات كهربائية', en: 'Transformers' },
+      { ar: 'مولدات وتوربينات', en: 'Generators & turbines' },
+      { ar: 'مفاعلات وأوعية ضغط', en: 'Reactors & pressure vessels' },
+      { ar: 'أبراج تقطير', en: 'Columns' },
+      { ar: 'وحدات مسبقة التجميع', en: 'Pre-assembled modules' },
+      { ar: 'رافعات ومعدات تعدين', en: 'Cranes & mining equipment' },
+      { ar: 'قوارب ويخوت', en: 'Boats & yachts' },
+    ],
+    benefits: [
+      { ar: 'خطة هندسية تقلل المخاطر', en: 'An engineered plan that reduces risk' },
+      { ar: 'المعدة المناسبة لكل وزن وأبعاد', en: 'The right equipment for every weight and size' },
+      { ar: 'تنسيق كامل من الميناء حتى القاعدة', en: 'Full coordination from quay to foundation' },
+    ],
+    steps: [
+      { title: { ar: 'البيانات الفنية', en: 'Technical data' }, text: { ar: 'الأبعاد والوزن ومركز الثقل ونقاط الرفع.', en: 'Dimensions, weight, center of gravity and lifting points.' } },
+      { title: { ar: 'الهندسة', en: 'Engineering' }, text: { ar: 'خطة الرفع والنقل ومسح المسار.', en: 'Lift and transport plan, route survey.' } },
+      { title: { ar: 'الشحن', en: 'Shipping' }, text: { ar: 'سفينة مناسبة وتثبيت محسوب.', en: 'Suitable vessel and calculated lashing.' } },
+      { title: { ar: 'التركيب', en: 'Set-down' }, text: { ar: 'نقل بري ورفع حتى موقع التركيب.', en: 'Road move and lift to the installation point.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'ما المعلومات المطلوبة لتسعير شحنة ثقيلة؟', en: 'What do you need to quote a heavy lift?' },
+        a: { ar: 'الرسم الفني بالأبعاد والوزن ومركز الثقل ونقاط الرفع، ومواقع الاستلام والتسليم.', en: 'A drawing with dimensions, weight, center of gravity and lifting points, plus pickup and delivery locations.' },
+      },
+      {
+        q: { ar: 'هل تتولون التصاريح داخل المملكة؟', en: 'Do you handle permits inside Saudi Arabia?' },
+        a: { ar: 'نعم، ننسق تصاريح الحمولات الاستثنائية والمرافقة مع الجهات المختصة.', en: 'Yes, we coordinate abnormal load permits and escorts with the authorities.' },
+      },
+    ],
+  },
+  {
+    slug: 'chartering',
+    category: 'projects',
+    icon: 'ship',
+    code: 'CHT',
+    featured: true,
+    title: { ar: 'استئجار السفن (Chartering)', en: 'Ship Chartering' },
+    short: {
+      ar: 'استئجار سفينة كاملة أو جزء منها لشحنتك، برحلة واحدة أو لمدة زمنية، مع إدارة العقد حتى التفريغ.',
+      en: 'Chartering a whole vessel or part of one for your cargo, per voyage or per period, with contract management through discharge.',
+    },
+    intro: {
+      ar: 'حين تكون شحنتك كبيرة بما يكفي، أو لا تناسب جداول الخطوط المنتظمة، يكون استئجار السفينة هو الحل. نبحث عبر شبكة الوسطاء والملاك عن السفينة المناسبة، ونفاوض على شروط عقد الإيجار (Charter Party)، وندير أيام التحميل والتفريغ والتأخير لحماية تكلفتك.',
+      en: "When your cargo is large enough, or doesn't fit liner schedules, chartering is the answer. We search our broker and owner network for the right vessel, negotiate the charter party terms, and manage laytime and demurrage to protect your costs.",
+    },
+    offer: [
+      { ar: 'استئجار بالرحلة (Voyage Charter)', en: 'Voyage charter' },
+      { ar: 'استئجار بالمدة (Time Charter)', en: 'Time charter' },
+      { ar: 'استئجار جزء من السفينة (Part-Cargo Charter)', en: 'Part-cargo charter' },
+      { ar: 'التفاوض على عقد الإيجار (Charter Party)', en: 'Charter party negotiation' },
+      { ar: 'التنسيق بين الملاك والمستأجرين والوسطاء', en: 'Liaison between owners, charterers and brokers' },
+      { ar: 'إدارة أيام التحميل والتفريغ والتأخير (Laytime & Demurrage)', en: 'Laytime and demurrage management' },
+      { ar: 'تنسيق الوكالة الملاحية وعمليات الميناء', en: 'Ship agency and port operations coordination' },
+    ],
+    scope: [
+      { ar: 'ناقلات بضائع سائبة', en: 'Bulk carriers' },
+      { ar: 'سفن متعددة الأغراض (MPP)', en: 'Multipurpose (MPP) vessels' },
+      { ar: 'سفن رفع ثقيل', en: 'Heavy-lift vessels' },
+      { ar: 'ناقلات عبر الوسطاء', en: 'Tankers via brokers' },
+      { ar: 'سفن بضائع عامة', en: 'General cargo ships' },
+      { ar: 'صنادل وقاطرات', en: 'Barges & tugs' },
+    ],
+    benefits: [
+      { ar: 'تحكم كامل في الموعد والمسار', en: 'Full control of timing and routing' },
+      { ar: 'تكلفة أقل للطن في الكميات الكبيرة', en: 'Lower cost per tonne for large volumes' },
+      { ar: 'حماية من مخاطر التأخير بعقد مدروس', en: 'Protection against delay costs through a sound contract' },
+    ],
+    steps: [
+      { title: { ar: 'المتطلبات', en: 'Requirements' }, text: { ar: 'نوع البضاعة والكمية والموانئ والتواريخ.', en: 'Cargo, quantity, ports and laycan.' } },
+      { title: { ar: 'البحث في السوق', en: 'Market search' }, text: { ar: 'عروض سفن مناسبة عبر شبكتنا.', en: 'Suitable vessel offers through our network.' } },
+      { title: { ar: 'العقد', en: 'Fixture' }, text: { ar: 'تفاوض وتوقيع عقد الإيجار.', en: 'Negotiation and charter party signing.' } },
+      { title: { ar: 'الرحلة', en: 'Voyage' }, text: { ar: 'متابعة التحميل والإبحار والتفريغ.', en: 'Follow-up of loading, voyage and discharge.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'ما الفرق بين الاستئجار بالرحلة والاستئجار بالمدة؟', en: 'What is the difference between voyage and time charter?' },
+        a: { ar: 'في الاستئجار بالرحلة تدفع مقابل نقل الشحنة بين ميناءين، وفي الاستئجار بالمدة تستأجر السفينة لفترة وتتحكم في تشغيلها.', en: 'In a voyage charter you pay to move a cargo between ports; in a time charter you hire the ship for a period and direct its employment.' },
+      },
+      {
+        q: { ar: 'ما المقصود بغرامة التأخير (Demurrage)؟', en: 'What is demurrage?' },
+        a: { ar: 'مبلغ يُدفع للمالك إذا تجاوز التحميل أو التفريغ المدة المتفق عليها، ولذلك نخطط العمليات لتجنبه.', en: 'A charge paid to the owner when loading or discharge exceeds the agreed laytime, which is why we plan operations to avoid it.' },
+      },
+    ],
+  },
+  {
+    slug: 'air-charter',
+    category: 'air',
+    icon: 'plane',
+    code: 'CHR',
+    title: { ar: 'تأجير طائرات الشحن (Air Charter)', en: 'Air Freight Charter' },
+    short: {
+      ar: 'استئجار طائرة شحن كاملة أو جزء منها للشحنات الكبيرة والعاجلة. لا نتعامل مع الطرود الصغيرة.',
+      en: 'Full or part freighter charters for large and urgent shipments. We do not handle small parcels or courier.',
+    },
+    intro: {
+      ar: 'حين لا تحتمل الشحنة انتظار الرحلات المجدولة، نستأجر لك طائرة الشحن المناسبة لحجمها ووزنها. نختار نوع الطائرة، ونحجز مواعيد الهبوط والإقلاع، ونستخرج التصاريح، وننسق المناولة الأرضية في المطارين.',
+      en: "When a shipment can't wait for scheduled flights, we charter the freighter that fits its size and weight. We select the aircraft, secure slots, obtain permits and coordinate ground handling at both ends.",
+    },
+    offer: [
+      { ar: 'تأجير طائرة شحن كاملة (Full Charter)', en: 'Full freighter charter' },
+      { ar: 'تأجير جزء من الطائرة (Part Charter)', en: 'Part charter' },
+      { ar: 'اختيار الطائرة: ضيقة أو عريضة البدن', en: 'Aircraft selection: narrow-body or wide-body' },
+      { ar: 'حجز مواعيد الهبوط والإقلاع (Slots)', en: 'Slot bookings' },
+      { ar: 'تصاريح الطيران والهبوط', en: 'Overflight and landing permits' },
+      { ar: 'تنسيق المناولة الأرضية والتحميل', en: 'Ground handling and loading supervision' },
+      { ar: 'تخليص جمركي ونقل بري من المطار', en: 'Customs clearance and onward trucking' },
+    ],
+    scope: [
+      { ar: 'معدات صناعية عاجلة', en: 'Urgent industrial equipment' },
+      { ar: 'شحنات إغاثة', en: 'Relief cargo' },
+      { ar: 'معدات فعاليات', en: 'Event equipment' },
+      { ar: 'شحنات تجزئة موسمية', en: 'Seasonal retail volumes' },
+      { ar: 'مواد مبردة', en: 'Temperature-controlled cargo' },
+    ],
+    benefits: [
+      { ar: 'جدول يناسب موعدك أنت', en: 'A schedule built around your deadline' },
+      { ar: 'سعة مضمونة للشحنة كاملة', en: 'Guaranteed capacity for the whole load' },
+      { ar: 'وصول مباشر إلى المطار الأقرب للموقع', en: 'Direct routing to the airport nearest your site' },
+    ],
+    steps: [
+      { title: { ar: 'تفاصيل الحمولة', en: 'Load details' }, text: { ar: 'الوزن والأبعاد والمطارات والتاريخ.', en: 'Weight, dimensions, airports and date.' } },
+      { title: { ar: 'خيارات الطائرات', en: 'Aircraft options' }, text: { ar: 'نعرض الطائرات المتاحة والأسعار.', en: 'We present available aircraft and rates.' } },
+      { title: { ar: 'التصاريح', en: 'Permits' }, text: { ar: 'حجز المواعيد والتصاريح والمناولة.', en: 'Slots, permits and handling.' } },
+      { title: { ar: 'الرحلة', en: 'Flight' }, text: { ar: 'تحميل وطيران وتخليص وتسليم.', en: 'Loading, flight, clearance and delivery.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'هل تشحنون الطرود الصغيرة جوًا؟', en: 'Do you ship small parcels by air?' },
+        a: { ar: 'لا، نركز على تأجير الطائرات وشحنات المشاريع والمعدات الكبيرة فقط.', en: 'No. We focus on charters, project cargo and large equipment only.' },
+      },
+      {
+        q: { ar: 'كم يستغرق ترتيب رحلة مستأجرة؟', en: 'How quickly can a charter be arranged?' },
+        a: { ar: 'يعتمد على توفر الطائرة والتصاريح، وقد يكون خلال أيام قليلة في الحالات العاجلة.', en: 'It depends on aircraft availability and permits; urgent cases can often be arranged within a few days.' },
+      },
+    ],
+  },
+  {
+    slug: 'air-project-cargo',
+    category: 'air',
+    icon: 'clock',
+    code: 'APC',
+    title: { ar: 'شحنات المشاريع والمعدات جوًا', en: 'Air Project Cargo' },
+    short: {
+      ar: 'شحن المعدات الثقيلة والضخمة وقطع الغيار الحرجة جوًا لتجنب توقف المشروع أو المصنع.',
+      en: 'Flying heavy and oversized equipment and critical spares to keep projects and plants running.',
+    },
+    intro: {
+      ar: 'توقف خط إنتاج أو تأخر مرحلة في مشروع قد يكلف أكثر بكثير من الشحن الجوي. ننقل جوًا المعدات الثقيلة والضخمة وقطع الغيار الحرجة، ونجهز وثائق البضائع الخطرة جوًا وفق أنظمة IATA عند الحاجة، ونسلّمها إلى الموقع بأقصر وقت.',
+      en: 'A stopped production line or a delayed project phase can cost far more than air freight. We fly heavy and oversized equipment and critical spares, prepare dangerous goods documents under IATA DGR when needed, and deliver to site as fast as possible.',
+    },
+    offer: [
+      { ar: 'شحن جوي للقطع الثقيلة والضخمة (Outsize)', en: 'Heavy and outsize air cargo' },
+      { ar: 'قطع غيار حرجة وعاجلة (AOG وقطع المصانع)', en: 'Critical and AOG spares' },
+      { ar: 'معدات المشاريع جوًا من عدة منشآت', en: 'Project equipment by air from multiple origins' },
+      { ar: 'البضائع الخطرة جوًا وفق أنظمة IATA DGR', en: 'Dangerous goods by air under IATA DGR' },
+      { ar: 'تجهيز المنصات والتغليف المناسب للطيران', en: 'Air-worthy packing and palletising' },
+      { ar: 'تخليص سريع في المطار وتوصيل للموقع', en: 'Fast airport clearance and site delivery' },
+    ],
+    scope: [
+      { ar: 'قطع غيار مصانع', en: 'Plant spares' },
+      { ar: 'معدات حقول النفط', en: 'Oilfield equipment' },
+      { ar: 'مولدات', en: 'Generators' },
+      { ar: 'محركات', en: 'Engines' },
+      { ar: 'معدات اتصالات', en: 'Telecom equipment' },
+      { ar: 'أجهزة طبية', en: 'Medical equipment' },
+    ],
+    benefits: [
+      { ar: 'تقليل تكلفة التوقف', en: 'Reduced downtime costs' },
+      { ar: 'وثائق صحيحة للمواد الخطرة جوًا', en: 'Correct documents for air dangerous goods' },
+      { ar: 'متابعة لحظية حتى التسليم', en: 'Close follow-up to delivery' },
+    ],
+    steps: [
+      { title: { ar: 'الطلب العاجل', en: 'Urgent request' }, text: { ar: 'أرسل تفاصيل القطعة والموقع.', en: 'Send the item details and site.' } },
+      { title: { ar: 'خطة الشحن', en: 'Routing' }, text: { ar: 'أسرع رحلة أو طائرة مستأجرة.', en: 'Fastest flight or a charter.' } },
+      { title: { ar: 'التجهيز', en: 'Preparation' }, text: { ar: 'تغليف ووثائق وحجز.', en: 'Packing, documents and booking.' } },
+      { title: { ar: 'التسليم', en: 'Delivery' }, text: { ar: 'تخليص ونقل مباشر إلى الموقع.', en: 'Clearance and direct site delivery.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'ما أقصى وزن يمكن شحنه جوًا؟', en: 'What is the maximum weight by air?' },
+        a: { ar: 'يعتمد على نوع الطائرة وأبواب التحميل، وطائرات الشحن الكبيرة تستوعب قطعًا ثقيلة جدًا.', en: 'It depends on the aircraft and door size; large freighters can take very heavy pieces.' },
+      },
+      {
+        q: { ar: 'هل يمكن شحن مواد خطرة جوًا؟', en: 'Can dangerous goods go by air?' },
+        a: { ar: 'كثير منها نعم، بشرط التصنيف والتغليف والوثائق الصحيحة وفق أنظمة IATA.', en: 'Many can, provided classification, packaging and documents follow IATA DGR.' },
+      },
+    ],
+  },
+];

@@ -2,7 +2,7 @@
 import { site } from '../config/site';
 import { type Lang, href, switchPath, t, u } from '../i18n/ui';
 import { mainNav } from '../i18n/nav';
-import { services } from '../data/services';
+import { categories, servicesIn } from '../data/services';
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 
@@ -30,11 +30,14 @@ const shortTitle = (s: string) => s.replace(/\s*\([^)]*\)\s*$/, '');
             </a>
             {item === svcNav ? (
               <div class="panel mega-panel">
-                <ul class="mega-list">
-                  {services.map((s) => (
-                    <li><a href={href(lang, `/services/${s.slug}`)}><span class="code">{s.code ?? '—'}</span>{shortTitle(t(s.title, lang))}</a></li>
+                <div class="mega-cats">
+                  {categories.map((c) => (
+                    <div class="mega-cat">
+                      <a class="mega-head" href={href(lang, `/services/${c.slug}`)}><span class="code">{c.code}</span>{t(c.title, lang)}</a>
+                      <ul>{servicesIn(c.slug).map((s) => <li><a href={href(lang, `/services/${s.slug}`)}>{shortTitle(t(s.title, lang))}</a></li>)}</ul>
+                    </div>
                   ))}
-                </ul>
+                </div>
                 <a class="mega-promo" href={href(lang, '/e-services/quote')}>
                   <span class="slash"></span>
                   <strong>{ar ? 'عرض سعر خلال ' : 'A quote within '}{site.quoteResponseHours}{ar ? ' ساعة' : ' hours'}</strong>
@@ -133,10 +136,14 @@ const shortTitle = (s: string) => s.replace(/\s*\([^)]*\)\s*$/, '');
   .has-sub:hover .panel, .has-sub:focus-within .panel { opacity: 1; visibility: visible; transform: none; }
   .panel a { display: block; padding: .55rem .9rem; color: var(--ink); font-size: .93rem; line-height: 1.5; }
   .panel a:hover { background: var(--sand); color: var(--petrol); }
-  .mega-panel { display: grid; grid-template-columns: 1fr 240px; gap: .6rem; min-width: 900px; inset-inline-start: -16rem; }
-  .mega-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; }
-  .mega-list a { display: flex; gap: .8rem; align-items: baseline; }
-  .code { flex-shrink: 0; width: 4.6rem; font-size: .74rem; font-weight: 500; color: var(--coral-ink); direction: ltr; text-align: start; }
+  .header-inner { position: relative; }
+  .nav > ul > li.mega { position: static; }
+  .mega-panel { display: grid; grid-template-columns: 1fr 230px; gap: .6rem; inset-inline: 0; min-width: 0; top: calc(100% - .4rem); }
+  .mega-cats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .2rem 1rem; padding: .4rem; }
+  .mega-cat ul { list-style: none; margin: 0 0 .6rem; padding: 0; }
+  .mega-cat ul a { padding: .32rem .9rem; font-size: .86rem; color: var(--muted); }
+  .mega-head { display: flex !important; gap: .6rem; align-items: baseline; font-weight: 600; color: var(--petrol) !important; border-bottom: 1px solid var(--line); margin-bottom: .3rem; }
+  .code { flex-shrink: 0; font-size: .7rem; font-weight: 600; color: var(--coral-ink); direction: ltr; letter-spacing: .05em; }
   .mega-promo { background: var(--petrol); color: var(--cream) !important; padding: 1.4rem !important; display: flex !important; flex-direction: column; gap: .6rem; }
   .mega-promo:hover { background: var(--navy-900) !important; }
   .mega-promo strong { font-size: 1.15rem; font-weight: 500; line-height: 1.35; }

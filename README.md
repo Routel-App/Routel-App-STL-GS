@@ -93,3 +93,10 @@ npm run check:placeholders   # يعرض كل [المتغيرات] اللي لس�
 
 ---
 المحتوى المرجعي الكامل: [`docs/content.md`](docs/content.md)
+
+## الخدمات (وحدات الأعمال)
+
+- التعريف العام والوحدات الست في `src/data/services.ts` (`categories`).
+- محتوى كل خدمة في `src/data/svc/`: `ocean.ts` (الشحن البحري)، `projects.ts` (المشاريع والرفع الثقيل + الشحن الجوي)، `logistics.ts` (التخليص والنقل والتخزين + المشاريع الخاصة)، `marine.ts` (الخدمات البحرية).
+- صفحة كل وحدة: `/services/<ocean|projects|air|logistics|special|marine>`، وصفحة كل خدمة: `/services/<slug>`.
+- الصور: كل وحدة لها رسم توضيحي فيكتور (`src/components/ServiceArt.astro`). لإضافة صورة حقيقية لخدمة: ضع الملف في `public/images/services/` واكتب `photo: '/images/services/<file>.jpg'` في بيانات الخدمة.

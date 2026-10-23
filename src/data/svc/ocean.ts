@@ -1,0 +1,327 @@
+import type { Service } from '../services';
+
+export const oceanServices: Service[] = [
+  {
+    slug: 'fcl',
+    category: 'ocean',
+    icon: 'container',
+    code: 'FCL',
+    featured: true,
+    quoteMode: 'FCL',
+    title: { ar: 'الشحن البحري بالحاويات الكاملة (FCL)', en: 'Full Container Load (FCL)' },
+    short: {
+      ar: 'حاوية مخصصة لبضاعتك وحدك، بمقاسات 20 و40 قدمًا، وجداول إبحار منتظمة مع أهم الخطوط الملاحية.',
+      en: 'A container dedicated to your cargo alone, in 20ft and 40ft sizes, with regular sailings on the major carriers.',
+    },
+    intro: {
+      ar: 'إذا كانت كمية بضاعتك تكفي لملء حاوية، فالحاوية الكاملة هي الخيار الأسرع والأكثر أمانًا. تُحمَّل الحاوية في المنشأ وتُختم ولا تُفتح إلا عند الوجهة. نقارن لك بين الخطوط الملاحية والمسارات لنصل إلى أفضل توازن بين السعر وزمن العبور.',
+      en: 'When your volume fills a container, FCL is the fastest and most secure option. The box is loaded and sealed at origin and opened only at destination. We compare carriers and routings to find the best balance between rate and transit time.',
+    },
+    offer: [
+      { ar: 'حاويات جافة 20 و40 قدمًا و40 قدمًا عالية (HC)', en: "Dry containers: 20', 40' and 40' High Cube (HC)" },
+      { ar: 'حاويات خاصة: مفتوحة السقف (Open Top) ومسطحة (Flat Rack)', en: 'Special equipment: Open Top and Flat Rack' },
+      { ar: 'حجز مع الخطوط الملاحية العالمية عبر شبكة شركائنا', en: 'Bookings with global carriers through our partner network' },
+      { ar: 'شحن من الباب للباب أو من ميناء إلى ميناء', en: 'Door-to-door or port-to-port' },
+      { ar: 'استلام من المورد وتنسيق التحميل في بلد المنشأ', en: 'Pickup from your supplier and loading coordination at origin' },
+      { ar: 'إعداد بوليصة الشحن والمستندات التجارية', en: 'Bill of lading and commercial documentation' },
+      { ar: 'متابعة الشحنة وإشعارات الوصول', en: 'Shipment tracking and arrival notices' },
+    ],
+    scope: [
+      { ar: 'بضائع عامة', en: 'General cargo' },
+      { ar: 'مواد بناء', en: 'Building materials' },
+      { ar: 'آلات ومعدات', en: 'Machinery' },
+      { ar: 'أثاث ومفروشات', en: 'Furniture' },
+      { ar: 'سلع استهلاكية', en: 'Consumer goods' },
+      { ar: 'مواد خام', en: 'Raw materials' },
+    ],
+    benefits: [
+      { ar: 'أمان أعلى بفضل قلة المناولة', en: 'Higher security thanks to minimal handling' },
+      { ar: 'زمن عبور أقصر وأكثر انتظامًا', en: 'Shorter, more predictable transit times' },
+      { ar: 'تكلفة أقل للوحدة في الكميات الكبيرة', en: 'Lower unit cost for large volumes' },
+    ],
+    steps: [
+      { title: { ar: 'عرض السعر', en: 'Quote' }, text: { ar: 'نقارن الخطوط والمسارات ونرسل لك أفضل الخيارات.', en: 'We compare carriers and routings and send you the best options.' } },
+      { title: { ar: 'الحجز', en: 'Booking' }, text: { ar: 'نؤكد المساحة على السفينة ونرتب تسليم الحاوية الفارغة.', en: 'We confirm vessel space and arrange the empty container release.' } },
+      { title: { ar: 'التحميل والإبحار', en: 'Loading & sailing' }, text: { ar: 'تُحمَّل الحاوية وتُختم وتبحر، ونتابعها حتى الوصول.', en: 'The box is loaded, sealed and shipped, and we track it to arrival.' } },
+      { title: { ar: 'التخليص والتسليم', en: 'Clearance & delivery' }, text: { ar: 'نخلّص البضاعة ونوصلها إلى موقعك.', en: 'We clear the goods and deliver them to your site.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'متى أختار FCL بدل LCL؟', en: 'When should I choose FCL over LCL?' },
+        a: { ar: 'غالبًا عندما يتجاوز حجم بضاعتك 15 مترًا مكعبًا تقريبًا، أو حين تحتاج أمانًا وسرعة أعلى.', en: 'Usually when your cargo exceeds roughly 15 cubic meters, or when you need extra security and speed.' },
+      },
+      {
+        q: { ar: 'كم يستغرق الشحن من الصين إلى جدة؟', en: 'How long does shipping from China to Jeddah take?' },
+        a: { ar: 'يختلف حسب ميناء التحميل والخط الملاحي، ونوضح زمن العبور المتوقع في عرض السعر.', en: 'It depends on the loading port and carrier; we state the expected transit time in your quote.' },
+      },
+    ],
+  },
+  {
+    slug: 'lcl',
+    category: 'ocean',
+    icon: 'boxes',
+    code: 'LCL',
+    quoteMode: 'LCL',
+    title: { ar: 'الشحن البحري المجمّع (LCL)', en: 'Less than Container Load (LCL)' },
+    short: {
+      ar: 'ادفع فقط مقابل المساحة التي تشغلها، وهو الخيار الأوفر للكميات الصغيرة والمتوسطة.',
+      en: 'Pay only for the space you use: the most economical option for small and medium volumes.',
+    },
+    intro: {
+      ar: 'لا تحتاج إلى ملء حاوية كاملة. نجمع بضاعتك مع شحنات أخرى في حاوية واحدة عبر خدمات تجميع منتظمة، وتدفع حسب الحجم أو الوزن فقط. مناسب للطلبات المتكررة والعينات وبضائع التجارة الإلكترونية.',
+      en: "You don't need to fill a whole container. We consolidate your cargo with other shipments on regular groupage services, and you pay by volume or weight only. Ideal for repeat orders, samples and e-commerce stock.",
+    },
+    offer: [
+      { ar: 'خدمات تجميع منتظمة من الصين والهند وتركيا وأوروبا', en: 'Regular consolidation services from China, India, Turkey and Europe' },
+      { ar: 'استلام البضاعة من مستودع المورد', en: 'Pickup from your supplier’s warehouse' },
+      { ar: 'تجميع شحنات عدة موردين في شحنة واحدة', en: 'Combining several suppliers into one shipment' },
+      { ar: 'تفريغ وفرز في مستودعات الوجهة', en: 'Devanning and sorting at destination' },
+      { ar: 'تخليص جمركي وتوصيل للباب', en: 'Customs clearance and door delivery' },
+      { ar: 'تغليف وتعليم الطرود عند الحاجة', en: 'Packing and marking when required' },
+    ],
+    scope: [
+      { ar: 'منصات (Pallets)', en: 'Pallets' },
+      { ar: 'كراتين', en: 'Cartons' },
+      { ar: 'عينات تجارية', en: 'Trade samples' },
+      { ar: 'قطع غيار', en: 'Spare parts' },
+      { ar: 'منتجات التجارة الإلكترونية', en: 'E-commerce stock' },
+    ],
+    benefits: [
+      { ar: 'تكلفة أقل للكميات الصغيرة', en: 'Lower cost for small volumes' },
+      { ar: 'مرونة في تكرار الطلبات وتقليل المخزون', en: 'Flexibility to reorder often and hold less stock' },
+      { ar: 'مناسب للشركات الناشئة والمتاجر الإلكترونية', en: 'Ideal for startups and online stores' },
+    ],
+    steps: [
+      { title: { ar: 'الحجم والوزن', en: 'Size it' }, text: { ar: 'أرسل الأبعاد والوزن، ونحسب التكلفة بالمتر المكعب.', en: 'Send dimensions and weight; we price it per cubic meter.' } },
+      { title: { ar: 'الاستلام', en: 'Pickup' }, text: { ar: 'نستلم البضاعة من المورد إلى مستودع التجميع.', en: 'We collect from the supplier to the consolidation warehouse.' } },
+      { title: { ar: 'التجميع والإبحار', en: 'Consolidate & sail' }, text: { ar: 'تُحمَّل مع شحنات أخرى في الرحلة المجدولة.', en: 'It is loaded with other cargo on the scheduled sailing.' } },
+      { title: { ar: 'الفرز والتسليم', en: 'Sort & deliver' }, text: { ar: 'نفرز ونخلّص ونسلّم إلى بابك.', en: 'We sort, clear and deliver to your door.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'كيف تُحسب تكلفة الشحن المجمّع؟', en: 'How is LCL priced?' },
+        a: { ar: 'حسب الحجم بالمتر المكعب أو الوزن، أيهما أعلى وفق معادلة الشحن البحري.', en: 'By volume in cubic meters or by weight, whichever is higher under the ocean freight ratio.' },
+      },
+      {
+        q: { ar: 'هل الشحن المجمّع أبطأ من الحاوية الكاملة؟', en: 'Is LCL slower than FCL?' },
+        a: { ar: 'يحتاج عادة أيامًا إضافية للتجميع والفرز، ونوضح ذلك مسبقًا في عرض السعر.', en: 'It usually needs a few extra days for consolidation and sorting, which we state upfront in the quote.' },
+      },
+    ],
+  },
+  {
+    slug: 'reefer',
+    category: 'ocean',
+    icon: 'snow',
+    code: 'RF',
+    quoteMode: 'REEFER',
+    title: { ar: 'خدمات الحاويات المبردة (Reefer)', en: 'Reefer Services' },
+    short: {
+      ar: 'حاويات مبردة ومجمدة بدرجات حرارة ورطوبة مضبوطة، ومراقبة مستمرة من التحميل حتى التسليم.',
+      en: 'Chilled and frozen containers with controlled temperature and humidity, monitored from loading to delivery.',
+    },
+    intro: {
+      ar: 'بضائعك الحساسة للحرارة لا تحتمل أي انقطاع. نحجز الحاوية المبردة المناسبة، ونتأكد من فحصها قبل التحميل، ونضبط الحرارة والرطوبة والتهوية حسب نوع المنتج، ونتابع توصيلها بالكهرباء في الموانئ حتى تصل إلى مستودعك.',
+      en: 'Temperature-sensitive cargo cannot afford a break in the chain. We book the right reefer, make sure it is inspected before loading, set temperature, humidity and ventilation for the product, and follow the power plug-in at every port until it reaches your warehouse.',
+    },
+    offer: [
+      { ar: 'حاويات مبردة 20 و40 قدمًا عالية (Reefer HC)', en: "20' and 40' High Cube reefer containers" },
+      { ar: 'ضبط الحرارة من −30 حتى +30 درجة مئوية', en: 'Temperature settings from −30°C to +30°C' },
+      { ar: 'التحكم في الرطوبة والتهوية والأجواء المعدلة (Controlled Atmosphere)', en: 'Humidity, ventilation and Controlled Atmosphere (CA) settings' },
+      { ar: 'فحص الحاوية قبل التحميل (PTI)', en: 'Pre-Trip Inspection (PTI)' },
+      { ar: 'مراقبة الحرارة أثناء الرحلة وتقرير عند الوصول', en: 'In-transit temperature monitoring and arrival report' },
+      { ar: 'توصيل الحاوية بالكهرباء في الميناء (Plug-in) ونقل مبرد', en: 'Port plug-in and refrigerated trucking' },
+      { ar: 'تخليص سريع للمواد الغذائية والدوائية', en: 'Fast clearance for food and pharma' },
+    ],
+    scope: [
+      { ar: 'لحوم ودواجن', en: 'Meat & poultry' },
+      { ar: 'أسماك ومأكولات بحرية', en: 'Seafood' },
+      { ar: 'خضار وفواكه', en: 'Fruit & vegetables' },
+      { ar: 'منتجات ألبان', en: 'Dairy' },
+      { ar: 'أدوية ولقاحات', en: 'Pharmaceuticals' },
+      { ar: 'زهور', en: 'Flowers' },
+      { ar: 'كيماويات حساسة للحرارة', en: 'Temperature-sensitive chemicals' },
+    ],
+    benefits: [
+      { ar: 'سلسلة تبريد لا تنقطع', en: 'An unbroken cold chain' },
+      { ar: 'حفاظ على جودة المنتج وصلاحيته', en: 'Product quality and shelf life protected' },
+      { ar: 'توثيق كامل للحرارة يدعم المطالبات والامتثال', en: 'Full temperature records for compliance and claims' },
+    ],
+    steps: [
+      { title: { ar: 'تحديد المتطلبات', en: 'Set requirements' }, text: { ar: 'نحدد الحرارة والرطوبة والتهوية المناسبة لمنتجك.', en: 'We define the temperature, humidity and ventilation your product needs.' } },
+      { title: { ar: 'الفحص والتبريد المسبق', en: 'Inspect & pre-cool' }, text: { ar: 'تُفحص الحاوية وتُبرَّد قبل التحميل.', en: 'The reefer is inspected and pre-cooled before stuffing.' } },
+      { title: { ar: 'الإبحار والمراقبة', en: 'Sail & monitor' }, text: { ar: 'نتابع الحرارة طوال الرحلة.', en: 'We follow the temperature throughout the voyage.' } },
+      { title: { ar: 'التسليم المبرد', en: 'Cold delivery' }, text: { ar: 'تخليص سريع ونقل مبرد إلى مستودعك.', en: 'Fast clearance and refrigerated trucking to your store.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'ما الفرق بين المبرد والمجمد؟', en: 'What is the difference between chilled and frozen?' },
+        a: { ar: 'المبرد عادة بين 0 و+8 درجات، والمجمد تحت −18 درجة، وتُضبط الحاوية حسب المنتج.', en: 'Chilled is typically 0 to +8°C and frozen below −18°C; the container is set for your product.' },
+      },
+      {
+        q: { ar: 'هل تتولون اشتراطات هيئة الغذاء والدواء؟', en: 'Do you handle SFDA requirements?' },
+        a: { ar: 'نعم، نجهز المستندات المطلوبة وننسق الفحص مع الجهات المختصة ضمن التخليص.', en: 'Yes, we prepare the required documents and coordinate inspection with the authorities as part of clearance.' },
+      },
+    ],
+  },
+  {
+    slug: 'liquid-chemicals',
+    category: 'ocean',
+    icon: 'tank',
+    code: 'ISO',
+    title: { ar: 'شحن الكيماويات والسوائل (ISO Tanks)', en: 'Liquid Chemicals & Bulk Liquids' },
+    short: {
+      ar: 'شحن الكيماويات والسوائل في خزانات ISO والأكياس المرنة (Flexitanks) والبراميل، بمعايير سلامة صارمة.',
+      en: 'Shipping chemicals and liquids in ISO tanks, flexitanks and drums, under strict safety standards.',
+    },
+    intro: {
+      ar: 'نوفر لوجستيات متكاملة لسلاسل إمداد الكيماويات والسوائل لمصانع البتروكيماويات والدهانات والمنظفات وكيماويات حقول النفط. نختار وسيلة التعبئة الأنسب لكل منتج، ونراجع صحائف بيانات السلامة (SDS)، ونتأكد من شهادات تنظيف الخزانات قبل كل تحميل.',
+      en: 'We provide end-to-end logistics for chemical and liquid supply chains serving petrochemical, paints, detergents and oilfield chemical producers. We choose the right packaging for each product, review the Safety Data Sheets (SDS) and verify tank cleaning certificates before every load.',
+    },
+    offer: [
+      { ar: 'خزانات ISO للمواد الكيميائية والغذائية (Chemical & Food Grade)', en: 'ISO tank containers, chemical and food grade' },
+      { ar: 'أكياس مرنة (Flexitanks) للسوائل غير الخطرة', en: 'Flexitanks for non-hazardous liquids' },
+      { ar: 'براميل وحاويات وسيطة (IBC) ضمن حاويات جافة', en: 'Drums and IBCs in dry containers' },
+      { ar: 'مراجعة صحائف بيانات السلامة (MSDS/SDS) وتصنيف المنتج', en: 'MSDS/SDS review and product classification' },
+      { ar: 'شهادات تنظيف الخزانات قبل التحميل', en: 'Tank cleaning certificates before loading' },
+      { ar: 'خزانات بأنظمة تسخين للمنتجات اللزجة', en: 'Heated tanks for viscous products' },
+      { ar: 'نقل بري بالصهاريج إلى المصنع أو المستودع', en: 'Road tanker delivery to plant or storage' },
+    ],
+    scope: [
+      { ar: 'زيوت نباتية', en: 'Edible oils' },
+      { ar: 'جلايكول', en: 'Glycols' },
+      { ar: 'لاتكس', en: 'Latex' },
+      { ar: 'مذيبات', en: 'Solvents' },
+      { ar: 'راتنجات', en: 'Resins' },
+      { ar: 'مواد خام للمنظفات', en: 'Detergent raw materials' },
+      { ar: 'كيماويات حقول النفط', en: 'Oilfield chemicals' },
+    ],
+    benefits: [
+      { ar: 'وسيلة تعبئة مناسبة لكل منتج وكمية', en: 'The right packaging for each product and volume' },
+      { ar: 'حماية المنتج من التلوث', en: 'Product protected from contamination' },
+      { ar: 'امتثال لأنظمة النقل البحري والمحلي', en: 'Compliance with marine and local regulations' },
+    ],
+    steps: [
+      { title: { ar: 'مراجعة المنتج', en: 'Product review' }, text: { ar: 'نراجع صحيفة البيانات ونحدد الخزان أو التعبئة المناسبة.', en: 'We review the SDS and select the right tank or packaging.' } },
+      { title: { ar: 'تجهيز الخزان', en: 'Tank preparation' }, text: { ar: 'تنظيف وفحص وشهادة قبل التعبئة.', en: 'Cleaning, inspection and certificate before filling.' } },
+      { title: { ar: 'التعبئة والشحن', en: 'Fill & ship' }, text: { ar: 'تعبئة في موقع المورد وحجز على الخط المناسب.', en: 'Filling at the supplier and booking on the right carrier.' } },
+      { title: { ar: 'التفريغ', en: 'Discharge' }, text: { ar: 'تخليص ونقل وتفريغ في منشأتك.', en: 'Clearance, haulage and discharge at your facility.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'متى أستخدم Flexitank بدل ISO Tank؟', en: 'When should I use a flexitank instead of an ISO tank?' },
+        a: { ar: 'الأكياس المرنة اقتصادية للسوائل غير الخطرة بكميات كبيرة، أما خزانات ISO فهي للكيماويات والمواد الخطرة أو التي تحتاج تسخينًا.', en: 'Flexitanks are economical for large volumes of non-hazardous liquids; ISO tanks suit chemicals, hazardous products or cargo that needs heating.' },
+      },
+      {
+        q: { ar: 'هل تبيعون الكيماويات؟', en: 'Do you sell chemicals?' },
+        a: { ar: 'لا، نحن نقدم الخدمات اللوجستية لشحنات الكيماويات فقط، من الاستلام حتى التسليم.', en: 'No. We provide the logistics for chemical shipments only, from pickup to delivery.' },
+      },
+    ],
+  },
+  {
+    slug: 'dangerous-goods',
+    category: 'ocean',
+    icon: 'hazard',
+    code: 'DG',
+    title: { ar: 'شحن البضائع الخطرة (DG)', en: 'Dangerous Goods (DG)' },
+    short: {
+      ar: 'شحن المواد الخطرة بجميع فئات IMDG، مع توثيق وتغليف وفصل صحيح وفق الأنظمة الدولية.',
+      en: 'Shipping hazardous materials across all IMDG classes, with correct documentation, packaging and segregation.',
+    },
+    intro: {
+      ar: 'البضائع الخطرة تحتاج دقة لا تقبل الاجتهاد. نتحقق من تصنيف المادة ورقم الأمم المتحدة (UN)، ونراجع التغليف والملصقات، ونجهز إقرار البضائع الخطرة، وننسق موافقة الخط الملاحي وسلطات الميناء قبل التحميل.',
+      en: 'Dangerous goods leave no room for guesswork. We verify the class and UN number, check packaging and labels, prepare the DG declaration, and secure carrier and port authority approval before loading.',
+    },
+    offer: [
+      { ar: 'شحن جميع فئات المدونة الدولية (IMDG) المسموح بها', en: 'All permitted IMDG classes' },
+      { ar: 'مراجعة التصنيف ورقم UN وصحيفة بيانات السلامة', en: 'Classification, UN number and SDS review' },
+      { ar: 'إعداد إقرار البضائع الخطرة (DG Declaration)', en: 'Dangerous goods declaration' },
+      { ar: 'التحقق من التغليف المعتمد والملصقات واللوحات', en: 'Approved packaging, labels and placards check' },
+      { ar: 'التنسيق مع الخطوط الملاحية وسلطات الموانئ', en: 'Coordination with carriers and port authorities' },
+      { ar: 'نقل بري بمركبات مرخصة للمواد الخطرة', en: 'Road transport with DG-licensed vehicles' },
+    ],
+    scope: [
+      { ar: 'مواد قابلة للاشتعال', en: 'Flammables' },
+      { ar: 'مواد مؤكسدة', en: 'Oxidizers' },
+      { ar: 'مواد أكالة', en: 'Corrosives' },
+      { ar: 'غازات مضغوطة', en: 'Compressed gases' },
+      { ar: 'بطاريات ليثيوم', en: 'Lithium batteries' },
+      { ar: 'دهانات ومذيبات', en: 'Paints & solvents' },
+    ],
+    benefits: [
+      { ar: 'امتثال كامل يجنبك الغرامات والرفض', en: 'Full compliance that avoids fines and rejection' },
+      { ar: 'سلامة البضاعة والأشخاص', en: 'Safety for cargo and people' },
+      { ar: 'وضوح مسبق في المواعيد والتكلفة', en: 'Clear timelines and costs upfront' },
+    ],
+    steps: [
+      { title: { ar: 'التحقق', en: 'Verify' }, text: { ar: 'نراجع صحيفة البيانات والتصنيف.', en: 'We review the SDS and classification.' } },
+      { title: { ar: 'الموافقات', en: 'Approvals' }, text: { ar: 'نحصل على قبول الخط الملاحي والميناء.', en: 'We obtain carrier and port acceptance.' } },
+      { title: { ar: 'التغليف والتوثيق', en: 'Pack & document' }, text: { ar: 'تغليف وملصقات وإقرار صحيح.', en: 'Correct packaging, labels and declaration.' } },
+      { title: { ar: 'الشحن والتسليم', en: 'Ship & deliver' }, text: { ar: 'فصل صحيح على السفينة ونقل مرخص.', en: 'Proper stowage on board and licensed trucking.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'ما المستندات المطلوبة لشحن مادة خطرة؟', en: 'What documents do I need to ship dangerous goods?' },
+        a: { ar: 'صحيفة بيانات السلامة (SDS) المحدثة، وبيانات التغليف، وإقرار البضائع الخطرة الذي نساعدك في إعداده.', en: 'An up-to-date SDS, packaging details and the DG declaration, which we help you prepare.' },
+      },
+      {
+        q: { ar: 'هل تقبل كل الخطوط الملاحية البضائع الخطرة؟', en: 'Do all carriers accept dangerous goods?' },
+        a: { ar: 'لا، ولكل خط قيوده حسب الفئة، لذلك نختار الخط والمسار المناسبين لمادتك.', en: 'No. Each carrier has restrictions by class, so we pick the right carrier and routing for your product.' },
+      },
+    ],
+  },
+  {
+    slug: 'roro',
+    category: 'ocean',
+    icon: 'car',
+    code: 'RoRo',
+    quoteMode: 'RORO',
+    title: { ar: 'شحن السيارات والمعدات المتحركة (RoRo)', en: 'RoRo & Vehicle Shipping' },
+    short: {
+      ar: 'شحن السيارات والشاحنات والحافلات والمعدات بالدحرجة، أو داخل الحاويات وعلى المنصات المسطحة.',
+      en: 'Shipping cars, trucks, buses and machinery roll-on/roll-off, or in containers and on flat racks.',
+    },
+    intro: {
+      ar: 'تُقاد المركبات مباشرة إلى سفينة الدحرجة (RoRo) وتُثبَّت في سطحها، دون رافعات أو حاويات، وهي الطريقة الأوفر للأساطيل والمعدات ذاتية الحركة. وللسيارات التي تحتاج حماية إضافية نوفر الشحن داخل الحاويات، وللمعدات غير ذاتية الحركة نستخدم المنصات المسطحة (Flat Rack).',
+      en: 'Vehicles are driven straight onto a RoRo vessel and secured on deck, with no cranes or containers: the most economical way to move fleets and self-propelled machinery. For cars needing extra protection we offer containerised shipping, and flat racks for equipment that cannot drive.',
+    },
+    offer: [
+      { ar: 'شحن بالدحرجة (RoRo) للمركبات ذاتية الحركة', en: 'Roll-on/roll-off for self-propelled units' },
+      { ar: 'شحن السيارات داخل الحاويات مع التثبيت', en: 'Containerised car shipping with lashing' },
+      { ar: 'منصات مسطحة (Flat Rack) للمعدات غير ذاتية الحركة', en: 'Flat racks for non-self-propelled equipment' },
+      { ar: 'شحن أساطيل الشركات والوكلاء', en: 'Fleet shipments for companies and dealers' },
+      { ar: 'فحص وتوثيق حالة المركبة قبل الشحن', en: 'Pre-shipment condition survey' },
+      { ar: 'تخليص جمركي وفحص المطابقة للمركبات', en: 'Vehicle customs clearance and conformity' },
+      { ar: 'نقل بالسطحات إلى الوجهة النهائية', en: 'Car carrier and lowbed delivery' },
+    ],
+    scope: [
+      { ar: 'سيارات ركاب', en: 'Passenger cars' },
+      { ar: 'أساطيل الشركات', en: 'Corporate fleets' },
+      { ar: 'شاحنات', en: 'Trucks' },
+      { ar: 'حافلات', en: 'Buses' },
+      { ar: 'معدات إنشاءات', en: 'Construction machinery' },
+      { ar: 'معدات زراعية', en: 'Agricultural equipment' },
+      { ar: 'مقطورات', en: 'Trailers' },
+    ],
+    benefits: [
+      { ar: 'تكلفة أقل من الحاويات للمركبات الكبيرة', en: 'Lower cost than containers for large vehicles' },
+      { ar: 'تحميل وتفريغ سريع وآمن', en: 'Fast, safe loading and discharge' },
+      { ar: 'حلول لكل أنواع المعدات والأحجام', en: 'Solutions for every size and type' },
+    ],
+    steps: [
+      { title: { ar: 'البيانات', en: 'Details' }, text: { ar: 'أرسل نوع المركبة وأبعادها ووزنها.', en: 'Send the vehicle type, dimensions and weight.' } },
+      { title: { ar: 'اختيار الطريقة', en: 'Choose method' }, text: { ar: 'RoRo أو حاوية أو منصة مسطحة.', en: 'RoRo, container or flat rack.' } },
+      { title: { ar: 'الفحص والتحميل', en: 'Survey & load' }, text: { ar: 'توثيق الحالة والتحميل في الميناء.', en: 'Condition survey and loading at port.' } },
+      { title: { ar: 'الاستلام', en: 'Receive' }, text: { ar: 'تخليص وتسليم في الوجهة.', en: 'Clearance and handover at destination.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'هل تُشحن المركبة بالوقود؟', en: 'Can the vehicle be shipped with fuel?' },
+        a: { ar: 'يُسمح بكمية محدودة فقط حسب اشتراطات الخط الملاحي، ونبلغك بها مسبقًا.', en: 'Only a limited amount, per the carrier’s rules, which we share in advance.' },
+      },
+      {
+        q: { ar: 'أيهما أفضل لسيارتي: RoRo أم حاوية؟', en: 'Which is better for my car: RoRo or container?' },
+        a: { ar: 'RoRo أوفر للسيارات العادية والأساطيل، والحاوية أنسب للسيارات الفاخرة أو عند شحن أغراض معها.', en: 'RoRo is cheaper for standard cars and fleets; a container suits luxury cars or shipments with extra goods.' },
+      },
+    ],
+  },
+];

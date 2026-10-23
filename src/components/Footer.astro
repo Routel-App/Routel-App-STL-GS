@@ -2,7 +2,7 @@
 import { site, phoneHref, whatsappHref } from '../config/site';
 import { type Lang, href, t, u } from '../i18n/ui';
 import { eServices } from '../i18n/nav';
-import { services } from '../data/services';
+import { categories } from '../data/services';
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 
@@ -62,7 +62,7 @@ const legalLine = [
     <div class="footer-cols">
       <div>
         <h4>{u('services', lang)}</h4>
-        <ul>{services.slice(0, 8).map((s) => <li><a href={href(lang, `/services/${s.slug}`)}>{t(s.title, lang).replace(/\s*\(.*\)$/, '')}</a></li>)}</ul>
+        <ul>{categories.map((c) => <li><a href={href(lang, `/services/${c.slug}`)}>{t(c.title, lang)}</a></li>)}</ul>
       </div>
       <div>
         <h4>{u('company', lang)}</h4>

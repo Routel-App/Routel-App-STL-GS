@@ -1,6 +1,6 @@
 import type { L } from '../config/site';
 import { ui } from './ui';
-import { services } from '../data/services';
+import { categories } from '../data/services';
 import { certifications } from '../config/site';
 const hasCerts = certifications.length > 0;
 
@@ -26,7 +26,7 @@ export const mainNav: NavItem[] = [
   {
     label: ui.services,
     path: '/services',
-    children: services.map((s) => ({ label: s.title, path: `/services/${s.slug}` })),
+    children: categories.map((c) => ({ label: c.title, path: `/services/${c.slug}` })),
   },
   { label: ui.sectors, path: '/sectors' },
   {

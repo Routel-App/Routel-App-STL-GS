@@ -1,18 +1,25 @@
 ---
 import { site } from '../config/site';
 import { type Lang, href, u } from '../i18n/ui';
+import ServiceArt from './ServiceArt.astro';
 interface Props {
   lang: Lang;
   title: string;
   lead?: string;
   eyebrow?: string;
   crumbs?: { label: string; path?: string }[];
+  /** business-unit illustration shown instead of the default photo */
+  art?: 'ship' | 'crane' | 'plane' | 'truck' | 'event' | 'marine';
+  /** page-specific photo (overrides the illustration) */
+  photo?: string;
 }
-const { lang, title, lead, eyebrow, crumbs = [] } = Astro.props;
+const { lang, title, lead, eyebrow, crumbs = [], art, photo } = Astro.props;
 ---
 <section class="page-hero">
   <div class="ph-art" aria-hidden="true">
-    <div class="ph-img" style={`--photo: url('${site.images.hero}')`}></div>
+    {art
+      ? <div class="ph-img ph-svg"><ServiceArt art={art} photo={photo} /></div>
+      : <div class="ph-img" style={`--photo: url('${photo ?? site.images.hero}')`}></div>}
     <span class="ph-slash"></span>
     <span class="ph-slash thin"></span>
   </div>
@@ -37,6 +44,8 @@ const { lang, title, lead, eyebrow, crumbs = [] } = Astro.props;
     filter: saturate(.9) contrast(1.03);
     clip-path: polygon(28% 0, 100% 0, 100% 100%, 0 100%);
   }
+  .ph-svg { background: none; filter: none; }
+  .ph-svg :global(.service-art) { position: absolute; inset: 0; }
   :global(html[dir='rtl']) .ph-img { clip-path: polygon(0 0, 72% 0, 100% 100%, 0 100%); }
   .ph-slash { position: absolute; bottom: 0; height: 46%; width: 34px; background: var(--coral); inset-inline-start: 12%; transform: skewX(-22deg); }
   .ph-slash.thin { width: 10px; inset-inline-start: calc(12% + 52px); background: var(--petrol); height: 30%; }

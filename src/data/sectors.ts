@@ -33,7 +33,7 @@ export const sectors: Sector[] = [
       { ar: 'تخزين قرب الموانئ', en: 'Storage near the ports' },
       { ar: 'توزيع داخلي', en: 'Inland distribution' },
     ],
-    services: ['lcl', 'warehousing-distribution', 'inland-transport', 'customs-clearance-saber'],
+    services: ['lcl', 'fcl', 'warehousing-distribution', 'stuffing-unstuffing', 'inland-transport', 'customs-clearance-saber'],
     successStory: story,
   },
   {
@@ -50,7 +50,7 @@ export const sectors: Sector[] = [
       { ar: 'تقرير حرارة', en: 'Temperature reports' },
       { ar: 'تخليص سريع للمواد الغذائية', en: 'Fast clearance for food items' },
     ],
-    services: ['reefer', 'customs-clearance-saber', 'inland-transport', 'warehousing-distribution'],
+    services: ['reefer', 'liquid-chemicals', 'customs-clearance-saber', 'inland-transport', 'warehousing-distribution'],
     successStory: story,
   },
   {
@@ -67,7 +67,7 @@ export const sectors: Sector[] = [
       { ar: 'مناولة خاصة', en: 'Special handling' },
       { ar: 'امتثال لمتطلبات SFDA', en: 'SFDA compliance' },
     ],
-    services: ['reefer', 'customs-clearance-saber', 'marine-cargo-insurance', 'warehousing-distribution'],
+    services: ['reefer', 'air-project-cargo', 'customs-clearance-saber', 'marine-cargo-insurance', 'warehousing-distribution'],
     successStory: story,
   },
   {
@@ -84,7 +84,7 @@ export const sectors: Sector[] = [
       { ar: 'بضائع سائبة', en: 'Break bulk' },
       { ar: 'تنسيق متعدد المنشأ', en: 'Multi-origin coordination' },
     ],
-    services: ['break-bulk-project-cargo', 'fcl', 'inland-transport', 'marine-cargo-insurance'],
+    services: ['project-cargo', 'heavy-lift', 'break-bulk', 'chartering', 'inland-transport'],
     successStory: story,
   },
   {
@@ -97,11 +97,11 @@ export const sectors: Sector[] = [
       en: 'The sector handles dangerous goods and heavy equipment, and requires vendor approvals and high safety standards at every stage.',
     },
     solution: [
-      { ar: 'شحن DG', en: 'DG shipping' },
-      { ar: 'خزانات ISO', en: 'ISO tanks' },
+      { ar: 'شحن البضائع الخطرة (DG)', en: 'DG shipping' },
+      { ar: 'خزانات ISO والكيماويات السائلة', en: 'ISO tanks & liquid chemicals' },
       { ar: 'فرق سلامة مدربة', en: 'Trained safety teams' },
     ],
-    services: ['dangerous-goods', 'break-bulk-project-cargo', 'customs-clearance-saber', 'marine-cargo-insurance'],
+    services: ['liquid-chemicals', 'dangerous-goods', 'heavy-lift', 'customs-clearance-saber', 'marine-cargo-insurance'],
     successStory: story,
   },
   {
@@ -118,7 +118,7 @@ export const sectors: Sector[] = [
       { ar: 'حاويات', en: 'Containers' },
       { ar: 'شحن عاجل', en: 'Expedited shipping' },
     ],
-    services: ['roro', 'fcl', 'lcl', 'customs-clearance-saber'],
+    services: ['roro', 'supercar-logistics', 'fcl', 'air-project-cargo', 'customs-clearance-saber'],
     successStory: story,
   },
   {
@@ -135,7 +135,58 @@ export const sectors: Sector[] = [
       { ar: 'عقود سنوية بأسعار ثابتة', en: 'Annual contracts with fixed rates' },
       { ar: 'دعم التصدير', en: 'Export support' },
     ],
-    services: ['fcl', 'customs-clearance-saber', 'inland-transport', 'warehousing-distribution'],
+    services: ['fcl', 'break-bulk', 'liquid-chemicals', 'customs-clearance-saber', 'inland-transport', 'container-storage'],
+    successStory: story,
+  },
+  {
+    slug: 'shipping-offshore',
+    icon: 'anchor',
+    title: { ar: 'ملاك السفن والعمليات البحرية', en: 'Ship Owners & Offshore' },
+    challenge: { ar: 'توقف قصير في الميناء، احتياجات عاجلة، تكلفة يوم السفينة', en: 'Short port stays, urgent needs, high daily vessel cost' },
+    challengeLong: {
+      ar: 'كل ساعة إضافية للسفينة في الميناء لها تكلفة. الملاك والمشغلون والمستأجرون ومقاولو العمليات البحرية يحتاجون مؤنًا ووقودًا وقطع غيار وتغيير طواقم في الوقت المحدد، وبمستندات صحيحة من أول مرة.',
+      en: 'Every extra hour a vessel spends in port costs money. Owners, operators, charterers and offshore contractors need provisions, fuel, spares and crew changes on time, with documents right the first time.',
+    },
+    solution: [
+      { ar: 'تموين ووقود عند الرصيف أو المخطاف', en: 'Provisions and fuel at berth or anchorage' },
+      { ar: 'وكالة ملاحية وتغيير طواقم', en: 'Ship agency and crew changes' },
+      { ar: 'تأجير وحدات بحرية ومناولة أصول', en: 'Marine craft hire and asset handling' },
+    ],
+    services: ['ship-chandling', 'bunkering', 'ship-agency-port-services', 'vessel-cleaning', 'marine-craft-hire', 'marine-assets-handling'],
+    successStory: story,
+  },
+  {
+    slug: 'energy-renewables',
+    icon: 'spark',
+    title: { ar: 'الطاقة والطاقة المتجددة', en: 'Energy & Renewables' },
+    challenge: { ar: 'محولات ومولدات ضخمة، شفرات رياح، مواقع نائية', en: 'Huge transformers and generators, wind blades, remote sites' },
+    challengeLong: {
+      ar: 'مشاريع الكهرباء والطاقة الشمسية والرياح تعتمد على معدات ثقيلة وطويلة تصل إلى مواقع بعيدة عن الموانئ، وتحتاج تخطيط مسار وتصاريح ومرافقة أمنية ورفع دقيق.',
+      en: 'Power, solar and wind projects depend on heavy and long equipment travelling to sites far from the ports, requiring route planning, permits, escorts and precise lifting.',
+    },
+    solution: [
+      { ar: 'دراسة مسار وتصاريح نقل', en: 'Route surveys and transport permits' },
+      { ar: 'سفن رفع ثقيل واستئجار كامل', en: 'Heavy-lift vessels and full charters' },
+      { ar: 'نقل بري بمقطورات هيدروليكية', en: 'Hydraulic modular trailers on land' },
+    ],
+    services: ['heavy-lift', 'project-cargo', 'chartering', 'break-bulk', 'inland-transport'],
+    successStory: story,
+  },
+  {
+    slug: 'events-exhibitions',
+    icon: 'event',
+    title: { ar: 'الفعاليات والمعارض', en: 'Events & Exhibitions' },
+    challenge: { ar: 'مواعيد افتتاح لا تتأخر، إدخال مؤقت، إعادة تصدير', en: "Opening dates that can't slip, temporary import, re-export" },
+    challengeLong: {
+      ar: 'مع نمو قطاع الفعاليات والترفيه والمعارض في المملكة، تصل معدات المسارح والبث والمعروضات والسيارات من دول متعددة بمواعيد دقيقة، وتحتاج إدخالًا مؤقتًا ثم إعادة تصدير بعد انتهاء الحدث.',
+      en: "With the Kingdom's events, entertainment and exhibitions sector growing, stage, broadcast and display equipment and cars arrive from many countries on tight schedules, and need temporary import and re-export after the event.",
+    },
+    solution: [
+      { ar: 'إدخال مؤقت وكارنيه ATA', en: 'Temporary import and ATA Carnet' },
+      { ar: 'تسليم للموقع حسب الموعد', en: 'Timed delivery to the venue' },
+      { ar: 'تخزين الصناديق الفارغة وإعادة التصدير', en: 'Empties storage and re-export' },
+    ],
+    services: ['events-exhibitions', 'supercar-logistics', 'air-charter', 'customs-clearance-saber', 'inland-transport'],
     successStory: story,
   },
 ];

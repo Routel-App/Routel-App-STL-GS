@@ -6,7 +6,8 @@ import HeroScene from '../../components/HeroScene.astro';
 import { site, clientLogos, testimonials, accreditationStrip } from '../../config/site';
 import { getLang, href, langPaths, t, u } from '../../i18n/ui';
 import { eServices } from '../../i18n/nav';
-import { services, serviceBySlug } from '../../data/services';
+import { categories, categoryBySlug, servicesIn, servicesIntro, serviceBySlug } from '../../data/services';
+import ServiceArt from '../../components/ServiceArt.astro';
 import { sectors } from '../../data/sectors';
 import { articles } from '../../data/blog';
 import { heroSlides, aboutShort, guideQuestion, howWeWork, whyReasons, trackingStages } from '../../data/company';
@@ -29,7 +30,7 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.pat
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <span class="eyebrow">{ar ? 'شحن بحري · تخليص جمركي · نقل وتخزين' : 'Ocean freight · Customs · Inland & storage'}</span>
+        <span class="eyebrow">{ar ? 'شحن بحري · مشاريع ورفع ثقيل · خدمات بحرية' : 'Ocean freight · Projects & heavy lift · Marine services'}</span>
         <div class="slides" id="slides" aria-roledescription="carousel">
           {heroSlides.map((s, i) => {
             const [a, b] = t(s.title, lang).split(/\.\.\s*/);
@@ -153,26 +154,56 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.pat
     </div>
   </section>
 
-  <!-- 4.7 Services: shipping manifest -->
+  <!-- 4.7 Services: six business units -->
   <section class="section">
     <div class="container">
       <div class="head-row">
-        <SectionHead eyebrow={u('services', lang)} title={ar ? 'حلول شحن لكل نوع بضاعة' : 'A Solution for Every Cargo'} />
+        <SectionHead eyebrow={u('services', lang)} title={ar ? 'ست وحدات أعمال.. وجهة واحدة' : 'Six Business Units.. One Partner'} lead={t(servicesIntro, lang)} />
         <a class="btn btn-outline" href={href(lang, '/services')}>{u('allServices', lang)} <Icon name="arrow" class="flip" /></a>
       </div>
-      <ol class="manifest">
-        {services.map((s, i) => (
+      <div class="units">
+        {categories.map((c, i) => (
+          <article class="unit reveal">
+            <a class="unit-art" href={href(lang, `/services/${c.slug}`)} tabindex="-1" aria-hidden="true">
+              <ServiceArt art={c.art} />
+              <span class="unit-code ltr">{pad(i + 1)} / {c.code}</span>
+            </a>
+            <div class="unit-body">
+              <h3><a href={href(lang, `/services/${c.slug}`)}>{t(c.title, lang)}</a></h3>
+              <p>{t(c.short, lang)}</p>
+              <ul class="unit-list">
+                {servicesIn(c.slug).map((s) => <li><a href={href(lang, `/services/${s.slug}`)}>{short(t(s.title, lang))}</a></li>)}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4.7b Marine services spotlight -->
+  <section class="section section-dark marine">
+    <div class="container marine-grid">
+      <div class="marine-copy">
+        <span class="eyebrow">{ar ? 'جديد: الخدمات البحرية' : 'New: Marine Services'}</span>
+        <h2>{ar ? <>كل ما تحتاجه <em>السفينة</em> عند الرصيف</> : <>Everything the <em>vessel</em> needs at berth</>}</h2>
+        <p class="lead">{t(categoryBySlug('marine')!.intro, lang)}</p>
+        <div class="actions-row">
+          <a class="btn btn-primary" href={href(lang, '/services/marine')}>{ar ? 'اكتشف الخدمات البحرية' : 'Explore marine services'} <Icon name="arrow" class="flip" /></a>
+          <a class="btn btn-ghost-light" href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener"><Icon name="whatsapp" /> {ar ? 'طلب عاجل 24/7' : 'Urgent request 24/7'}</a>
+        </div>
+      </div>
+      <ul class="marine-list">
+        {servicesIn('marine').map((s) => (
           <li class="reveal">
             <a href={href(lang, `/services/${s.slug}`)}>
-              <span class="m-no num-label">{pad(i + 1)}</span>
-              <span class="m-code ltr">{s.code ?? '—'}</span>
-              <span class="m-title">{short(t(s.title, lang))}</span>
-              <span class="m-desc">{t(s.short, lang)}</span>
-              <span class="m-go"><Icon name="arrow" class="flip" size={20} /></span>
+              <Icon name={s.icon} size={26} />
+              <span><strong>{short(t(s.title, lang))}</strong><small>{t(s.short, lang)}</small></span>
+              <Icon name="arrow" class="flip go" size={18} />
             </a>
           </li>
         ))}
-      </ol>
+      </ul>
     </div>
   </section>
 
@@ -464,24 +495,35 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.pat
   .head-row :global(.section-head) { margin-bottom: 0; }
   .pt { padding-top: clamp(3rem, 7vw, 6rem); }
 
-  /* ---------- manifest ---------- */
-  .manifest { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--petrol); }
-  .manifest a { display: grid; grid-template-columns: 3rem 7rem minmax(0, 1.1fr) minmax(0, 1.4fr) 3rem; gap: 1.2rem; align-items: center; padding: 1.35rem .8rem; border-bottom: 1px solid var(--line); color: var(--ink); position: relative; transition: background .35s var(--ease), color .35s var(--ease); }
-  .m-code { font-weight: 600; color: var(--petrol); font-size: .95rem; transition: color .35s; justify-self: start; }
-  .m-title { font-size: 1.15rem; font-weight: 500; color: var(--petrol); transition: color .35s; }
-  .m-desc { color: var(--muted); font-size: .93rem; transition: color .35s; }
-  .m-go { justify-self: end; width: 40px; height: 40px; display: grid; place-items: center; background: var(--sand); color: var(--petrol); transition: background .35s, color .35s; }
-  .manifest a:hover { background: var(--petrol); }
-  .manifest a:hover .m-code, .manifest a:hover .m-no { color: var(--coral); }
-  .manifest a:hover .m-title { color: var(--cream); }
-  .manifest a:hover .m-desc { color: rgba(244, 239, 230, .65); }
-  .manifest a:hover .m-go { background: var(--coral); color: var(--petrol); }
-  @media (max-width: 900px) {
-    .manifest a { grid-template-columns: 5rem 1fr 40px; row-gap: .3rem; }
-    .m-no { display: none; }
-    .m-desc { grid-column: 2 / 3; grid-row: 2; }
-    .m-go { grid-row: 1 / span 2; grid-column: 3; }
-  }
+  /* ---------- business units ---------- */
+  .units { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+  .unit { background: #fff; display: flex; flex-direction: column; border-bottom: 3px solid transparent; transition: border-color .35s var(--ease), transform .35s var(--ease); }
+  .unit:hover { border-color: var(--coral); transform: translateY(-4px); }
+  .unit-art { position: relative; display: block; aspect-ratio: 16 / 9; }
+  .unit-art :global(.service-art) { position: absolute; inset: 0; clip-path: polygon(0 0, 100% 0, 100% 86%, 0 100%); }
+  .unit-code { position: absolute; inset-inline-start: 1rem; top: 1rem; background: var(--coral); color: var(--petrol); font-weight: 600; font-size: .8rem; padding: .25rem .6rem; letter-spacing: .06em; }
+  .unit-body { padding: 1.1rem 1.5rem 1.6rem; display: flex; flex-direction: column; gap: .6rem; flex: 1; }
+  .unit-body h3 { font-size: 1.3rem; font-weight: 600; margin: 0; }
+  .unit-body h3 a { color: var(--petrol); }
+  .unit-body p { color: var(--muted); font-size: .94rem; margin: 0; }
+  .unit-list { list-style: none; padding: 0; margin: .4rem 0 0; display: flex; flex-wrap: wrap; gap: .4rem; }
+  .unit-list a { display: inline-block; font-size: .82rem; padding: .3rem .65rem; background: var(--sand); color: var(--petrol); transition: background .25s, color .25s; }
+  .unit-list a:hover { background: var(--petrol); color: var(--cream); }
+  @media (max-width: 1000px) { .units { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .units { grid-template-columns: 1fr; } }
+
+  /* ---------- marine spotlight ---------- */
+  .marine-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .marine-copy h2 em { font-style: normal; color: var(--coral); }
+  .marine-copy .lead { margin: 1.2rem 0 2rem; }
+  .marine-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid rgba(244, 239, 230, .18); }
+  .marine-list a { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr) 2rem; gap: 1rem; align-items: center; padding: 1.05rem .4rem; border-bottom: 1px solid rgba(244, 239, 230, .18); color: rgba(244, 239, 230, .7); transition: background .3s, padding .3s; }
+  .marine-list a :global(.icon) { color: var(--coral); }
+  .marine-list strong { display: block; color: var(--cream); font-weight: 500; font-size: 1.05rem; }
+  .marine-list small { display: block; font-size: .86rem; margin-top: .15rem; }
+  .marine-list a:hover { background: rgba(244, 239, 230, .06); padding-inline: 1rem; }
+  .marine-list .go { opacity: .5; }
+  @media (max-width: 900px) { .marine-grid { grid-template-columns: 1fr; } }
 
   /* ---------- how (route) ---------- */
   .route { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; position: relative; }

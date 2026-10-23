@@ -1,0 +1,377 @@
+import type { Service } from '../services';
+
+export const marineServices: Service[] = [
+  {
+    slug: 'ship-chandling',
+    category: 'marine',
+    icon: 'food',
+    code: 'CHN',
+    featured: true,
+    title: { ar: 'تموين السفن (Ship Chandling)', en: 'Ship Chandling & Provisions' },
+    short: {
+      ar: 'مؤن طازجة ومجمدة وجافة ومخازن السفينة كاملة، تصل إلى الرصيف أو المخطاف في الوقت المحدد.',
+      en: 'Fresh, frozen and dry provisions plus complete ship stores, delivered to berth or anchorage on time.',
+    },
+    intro: {
+      ar: 'نجهز طلبات التموين للسفن من خلال موردين معتمدين، ونسلمها مع التوثيق والفحص قبل الشحن. نخدم ميناء جدة الإسلامي وميناء الملك عبدالله وينبع والدمام والجبيل ورأس تنورة على مدار الساعة، بما في ذلك الطلبات العاجلة قبل الإبحار.',
+      en: 'We prepare provision and store orders through approved suppliers and deliver them checked and documented. We serve Jeddah Islamic Port, King Abdullah Port, Yanbu, Dammam, Jubail and Ras Tanura around the clock, including urgent orders before sailing.',
+    },
+    offer: [
+      { ar: 'مؤن طازجة ومجمدة وجافة حسب قائمة الطاهي', en: "Fresh, frozen and dry provisions per the cook's list" },
+      { ar: 'المخازن المعفاة (Bonded Stores) وفق الأنظمة الجمركية', en: 'Bonded stores in line with customs regulations' },
+      { ar: 'مخازن السطح والمحركات والكبائن', en: 'Deck, engine and cabin stores' },
+      { ar: 'معدات السلامة والإنقاذ (LSA) والألعاب النارية البحرية', en: 'Safety and life-saving appliances (LSA) and marine pyrotechnics' },
+      { ar: 'الخرائط والمطبوعات الملاحية وتحديثاتها', en: 'Nautical charts and publications, with updates' },
+      { ar: 'تزويد السفن بالمياه العذبة', en: 'Fresh water supply' },
+      { ar: 'تسعير حسب أكواد IMPA وتسليم مع قائمة تعبئة', en: 'Quotes by IMPA codes and delivery with a packing list' },
+      { ar: 'توصيل عاجل إلى الرصيف أو بالقارب إلى المخطاف', en: 'Urgent delivery at berth or by launch to anchorage' },
+    ],
+    scope: [
+      { ar: 'ناقلات', en: 'Tankers' },
+      { ar: 'سفن البضائع السائبة', en: 'Bulk carriers' },
+      { ar: 'سفن الحاويات', en: 'Container ships' },
+      { ar: 'سفن الدحرجة', en: 'RoRo vessels' },
+      { ar: 'سفن الدعم البحري', en: 'Offshore support vessels' },
+      { ar: 'اليخوت', en: 'Yachts' },
+    ],
+    benefits: [
+      { ar: 'جهة واحدة لكل طلبات السفينة في كل الموانئ السعودية', en: "One point of contact for all the ship's orders across Saudi ports" },
+      { ar: 'أسعار واضحة بالبند قبل التأكيد', en: 'Clear itemised pricing before confirmation' },
+      { ar: 'تسليم مبرد للمؤن الطازجة والمجمدة', en: 'Temperature-controlled delivery for fresh and frozen items' },
+    ],
+    steps: [
+      { title: { ar: 'استلام الطلب', en: 'Order received' }, text: { ar: 'يرسل الربان أو المشغل القائمة بأكواد IMPA أو بصيغته المعتادة.', en: 'The master or operator sends the list by IMPA codes or in their usual format.' } },
+      { title: { ar: 'عرض سعر', en: 'Quotation' }, text: { ar: 'نرسل عرضًا بالبند مع البدائل المتاحة ووقت التسليم.', en: 'We send an itemised quote with available alternatives and delivery time.' } },
+      { title: { ar: 'التجهيز والفحص', en: 'Packing & checks' }, text: { ar: 'نجهز الطلب ونفحص الكميات والجودة وتواريخ الصلاحية.', en: 'We pack the order and check quantities, quality and expiry dates.' } },
+      { title: { ar: 'التسليم على السفينة', en: 'Delivery on board' }, text: { ar: 'نسلم على الرصيف أو المخطاف ونأخذ توقيع الاستلام.', en: 'We deliver at berth or anchorage and collect the signed receipt.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'كم تحتاجون لتجهيز طلب التموين؟', en: 'How much notice do you need for a provisions order?' },
+        a: { ar: 'يفضل استلام الطلب قبل وصول السفينة بـ 48 ساعة، ونتعامل مع الطلبات العاجلة حسب توفر الأصناف.', en: 'Ideally 48 hours before arrival; we handle urgent orders subject to item availability.' },
+      },
+      {
+        q: { ar: 'هل توصلون إلى السفن في المخطاف؟', en: 'Do you deliver to vessels at anchorage?' },
+        a: { ar: 'نعم، نرتب قاربًا للتوصيل مع التصاريح اللازمة من الميناء.', en: 'Yes, we arrange a launch boat together with the required port permits.' },
+      },
+    ],
+  },
+  {
+    slug: 'bunkering',
+    category: 'marine',
+    icon: 'fuel',
+    code: 'BNK',
+    title: { ar: 'تزويد السفن بالوقود (Bunkering)', en: 'Bunkering & Lubricants' },
+    short: {
+      ar: 'وقود بحري وزيوت تشحيم عبر موردين مرخصين، بالصندل أو بالشاحنة على الرصيف.',
+      en: 'Marine fuels and lubricants through licensed suppliers, delivered by barge or by truck at berth.',
+    },
+    intro: {
+      ar: 'نرتب عمليات تزويد السفن بالوقود في الموانئ السعودية من خلال موردين مرخصين، ونتابع الكمية والمواصفات والتوثيق من التخطيط حتى توقيع مذكرة التسليم. هدفنا تزويد في الوقت المناسب دون تأخير رحلة السفينة.',
+      en: "We arrange bunker supplies at Saudi ports through licensed suppliers and follow quantity, specification and paperwork from planning to the signed delivery note. Our aim is a timely supply that doesn't delay the voyage.",
+    },
+    offer: [
+      { ar: 'زيت الغاز البحري (MGO) والديزل البحري (MDO)', en: 'Marine gas oil (MGO) and marine diesel oil (MDO)' },
+      { ar: 'زيت الوقود منخفض الكبريت (VLSFO) وعالي الكبريت (HSFO) حسب التوفر', en: 'Very low sulphur (VLSFO) and high sulphur fuel oil (HSFO), subject to availability' },
+      { ar: 'زيوت التشحيم للمحركات والأنظمة الهيدروليكية', en: 'Engine and hydraulic lubricants' },
+      { ar: 'التزويد بالصندل في المخطاف أو بالشاحنة على الرصيف', en: 'Delivery by barge at anchorage or by truck at berth' },
+      { ar: 'أخذ العينات وفق الإجراءات المعتمدة وتسليم مذكرة التسليم (BDN)', en: 'Sampling to standard procedures and bunker delivery note (BDN)' },
+      { ar: 'ترتيب مسح الكميات عبر جهات مستقلة عند الطلب', en: 'Independent quantity surveys on request' },
+      { ar: 'تخطيط مواعيد التزويد مع جدول السفينة والميناء', en: 'Planning bunker calls around the vessel and port schedule' },
+    ],
+    scope: [
+      { ar: 'MGO', en: 'MGO' },
+      { ar: 'MDO', en: 'MDO' },
+      { ar: 'VLSFO', en: 'VLSFO' },
+      { ar: 'HSFO', en: 'HSFO' },
+      { ar: 'زيوت التشحيم', en: 'Lube oils' },
+      { ar: 'التزويد بالصندل', en: 'Barge delivery' },
+      { ar: 'التزويد بالشاحنة', en: 'Truck delivery' },
+    ],
+    benefits: [
+      { ar: 'موردون مرخصون ومستندات كاملة لكل عملية', en: 'Licensed suppliers and full paperwork for every stem' },
+      { ar: 'تنسيق التزويد مع عمليات الشحن لتقليل وقت التوقف', en: 'Bunkering coordinated with cargo operations to cut port time' },
+      { ar: 'متابعة لحظية حتى إغلاق العملية', en: 'Real-time follow-up until the stem is closed' },
+    ],
+    steps: [
+      { title: { ar: 'طلب التزويد', en: 'Enquiry' }, text: { ar: 'نوع الوقود والكمية والميناء والموعد المتوقع.', en: 'Grade, quantity, port and expected date.' } },
+      { title: { ar: 'العرض والتأكيد', en: 'Offer & nomination' }, text: { ar: 'نقدم عرض المورد ونؤكد الحجز بعد موافقتكم.', en: "We present the supplier's offer and confirm the nomination once you approve." } },
+      { title: { ar: 'التزويد', en: 'Delivery' }, text: { ar: 'تنسيق الصندل أو الشاحنة مع الميناء وأخذ العينات.', en: 'Barge or truck coordinated with the port, with sampling.' } },
+      { title: { ar: 'الإغلاق', en: 'Close-out' }, text: { ar: 'تسليم مذكرة التسليم والعينات والفاتورة.', en: 'BDN, samples and invoice handed over.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'هل تبيعون الوقود مباشرة؟', en: 'Do you sell fuel directly?' },
+        a: { ar: 'نرتب التزويد من خلال موردين مرخصين في كل ميناء ونتابع العملية بالنيابة عنكم.', en: 'We arrange supply through licensed suppliers at each port and manage the operation on your behalf.' },
+      },
+      {
+        q: { ar: 'ما المعلومات المطلوبة لعرض السعر؟', en: 'What do you need for a quote?' },
+        a: { ar: 'اسم السفينة ورقم IMO والميناء والموعد ونوع الوقود والكمية.', en: 'Vessel name and IMO number, port, date, grade and quantity.' },
+      },
+    ],
+  },
+  {
+    slug: 'vessel-cleaning',
+    category: 'marine',
+    icon: 'clean',
+    code: 'CLN',
+    title: { ar: 'تنظيف السفن', en: 'Vessel Cleaning' },
+    short: {
+      ar: 'تنظيف العنابر والخزانات والهيكل، وإزالة الحمأة والنفايات بطريقة متوافقة مع اتفاقية ماربول.',
+      en: 'Hold, tank and hull cleaning, plus MARPOL-compliant removal of sludge and waste.',
+    },
+    intro: {
+      ar: 'السفينة النظيفة تجتاز الفحص وتحمل الشحنة التالية دون تأخير. ننسق فرق تنظيف ومقاولي غوص معتمدين لتجهيز العنابر والخزانات، وتنظيف الهيكل تحت الماء، والتخلص من المخلفات عبر جهات مرخصة.',
+      en: 'A clean ship passes inspection and loads her next cargo without delay. We coordinate cleaning crews and approved diving contractors to prepare holds and tanks, clean the hull underwater and dispose of waste through licensed facilities.',
+    },
+    offer: [
+      { ar: 'تنظيف العنابر لمستوى جاهزية شحن الحبوب', en: 'Hold cleaning to grain-ready standard' },
+      { ar: 'تنظيف الخزانات وتجهيزها للفحص', en: 'Tank cleaning and preparation for inspection' },
+      { ar: 'تنظيف الهيكل تحت الماء وتلميع المراوح عبر مقاولي غوص معتمدين', en: 'Underwater hull cleaning and propeller polishing by approved diving contractors' },
+      { ar: 'طلاء العنابر بالجير (Lime Coating)', en: 'Hold lime coating' },
+      { ar: 'تنظيف السطح وأماكن الإعاشة', en: 'Deck and accommodation cleaning' },
+      { ar: 'إزالة الحمأة ومياه الآسن والنفايات والتخلص منها وفق ماربول', en: 'Sludge, bilge water and garbage removal with MARPOL-compliant disposal' },
+      { ar: 'تقارير وصور قبل التنظيف وبعده', en: 'Before-and-after reports with photos' },
+    ],
+    scope: [
+      { ar: 'العنابر', en: 'Cargo holds' },
+      { ar: 'الخزانات', en: 'Tanks' },
+      { ar: 'الهيكل والمراوح', en: 'Hull & propeller' },
+      { ar: 'الحمأة', en: 'Sludge' },
+      { ar: 'مياه الآسن', en: 'Bilge water' },
+      { ar: 'النفايات الصلبة', en: 'Garbage' },
+    ],
+    benefits: [
+      { ar: 'تجهيز السفينة لاجتياز فحص العنابر من أول مرة', en: 'Ships prepared to pass hold inspection first time' },
+      { ar: 'تخلص من المخلفات عبر جهات مرخصة مع شهادات استلام', en: 'Waste disposed through licensed facilities with receipts' },
+      { ar: 'تنفيذ أثناء عمليات الميناء لتقليل وقت التوقف', en: 'Work done alongside port operations to reduce downtime' },
+    ],
+    steps: [
+      { title: { ar: 'تحديد النطاق', en: 'Scope' }, text: { ar: 'نوع التنظيف والشحنة السابقة والقادمة وموقع السفينة.', en: 'Type of cleaning, previous and next cargo, and vessel location.' } },
+      { title: { ar: 'خطة العمل', en: 'Work plan' }, text: { ar: 'تحديد الفريق والمعدات والتصاريح والمدة.', en: 'Crew, equipment, permits and duration defined.' } },
+      { title: { ar: 'التنفيذ', en: 'Execution' }, text: { ar: 'تنفيذ العمل بإشراف ومعايير سلامة واضحة.', en: 'Work carried out under supervision and clear safety rules.' } },
+      { title: { ar: 'التسليم', en: 'Handover' }, text: { ar: 'تقرير مصور وشهادات التخلص من المخلفات.', en: 'Photo report and waste disposal certificates.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'هل يمكن تنظيف الهيكل والسفينة في المخطاف؟', en: 'Can the hull be cleaned at anchorage?' },
+        a: { ar: 'نعم، حسب موافقة سلطة الميناء وظروف البحر، وننسق التصاريح المطلوبة.', en: 'Yes, subject to port authority approval and sea conditions; we coordinate the permits.' },
+      },
+      {
+        q: { ar: 'هل تقدمون شهادات التخلص من النفايات؟', en: 'Do you provide waste disposal certificates?' },
+        a: { ar: 'نعم، نسلم إيصالات الاستلام من الجهة المرخصة لتوثيقها في سجلات السفينة.', en: "Yes, we hand over receipts from the licensed facility for the ship's records." },
+      },
+    ],
+  },
+  {
+    slug: 'marine-assets-handling',
+    category: 'marine',
+    icon: 'anchor',
+    code: 'MAH',
+    title: { ar: 'مناولة الأصول البحرية (Marine Assets Handling)', en: 'Marine Assets Handling' },
+    short: {
+      ar: 'تحريك الوحدات البحرية وسفن المشاريع ومعداتها بين الموانئ والدول، مع التصاريح والطواقم.',
+      en: 'Moving marine crafts, project vessels and their equipment between ports and countries, with permits and crews.',
+    },
+    intro: {
+      ar: 'لمقاولي المشاريع البحرية والمشغلين: نتولى تجهيز ونقل واستلام الوحدات البحرية والمعدات المرتبطة بها، من التصاريح والتخليص إلى الإنزال في الماء وتحريك الطواقم. ونقدم الرعاية للسفن المتوقفة حتى عودتها للعمل.',
+      en: 'For marine contractors and operators: we prepare, move and receive marine crafts and their equipment, from permits and clearance to launching and crew movements, and we look after laid-up vessels until they return to service.',
+    },
+    offer: [
+      { ar: 'تجهيز وتسريح الوحدات البحرية وسفن المشاريع (Mobilization / Demobilization)', en: 'Mobilization and demobilization of marine crafts and project vessels' },
+      { ar: 'نقل الوحدات البحرية بين الدول، مثل الإمارات إلى المملكة، مع التخليص', en: 'Cross-border transfer of crafts, e.g. UAE to KSA, with clearance' },
+      { ar: 'استخراج تصاريح الموانئ والجهات المختصة', en: 'Port and authority permits' },
+      { ar: 'تحريك الطواقم والمعدات بين الميناء والموقع البحري', en: 'Crew and equipment movements between port and offshore site' },
+      { ar: 'رفع وإنزال القوارب بالرافعات وتنسيق النقل البري لها', en: 'Lifting and launching of boats by crane, with road transport' },
+      { ar: 'رعاية السفن المتوقفة (Lay-up) ومتابعتها', en: 'Care and monitoring of laid-up vessels' },
+      { ar: 'تأجير المعدات البحرية عبر شركاء معتمدين', en: 'Marine equipment rental through approved partners' },
+    ],
+    scope: [
+      { ar: 'قوارب العمل', en: 'Workboats' },
+      { ar: 'الصنادل', en: 'Barges' },
+      { ar: 'سفن المشاريع البحرية', en: 'Offshore project vessels' },
+      { ar: 'منصات عائمة', en: 'Pontoons' },
+      { ar: 'قوارب الطواقم', en: 'Crew boats' },
+      { ar: 'معدات بحرية', en: 'Marine equipment' },
+    ],
+    benefits: [
+      { ar: 'جهة واحدة للتصاريح والنقل والتخليص والطواقم', en: 'One party for permits, transport, clearance and crews' },
+      { ar: 'جداول تعبئة واضحة تحمي موعد بدء المشروع', en: 'Clear mobilization schedules that protect project start dates' },
+      { ar: 'متابعة على مدار الساعة أثناء النقل', en: '24/7 follow-up throughout the move' },
+    ],
+    steps: [
+      { title: { ar: 'دراسة الأصل والمسار', en: 'Asset & route review' }, text: { ar: 'أبعاد الوحدة ووزنها ومسار النقل بحرًا أو برًا.', en: 'Dimensions, weight and route by sea or road.' } },
+      { title: { ar: 'التصاريح', en: 'Permits' }, text: { ar: 'تصاريح الموانئ والجمارك والجهات البحرية.', en: 'Port, customs and maritime authority permits.' } },
+      { title: { ar: 'التحريك', en: 'Movement' }, text: { ar: 'النقل والرفع والإنزال وتحريك الطواقم.', en: 'Transport, lifting, launching and crew movements.' } },
+      { title: { ar: 'التسليم في الموقع', en: 'On-site handover' }, text: { ar: 'استلام الوحدة جاهزة للعمل مع تقرير الحالة.', en: 'Craft handed over ready to work, with a condition report.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'هل تنقلون الوحدات البحرية برًا بين الدول؟', en: 'Do you move marine crafts by road across borders?' },
+        a: { ar: 'نعم، للوحدات المناسبة للنقل البري، مع التخليص في المنافذ الحدودية الخليجية.', en: 'Yes, for crafts suitable for road transport, with clearance at GCC border crossings.' },
+      },
+      {
+        q: { ar: 'هل تقدمون خدمة للسفن المتوقفة لفترة طويلة؟', en: 'Do you look after vessels laid up for long periods?' },
+        a: { ar: 'نعم، ننسق الحراسة والفحص الدوري والتموين والإجراءات مع الميناء.', en: 'Yes, we coordinate watchkeeping, periodic checks, supplies and port formalities.' },
+      },
+    ],
+  },
+  {
+    slug: 'marine-craft-hire',
+    category: 'marine',
+    icon: 'tug',
+    code: 'HIRE',
+    title: { ar: 'تأجير السفن والوحدات البحرية', en: 'Vessel & Marine Craft Hire' },
+    short: {
+      ar: 'قاطرات وصنادل وقوارب طواقم وسفن إمداد بعقود زمنية أو مجردة عبر شبكة من الملاك.',
+      en: 'Tugs, barges, crew boats and supply vessels on time or bareboat hire through a network of owners.',
+    },
+    intro: {
+      ar: 'نوفر الوحدة البحرية المناسبة لمشروعك من خلال شبكة ملاك ومشغلين معتمدين، سواء لعمليات الموانئ أو المشاريع البحرية أو أعمال الإنشاء أو الفعاليات في البحر. نتولى المفاضلة والتفاوض والتصاريح والمتابعة طوال مدة العقد.',
+      en: 'We source the right marine craft for your project through a network of approved owners and operators, for port operations, offshore work, marine construction or events at sea. We handle selection, negotiation, permits and follow-up for the full hire period.',
+    },
+    offer: [
+      { ar: 'قاطرات ومساعدة في الإرشاد والسحب', en: 'Tugs for towing and harbour assistance' },
+      { ar: 'صنادل مسطحة وصنادل بمحركات', en: 'Flat-top and self-propelled barges' },
+      { ar: 'قوارب نقل الطواقم وقوارب الإنزال', en: 'Crew boats and launch boats' },
+      { ar: 'سفن الإمداد البحري (PSV) وسفن مناولة المراسي (AHTS)', en: 'Platform supply vessels (PSV) and anchor handling tugs (AHTS)' },
+      { ar: 'قوارب العمل والمنصات العائمة', en: 'Workboats and pontoons' },
+      { ar: 'التأجير الزمني (Time Charter) والتأجير المجرد (Bareboat)', en: 'Time charter and bareboat hire' },
+      { ar: 'فحص الوحدة قبل التسليم وعند الإعادة (On/Off-hire Survey)', en: 'On-hire and off-hire surveys' },
+    ],
+    scope: [
+      { ar: 'قاطرات', en: 'Tugs' },
+      { ar: 'صنادل', en: 'Barges' },
+      { ar: 'قوارب طواقم', en: 'Crew boats' },
+      { ar: 'PSV', en: 'PSV' },
+      { ar: 'AHTS', en: 'AHTS' },
+      { ar: 'قوارب عمل', en: 'Workboats' },
+      { ar: 'منصات عائمة', en: 'Pontoons' },
+    ],
+    benefits: [
+      { ar: 'خيارات متعددة من ملاك مختلفين لمقارنة السعر والمواصفات', en: 'Several options from different owners to compare price and specs' },
+      { ar: 'عقود واضحة الشروط ومدة مرنة', en: 'Clear contract terms and flexible duration' },
+      { ar: 'متابعة الأداء والتوثيق اليومي أثناء التأجير', en: 'Performance follow-up and daily records during hire' },
+    ],
+    steps: [
+      { title: { ar: 'المتطلبات', en: 'Requirements' }, text: { ar: 'نوع العمل والموقع والمدة والمواصفات الفنية.', en: 'Type of work, location, duration and technical specs.' } },
+      { title: { ar: 'الخيارات', en: 'Options' }, text: { ar: 'نعرض الوحدات المتاحة مع المواصفات والأسعار.', en: 'We present available crafts with specs and rates.' } },
+      { title: { ar: 'العقد والتسليم', en: 'Contract & delivery' }, text: { ar: 'توقيع العقد وفحص التسليم والتصاريح.', en: 'Contract signed, on-hire survey and permits.' } },
+      { title: { ar: 'المتابعة', en: 'Follow-up' }, text: { ar: 'متابعة التشغيل حتى فحص الإعادة.', en: 'Operations followed through to the off-hire survey.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'ما أقصر مدة للتأجير؟', en: 'What is the shortest hire period?' },
+        a: { ar: 'تختلف حسب نوع الوحدة والمالك، وتبدأ غالبًا من يوم واحد للقوارب الصغيرة.', en: 'It depends on the craft and owner, often from a single day for small boats.' },
+      },
+      {
+        q: { ar: 'هل يشمل التأجير الطاقم والوقود؟', en: 'Does the hire include crew and fuel?' },
+        a: { ar: 'في التأجير الزمني يشمل الطاقم عادة، ويحدد العقد من يتحمل الوقود. في التأجير المجرد يتولى المستأجر التشغيل.', en: 'Time hire usually includes crew, and the contract sets who pays for fuel. Under bareboat hire the charterer operates the craft.' },
+      },
+    ],
+  },
+  {
+    slug: 'ship-agency-port-services',
+    category: 'marine',
+    icon: 'ship',
+    code: 'AGY',
+    title: { ar: 'الوكالة الملاحية وخدمات الموانئ', en: 'Ship Agency & Husbandry' },
+    short: {
+      ar: 'وكالة كاملة أو حماية، وخدمات السفينة وطاقمها في الموانئ السعودية على مدار الساعة.',
+      en: 'Full or protective agency, and husbandry for the ship and crew at Saudi ports, 24/7.',
+    },
+    intro: {
+      ar: 'نمثل الملاك والمستأجرين والمشغلين أمام الموانئ والجهات الحكومية، ونتابع السفينة من الإشعار الأول حتى المغادرة. تقديرات مصاريف واضحة، وتقارير لحظية، وفريق متاح ليلًا ونهارًا.',
+      en: 'We represent owners, charterers and operators before ports and authorities, and follow the vessel from the first notice to departure, with clear cost estimates, real-time reports and a team available day and night.',
+    },
+    offer: [
+      { ar: 'وكالة كاملة (Full Agency) ووكالة حماية (Protective Agency)', en: 'Full agency and protective agency' },
+      { ar: 'إجراءات دخول ومغادرة السفينة وتخطيط الرصيف', en: 'Inward and outward clearance and berth planning' },
+      { ar: 'خدمات السفينة (Husbandry)', en: 'Husbandry services' },
+      { ar: 'تغيير الطواقم وتنسيق التأشيرات والسفر', en: 'Crew changes with visa and travel coordination' },
+      { ar: 'استلام قطع الغيار العابرة وتوصيلها إلى المخطاف', en: 'Spares in transit, delivered to anchorage' },
+      { ar: 'الرعاية الطبية للطاقم وتسليم النقد للربان', en: 'Crew medical assistance and cash to master' },
+      { ar: 'تقدير المصاريف مسبقًا (PDA) والحساب النهائي (FDA)', en: 'Proforma (PDA) and final disbursement accounts (FDA)' },
+    ],
+    scope: [
+      { ar: 'ناقلات', en: 'Tankers' },
+      { ar: 'سفن البضائع السائبة', en: 'Bulk carriers' },
+      { ar: 'سفن البضائع العامة', en: 'General cargo' },
+      { ar: 'سفن الحاويات', en: 'Liner vessels' },
+      { ar: 'سفن المشاريع', en: 'Project vessels' },
+      { ar: 'اليخوت', en: 'Yachts' },
+    ],
+    benefits: [
+      { ar: 'تقليل وقت توقف السفينة بمتابعة دقيقة للإجراءات', en: 'Shorter port stays through close follow-up of formalities' },
+      { ar: 'حسابات مصاريف شفافة ومفصلة', en: 'Transparent, detailed disbursement accounts' },
+      { ar: 'تقارير يومية ونقطة تواصل واحدة', en: 'Daily reports and a single point of contact' },
+    ],
+    steps: [
+      { title: { ar: 'التعيين', en: 'Appointment' }, text: { ar: 'استلام التعيين وإرسال تقدير المصاريف (PDA).', en: 'Appointment received and PDA sent.' } },
+      { title: { ar: 'قبل الوصول', en: 'Pre-arrival' }, text: { ar: 'الإشعارات والتصاريح وتنسيق الرصيف والخدمات.', en: 'Notices, permits, berth and services lined up.' } },
+      { title: { ar: 'في الميناء', en: 'In port' }, text: { ar: 'متابعة العمليات والطاقم والتقارير اليومية.', en: 'Operations, crew matters and daily reports.' } },
+      { title: { ar: 'المغادرة', en: 'Departure' }, text: { ar: 'إجراءات المغادرة وإصدار الحساب النهائي (FDA).', en: 'Outward clearance and FDA issued.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'ما الفرق بين الوكالة الكاملة ووكالة الحماية؟', en: 'What is the difference between full and protective agency?' },
+        a: { ar: 'في الوكالة الكاملة نتولى كل شؤون السفينة، وفي وكالة الحماية نمثل مصالح المالك أو المستأجر بجانب وكيل معين من طرف آخر.', en: "With full agency we handle all the vessel's affairs; with protective agency we look after the owner's or charterer's interests alongside an agent appointed by another party." },
+      },
+      {
+        q: { ar: 'هل تنسقون تغيير الطواقم؟', en: 'Do you arrange crew changes?' },
+        a: { ar: 'نعم، نتابع التأشيرات والتنقل والسكن عند الحاجة وفق متطلبات الجهات المختصة.', en: 'Yes, we handle visas, transport and accommodation where needed, in line with authority requirements.' },
+      },
+    ],
+  },
+  {
+    slug: 'marine-technical-services',
+    category: 'marine',
+    icon: 'lifebuoy',
+    code: 'TEC',
+    title: { ar: 'الخدمات الفنية البحرية', en: 'Marine Technical Services' },
+    short: {
+      ar: 'صيانة قوارب النجاة ومعدات السلامة، وتعبئة طفايات الحريق والأسطوانات، وإصلاحات أثناء التوقف.',
+      en: 'Life raft and safety equipment servicing, extinguisher and cylinder refills, and repairs during port stays.',
+    },
+    intro: {
+      ar: 'نساعد السفن على البقاء جاهزة للفحص من خلال ورش ومحطات خدمة معتمدة في الموانئ السعودية. ننسق الصيانة الدورية لمعدات السلامة والإصلاحات الصغيرة والمسوحات أثناء توقف السفينة دون تعطيل جدولها.',
+      en: 'We keep vessels inspection-ready through approved workshops and service stations at Saudi ports, coordinating periodic safety equipment servicing, minor repairs and surveys during the port stay without disrupting the schedule.',
+    },
+    offer: [
+      { ar: 'صيانة وفحص قوارب النجاة ومعدات الإنقاذ (LSA)', en: 'Life raft and LSA servicing and inspection' },
+      { ar: 'تعبئة وفحص طفايات الحريق وأنظمة الإطفاء', en: 'Fire extinguisher and fire-fighting system refills and inspection' },
+      { ar: 'تعبئة أسطوانات الأكسجين والأسيتيلين وثاني أكسيد الكربون وغازات التبريد', en: 'Oxygen, acetylene, CO2 and refrigerant cylinder refills' },
+      { ar: 'إصلاحات صغيرة وفرق صيانة مرافقة عبر ورش معتمدة', en: 'Minor repairs and riding squads through approved workshops' },
+      { ar: 'تنسيق المسوحات والفحوصات', en: 'Survey and inspection coordination' },
+      { ar: 'معايرة الأجهزة والمعدات', en: 'Instrument and equipment calibration' },
+    ],
+    scope: [
+      { ar: 'قوارب النجاة', en: 'Life rafts' },
+      { ar: 'طفايات الحريق', en: 'Fire extinguishers' },
+      { ar: 'أسطوانات الغاز', en: 'Gas cylinders' },
+      { ar: 'معدات الإنقاذ', en: 'LSA' },
+      { ar: 'أجهزة القياس', en: 'Instruments' },
+    ],
+    benefits: [
+      { ar: 'تقليل ملاحظات الفحص قبل وصول المفتشين', en: 'Fewer inspection findings before surveyors board' },
+      { ar: 'تنفيذ أثناء توقف السفينة دون تأخير الإبحار', en: 'Work done during the port stay without delaying sailing' },
+      { ar: 'شهادات صيانة من جهات خدمة معتمدة', en: 'Service certificates from approved stations' },
+    ],
+    steps: [
+      { title: { ar: 'الطلب', en: 'Request' }, text: { ar: 'قائمة المعدات والخدمة المطلوبة وموعد التوقف.', en: 'Equipment list, required service and port stay dates.' } },
+      { title: { ar: 'الجدولة', en: 'Scheduling' }, text: { ar: 'حجز الورشة أو المحطة المعتمدة ونقل المعدات.', en: 'Approved workshop booked and equipment collected.' } },
+      { title: { ar: 'الخدمة', en: 'Service' }, text: { ar: 'الفحص والتعبئة أو الإصلاح وفق المتطلبات.', en: 'Inspection, refill or repair to requirements.' } },
+      { title: { ar: 'الإعادة', en: 'Return' }, text: { ar: 'إعادة المعدات إلى السفينة مع الشهادات.', en: 'Equipment returned on board with certificates.' } },
+    ],
+    faq: [
+      {
+        q: { ar: 'هل يمكن صيانة قوارب النجاة خلال توقف قصير؟', en: 'Can life rafts be serviced during a short stay?' },
+        a: { ar: 'غالبًا نعم إذا رُتب الطلب مسبقًا مع المحطة المعتمدة، وإلا نوفر بديلًا مؤقتًا حسب التوفر.', en: 'Usually yes if booked in advance with the approved station; otherwise we arrange a temporary replacement subject to availability.' },
+      },
+      {
+        q: { ar: 'هل تصدرون شهادات بعد الصيانة؟', en: 'Do you provide certificates after servicing?' },
+        a: { ar: 'تصدر الشهادات من محطة الخدمة المعتمدة ونسلمها للسفينة مع المعدات.', en: 'Certificates are issued by the approved service station and delivered to the ship with the equipment.' },
+      },
+    ],
+  },
+];

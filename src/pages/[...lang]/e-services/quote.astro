@@ -20,6 +20,9 @@ const serviceTypes = [
   { v: 'project', icon: 'crane', label: L('مشروع', 'Project') },
   { v: 'inland', icon: 'truck', label: L('نقل داخلي', 'Inland transport') },
   { v: 'warehouse', icon: 'warehouse', label: L('تخزين', 'Warehousing') },
+  { v: 'charter', icon: 'ship', label: L('استئجار سفينة', 'Ship charter') },
+  { v: 'air', icon: 'plane', label: L('شحن جوي / تأجير طائرة', 'Air charter / project') },
+  { v: 'marine', icon: 'anchor', label: L('خدمات بحرية للسفن', 'Marine services') },
 ];
 const modes = [
   { v: 'FCL', label: L('حاوية كاملة FCL', 'FCL') },
@@ -32,7 +35,7 @@ const containers = ["20' Dry", "40' Dry", "40' HC", "20' Reefer", "40' Reefer", 
 const incoterms = ['EXW', 'FCA', 'FOB', 'CFR', 'CIF', 'CPT', 'CIP', 'DAP', 'DPU', 'DDP', L('غير متأكد', 'Not sure')];
 const steps = [L('نوع الخدمة', 'Service type'), L('تفاصيل الشحنة', 'Shipment details'), L('بيانات التواصل', 'Contact details')];
 ---
-<Base lang={lang} title={u('quote', lang)} description={L('اطلب عرض سعر مفصّل لشحنتك البحرية خلال {hours} ساعة.', 'Request a detailed ocean freight quote within {hours} hours.')}>
+<Base lang={lang} title={u('quote', lang)} description={L('اطلب عرض سعر مفصّل لشحنتك أو لخدمات سفينتك خلال {hours} ساعة.', 'Request a detailed quote for your shipment or vessel services within {hours} hours.')}>
   <PageHero lang={lang} title={u('quote', lang)} lead={L('ثلاث خطوات بسيطة، ونرد عليك خلال {hours} ساعة عمل.', 'Three simple steps — we reply within {hours} business hours.').replace('{hours}', site.quoteResponseHours)} crumbs={[{ label: u('eservices', lang), path: '/e-services' }, { label: u('quote', lang) }]} />
   <SubNav lang={lang} items={eServiceTabs} />
 
