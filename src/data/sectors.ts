@@ -20,20 +20,21 @@ const story: L = { ar: '', en: '' };
 
 export const sectors: Sector[] = [
   {
-    slug: 'retail-ecommerce',
-    icon: 'cart',
-    title: { ar: 'التجزئة والتجارة الإلكترونية', en: 'Retail & E-commerce' },
-    challenge: { ar: 'مواسم ذروة، تنوع أصناف، سرعة تجديد المخزون', en: 'Peak seasons, wide SKU variety, fast inventory replenishment' },
+    slug: 'food-ingredients',
+    icon: 'leaf',
+    title: { ar: 'المواد الأولية للصناعات الغذائية', en: 'Food Ingredients & Raw Materials' },
+    challenge: { ar: 'زيوت نباتية وكاكاو ونشا وتوابل، رطوبة وصلاحية وشهادات حلال', en: 'Vegetable oils, cocoa, starch and spices; moisture, shelf life and halal certificates' },
     challengeLong: {
-      ar: 'مواسم الذروة مثل رمضان والجمعة البيضاء والعودة للمدارس تضغط على سلسلة الإمداد. تنوع الأصناف وتعدد الموردين يجعل الشحن معقدًا، وأي تأخير في تجديد المخزون يعني مبيعات ضائعة.',
-      en: 'Peak seasons such as Ramadan, White Friday and back-to-school strain the supply chain. Wide SKU ranges and multiple suppliers complicate shipping, and any delay in replenishment means lost sales.',
+      ar: 'مصانع الأغذية في المملكة تعتمد على مواد أولية تصل غالبًا من ماليزيا وإندونيسيا وتايلاند والهند: زيت النخيل ومشتقاته، والكاكاو وزبدته، والنشا المعدّل ونشا التابيوكا، ومنتجات جوز الهند، والتوابل، والسكر، والمستحلبات. هذه المواد حساسة للرطوبة والحرارة، وتحتاج تسجيلًا لدى هيئة الغذاء والدواء وشهادات حلال ومنشأ وصحة نباتية سليمة، وأي تأخير في الميناء يوقف خط إنتاج.',
+      en: "The Kingdom's food manufacturers rely on raw materials that often come from Malaysia, Indonesia, Thailand and India: palm oil and its derivatives, cocoa and cocoa butter, modified and tapioca starch, coconut products, spices, sugar and emulsifiers. These materials are sensitive to moisture and heat, need SFDA registration plus valid halal, origin and phytosanitary certificates, and any delay at the port stops a production line.",
     },
     solution: [
-      { ar: 'شحن مجمّع منتظم', en: 'Regular LCL consolidation' },
-      { ar: 'تخزين قرب الموانئ', en: 'Storage near the ports' },
-      { ar: 'توزيع داخلي', en: 'Inland distribution' },
+      { ar: 'حاويات جافة ببطانات ومجففات رطوبة', en: 'Dry containers with liners and desiccants' },
+      { ar: 'أكياس مرنة وخزانات ISO غذائية للزيوت', en: 'Food-grade flexitanks and ISO tanks for oils' },
+      { ar: 'تخليص سريع مع هيئة الغذاء والدواء', en: 'Fast SFDA clearance' },
+      { ar: 'جدولة توريد منتظمة من موانئ جنوب شرق آسيا', en: 'Regular supply schedules from Southeast Asian ports' },
     ],
-    services: ['lcl', 'fcl', 'warehousing-distribution', 'stuffing-unstuffing', 'inland-transport', 'customs-clearance-saber'],
+    services: ['fcl', 'liquid-chemicals', 'reefer', 'customs-clearance-saber', 'warehousing-distribution'],
     successStory: story,
   },
   {

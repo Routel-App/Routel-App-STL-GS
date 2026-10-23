@@ -117,8 +117,8 @@ export const aboutStory = {
       en: 'STL Global Forwarding was founded in {city} in {year} by a team that has worked for more than {exp} years in ocean freight, customs clearance and logistics. We saw businesses dealing with several parties for a single shipment — a shipping line, a broker, a trucker and a warehouse — and paying for it in time and unexpected costs.',
     },
     {
-      ar: 'لذلك بنينا STL لتكون جهة واحدة مسؤولة عن الرحلة كاملة: من الحجز في ميناء المنشأ، إلى التخليص في موانئ المملكة، والتسليم إلى باب العميل. نخدم الشركات في التجزئة والصناعة والمشاريع والأغذية، ونعمل مع شبكة من الخطوط الملاحية والوكلاء الدوليين في آسيا وأوروبا وأفريقيا والأمريكتين.',
-      en: "That is why we built STL as a single party accountable for the whole journey: from booking at the port of origin to clearance at Saudi ports and delivery to the client's door. We serve businesses in retail, industry, projects and food, working with a network of shipping lines and international agents across Asia, Europe, Africa and the Americas.",
+      ar: 'لذلك بنينا STL لتكون جهة واحدة مسؤولة عن الرحلة كاملة: من الحجز في ميناء المنشأ، إلى التخليص في موانئ المملكة، والتسليم إلى باب العميل. نخدم الشركات في الصناعة والمشاريع والأغذية ومواد التصنيع الغذائي، ونعمل مع شبكة من الخطوط الملاحية والوكلاء الدوليين في آسيا وأوروبا وأفريقيا والأمريكتين.',
+      en: "That is why we built STL as a single party accountable for the whole journey: from booking at the port of origin to clearance at Saudi ports and delivery to the client's door. We serve businesses in industry, projects, food and food manufacturing inputs, working with a network of shipping lines and international agents across Asia, Europe, Africa and the Americas.",
     },
   ] as L[],
 };

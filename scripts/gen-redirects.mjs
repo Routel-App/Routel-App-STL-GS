@@ -15,6 +15,7 @@ const merged = {
   '/why-stl': '/about#why-stl',
   '/qhse': '/about#qhse',
   '/sustainability': '/about#sustainability',
+  '/sectors/retail-ecommerce': '/sectors/food-ingredients',
 };
 const all = { ...Object.fromEntries(Object.entries(legacyServiceRedirects).map(([k, v]) => [`/services/${k}`, v])), ...merged };
 const redirects = Object.entries(all).flatMap(([from, to]) => [

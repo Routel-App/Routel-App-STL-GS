@@ -1,0 +1,94 @@
+---
+/**
+ * Dotted world map with trade lanes from Saudi ports (generated at build time with dotted-map).
+ * Edit the `lanes` list to change destinations.
+ */
+import DottedMapPkg from 'dotted-map';
+import type { Lang } from '../i18n/ui';
+interface Props { lang: Lang; dark?: boolean }
+const { lang, dark = true } = Astro.props;
+const ar = lang === 'ar';
+
+const DottedMap = (DottedMapPkg as unknown as { default?: typeof DottedMapPkg }).default ?? DottedMapPkg;
+const map = new (DottedMap as any)({ height: 56, grid: 'diagonal' });
+const points: { x: number; y: number }[] = map.getPoints();
+const W = Math.max(...points.map((p) => p.x)) + 1;
+const H = Math.max(...points.map((p) => p.y)) + 1;
+const pin = (lat: number, lng: number) => { const p = map.getPin({ lat, lng }); return { x: p.x, y: p.y }; };
+
+const hubs = [
+  { ar: 'جدة', en: 'Jeddah', lat: 21.49, lng: 39.19 },
+  { ar: 'الدمام', en: 'Dammam', lat: 26.43, lng: 50.1 },
+];
+const lanes: { ar: string; en: string; lat: number; lng: number; from: number; pos?: 't' | 'b' | 'l' | 'r' }[] = [
+  { ar: 'شنغهاي', en: 'Shanghai', lat: 31.23, lng: 121.47, from: 0 },
+  { ar: 'بورت كلانج', en: 'Port Klang', lat: 3.0, lng: 101.39, from: 0, pos: 'l' },
+  { ar: 'جاكرتا', en: 'Jakarta', lat: -6.1, lng: 106.88, from: 0, pos: 'b' },
+  { ar: 'نافا شيفا', en: 'Nhava Sheva', lat: 18.95, lng: 72.95, from: 1 },
+  { ar: 'إسطنبول', en: 'Istanbul', lat: 41.0, lng: 28.97, from: 0 },
+  { ar: 'روتردام', en: 'Rotterdam', lat: 51.92, lng: 4.48, from: 0 },
+  { ar: 'جنوة', en: 'Genoa', lat: 44.4, lng: 8.93, from: 0 },
+  { ar: 'بورسعيد', en: 'Port Said', lat: 31.26, lng: 32.3, from: 0, pos: 'l' },
+  { ar: 'مومباسا', en: 'Mombasa', lat: -4.04, lng: 39.67, from: 0, pos: 'b' },
+  { ar: 'نيويورك', en: 'New York', lat: 40.71, lng: -74.0, from: 0 },
+  { ar: 'سانتوس', en: 'Santos', lat: -23.96, lng: -46.33, from: 0 },
+];
+const hubPins = hubs.map((h) => ({ ...h, ...pin(h.lat, h.lng) }));
+const lanePins = lanes.map((l, i) => {
+  const a = hubPins[l.from];
+  const b = { ...l, ...pin(l.lat, l.lng) };
+  const dx = b.x - a.x, dy = b.y - a.y;
+  const dist = Math.hypot(dx, dy);
+  const cx = (a.x + b.x) / 2, cy = (a.y + b.y) / 2 - dist * 0.32;
+  return { ...b, d: `M${a.x.toFixed(2)} ${a.y.toFixed(2)} Q${cx.toFixed(2)} ${cy.toFixed(2)} ${b.x.toFixed(2)} ${b.y.toFixed(2)}`, len: dist * 1.25, delay: (i * 0.35).toFixed(2) };
+});
+const r = 0.22;
+---
+<div class:list={['world', 'reveal', { dark }]}>
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={ar ? 'خريطة خطوط الشحن من موانئ المملكة إلى العالم' : 'Map of trade lanes from Saudi ports to the world'}>
+    <defs>
+      <radialGradient id="wr-glow"><stop offset="0" stop-color="#ff7058" stop-opacity=".55" /><stop offset="1" stop-color="#ff7058" stop-opacity="0" /></radialGradient>
+      <linearGradient id="wr-lane" x1="0" x2="1"><stop offset="0" stop-color="#ff7058" stop-opacity=".25" /><stop offset="1" stop-color="#ff7058" /></linearGradient>
+    </defs>
+    <g class="dots">{points.map((p) => <circle cx={p.x} cy={p.y} r={r} />)}</g>
+    <g class="lanes">
+      {lanePins.map((l) => <path d={l.d} pathLength="100" style={`--d:${l.delay}s`} />)}
+    </g>
+    <g class="pins">
+      {lanePins.map((l) => (
+        <g class="pin" style={`--d:${l.delay}s`}>
+          <circle cx={l.x} cy={l.y} r="1.6" fill="url(#wr-glow)" />
+          <circle cx={l.x} cy={l.y} r=".45" class="core" />
+          <text x={l.pos === 'l' ? l.x - 1 : l.pos === 'r' ? l.x + 1 : l.x} y={l.pos === 'b' ? l.y + 2.1 : l.pos === 'l' || l.pos === 'r' ? l.y + 0.4 : l.y - 1.3} text-anchor={l.pos === 'l' ? 'end' : l.pos === 'r' ? 'start' : 'middle'}>{ar ? l.ar : l.en.toUpperCase()}</text>
+        </g>
+      ))}
+      {hubPins.map((h) => (
+        <g class="hub">
+          <circle cx={h.x} cy={h.y} r="2.6" fill="url(#wr-glow)" class="pulse" />
+          <circle cx={h.x} cy={h.y} r=".75" class="core" />
+          <text x={h.x + (h.en === 'Dammam' ? 1.4 : 0)} y={h.en === 'Dammam' ? h.y - 1.2 : h.y + 2.6} text-anchor={h.en === 'Dammam' ? 'start' : 'middle'}>{ar ? h.ar : h.en.toUpperCase()}</text>
+        </g>
+      ))}
+    </g>
+  </svg>
+</div>
+<style>
+  .world { position: relative; width: 100%; }
+  .world:not(:global(.in)) .lanes path, .world:not(:global(.in)) .pin { animation-play-state: paused; }
+  .world svg { width: 100%; height: auto; overflow: visible; }
+  .dots circle { fill: #c9d6d5; }
+  .dark .dots circle { fill: rgba(167, 197, 194, .32); }
+  .lanes path { fill: none; stroke: url(#wr-lane); stroke-width: .28; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; animation: draw 2.4s var(--d) cubic-bezier(.45, 0, .2, 1) forwards; }
+  .pin { opacity: 0; animation: fade .6s calc(var(--d) + 1.9s) forwards; }
+  .core { fill: #ff7058; }
+  .hub .core { fill: #fff; stroke: #ff7058; stroke-width: .35; }
+  text { font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 1.15px; fill: var(--petrol); letter-spacing: .04em; font-weight: 600; }
+  :global(html[lang='ar']) .world text { font-family: var(--font); font-size: 1.3px; letter-spacing: 0; }
+  .dark text { fill: rgba(255, 255, 255, .85); }
+  .hub text { font-size: 1.4px; fill: #ff7058; }
+  .pulse { transform-box: fill-box; transform-origin: center; animation: pulse 2.6s ease-out infinite; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes fade { to { opacity: 1; } }
+  @keyframes pulse { 0% { transform: scale(.6); opacity: 1; } 100% { transform: scale(1.8); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .lanes path { stroke-dashoffset: 0; animation: none; } .pin { opacity: 1; animation: none; } .pulse { animation: none; } }
+</style>

@@ -439,6 +439,16 @@
       "source": "/en/sustainability",
       "destination": "/en/about#sustainability",
       "permanent": true
+    },
+    {
+      "source": "/sectors/retail-ecommerce",
+      "destination": "/sectors/food-ingredients",
+      "permanent": true
+    },
+    {
+      "source": "/en/sectors/retail-ecommerce",
+      "destination": "/en/sectors/food-ingredients",
+      "permanent": true
     }
   ]
 }

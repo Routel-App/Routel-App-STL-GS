@@ -5,6 +5,7 @@ import SubNav from '../../../components/SubNav.astro';
 import CTABand from '../../../components/CTABand.astro';
 import SectionHead from '../../../components/SectionHead.astro';
 import PortsMap from '../../../components/PortsMap.astro';
+import WorldRoutes from '../../../components/WorldRoutes.astro';
 import Icon from '../../../components/Icon.astro';
 import { branches } from '../../../config/site';
 import { getLang, href, langPaths, t, u } from '../../../i18n/ui';
@@ -19,6 +20,13 @@ const countries = visibleCountries();
 <Base lang={lang} title={u('network', lang)} description={t(networkIntro, lang)}>
   <PageHero lang={lang} title={lang === 'ar' ? 'الشبكة والموانئ' : 'Network & Ports'} lead={t(networkIntro, lang)} crumbs={[{ label: u('network', lang) }]} />
   <SubNav lang={lang} items={networkTabs} />
+
+  <section class="section world-sec">
+    <div class="container">
+      <SectionHead eyebrow={lang === 'ar' ? 'خطوط الشحن' : 'Trade lanes'} title={lang === 'ar' ? 'من موانئ المملكة.. إلى موانئ العالم' : 'From Saudi Ports.. to the World'} />
+      <WorldRoutes lang={lang} dark={false} />
+    </div>
+  </section>
 
   <section class="section">
     <div class="container two-col">
