@@ -6,7 +6,7 @@ import HeroScene from '../../components/HeroScene.astro';
 import { site, clientLogos, testimonials, accreditationStrip } from '../../config/site';
 import { getLang, href, langPaths, t, u } from '../../i18n/ui';
 import { eServices } from '../../i18n/nav';
-import { categories, categoryBySlug, servicesIn, servicesIntro, serviceBySlug } from '../../data/services';
+import { categories, categoryBySlug, servicesIn, servicesIntro, serviceBySlug, serviceHref } from '../../data/services';
 import ServiceArt from '../../components/ServiceArt.astro';
 import { unitPhoto } from '../../data/photos';
 import { sectors } from '../../data/sectors';
@@ -24,7 +24,7 @@ const eDesc = [
   ar ? 'مواعيد الرحلات القادمة' : 'Upcoming sailings',
   ar ? 'احسب الحجم واعرف الحاوية' : 'Find the right container',
 ].map((s) => s.replace('{h}', site.quoteResponseHours));
-const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.path.split('/').pop()!)! }));
+const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.svc)! }));
 ---
 <Base lang={lang} title="">
   <!-- 4.2 Hero -->
@@ -146,7 +146,7 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.pat
               <ul class="check-list">{o.svc.offer.slice(0, 3).map((x) => <li>{t(x, lang)}</li>)}</ul>
               <div class="actions-row">
                 <a class="btn btn-primary" href={href(lang, `/e-services/quote?mode=${o.svc.quoteMode ?? ''}`)}>{u('quote', lang)}</a>
-                <a class="link-arrow" href={href(lang, o.path)}>{u('learnMore', lang)} <Icon name="arrow" class="flip" /></a>
+                <a class="link-arrow" href={href(lang, serviceHref(o.svc))}>{u('learnMore', lang)} <Icon name="arrow" class="flip" /></a>
               </div>
             </div>
           ))}
@@ -159,7 +159,7 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.pat
   <section class="section">
     <div class="container">
       <div class="head-row">
-        <SectionHead eyebrow={u('services', lang)} title={ar ? 'ست وحدات أعمال.. وجهة واحدة' : 'Six Business Units.. One Partner'} lead={t(servicesIntro, lang)} />
+        <SectionHead eyebrow={u('services', lang)} title={ar ? 'خدماتنا.. من جهة واحدة' : 'Our Services.. One Partner'} lead={t(servicesIntro, lang)} />
         <a class="btn btn-outline" href={href(lang, '/services')}>{u('allServices', lang)} <Icon name="arrow" class="flip" /></a>
       </div>
       <div class="units">
@@ -172,9 +172,6 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.pat
             <div class="unit-body">
               <h3><a href={href(lang, `/services/${c.slug}`)}>{t(c.title, lang)}</a></h3>
               <p>{t(c.short, lang)}</p>
-              <ul class="unit-list">
-                {servicesIn(c.slug).map((s) => <li><a href={href(lang, `/services/${s.slug}`)}>{short(t(s.title, lang))}</a></li>)}
-              </ul>
             </div>
           </article>
         ))}
@@ -188,16 +185,16 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.pat
       <div class="marine-copy">
         <span class="eyebrow">{ar ? 'جديد: الخدمات البحرية' : 'New: Marine Services'}</span>
         <h2>{ar ? <>كل ما تحتاجه <em>السفينة</em> عند الرصيف</> : <>Everything the <em>vessel</em> needs at berth</>}</h2>
-        <p class="lead">{t(categoryBySlug('marine')!.intro, lang)}</p>
+        <p class="lead">{t(categoryBySlug('marine-services')!.intro, lang)}</p>
         <div class="actions-row">
-          <a class="btn btn-primary" href={href(lang, '/services/marine')}>{ar ? 'اكتشف الخدمات البحرية' : 'Explore marine services'} <Icon name="arrow" class="flip" /></a>
+          <a class="btn btn-primary" href={href(lang, '/services/marine-services')}>{ar ? 'اكتشف الخدمات البحرية' : 'Explore marine services'} <Icon name="arrow" class="flip" /></a>
           <a class="btn btn-ghost-light" href={`https://wa.me/${site.contact.whatsapp}`} target="_blank" rel="noopener"><Icon name="whatsapp" /> {ar ? 'طلب عاجل 24/7' : 'Urgent request 24/7'}</a>
         </div>
       </div>
       <ul class="marine-list">
-        {servicesIn('marine').map((s) => (
+        {[...servicesIn('marine-services'), ...servicesIn('ship-agency')].map((s) => (
           <li class="reveal">
-            <a href={href(lang, `/services/${s.slug}`)}>
+            <a href={href(lang, serviceHref(s))}>
               <Icon name={s.icon} size={26} />
               <span><strong>{short(t(s.title, lang))}</strong><small>{t(s.short, lang)}</small></span>
               <Icon name="arrow" class="flip go" size={18} />
@@ -497,21 +494,22 @@ const guide = guideQuestion.options.map((o) => ({ ...o, svc: serviceBySlug(o.pat
   .pt { padding-top: clamp(3rem, 7vw, 6rem); }
 
   /* ---------- business units ---------- */
-  .units { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+  .units { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.1rem; }
   .unit { background: #fff; display: flex; flex-direction: column; border-bottom: 3px solid transparent; transition: border-color .35s var(--ease), transform .35s var(--ease); }
   .unit:hover { border-color: var(--coral); transform: translateY(-4px); }
-  .unit-art { position: relative; display: block; aspect-ratio: 16 / 9; }
+  .unit-art { position: relative; display: block; aspect-ratio: 4 / 3; }
   .unit-art :global(.service-art) { position: absolute; inset: 0; clip-path: polygon(0 0, 100% 0, 100% 86%, 0 100%); }
   .unit-code { position: absolute; inset-inline-start: 1rem; top: 1rem; background: var(--coral); color: var(--petrol); font-weight: 600; font-size: .8rem; padding: .25rem .6rem; letter-spacing: .06em; }
-  .unit-body { padding: 1.1rem 1.5rem 1.6rem; display: flex; flex-direction: column; gap: .6rem; flex: 1; }
-  .unit-body h3 { font-size: 1.3rem; font-weight: 600; margin: 0; }
+  .unit-body { padding: 1rem 1.2rem 1.4rem; display: flex; flex-direction: column; gap: .6rem; flex: 1; }
+  .unit-body h3 { font-size: 1.12rem; font-weight: 600; margin: 0; }
   .unit-body h3 a { color: var(--petrol); }
-  .unit-body p { color: var(--muted); font-size: .94rem; margin: 0; }
+  .unit-body p { color: var(--muted); font-size: .88rem; margin: 0; }
   .unit-list { list-style: none; padding: 0; margin: .4rem 0 0; display: flex; flex-wrap: wrap; gap: .4rem; }
   .unit-list a { display: inline-block; font-size: .82rem; padding: .3rem .65rem; background: var(--sand); color: var(--petrol); transition: background .25s, color .25s; }
   .unit-list a:hover { background: var(--petrol); color: var(--cream); }
-  @media (max-width: 1000px) { .units { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 640px) { .units { grid-template-columns: 1fr; } }
+  @media (max-width: 1200px) { .units { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 800px) { .units { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 480px) { .units { grid-template-columns: 1fr; } }
 
   /* ---------- marine spotlight ---------- */
   .marine-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }

@@ -1,6 +1,6 @@
 ---
 import type { Service } from '../data/services';
-import { categoryBySlug } from '../data/services';
+import { categoryBySlug, serviceHref } from '../data/services';
 import { servicePhoto } from '../data/photos';
 import { type Lang, href, t, u } from '../i18n/ui';
 import Icon from './Icon.astro';
@@ -9,7 +9,7 @@ interface Props { lang: Lang; s: Service }
 const { lang, s } = Astro.props;
 const photo = servicePhoto(s);
 ---
-<a class="card service-card reveal" href={href(lang, `/services/${s.slug}`)}>
+<a class="card service-card reveal" href={href(lang, serviceHref(s))}>
   <div class="sc-media">
     <ServiceArt art={categoryBySlug(s.category)!.art} photo={photo} />
     <span class="icon-badge"><Icon name={s.icon} /></span>

@@ -5,172 +5,207 @@ import CTABand from '../../../components/CTABand.astro';
 import FAQList from '../../../components/FAQList.astro';
 import Icon from '../../../components/Icon.astro';
 import ServiceArt from '../../../components/ServiceArt.astro';
-import ServiceCard from '../../../components/ServiceCard.astro';
 import { type Lang, getLang, href, langs, langParam, t, u } from '../../../i18n/ui';
-import { services, categories, categoryBySlug, servicesIn, type Service, type ServiceCategory } from '../../../data/services';
+import { categories, servicesIn, legacyServiceRedirects, type ServiceCategory } from '../../../data/services';
 import { faqSchema } from '../../../i18n/schema';
 import { servicePhoto, unitPhoto } from '../../../data/photos';
 
 export function getStaticPaths() {
   return langs.flatMap((l: Lang) => [
-    ...services.map((s) => ({ params: { lang: langParam(l), slug: s.slug }, props: { kind: 'service', s } })),
-    ...categories.map((c) => ({ params: { lang: langParam(l), slug: c.slug }, props: { kind: 'category', c } })),
+    ...categories.map((c) => ({ params: { lang: langParam(l), slug: c.slug }, props: { c } })),
+    // old per-service URLs → their section on the merged page (vercel.json also sends a 301)
+    ...Object.entries(legacyServiceRedirects).map(([slug, to]) => ({ params: { lang: langParam(l), slug }, props: { to } })),
   ]);
 }
-const props = Astro.props as { kind: 'service'; s: Service } | { kind: 'category'; c: ServiceCategory };
 const lang = getLang(Astro.params.lang);
+const { to } = Astro.props as { to?: string };
+if (to) return Astro.redirect(href(lang, to), 301);
+const { c: page } = Astro.props as { c: ServiceCategory };
 const ar = lang === 'ar';
 const short = (x: string) => x.replace(/\s*\([^)]*\)\s*$/, '');
 const pad = (n: number) => String(n).padStart(2, '0');
 
-const s = props.kind === 'service' ? props.s : undefined;
-const cat = props.kind === 'category' ? props.c : categoryBySlug(props.s.category)!;
-const siblings = servicesIn(cat.slug);
-const quotePath = s ? `/e-services/quote?mode=${s.quoteMode ?? ''}` : '/e-services/quote';
-const title = s ? t(s.title, lang) : t(cat.title, lang);
-const schema = s
-  ? [
-      { '@context': 'https://schema.org', '@type': 'Service', name: title, description: t(s.intro, lang), category: t(cat.title, lang), provider: { '@type': 'Organization', name: 'STL Global Forwarding' }, areaServed: 'SA' },
-      ...(s.faq.length ? [faqSchema(s.faq, lang)] : []),
-    ]
-  : [{ '@context': 'https://schema.org', '@type': 'OfferCatalog', name: title, itemListElement: siblings.map((x) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: t(x.title, lang) } })) }];
-const crumbs = s
-  ? [{ label: u('services', lang), path: '/services' }, { label: t(cat.title, lang), path: `/services/${cat.slug}` }, { label: short(title) }]
-  : [{ label: u('services', lang), path: '/services' }, { label: title }];
+const sections = servicesIn(page.slug);
+const single = sections.length === 1;
+const main = sections[0];
+const quoteFor = (mode?: string) => `/e-services/quote${mode ? `?mode=${mode}` : ''}`;
+const pageQuote = quoteFor(main.quoteMode);
+const title = t(page.title, lang);
+
+// page-level blocks merged from all sections
+const faqs = sections.flatMap((s) => s.faq);
+const benefits = [...new Map(sections.flatMap((s) => s.benefits).map((b) => [t(b, lang), b])).values()].slice(0, 6);
+const steps = main.steps ?? [];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: title,
+    description: t(page.intro, lang),
+    provider: { '@type': 'Organization', name: 'STL Global Forwarding' },
+    areaServed: 'SA',
+    ...(single ? {} : { hasOfferCatalog: { '@type': 'OfferCatalog', name: title, itemListElement: sections.map((s) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: t(s.title, lang), description: t(s.short, lang) } })) } }),
+  },
+  ...(faqs.length ? [faqSchema(faqs, lang)] : []),
+];
 ---
-<Base lang={lang} title={title} description={s ? t(s.short, lang) : t(cat.short, lang)} schema={schema}>
-  <PageHero lang={lang} title={title} lead={s ? t(s.intro, lang) : t(cat.intro, lang)} eyebrow={s ? `${cat.code} · ${s.code ?? ''}` : cat.code} crumbs={crumbs} art={cat.art} photo={s ? servicePhoto(s) ?? unitPhoto(cat) : unitPhoto(cat)}>
-    <a class="btn btn-primary" href={href(lang, quotePath)}>{s ? u('quoteForService', lang) : u('quote', lang)}</a>
-    {cat.slug === 'marine' && <a class="btn btn-outline" href={href(lang, '/contact')}>{ar ? 'طلب عاجل 24/7' : 'Urgent request 24/7'}</a>}
+<Base lang={lang} title={title} description={t(page.short, lang)} schema={schema}>
+  <PageHero lang={lang} title={title} lead={t(page.intro, lang)} eyebrow={page.code} crumbs={[{ label: u('services', lang), path: '/services' }, { label: title }]} art={page.art} photo={unitPhoto(page) ?? servicePhoto(main)}>
+    <a class="btn btn-primary" href={href(lang, pageQuote)}>{u('quoteForService', lang)}</a>
+    {(page.slug === 'marine-services' || page.slug === 'ship-agency') && <a class="btn btn-outline" href={href(lang, '/contact')}>{ar ? 'طلب عاجل 24/7' : 'Urgent request 24/7'}</a>}
   </PageHero>
 
-  {s ? (
+  {!single && (
+    <nav class="jump" aria-label={ar ? 'خدمات هذه الصفحة' : 'Services on this page'}>
+      <div class="container"><ul>{sections.map((s) => <li><a href={`#${s.slug}`}><Icon name={s.icon} size={17} />{short(t(s.title, lang))}</a></li>)}</ul></div>
+    </nav>
+  )}
+
+  {single ? (
     <section class="section">
       <div class="container layout">
         <div class="stack">
           <div class="reveal">
             <h2>{u('whatWeOffer', lang)}</h2>
-            <ul class="check-list offer">{s.offer.map((o) => <li>{t(o, lang)}</li>)}</ul>
+            <ul class="check-list offer">{main.offer.map((o) => <li>{t(o, lang)}</li>)}</ul>
           </div>
-
-          {s.scope && s.scope.length > 0 && (
+          {main.scope && main.scope.length > 0 && (
             <div class="reveal mt-2">
               <h2>{ar ? 'ما نتعامل معه' : 'What we handle'}</h2>
-              <ul class="chips">{s.scope.map((x) => <li>{t(x, lang)}</li>)}</ul>
-            </div>
-          )}
-
-          {s.steps && s.steps.length > 0 && (
-            <div class="reveal mt-2">
-              <h2>{ar ? 'كيف ننفذها' : 'How it works'}</h2>
-              <ol class="steps">
-                {s.steps.map((st, i) => (
-                  <li><span class="num ltr">{pad(i + 1)}</span><h3>{t(st.title, lang)}</h3><p>{t(st.text, lang)}</p></li>
-                ))}
-              </ol>
-            </div>
-          )}
-
-          {s.benefits.length > 0 && (
-            <div class="reveal mt-2">
-              <h2>{u('benefits', lang)}</h2>
-              <div class="grid grid-3">
-                {s.benefits.map((b) => <div class="benefit"><Icon name="check" /><span>{t(b, lang)}</span></div>)}
-              </div>
-            </div>
-          )}
-
-          {s.faq.length > 0 && (
-            <div class="reveal mt-2">
-              <h2>{u('faqShort', lang)}</h2>
-              <FAQList lang={lang} items={s.faq} openFirst />
+              <ul class="chips">{main.scope.map((x) => <li>{t(x, lang)}</li>)}</ul>
             </div>
           )}
         </div>
         <aside class="side">
           <div class="side-card quote-card on-dark">
-            <span class="icon-badge"><Icon name={s.icon} /></span>
+            <span class="icon-badge"><Icon name={main.icon} /></span>
             <h3>{u('quoteForService', lang)}</h3>
             <p>{u('readyText', lang)}</p>
-            <a class="btn btn-primary btn-block" href={href(lang, quotePath)}>{u('quote', lang)}</a>
-          </div>
-          <div class="side-card">
-            <h3><a href={href(lang, `/services/${cat.slug}`)}>{t(cat.title, lang)}</a></h3>
-            <ul class="side-links">
-              {siblings.map((o) => (
-                <li><a href={href(lang, `/services/${o.slug}`)} aria-current={o.slug === s.slug ? 'page' : undefined}>{short(t(o.title, lang))}</a></li>
-              ))}
-            </ul>
-          </div>
-          <div class="side-card">
-            <h3>{u('otherServices', lang)}</h3>
-            <ul class="side-links">
-              {categories.filter((c) => c.slug !== cat.slug).map((c) => <li><a href={href(lang, `/services/${c.slug}`)}>{t(c.title, lang)}</a></li>)}
-            </ul>
+            <a class="btn btn-primary btn-block" href={href(lang, pageQuote)}>{u('quote', lang)}</a>
           </div>
         </aside>
       </div>
     </section>
   ) : (
-    <>
-      <section class="section">
-        <div class="container">
-          <div class="grid grid-3">
-            {siblings.map((x) => <ServiceCard lang={lang} s={x} />)}
+    sections.map((s, i) => (
+      <section class:list={['section', 'svc', { 'section-white': i % 2 === 1 }]} id={s.slug}>
+        <div class:list={['container', 'svc-grid', { alt: i % 2 === 1 }]}>
+          <div class="svc-media reveal">
+            <ServiceArt art={page.art} photo={servicePhoto(s)} alt={t(s.title, lang)} />
+            <span class="svc-no ltr">{pad(i + 1)}{s.code ? ` · ${s.code}` : ''}</span>
+          </div>
+          <div class="svc-body">
+            <h2>{t(s.title, lang)}</h2>
+            <p class="svc-intro">{t(s.intro, lang)}</p>
+            <ul class="check-list cols">{s.offer.map((o) => <li>{t(o, lang)}</li>)}</ul>
+            {s.scope && s.scope.length > 0 && <ul class="chips">{s.scope.map((x) => <li>{t(x, lang)}</li>)}</ul>}
+            <div class="actions-row">
+              <a class="btn btn-primary" href={href(lang, quoteFor(s.quoteMode))}>{u('quote', lang)}</a>
+            </div>
           </div>
         </div>
       </section>
-      <section class="section section-white">
-        <div class="container">
-          <h2 class="others-title">{ar ? 'وحدات الأعمال الأخرى' : 'Other business units'}</h2>
-          <div class="others">
-            {categories.filter((c) => c.slug !== cat.slug).map((c) => (
-              <a class="other reveal" href={href(lang, `/services/${c.slug}`)}>
-                <ServiceArt art={c.art} photo={unitPhoto(c)} />
-                <span class="o-text"><small class="ltr">{c.code}</small><strong>{t(c.title, lang)}</strong></span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+    ))
   )}
-  <CTABand lang={lang} quotePath={quotePath} />
+
+  {steps.length > 0 && (
+    <section class="section section-dark">
+      <div class="container">
+        <span class="eyebrow">{ar ? 'كيف نعمل' : 'How we work'}</span>
+        <h2>{ar ? 'خطوات واضحة من الطلب حتى التسليم' : 'Clear steps from request to delivery'}</h2>
+        <ol class="steps">
+          {steps.map((st, i) => <li class="reveal"><span class="num ltr">{pad(i + 1)}</span><h3>{t(st.title, lang)}</h3><p>{t(st.text, lang)}</p></li>)}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container">
+      {benefits.length > 0 && (
+        <div class="reveal">
+          <h2>{u('benefits', lang)}</h2>
+          <div class="grid grid-3">{benefits.map((b) => <div class="benefit"><Icon name="check" /><span>{t(b, lang)}</span></div>)}</div>
+        </div>
+      )}
+      {faqs.length > 0 && (
+        <div class="reveal mt-2 faq-wrap">
+          <h2>{u('faqShort', lang)}</h2>
+          <FAQList lang={lang} items={faqs} openFirst />
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section section-white">
+    <div class="container">
+      <h2 class="others-title">{u('otherServices', lang)}</h2>
+      <div class="others">
+        {categories.filter((c) => c.slug !== page.slug).map((c) => (
+          <a class="other reveal" href={href(lang, `/services/${c.slug}`)}>
+            <ServiceArt art={c.art} photo={unitPhoto(c)} />
+            <span class="o-text"><small class="ltr">{c.code}</small><strong>{t(c.title, lang)}</strong></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <CTABand lang={lang} quotePath={pageQuote} />
 </Base>
 <style>
+  .jump { position: sticky; top: var(--header-h); z-index: 5; background: var(--petrol); }
+  .jump ul { list-style: none; margin: 0; padding: 0; display: flex; gap: .2rem; overflow-x: auto; scrollbar-width: none; }
+  .jump a { display: inline-flex; align-items: center; gap: .5rem; padding: .95rem 1rem; color: rgba(244, 239, 230, .8); white-space: nowrap; font-size: .92rem; }
+  .jump a :global(.icon) { color: var(--coral); }
+  .jump a:hover { color: var(--cream); background: rgba(244, 239, 230, .06); }
+  .svc { scroll-margin-top: calc(var(--header-h) + 52px); }
+  .svc-grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .svc-grid.alt .svc-media { order: 2; }
+  .svc-media { position: relative; aspect-ratio: 4 / 3; position: sticky; top: calc(var(--header-h) + 80px); }
+  .svc-media :global(.service-art) { position: absolute; inset: 0; clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); }
+  .svc-no { position: absolute; top: 1rem; inset-inline-start: 1rem; background: var(--coral); color: var(--petrol); font-weight: 600; font-size: .8rem; padding: .25rem .6rem; letter-spacing: .06em; }
+  .svc-body h2 { margin-bottom: .8rem; }
+  .svc-intro { color: var(--muted); font-size: 1.04rem; margin-bottom: 1.4rem; }
+  .cols { columns: 2; column-gap: 2rem; }
+  .cols :global(li) { break-inside: avoid; }
+  .svc-body .chips { margin: 1.4rem 0 1.6rem; }
+  @media (max-width: 900px) {
+    .svc-grid { grid-template-columns: 1fr; }
+    .svc-grid.alt .svc-media { order: 0; }
+    .svc-media { position: relative; top: auto; }
+    .cols { columns: 1; }
+  }
   .layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: clamp(2rem, 4vw, 3.5rem); align-items: start; }
   @media (max-width: 960px) { .layout { grid-template-columns: 1fr; } }
   .offer { font-size: 1.05rem; }
   .chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
-  .chips li { background: #fff; border: 1px solid var(--line); padding: .45rem .9rem; font-size: .92rem; color: var(--petrol); }
-  .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; counter-reset: s; }
-  .steps li { background: #fff; padding: 1.3rem 1.4rem; border-inline-start: 3px solid var(--coral); }
-  .steps .num { font-size: .8rem; font-weight: 600; color: var(--coral-ink); letter-spacing: .08em; }
-  .steps h3 { font-size: 1.08rem; margin: .3rem 0 .35rem; color: var(--petrol); }
-  .steps p { margin: 0; color: var(--muted); font-size: .93rem; }
-  @media (max-width: 640px) { .steps { grid-template-columns: 1fr; } }
-  .benefit { display: flex; gap: .8rem; align-items: flex-start; background: var(--bg-soft); border-radius: var(--radius); padding: 1.2rem; font-weight: 600; color: var(--navy-800); }
-  .benefit :global(.icon) { color: var(--teal-500); flex-shrink: 0; }
+  .chips li { background: #fff; border: 1px solid var(--line); padding: .4rem .85rem; font-size: .88rem; color: var(--petrol); }
+  .section-white .chips li { background: var(--sand); border-color: transparent; }
+  .steps { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.2rem; }
+  .steps li { padding: 1.4rem; border-top: 2px solid var(--coral); background: rgba(244, 239, 230, .04); }
+  .steps .num { font-size: .8rem; font-weight: 600; color: var(--coral); letter-spacing: .08em; }
+  .steps h3 { font-size: 1.1rem; margin: .4rem 0; }
+  .steps p { margin: 0; font-size: .93rem; }
+  @media (max-width: 900px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
+  .benefit { display: flex; gap: .8rem; align-items: flex-start; background: #fff; padding: 1.2rem; font-weight: 600; color: var(--petrol); }
+  .benefit :global(.icon) { color: var(--coral-ink); flex-shrink: 0; }
+  .faq-wrap { max-width: 900px; }
   .side { position: sticky; top: calc(var(--header-h) + 1rem); display: grid; gap: 1.2rem; }
   @media (max-width: 960px) { .side { position: static; } }
-  .side-card { border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; background: #fff; }
-  .side-card h3 a { color: var(--petrol); }
-  .quote-card { background: var(--navy-800); color: #c9dbd8; border: 0; }
+  .side-card { padding: 1.5rem; }
+  .quote-card { background: var(--petrol); color: #c9dbd8; }
   .quote-card h3 { color: #fff; }
-  .quote-card .icon-badge { background: rgba(255,255,255,.08); color: var(--accent); }
-  .side-links { list-style: none; padding: 0; margin: 0; display: grid; }
-  .side-links a { display: block; padding: .55rem 0; border-bottom: 1px solid var(--line); color: var(--ink); font-size: .93rem; }
-  .side-links a:hover, .side-links a[aria-current='page'] { color: var(--coral-ink); }
-  .side-links a[aria-current='page'] { font-weight: 600; }
+  .quote-card .icon-badge { background: rgba(255,255,255,.08); color: var(--coral); }
   .others-title { margin-bottom: 1.6rem; }
-  .others { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
-  .other { position: relative; aspect-ratio: 4 / 5; display: block; overflow: hidden; color: var(--cream); }
+  .others { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  @media (max-width: 800px) { .others { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .other { position: relative; aspect-ratio: 16 / 9; display: block; overflow: hidden; color: var(--cream); }
   .other :global(.service-art) { position: absolute; inset: 0; transition: transform .6s var(--ease); }
   .other:hover :global(.service-art) { transform: scale(1.05); }
   .other::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(4, 39, 38, .9)); }
   .o-text { position: absolute; inset-inline: 1rem; bottom: 1rem; z-index: 1; display: grid; gap: .2rem; }
   .o-text small { color: var(--coral); font-weight: 600; letter-spacing: .08em; font-size: .75rem; }
   .o-text strong { font-weight: 500; font-size: 1.05rem; line-height: 1.35; }
-  @media (max-width: 1000px) { .others { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  @media (max-width: 640px) { .others { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 </style>

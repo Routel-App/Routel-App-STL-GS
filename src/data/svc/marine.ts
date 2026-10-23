@@ -3,7 +3,7 @@ import type { Service } from '../services';
 export const marineServices: Service[] = [
   {
     slug: 'ship-chandling',
-    category: 'marine',
+    category: 'marine-services',
     icon: 'food',
     code: 'CHN',
     featured: true,
@@ -59,7 +59,7 @@ export const marineServices: Service[] = [
   },
   {
     slug: 'bunkering',
-    category: 'marine',
+    category: 'marine-services',
     icon: 'fuel',
     code: 'BNK',
     title: { ar: 'تزويد السفن بالوقود (Bunkering)', en: 'Bunkering & Lubricants' },
@@ -114,7 +114,7 @@ export const marineServices: Service[] = [
   },
   {
     slug: 'vessel-cleaning',
-    category: 'marine',
+    category: 'marine-services',
     icon: 'clean',
     code: 'CLN',
     title: { ar: 'تنظيف السفن', en: 'Vessel Cleaning' },
@@ -168,7 +168,7 @@ export const marineServices: Service[] = [
   },
   {
     slug: 'marine-assets-handling',
-    category: 'marine',
+    category: 'marine-services',
     icon: 'anchor',
     code: 'MAH',
     title: { ar: 'مناولة الأصول البحرية (Marine Assets Handling)', en: 'Marine Assets Handling' },
@@ -230,7 +230,7 @@ export const marineServices: Service[] = [
   },
   {
     slug: 'marine-craft-hire',
-    category: 'marine',
+    category: 'marine-services',
     icon: 'tug',
     code: 'HIRE',
     title: { ar: 'تأجير السفن والوحدات البحرية', en: 'Vessel & Marine Craft Hire' },
@@ -285,7 +285,7 @@ export const marineServices: Service[] = [
   },
   {
     slug: 'ship-agency-port-services',
-    category: 'marine',
+    category: 'ship-agency',
     icon: 'ship',
     code: 'AGY',
     title: { ar: 'الوكالة الملاحية وخدمات الموانئ', en: 'Ship Agency & Husbandry' },
@@ -346,7 +346,7 @@ export const marineServices: Service[] = [
   },
   {
     slug: 'marine-technical-services',
-    category: 'marine',
+    category: 'marine-services',
     icon: 'lifebuoy',
     code: 'TEC',
     title: { ar: 'الخدمات الفنية البحرية', en: 'Marine Technical Services' },
@@ -398,7 +398,7 @@ export const marineServices: Service[] = [
   },
   {
     slug: 'crew-change',
-    category: 'marine',
+    category: 'ship-agency',
     icon: 'team',
     code: 'CREW',
     title: { ar: 'تغيير الطواقم ورعايتهم (Crew Change)', en: 'Crew Change & Crew Care' },
@@ -450,7 +450,7 @@ export const marineServices: Service[] = [
   },
   {
     slug: 'offshore-support',
-    category: 'marine',
+    category: 'marine-services',
     icon: 'helmet',
     code: 'OFS',
     title: { ar: 'الدعم اللوجستي للعمليات البحرية (Offshore)', en: 'Offshore Marine Support' },
@@ -503,7 +503,7 @@ export const marineServices: Service[] = [
   },
   {
     slug: 'yacht-services',
-    category: 'marine',
+    category: 'marine-services',
     icon: 'wave',
     code: 'YCH',
     title: { ar: 'خدمات اليخوت (Yacht Services)', en: 'Yacht Services' },
@@ -555,7 +555,7 @@ export const marineServices: Service[] = [
   },
   {
     slug: 'port-captaincy',
-    category: 'marine',
+    category: 'ship-agency',
     icon: 'eye',
     code: 'PCS',
     title: { ar: 'الإشراف على الشحنات وخدمات ربان الميناء (Port Captaincy)', en: 'Port Captaincy & Cargo Supervision' },

@@ -5,7 +5,7 @@ import CTABand from '../../../components/CTABand.astro';
 import Icon from '../../../components/Icon.astro';
 import ServiceArt from '../../../components/ServiceArt.astro';
 import { getLang, href, langPaths, t, u } from '../../../i18n/ui';
-import { categories, servicesIn, servicesIntro } from '../../../data/services';
+import { categories, servicesIn, servicesIntro, serviceHref } from '../../../data/services';
 import { unitPhoto } from '../../../data/photos';
 
 export const getStaticPaths = langPaths;
@@ -35,7 +35,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
         <ul class="svc-list">
           {servicesIn(c.slug).map((s) => (
             <li class="reveal">
-              <a href={href(lang, `/services/${s.slug}`)}>
+              <a href={href(lang, serviceHref(s))}>
                 <span class="ic"><Icon name={s.icon} size={24} /></span>
                 <span class="tx"><strong>{short(t(s.title, lang))}</strong><small>{t(s.short, lang)}</small></span>
                 {s.code && <span class="cd ltr">{s.code}</span>}

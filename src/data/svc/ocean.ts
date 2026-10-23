@@ -3,7 +3,7 @@ import type { Service } from '../services';
 export const oceanServices: Service[] = [
   {
     slug: 'fcl',
-    category: 'ocean',
+    category: 'ocean-freight',
     icon: 'container',
     code: 'FCL',
     featured: true,
@@ -65,7 +65,7 @@ export const oceanServices: Service[] = [
   },
   {
     slug: 'lcl',
-    category: 'ocean',
+    category: 'ocean-freight',
     icon: 'boxes',
     code: 'LCL',
     quoteMode: 'LCL',
@@ -119,7 +119,7 @@ export const oceanServices: Service[] = [
   },
   {
     slug: 'reefer',
-    category: 'ocean',
+    category: 'ocean-freight',
     icon: 'snow',
     code: 'RF',
     quoteMode: 'REEFER',
@@ -180,7 +180,7 @@ export const oceanServices: Service[] = [
   },
   {
     slug: 'liquid-chemicals',
-    category: 'ocean',
+    category: 'liquid-chemicals',
     icon: 'tank',
     code: 'ISO',
     title: { ar: 'شحن الكيماويات والسوائل (ISO Tanks)', en: 'Liquid Chemicals & Bulk Liquids' },
@@ -244,7 +244,7 @@ export const oceanServices: Service[] = [
   },
   {
     slug: 'dangerous-goods',
-    category: 'ocean',
+    category: 'ocean-freight',
     icon: 'hazard',
     code: 'DG',
     title: { ar: 'شحن البضائع الخطرة (DG)', en: 'Dangerous Goods (DG)' },
@@ -302,7 +302,7 @@ export const oceanServices: Service[] = [
   },
   {
     slug: 'roro',
-    category: 'ocean',
+    category: 'vehicle-shipping',
     icon: 'car',
     code: 'RoRo',
     quoteMode: 'RORO',

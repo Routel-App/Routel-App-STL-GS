@@ -84,7 +84,7 @@ export const sectors: Sector[] = [
       { ar: 'بضائع سائبة', en: 'Break bulk' },
       { ar: 'تنسيق متعدد المنشأ', en: 'Multi-origin coordination' },
     ],
-    services: ['project-cargo', 'heavy-lift', 'break-bulk', 'chartering', 'inland-transport'],
+    services: ['project-cargo', 'heavy-lift', 'break-bulk', 'inland-transport'],
     successStory: story,
   },
   {
@@ -166,10 +166,10 @@ export const sectors: Sector[] = [
     },
     solution: [
       { ar: 'دراسة مسار وتصاريح نقل', en: 'Route surveys and transport permits' },
-      { ar: 'سفن رفع ثقيل واستئجار كامل', en: 'Heavy-lift vessels and full charters' },
+      { ar: 'سفن رفع ثقيل', en: 'Heavy-lift vessels' },
       { ar: 'نقل بري بمقطورات هيدروليكية', en: 'Hydraulic modular trailers on land' },
     ],
-    services: ['heavy-lift', 'project-cargo', 'chartering', 'break-bulk', 'inland-transport'],
+    services: ['heavy-lift', 'project-cargo', 'break-bulk', 'inland-transport'],
     successStory: story,
   },
   {
@@ -186,7 +186,7 @@ export const sectors: Sector[] = [
       { ar: 'تسليم للموقع حسب الموعد', en: 'Timed delivery to the venue' },
       { ar: 'تخزين الصناديق الفارغة وإعادة التصدير', en: 'Empties storage and re-export' },
     ],
-    services: ['events-exhibitions', 'supercar-logistics', 'air-charter', 'customs-clearance-saber', 'inland-transport'],
+    services: ['events-exhibitions', 'supercar-logistics', 'air-project-cargo', 'customs-clearance-saber', 'inland-transport'],
     successStory: story,
   },
 ];

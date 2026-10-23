@@ -45,10 +45,10 @@ export const heroSlides: { title: L; text: L; buttons: { label: L; path: string;
   {
     title: { ar: 'معدات بمئات الأطنان.. نوصلها لموقعها', en: 'Hundreds of Tonnes.. Delivered to Site' },
     text: {
-      ar: 'شحنات مشاريع ورفع ثقيل واستئجار سفن كاملة، بتخطيط هندسي من المصنع حتى موقع المشروع.',
-      en: 'Project cargo, heavy lift and full vessel charters, engineered from the factory to the project site.',
+      ar: 'شحنات مشاريع ورفع ثقيل وبضائع سائبة، بتخطيط هندسي من المصنع حتى موقع المشروع.',
+      en: 'Project cargo, heavy lift and break bulk, engineered from the factory to the project site.',
     },
-    buttons: [{ label: { ar: 'المشاريع والرفع الثقيل', en: 'Projects & heavy lift' }, path: '/services/projects', primary: true }],
+    buttons: [{ label: { ar: 'المشاريع والرفع الثقيل', en: 'Projects & heavy lift' }, path: '/services/projects-heavy-lift', primary: true }],
   },
   {
     title: { ar: 'سفينتك عند الرصيف.. واحتياجاتها جاهزة', en: 'Your Vessel at Berth.. Everything Ready' },
@@ -56,7 +56,7 @@ export const heroSlides: { title: L; text: L; buttons: { label: L; path: string;
       ar: 'تموين ووقود وتنظيف ووكالة ملاحية وتأجير وحدات بحرية في الموانئ السعودية، على مدار الساعة.',
       en: 'Provisions, bunkers, cleaning, ship agency and marine craft hire across Saudi ports, around the clock.',
     },
-    buttons: [{ label: { ar: 'الخدمات البحرية', en: 'Marine services' }, path: '/services/marine', primary: true }],
+    buttons: [{ label: { ar: 'الخدمات البحرية', en: 'Marine services' }, path: '/services/marine-services', primary: true }],
   },
   {
     title: { ar: 'شريكك في رؤية 2030', en: 'Your Partner in Vision 2030' },
@@ -81,12 +81,12 @@ export const guideQuestion = {
   title: { ar: 'وش تبي تشحن اليوم؟', en: 'What are you shipping today?' } as L,
   subtitle: { ar: 'اختر وضعك ونوجهك للخدمة المناسبة مباشرة.', en: "Pick your situation and we'll point you to the right service." } as L,
   options: [
-    { icon: 'import', label: { ar: 'أستورد أو أصدّر بضاعة بالحاويات', en: "I'm importing or exporting containerised goods" } as L, target: { ar: 'الشحن البحري', en: 'Ocean freight' } as L, path: '/services/fcl' },
-    { icon: 'crane', label: { ar: 'عندي معدات ثقيلة أو شحنة مشروع', en: 'I have heavy equipment or project cargo' } as L, target: { ar: 'المشاريع والرفع الثقيل', en: 'Projects & heavy lift' } as L, path: '/services/project-cargo' },
-    { icon: 'ship', label: { ar: 'أحتاج سفينة كاملة لشحنتي', en: 'I need a whole vessel for my cargo' } as L, target: { ar: 'استئجار السفن', en: 'Ship chartering' } as L, path: '/services/chartering' },
-    { icon: 'snow', label: { ar: 'بضاعتي تحتاج تبريد', en: 'My cargo needs refrigeration' } as L, target: { ar: 'الشحن المبرد', en: 'Reefer services' } as L, path: '/services/reefer' },
-    { icon: 'stamp', label: { ar: 'أحتاج تخليص جمركي ونقل فقط', en: 'I only need clearance and trucking' } as L, target: { ar: 'التخليص الجمركي', en: 'Customs clearance' } as L, path: '/services/customs-clearance-saber' },
-    { icon: 'anchor', label: { ar: 'أدير سفينة وأحتاج خدمات في الميناء', en: 'I operate a vessel and need port services' } as L, target: { ar: 'الخدمات البحرية', en: 'Marine services' } as L, path: '/services/ship-chandling' },
+    { icon: 'import', label: { ar: 'أستورد أو أصدّر بضاعة بالحاويات', en: "I'm importing or exporting containerised goods" } as L, target: { ar: 'الشحن البحري', en: 'Ocean freight' } as L, svc: 'fcl' },
+    { icon: 'crane', label: { ar: 'عندي معدات ثقيلة أو شحنة مشروع', en: 'I have heavy equipment or project cargo' } as L, target: { ar: 'المشاريع والرفع الثقيل', en: 'Projects & heavy lift' } as L, svc: 'project-cargo' },
+    { icon: 'car', label: { ar: 'أشحن سيارات أو مركبات', en: "I'm shipping cars or vehicles" } as L, target: { ar: 'شحن السيارات والمركبات', en: 'Vehicle shipping' } as L, svc: 'roro' },
+    { icon: 'snow', label: { ar: 'بضاعتي تحتاج تبريد', en: 'My cargo needs refrigeration' } as L, target: { ar: 'الشحن المبرد', en: 'Reefer services' } as L, svc: 'reefer' },
+    { icon: 'stamp', label: { ar: 'أحتاج تخليص جمركي ونقل فقط', en: 'I only need clearance and trucking' } as L, target: { ar: 'التخليص الجمركي', en: 'Customs clearance' } as L, svc: 'customs-clearance-saber' },
+    { icon: 'anchor', label: { ar: 'أدير سفينة وأحتاج خدمات في الميناء', en: 'I operate a vessel and need port services' } as L, target: { ar: 'الخدمات البحرية', en: 'Marine services' } as L, svc: 'ship-chandling' },
   ],
 };
 

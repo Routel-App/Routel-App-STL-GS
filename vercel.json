@@ -1,0 +1,374 @@
+{
+  "redirects": [
+    {
+      "source": "/services/fcl",
+      "destination": "/services/ocean-freight#fcl",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/fcl",
+      "destination": "/en/services/ocean-freight#fcl",
+      "permanent": true
+    },
+    {
+      "source": "/services/lcl",
+      "destination": "/services/ocean-freight#lcl",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/lcl",
+      "destination": "/en/services/ocean-freight#lcl",
+      "permanent": true
+    },
+    {
+      "source": "/services/reefer",
+      "destination": "/services/ocean-freight#reefer",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/reefer",
+      "destination": "/en/services/ocean-freight#reefer",
+      "permanent": true
+    },
+    {
+      "source": "/services/dangerous-goods",
+      "destination": "/services/ocean-freight#dangerous-goods",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/dangerous-goods",
+      "destination": "/en/services/ocean-freight#dangerous-goods",
+      "permanent": true
+    },
+    {
+      "source": "/services/roro",
+      "destination": "/services/vehicle-shipping#roro",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/roro",
+      "destination": "/en/services/vehicle-shipping#roro",
+      "permanent": true
+    },
+    {
+      "source": "/services/project-cargo",
+      "destination": "/services/projects-heavy-lift#project-cargo",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/project-cargo",
+      "destination": "/en/services/projects-heavy-lift#project-cargo",
+      "permanent": true
+    },
+    {
+      "source": "/services/break-bulk",
+      "destination": "/services/projects-heavy-lift#break-bulk",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/break-bulk",
+      "destination": "/en/services/projects-heavy-lift#break-bulk",
+      "permanent": true
+    },
+    {
+      "source": "/services/heavy-lift",
+      "destination": "/services/projects-heavy-lift#heavy-lift",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/heavy-lift",
+      "destination": "/en/services/projects-heavy-lift#heavy-lift",
+      "permanent": true
+    },
+    {
+      "source": "/services/bulk-cargo",
+      "destination": "/services/projects-heavy-lift#bulk-cargo",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/bulk-cargo",
+      "destination": "/en/services/projects-heavy-lift#bulk-cargo",
+      "permanent": true
+    },
+    {
+      "source": "/services/air-project-cargo",
+      "destination": "/services/air-freight#air-project-cargo",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/air-project-cargo",
+      "destination": "/en/services/air-freight#air-project-cargo",
+      "permanent": true
+    },
+    {
+      "source": "/services/aerospace-logistics",
+      "destination": "/services/air-freight#aerospace-logistics",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/aerospace-logistics",
+      "destination": "/en/services/air-freight#aerospace-logistics",
+      "permanent": true
+    },
+    {
+      "source": "/services/customs-clearance-saber",
+      "destination": "/services/customs-clearance",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/customs-clearance-saber",
+      "destination": "/en/services/customs-clearance",
+      "permanent": true
+    },
+    {
+      "source": "/services/inland-transport",
+      "destination": "/services/land-logistics#inland-transport",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/inland-transport",
+      "destination": "/en/services/land-logistics#inland-transport",
+      "permanent": true
+    },
+    {
+      "source": "/services/warehousing-distribution",
+      "destination": "/services/land-logistics#warehousing-distribution",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/warehousing-distribution",
+      "destination": "/en/services/land-logistics#warehousing-distribution",
+      "permanent": true
+    },
+    {
+      "source": "/services/container-storage",
+      "destination": "/services/land-logistics#container-storage",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/container-storage",
+      "destination": "/en/services/land-logistics#container-storage",
+      "permanent": true
+    },
+    {
+      "source": "/services/stuffing-unstuffing",
+      "destination": "/services/land-logistics#stuffing-unstuffing",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/stuffing-unstuffing",
+      "destination": "/en/services/land-logistics#stuffing-unstuffing",
+      "permanent": true
+    },
+    {
+      "source": "/services/marine-cargo-insurance",
+      "destination": "/services/ocean-freight#marine-cargo-insurance",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/marine-cargo-insurance",
+      "destination": "/en/services/ocean-freight#marine-cargo-insurance",
+      "permanent": true
+    },
+    {
+      "source": "/services/supercar-logistics",
+      "destination": "/services/vehicle-shipping#supercar-logistics",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/supercar-logistics",
+      "destination": "/en/services/vehicle-shipping#supercar-logistics",
+      "permanent": true
+    },
+    {
+      "source": "/services/ship-chandling",
+      "destination": "/services/marine-services#ship-chandling",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/ship-chandling",
+      "destination": "/en/services/marine-services#ship-chandling",
+      "permanent": true
+    },
+    {
+      "source": "/services/bunkering",
+      "destination": "/services/marine-services#bunkering",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/bunkering",
+      "destination": "/en/services/marine-services#bunkering",
+      "permanent": true
+    },
+    {
+      "source": "/services/vessel-cleaning",
+      "destination": "/services/marine-services#vessel-cleaning",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/vessel-cleaning",
+      "destination": "/en/services/marine-services#vessel-cleaning",
+      "permanent": true
+    },
+    {
+      "source": "/services/marine-assets-handling",
+      "destination": "/services/marine-services#marine-assets-handling",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/marine-assets-handling",
+      "destination": "/en/services/marine-services#marine-assets-handling",
+      "permanent": true
+    },
+    {
+      "source": "/services/marine-craft-hire",
+      "destination": "/services/marine-services#marine-craft-hire",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/marine-craft-hire",
+      "destination": "/en/services/marine-services#marine-craft-hire",
+      "permanent": true
+    },
+    {
+      "source": "/services/ship-agency-port-services",
+      "destination": "/services/ship-agency#ship-agency-port-services",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/ship-agency-port-services",
+      "destination": "/en/services/ship-agency#ship-agency-port-services",
+      "permanent": true
+    },
+    {
+      "source": "/services/marine-technical-services",
+      "destination": "/services/marine-services#marine-technical-services",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/marine-technical-services",
+      "destination": "/en/services/marine-services#marine-technical-services",
+      "permanent": true
+    },
+    {
+      "source": "/services/crew-change",
+      "destination": "/services/ship-agency#crew-change",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/crew-change",
+      "destination": "/en/services/ship-agency#crew-change",
+      "permanent": true
+    },
+    {
+      "source": "/services/offshore-support",
+      "destination": "/services/marine-services#offshore-support",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/offshore-support",
+      "destination": "/en/services/marine-services#offshore-support",
+      "permanent": true
+    },
+    {
+      "source": "/services/yacht-services",
+      "destination": "/services/marine-services#yacht-services",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/yacht-services",
+      "destination": "/en/services/marine-services#yacht-services",
+      "permanent": true
+    },
+    {
+      "source": "/services/port-captaincy",
+      "destination": "/services/ship-agency#port-captaincy",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/port-captaincy",
+      "destination": "/en/services/ship-agency#port-captaincy",
+      "permanent": true
+    },
+    {
+      "source": "/services/ocean",
+      "destination": "/services/ocean-freight",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/ocean",
+      "destination": "/en/services/ocean-freight",
+      "permanent": true
+    },
+    {
+      "source": "/services/projects",
+      "destination": "/services/projects-heavy-lift",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/projects",
+      "destination": "/en/services/projects-heavy-lift",
+      "permanent": true
+    },
+    {
+      "source": "/services/air",
+      "destination": "/services/air-freight",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/air",
+      "destination": "/en/services/air-freight",
+      "permanent": true
+    },
+    {
+      "source": "/services/logistics",
+      "destination": "/services/land-logistics",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/logistics",
+      "destination": "/en/services/land-logistics",
+      "permanent": true
+    },
+    {
+      "source": "/services/special",
+      "destination": "/services/vehicle-shipping",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/special",
+      "destination": "/en/services/vehicle-shipping",
+      "permanent": true
+    },
+    {
+      "source": "/services/marine",
+      "destination": "/services/marine-services",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/marine",
+      "destination": "/en/services/marine-services",
+      "permanent": true
+    },
+    {
+      "source": "/services/chartering",
+      "destination": "/services/projects-heavy-lift",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/chartering",
+      "destination": "/en/services/projects-heavy-lift",
+      "permanent": true
+    },
+    {
+      "source": "/services/air-charter",
+      "destination": "/services/air-freight",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/air-charter",
+      "destination": "/en/services/air-freight",
+      "permanent": true
+    }
+  ]
+}

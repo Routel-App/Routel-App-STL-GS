@@ -3,7 +3,7 @@ import type { Service } from '../services';
 export const logisticsServices: Service[] = [
   {
     slug: 'customs-clearance-saber',
-    category: 'logistics',
+    category: 'customs-clearance',
     icon: 'stamp',
     code: 'CC',
     featured: true,
@@ -70,7 +70,7 @@ export const logisticsServices: Service[] = [
   },
   {
     slug: 'inland-transport',
-    category: 'logistics',
+    category: 'land-logistics',
     icon: 'truck',
     code: 'TRK',
     featured: true,
@@ -135,7 +135,7 @@ export const logisticsServices: Service[] = [
   },
   {
     slug: 'warehousing-distribution',
-    category: 'logistics',
+    category: 'land-logistics',
     icon: 'warehouse',
     code: 'WH',
     title: { ar: 'التخزين والتوزيع', en: 'Warehousing & Distribution' },
@@ -193,7 +193,7 @@ export const logisticsServices: Service[] = [
   },
   {
     slug: 'container-storage',
-    category: 'logistics',
+    category: 'land-logistics',
     icon: 'stack',
     code: 'CY',
     title: { ar: 'تخزين الحاويات', en: 'Container Storage' },
@@ -257,7 +257,7 @@ export const logisticsServices: Service[] = [
   },
   {
     slug: 'stuffing-unstuffing',
-    category: 'logistics',
+    category: 'land-logistics',
     icon: 'unload',
     code: 'STF',
     title: { ar: 'تعبئة وتفريغ الحاويات', en: 'Stuffing & Unstuffing' },
@@ -312,7 +312,7 @@ export const logisticsServices: Service[] = [
   },
   {
     slug: 'marine-cargo-insurance',
-    category: 'logistics',
+    category: 'ocean-freight',
     icon: 'shield',
     code: 'INS',
     title: { ar: 'تأمين البضائع البحرية', en: 'Marine Cargo Insurance' },
@@ -363,7 +363,7 @@ export const logisticsServices: Service[] = [
   },
   {
     slug: 'supercar-logistics',
-    category: 'special',
+    category: 'vehicle-shipping',
     icon: 'racecar',
     code: 'SPC',
     title: { ar: 'لوجستيات السيارات الرياضية والفاخرة', en: 'Supercar & Motorsport Logistics' },
@@ -418,7 +418,7 @@ export const logisticsServices: Service[] = [
   },
   {
     slug: 'events-exhibitions',
-    category: 'special',
+    category: 'events-exhibitions',
     icon: 'event',
     code: 'EVT',
     title: { ar: 'لوجستيات الفعاليات والمعارض والمؤتمرات', en: 'Events, Exhibitions & Conferences Logistics' },
