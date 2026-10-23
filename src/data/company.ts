@@ -32,7 +32,7 @@ export const values: { icon: string; title: L; text: L }[] = [
 // ============================================================================
 export const heroSlides: { title: L; text: L; buttons: { label: L; path: string; primary?: boolean }[] }[] = [
   {
-    title: { ar: 'من موانئ العالم.. إلى باب عملك', en: 'From Global Ports to Your Doorstep' },
+    title: { ar: 'من موانئ العالم.. إلى باب عملك', en: 'From Global Ports.. to Your Doorstep' },
     text: {
       ar: 'شحن بحري بالحاويات والسائب والمشاريع، مع تخليص جمركي ونقل بري حتى موقعك، من جهة واحدة.',
       en: 'Containers, break bulk and project cargo by sea, with customs clearance and trucking to your site, all from one provider.',

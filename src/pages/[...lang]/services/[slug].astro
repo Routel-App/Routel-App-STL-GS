@@ -51,7 +51,7 @@ const schema = [
 ];
 ---
 <Base lang={lang} title={title} description={t(page.short, lang)} schema={schema}>
-  <PageHero lang={lang} title={title} lead={t(page.intro, lang)} eyebrow={page.code} crumbs={[{ label: u('services', lang), path: '/services' }, { label: title }]} art={page.art} photo={unitPhoto(page) ?? servicePhoto(main)}>
+  <PageHero lang={lang} title={title} lead={t(page.intro, lang)} eyebrow={`STLU · ${page.code}`} crumbs={[{ label: u('services', lang), path: '/services' }, { label: title }]} art={page.art} photo={unitPhoto(page) ?? servicePhoto(main)}>
     <a class="btn btn-primary" href={href(lang, pageQuote)}>{u('quoteForService', lang)}</a>
     {(page.slug === 'marine-services' || page.slug === 'ship-agency') && <a class="btn btn-outline" href={href(lang, '/contact')}>{ar ? 'طلب عاجل 24/7' : 'Urgent request 24/7'}</a>}
   </PageHero>
@@ -96,6 +96,7 @@ const schema = [
             <span class="svc-no ltr">{pad(i + 1)}{s.code ? ` · ${s.code}` : ''}</span>
           </div>
           <div class="svc-body">
+            <span class="ccode">STLU {page.code} · {s.code ?? pad(i + 1)}</span>
             <h2>{t(s.title, lang)}</h2>
             <p class="svc-intro">{t(s.intro, lang)}</p>
             <ul class="check-list cols">{s.offer.map((o) => <li>{t(o, lang)}</li>)}</ul>
@@ -168,6 +169,7 @@ const schema = [
   .svc-media :global(.service-art) { position: absolute; inset: 0; }
   .svc-no { position: absolute; top: 1rem; inset-inline-start: 1rem; background: #fff; color: var(--petrol); font-weight: 600; font-size: .76rem; padding: .25rem .65rem; letter-spacing: .06em; border-radius: 999px; z-index: 1; }
   .svc-body h2 { margin-bottom: .8rem; }
+  .svc-body .ccode { margin-bottom: .9rem; }
   .svc-intro { color: var(--muted); font-size: 1.04rem; margin-bottom: 1.4rem; }
   .cols { columns: 2; column-gap: 2rem; }
   .cols :global(li) { break-inside: avoid; }
@@ -198,7 +200,7 @@ const schema = [
   .side { position: sticky; top: calc(var(--header-h) + 1rem); display: grid; gap: 1.2rem; }
   @media (max-width: 960px) { .side { position: static; } }
   .side-card { padding: 1.5rem; border-radius: 14px; }
-  .quote-card { background: var(--petrol); color: #c9dbd8; }
+  .quote-card { background: var(--petrol); color: #C9D6EC; }
   .quote-card h3 { color: #fff; }
   .quote-card .icon-badge { background: rgba(255,255,255,.08); color: var(--coral); }
   .others-title { margin-bottom: 1.6rem; }
@@ -207,7 +209,7 @@ const schema = [
   .other { position: relative; aspect-ratio: 16 / 9; display: block; overflow: hidden; color: #fff; border-radius: var(--radius); }
   .other :global(.service-art) { position: absolute; inset: 0; transition: transform .6s var(--ease); }
   .other:hover :global(.service-art) { transform: scale(1.05); }
-  .other::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(4, 39, 38, .9)); }
+  .other::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(15, 37, 80, .9)); }
   .o-text { position: absolute; inset-inline: 1rem; bottom: 1rem; z-index: 1; display: grid; gap: .2rem; }
   .o-text small { color: var(--coral); font-weight: 600; letter-spacing: .08em; font-size: .75rem; }
   .o-text strong { font-weight: 500; font-size: 1.05rem; line-height: 1.35; }

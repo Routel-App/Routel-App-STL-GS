@@ -57,9 +57,9 @@ const bg = plain ? '' : photo ?? fallback;
   .photo-hero { min-height: clamp(400px, 58vh, 560px); display: flex; align-items: flex-end; border-bottom: 0; background: var(--navy-900); }
   .photo-hero .ph-inner { width: min(100% - 2.5rem, var(--container)); }
   .ph-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transform: scale(1.02); }
-  .ph-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4, 39, 38, .55) 0%, rgba(4, 39, 38, .35) 35%, rgba(4, 39, 38, .82) 100%); }
-  :global(html[dir='rtl']) .ph-bg::before, .ph-bg::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(4, 39, 38, .55), transparent 70%); }
-  :global(html[dir='rtl']) .ph-bg::before { background: linear-gradient(270deg, rgba(4, 39, 38, .55), transparent 70%); }
+  .ph-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15, 37, 80, .55) 0%, rgba(15, 37, 80, .35) 35%, rgba(15, 37, 80, .82) 100%); }
+  :global(html[dir='rtl']) .ph-bg::before, .ph-bg::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(15, 37, 80, .55), transparent 70%); }
+  :global(html[dir='rtl']) .ph-bg::before { background: linear-gradient(270deg, rgba(15, 37, 80, .55), transparent 70%); }
   .photo-hero h1 { color: #fff; }
   .photo-hero .lead { color: rgba(255, 255, 255, .84); }
   .photo-hero .crumbs { color: rgba(255, 255, 255, .7); }

@@ -7,7 +7,7 @@ const { lang, title, text, quotePath = '/e-services/quote' } = Astro.props;
 ---
 <section class="section">
   <div class="container">
-    <div class="cta-band reveal">
+    <div class="cta-band ribbed framed reveal"><i class="cast"></i><i class="cast"></i><i class="cast"></i><i class="cast"></i>
       <div>
         <h2>{title ?? u('readyTitle', lang)}</h2>
         <p>{text ?? u('readyText', lang)}</p>

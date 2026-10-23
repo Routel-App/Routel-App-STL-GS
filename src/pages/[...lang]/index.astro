@@ -26,43 +26,51 @@ const eDesc = [
   ar ? 'احسب الحجم واعرف الحاوية' : 'Find the right container',
 ].map((s) => s.replace('{h}', site.quoteResponseHours));
 // one full-bleed photo per hero slide (replace the files to change them)
-const slidePhotos = [site.images.hero, '/images/units/projects-heavy-lift.jpg', '/images/units/marine-services.jpg', '/images/units/land-logistics.jpg'];
+const [h1a, h1b = ''] = t(heroSlides[0].title, lang).split(/\.\.\s*/).map((x, i, all) => (i === 0 && all.length > 1 ? x + '..' : x));
 const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
 ---
 <Base lang={lang} title="">
-  <!-- Hero: full-bleed photo slider -->
-  <section class="photo-hero hero" aria-roledescription="carousel">
-    <div class="hero-bgs" aria-hidden="true">
-      {heroSlides.map((_, i) => <div class:list={['hero-bg', { active: i === 0 }]} style={`background-image: url('${slidePhotos[i % slidePhotos.length]}')`}></div>)}
-    </div>
-    <div class="container hero-inner">
-      <div class="slides">
-        {heroSlides.map((s, i) => {
-          const [a, b] = t(s.title, lang).split(/\.\.\s*/);
-          return (
-            <div class:list={['slide', { active: i === 0 }]} aria-hidden={i === 0 ? 'false' : 'true'}>
-              {i === 0 ? <h1>{b ? <>{a}<br /><em>{b}</em></> : a}</h1> : <p class="h1">{b ? <>{a}<br /><em>{b}</em></> : a}</p>}
-              <p class="lead">{t(s.text, lang)}</p>
-              <div class="actions-row">
-                {s.buttons.map((bt) => <a class:list={['btn', bt.primary ? 'btn-primary' : 'btn-ghost-light']} href={href(lang, bt.path)} tabindex={i === 0 ? undefined : -1}>{t(bt.label, lang)}{bt.primary && <Icon name="arrow" class="flip" />}</a>)}
-                {s.buttons.length < 2 && <a class="btn btn-ghost-light" href={href(lang, '/e-services/quote')} tabindex={i === 0 ? undefined : -1}>{u('quote', lang)}</a>}
-              </div>
-            </div>
-          );
-        })}
+  <!-- Hero: FleetTrack-style canvas (STL Container System) -->
+  <section class="hero">
+    <div class="hero-canvas container">
+      <div class="hc-copy">
+        <span class="ccode">STLU 100001 0 · {ar ? 'جدة' : 'JEDDAH'}</span>
+        <h1>{h1a}<br /><em>{h1b}</em></h1>
+        <p class="lead">{t(heroSlides[0].text, lang)}</p>
+        <div class="actions-row">
+          <a class="btn btn-primary" href={href(lang, '/e-services/quote')}>{u('quote', lang)} <Icon name="arrow" class="flip" /></a>
+          <a class="btn btn-outline" href={href(lang, '/services')}>{ar ? 'اكتشف خدماتنا' : 'Explore services'}</a>
+        </div>
+        <form class="hc-track" action={href(lang, '/e-services/tracking')} method="get" role="search">
+          <Icon name="search" size={18} />
+          <label class="visually-hidden" for="hero-ref">{u('track', lang)}</label>
+          <input id="hero-ref" name="ref" dir="ltr" autocomplete="off" placeholder={ar ? 'رقم الحاوية أو البوليصة' : 'Container or B/L no.'} />
+          <button class="btn btn-dark btn-sm" type="submit">{ar ? 'تتبع' : 'Track'}</button>
+        </form>
       </div>
-      <div class="pager" role="tablist" aria-label={ar ? 'الشرائح' : 'Slides'}>
-        {heroSlides.map((_, i) => <button type="button" class:list={['pg', { active: i === 0 }]} data-i={i} aria-label={`${i + 1}`}><span></span></button>)}
-      </div>
-    </div>
 
-    <form class="track container" action={href(lang, '/e-services/tracking')} method="get" role="search">
-      <div class="track-box">
-        <label for="hero-ref"><Icon name="search" size={18} />{u('track', lang)}</label>
-        <input id="hero-ref" name="ref" dir="ltr" autocomplete="off" placeholder={ar ? 'رقم الحاوية أو البوليصة أو الحجز' : 'Container, B/L or booking no.'} />
-        <button class="btn btn-dark" type="submit">{ar ? 'تتبع' : 'Track'}</button>
+      <div class="hc-visual" aria-hidden="true">
+        <img class="hc-truck" src="/images/illustrations/truck-container.svg" alt="" width="740" height="190" fetchpriority="high" />
+        <div class="fc fc-container">
+          <div class="fc-head"><Icon name="container" size={18} /><strong>{ar ? 'تفاصيل الحاوية' : 'Container details'}</strong><span class="fc-ex">{ar ? 'مثال' : 'Example'}</span></div>
+          <span class="fc-id">STLU 400002 5</span>
+          <div class="fc-rows">
+            <div><span>{ar ? 'النوع' : 'Type'}</span><b dir="ltr">40' Dry · 45G1</b></div>
+            <div><span>{ar ? 'الحالة' : 'Status'}</span><b class="ok">● {ar ? 'في البحر' : 'At sea'}</b></div>
+            <div><span>{ar ? 'الموقع' : 'Location'}</span><b>{ar ? 'البحر الأحمر' : 'Red Sea'}</b></div>
+          </div>
+        </div>
+        <div class="fc fc-route">
+          <div class="fc-head"><Icon name="route" size={18} /><strong>{ar ? 'مسار الشحنة' : 'Shipment route'}</strong></div>
+          <div class="rt"><span class="rt-end"><b>CNSHA</b>{ar ? 'شنغهاي' : 'Shanghai'}</span><span class="rt-line"><i></i><em><Icon name="ship" size={14} /></em></span><span class="rt-end"><b>SAJED</b>{ar ? 'جدة' : 'Jeddah'}</span></div>
+          <small>{ar ? 'الوصول المتوقع خلال 3 أيام' : 'ETA in 3 days'}</small>
+        </div>
+        <div class="fc fc-kpi">
+          <span class="fc-lbl">{ar ? 'رد على عرض السعر' : 'Quote reply'}</span>
+          <span class="fc-num num-display" dir="ltr">{site.quoteResponseHours}h</span>
+        </div>
       </div>
-    </form>
+    </div>
   </section>
 
   <!-- Quick access -->
@@ -97,7 +105,7 @@ const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
               <a class="scard-in" href={href(lang, `/services/${c.slug}`)}>
                 <span class="scard-img"><ServiceArt art={c.art} photo={unitPhoto(c)} alt="" /></span>
                 <span class="scard-body">
-                  <span class="scard-code ltr">STLU {String(100000 + (i + 1) * 101).slice(1)} · {c.code}</span>
+                  <span class="scard-code ltr">STLU {pad(i + 1)} · {c.code}</span>
                   <strong>{t(c.title, lang)}</strong>
                   <small>{t(c.short, lang)}</small>
                   {subs.length > 1 && <span class="scard-subs">{subs.slice(0, 5).map((x) => <em>{short(t(x.title, lang))}</em>)}{subs.length > 5 && <em>+{subs.length - 5}</em>}</span>}
@@ -260,7 +268,7 @@ const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
   <!-- CTA -->
   <section class="section cta-wrap">
     <div class="container">
-      <div class="cta-band reveal">
+      <div class="cta-band ribbed framed reveal"><i class="cast"></i><i class="cast"></i><i class="cast"></i><i class="cast"></i>
         <div>
           <h2>{u('readyTitle', lang)}</h2>
           <p>{u('readyText', lang)}</p>
@@ -303,59 +311,64 @@ const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
     update();
   }
 
-  const slides = Array.from(document.querySelectorAll<HTMLElement>('.slide'));
-  const bgs = Array.from(document.querySelectorAll<HTMLElement>('.hero-bg'));
-  const pgs = Array.from(document.querySelectorAll<HTMLButtonElement>('.pg'));
-  let i = 0;
-  let timer: number | undefined;
-  const show = (n: number) => {
-    i = (n + slides.length) % slides.length;
-    slides.forEach((s, k) => {
-      s.classList.toggle('active', k === i);
-      s.setAttribute('aria-hidden', String(k !== i));
-      s.querySelectorAll('a').forEach((a) => (k === i ? a.removeAttribute('tabindex') : a.setAttribute('tabindex', '-1')));
-    });
-    bgs.forEach((b, k) => b.classList.toggle('active', k === i));
-    pgs.forEach((d, k) => d.classList.toggle('active', k === i));
-  };
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const start = () => { if (!reduced) timer = window.setInterval(() => show(i + 1), 7000); };
-  pgs.forEach((d) => d.addEventListener('click', () => { clearInterval(timer); show(Number(d.dataset.i)); start(); }));
-  start();
 </script>
 
 <style>
-  /* ---------- hero ---------- */
-  .hero { position: relative; min-height: max(640px, 100svh); display: flex; flex-direction: column; justify-content: flex-end; color: #fff; background: var(--navy-900); overflow: hidden; }
-  .hero-bgs, .hero-bg { position: absolute; inset: 0; }
-  .hero-bg { background-size: cover; background-position: center; opacity: 0; transform: scale(1.06); transition: opacity 1.2s var(--ease), transform 8s linear; }
-  .hero-bg.active { opacity: 1; transform: scale(1); }
-  .hero-bgs::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4, 39, 38, .55) 0%, rgba(4, 39, 38, .25) 40%, rgba(4, 39, 38, .85) 100%); }
-  .hero-bgs::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(4, 39, 38, .6), transparent 65%); }
-  :global(html[dir='rtl']) .hero-bgs::before { background: linear-gradient(270deg, rgba(4, 39, 38, .6), transparent 65%); }
-  .hero-inner { position: relative; z-index: 2; padding-top: calc(var(--header-h) + 3rem); }
-  .slides { display: grid; max-width: 760px; }
-  .slide { grid-area: 1 / 1; opacity: 0; visibility: hidden; transform: translateY(14px); transition: opacity .7s var(--ease), transform .7s var(--ease), visibility .7s; }
-  .slide.active { opacity: 1; visibility: visible; transform: none; }
-  .slide h1, .slide .h1 { color: #fff; font-size: clamp(2.3rem, 5vw, 4.2rem); font-weight: 600; line-height: 1.15; margin: 0 0 1.1rem; letter-spacing: -.02em; }
-  :global(html[lang='ar']) .slide h1, :global(html[lang='ar']) .slide .h1 { line-height: 1.35; letter-spacing: 0; }
-  .slide em { font-style: normal; color: var(--coral); }
-  .slide .lead { color: rgba(255, 255, 255, .85); font-size: clamp(1.05rem, 1.4vw, 1.2rem); max-width: 600px; margin-bottom: 2rem; }
-  .pager { display: flex; gap: .5rem; margin-top: 2.4rem; }
-  .pg { width: 44px; height: 20px; padding: 0; background: none; border: 0; cursor: pointer; display: grid; align-items: center; }
-  .pg span { display: block; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .35); transition: background .3s; }
-  .pg.active span { background: var(--coral); }
-  .track { position: relative; z-index: 2; margin-top: clamp(2rem, 5vh, 3.5rem); margin-bottom: clamp(1.5rem, 4vh, 2.5rem); }
-  .track-box { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .8rem; background: #fff; border-radius: 14px; padding: .55rem; box-shadow: var(--shadow-lg); max-width: 760px; }
-  .track-box label { display: inline-flex; align-items: center; gap: .5rem; padding-inline: .8rem; color: var(--petrol); font-weight: 500; font-size: .92rem; white-space: nowrap; }
-  .track-box label :global(.icon) { color: var(--coral-ink); }
-  .track-box input { border: 0; background: var(--paper); box-shadow: none; }
-  .track-box input:focus { box-shadow: 0 0 0 2px rgba(7, 59, 58, .12); }
-  @media (max-width: 640px) {
-    .track-box { grid-template-columns: minmax(0, 1fr) auto; gap: .5rem; }
-    .track-box label { grid-column: 1 / -1; padding: .3rem .4rem 0; }
-    .track-box input { min-width: 0; font-size: .9rem; }
-    .track-box .btn { padding-inline: 1.1rem; }
+  /* ---------- hero (FleetTrack canvas) ---------- */
+  .hero { padding: calc(var(--header-h) + 1.25rem) 0 0; }
+  .hero-canvas { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 2rem; align-items: center; background: var(--sand); border-radius: 24px; padding: clamp(2rem, 4vw, 3.5rem); min-height: min(640px, calc(100svh - var(--header-h) - 2.5rem)); overflow: hidden; }
+  .hero-canvas::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(36, 80, 145, .12) 1px, transparent 1.5px); background-size: 22px 22px; mask-image: linear-gradient(90deg, transparent, #000 40%, #000); pointer-events: none; }
+  :global(html[dir='rtl']) .hero-canvas::before { mask-image: linear-gradient(270deg, transparent, #000 40%, #000); }
+  .hc-copy { position: relative; z-index: 2; }
+  .hc-copy h1 { font-size: clamp(2.2rem, 4.4vw, 3.7rem); line-height: 1.2; margin: 1rem 0; }
+  :global(html[lang='ar']) .hc-copy h1 { line-height: 1.4; }
+  .hc-copy .lead { max-width: 520px; margin-bottom: 1.8rem; }
+  .hc-track { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .6rem; margin-top: 1.6rem; max-width: 520px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: .4rem .4rem .4rem .9rem; }
+  :global(html[dir='rtl']) .hc-track { padding: .4rem .9rem .4rem .4rem; }
+  .hc-track :global(.icon) { color: var(--coral-ink); }
+  .hc-track input { border: 0; padding: .55rem .2rem; box-shadow: none; background: transparent; min-width: 0; }
+  .hc-visual { position: relative; z-index: 1; min-height: 460px; }
+  .hc-truck { position: absolute; bottom: 8%; inset-inline-end: -14%; width: 118%; max-width: none; height: auto; filter: drop-shadow(0 24px 30px rgba(15, 37, 80, .18)); }
+  .fc { position: absolute; background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 1px 2px rgba(36, 80, 145, .06), 0 16px 36px -18px rgba(15, 37, 80, .35); padding: .9rem 1rem; animation: fc-in .8s var(--ease) both; }
+  .fc-head { display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; }
+  .fc-head :global(.icon) { color: var(--blue); }
+  .fc-head strong { font-weight: 600; font-size: .9rem; color: var(--blue); }
+  .fc-ex { margin-inline-start: auto; font-size: .7rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 .5rem; }
+  .fc-id { display: block; font-family: var(--font-mono); font-weight: 600; font-size: 1rem; letter-spacing: .04em; color: var(--ink); direction: ltr; text-align: start; margin-bottom: .55rem; }
+  .fc-rows { display: grid; gap: .35rem; }
+  .fc-rows div { display: flex; justify-content: space-between; gap: 1rem; background: var(--sand); border-radius: 8px; padding: .35rem .6rem; font-size: .8rem; }
+  .fc-rows span { color: var(--muted); }
+  .fc-rows b { font-weight: 500; color: var(--ink); }
+  .fc-rows .ok { color: #1F7A52; }
+  .fc-container { top: 0; inset-inline-start: 4%; width: 250px; animation-delay: .15s; }
+  .fc-route { top: 6%; inset-inline-end: 0; width: 270px; animation-delay: .35s; }
+  .fc-kpi { bottom: -1%; inset-inline-end: 4%; display: grid; animation-delay: .55s; }
+  .rt { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: .6rem; align-items: center; margin: .3rem 0 .4rem; }
+  .rt-end { display: grid; font-size: .72rem; color: var(--muted); line-height: 1.3; text-align: center; }
+  .rt-end b { font-family: var(--font-mono); font-size: .78rem; color: var(--ink); letter-spacing: .05em; }
+  .rt-line { position: relative; height: 22px; }
+  .rt-line::before { content: ''; position: absolute; inset-inline: 0; top: 10px; border-top: 2px dashed var(--line); }
+  .rt-line i { position: absolute; inset-inline-start: 0; top: 9px; height: 4px; width: 62%; border-radius: 4px; background: var(--coral); animation: rt-go 6s ease-in-out infinite alternate; }
+  .rt-line em { position: absolute; top: 0; inset-inline-start: calc(62% - 11px); width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 2px solid var(--coral); display: grid; place-items: center; color: var(--blue); animation: rt-ship 6s ease-in-out infinite alternate; }
+  .fc-route small { color: var(--muted); font-size: .75rem; }
+  .fc-lbl { font-size: .75rem; color: var(--muted); }
+  .fc-num { font-size: 2.1rem; line-height: 1; color: var(--blue); }
+  @keyframes fc-in { from { opacity: 0; transform: translateY(12px); } }
+  @keyframes rt-go { from { width: 48%; } to { width: 70%; } }
+  @keyframes rt-ship { from { inset-inline-start: calc(48% - 11px); } to { inset-inline-start: calc(70% - 11px); } }
+  @media (prefers-reduced-motion: reduce) { .fc, .rt-line i, .rt-line em { animation: none; } }
+  @media (max-width: 1000px) {
+    .hero-canvas { grid-template-columns: 1fr; min-height: 0; }
+    .hc-visual { min-height: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+    .hc-truck { position: static; grid-column: 1 / -1; width: 100%; margin: .5rem 0 1rem; }
+    .fc { position: static; width: auto !important; }
+    .fc-container { grid-row: 2; }
+  }
+  @media (max-width: 560px) {
+    .hc-visual { grid-template-columns: 1fr; }
+    .fc-kpi { display: none; }
+    .hc-track { grid-template-columns: minmax(0, 1fr) auto; }
+    .hc-track :global(.icon) { display: none; }
   }
 
   /* ---------- quick access ---------- */
@@ -386,18 +399,18 @@ const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
   .stack-head .lead { margin: .8rem 0 1.6rem; font-size: 1rem; }
   .stack-index { list-style: none; padding: 0; margin: 0 0 2rem; border-top: 1px solid var(--line); }
   .stack-index li { display: flex; gap: .8rem; align-items: baseline; padding: .55rem 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: .92rem; transition: color .3s, padding .3s; }
-  .stack-index li span { font-size: .75rem; font-weight: 600; color: #b8c4c3; letter-spacing: .06em; transition: color .3s; }
+  .stack-index li span { font-size: .75rem; font-weight: 600; color: #B6C1D2; letter-spacing: .06em; transition: color .3s; }
   .stack-index li.on { color: var(--petrol); font-weight: 500; padding-inline-start: .4rem; }
   .stack-index li.on span { color: var(--coral-ink); }
   .stack-cards { display: grid; gap: 1.5rem; padding-bottom: 2rem; }
   .scard { position: sticky; top: calc(var(--header-h) + 1.5rem + var(--i) * 12px); transform-origin: center top; will-change: transform; }
-  .scard-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 380px; background: #fff; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; color: var(--ink); box-shadow: 0 -10px 40px -24px rgba(7, 59, 58, .35); transition: border-color .3s, box-shadow .3s; }
-  .scard-in:hover { color: var(--ink); border-color: #cfd9d8; box-shadow: 0 -10px 40px -24px rgba(7, 59, 58, .35), var(--shadow); }
+  .scard-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 380px; background: #fff; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; color: var(--ink); box-shadow: 0 -10px 40px -24px rgba(36, 80, 145, .35); transition: border-color .3s, box-shadow .3s; }
+  .scard-in:hover { color: var(--ink); border-color: #CCD6E5; box-shadow: 0 -10px 40px -24px rgba(36, 80, 145, .35), var(--shadow); }
   .scard-img { position: relative; display: block; overflow: hidden; }
   .scard-img :global(.service-art) { position: absolute; inset: 0; transition: transform .8s var(--ease); }
   .scard-in:hover .scard-img :global(.service-art) { transform: scale(1.04); }
   .scard-body { display: flex; flex-direction: column; gap: .7rem; padding: clamp(1.5rem, 3vw, 2.4rem); }
-  .scard-code { font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-size: .74rem; font-weight: 600; letter-spacing: .08em; color: var(--coral-ink); align-self: flex-start; padding: .25rem .6rem; border: 1px dashed #e8b4a8; border-radius: 6px; }
+  .scard-code { font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-size: .74rem; font-weight: 600; letter-spacing: .08em; color: var(--coral-ink); align-self: flex-start; padding: .25rem .6rem; border: 1px dashed #E8B4A8; border-radius: 6px; }
   .scard-body strong { font-size: clamp(1.35rem, 2vw, 1.7rem); font-weight: 600; color: var(--petrol); line-height: 1.3; }
   .scard-body small { color: var(--muted); font-size: .95rem; line-height: 1.75; }
   .scard-subs { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .2rem; }
@@ -424,15 +437,15 @@ const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
   .about .lead { margin: 1rem 0 1.6rem; }
   .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 0; }
   .stat { border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; }
-  .stat dt { font-size: clamp(2rem, 3.6vw, 2.8rem); font-weight: 600; color: var(--petrol); line-height: 1; }
+  .stat dt { font-family: var(--font-display); font-size: clamp(2.4rem, 4vw, 3.2rem); font-weight: 700; color: var(--petrol); line-height: 1; }
   .stat dd { margin: .7rem 0 0; color: var(--muted); font-size: .9rem; line-height: 1.6; }
   @media (max-width: 900px) { .about { grid-template-columns: 1fr; } }
 
   /* ---------- marine ---------- */
   .marine { position: relative; overflow: hidden; color: #fff; padding-block: clamp(4.5rem, 9vw, 7rem); background: var(--navy-900); }
   .marine-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
-  .marine-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(4, 39, 38, .92) 30%, rgba(4, 39, 38, .7)); }
-  :global(html[dir='rtl']) .marine-bg::after { background: linear-gradient(270deg, rgba(4, 39, 38, .92) 30%, rgba(4, 39, 38, .7)); }
+  .marine-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15, 37, 80, .92) 30%, rgba(15, 37, 80, .7)); }
+  :global(html[dir='rtl']) .marine-bg::after { background: linear-gradient(270deg, rgba(15, 37, 80, .92) 30%, rgba(15, 37, 80, .7)); }
   .marine-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
   .marine h2 { color: #fff; }
   .marine .eyebrow { color: var(--coral); }
@@ -451,7 +464,7 @@ const marine = [...servicesIn('marine-services'), ...servicesIn('ship-agency')];
   .net-head .lead { margin: 0; }
   .net-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2.5rem; margin-top: clamp(1.5rem, 3vw, 2.5rem); padding-top: 1.5rem; border-top: 1px solid var(--line-dark); color: rgba(255, 255, 255, .7); font-size: .92rem; }
   .net-foot span { display: inline-flex; align-items: baseline; gap: .6rem; }
-  .net-foot strong { font-size: 2rem; font-weight: 600; color: #fff; }
+  .net-foot strong { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; color: #fff; }
   .net-foot .btn { margin-inline-start: auto; }
   @media (max-width: 800px) { .net-head { grid-template-columns: 1fr; } }
   .netmap + .section { border-top: 0; }
