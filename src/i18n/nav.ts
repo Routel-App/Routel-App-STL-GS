@@ -33,16 +33,6 @@ export const mainNav: NavItem[] = [
       { label: ui.branches, path: '/network#branches' },
     ],
   },
-  {
-    label: ui.media,
-    path: '/media',
-    children: [
-      { label: ui.news, path: '/media/news' },
-      { label: ui.blog, path: '/media/blog' },
-      { label: ui.glossary, path: '/media/glossary' },
-      { label: ui.faq, path: '/faq' },
-    ],
-  },
   { label: ui.contact, path: '/contact' },
 ];
 
